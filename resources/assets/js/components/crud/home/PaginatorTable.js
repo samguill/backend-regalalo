@@ -132,8 +132,18 @@ export default inject("store")(observer(class PaginatorTable extends React.Compo
     return (<div className="col-md-12">
               <div className="card">
                   <div className="card-body">
-                    <div className="fluid align-right"><button  onClick={()=>{this.props.store.updateData(this.props.url)}} className={"btn btn-success loading-button "+(this.props.store.isDataUpdating.get()?"animcolor":"")} ><em style={{color:"white", 'margin-right': 0}} className={"fa fa-refresh"}></em></button></div>
-                    {this.props.store.isDataLoading.get()?<p>Cargando Información... </p>:<table className="table table-responsive" style={{background:"white"}}>
+                    <div className="fluid align-right">
+                        <button onClick={()=>{this.props.store.updateData(this.props.url)}} className={"btn btn-success loading-button mb-20 "+(this.props.store.isDataUpdating.get()?"animcolor":"")} >
+                            <em style={{color:"white", marginRight: 0}} className={"fa fa-refresh"}></em>
+                        </button>
+                    </div>
+                    {this.props.store.isDataLoading.get()?
+                        <div className="loading-container">
+                            <div className="icon-load">
+                                <i className="fa fa-circle-o-notch fa-spin"></i>
+                            </div>
+                        </div>
+                        :<table className="table" style={{background:"white"}}>
                           <thead>
                             <tr>
                                 {this.props.headers.map((k,i)=><th key={i} style={{'cursor':'pointer'}} onClick={()=>{this.props.store.updateSortBy(this.props.keys[i])}} >{k+" "+(this.props.keys[i]==this.props.store.params.get('sort-by')?(this.props.store.params.get("sort-asc")?"▼":"▲"):"")} </th>)}
@@ -200,7 +210,7 @@ export default inject("store")(observer(class PaginatorTable extends React.Compo
                                               Object.keys(this.actions).indexOf('view')>=0?
                                                 <Tooltip title={'Ver'} position={"top"}>
                                                   <Link to="view" onClick={(e)=>{this.updateCurrentElement(row)}}>
-                                                    <button type="button"  className="btn btn-primary btn-sm" style={{margin:"2px"}} >
+                                                    <button type="button"  className="btn btn-view btn-sm" style={{margin:"2px"}} >
                                                       <em className="fa fa-eye"></em>
                                                     </button>
                                                   </Link>
@@ -208,7 +218,7 @@ export default inject("store")(observer(class PaginatorTable extends React.Compo
                                             {Object.keys(this.actions).indexOf('update')>=0?
                                               <Tooltip title={'Editar'} position={"top"}>
                                                 <Link to="update" onClick={(e)=>{this.updateCurrentElement(row)}}>
-                                                  <button type="button" className="btn btn-primary btn-sm" style={{margin:"2px",background:"#3749b1"}} >
+                                                  <button type="button" className="btn btn-edit btn-sm" style={{margin:"2px"}} >
                                                     <em className="fa fa-edit"></em>
                                                   </button>
                                                 </Link>

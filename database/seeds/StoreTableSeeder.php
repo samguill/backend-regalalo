@@ -13,7 +13,7 @@ class StoreTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-        for ($i = 0; $i <= 10; $i++) {
+        for ($i = 0; $i <= 20; $i++) {
             Store::create([
                 'business_name' => $faker->company,
                 'ruc' => $faker->randomNumber(8),
