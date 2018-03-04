@@ -507,6 +507,30 @@ mark,
   color: #6c757d;
 }
 
+@mixin margin-bottom($margen) {
+  margin-bottom: $margen;
+}
+
+@mixin margin-top($margen) {
+  margin-top: $margen;
+}
+
+.mb-10 {
+  @include margin-bottom(10px);
+}
+
+.mt-10 {
+  @include margin-top(10px);
+}
+
+.mb-20 {
+  @include margin-bottom(20px);
+}
+
+.mt-20 {
+  @include margin-top(20px);
+}
+
 code,
 kbd,
 pre,

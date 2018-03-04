@@ -1,0 +1,28 @@
+table,tr,th,td{
+  font-size: 13px !important;
+  padding: 4px !important;
+}
+.pagination {
+
+    margin:0 !important;
+}
+.btn-sm, .btn-group-sm > .btn {
+    padding: 0px 10px !important;
+}
+.loading-button{
+   border: 0 !important;
+   padding: 1px 5px 1px 5px !important;
+   float: right !important;
+   background: #b2cece !important;
+}
+.animcolor{
+  -webkit-animation: fluctuate 2s infinite !important; /* Safari 4+ */
+   -moz-animation:    fluctuate 2s infinite !important; /* Fx 5+ */
+   -o-animation:      fluctuate 2s infinite !important; /* Opera 12+ */
+   animation:         fluctuate 2s infinite !important; /* IE 10+, Fx 29+ */
+}
+@-webkit-keyframes fluctuate {
+    0%   {background:#b2cece;}
+   50%  {background:#63ec8d;}
+   100%   {background:#b2cece;}
+}

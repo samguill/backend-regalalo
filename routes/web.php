@@ -17,4 +17,8 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function(){
 
+    // Stores
+    Route::get('/stores', 'StoreController@index')->name('stores');
+    Route::get('/stores/lists', 'StoreController@lists')->name('stores.lists');
+
 });

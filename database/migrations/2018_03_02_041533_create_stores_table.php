@@ -15,17 +15,28 @@ class CreateStoresTable extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->integer('ruc');
+            // Datos legales
             // Razón social
             $table->string('business_name');
-            // Domicilio Legal
+            $table->integer('ruc');
             $table->string('legal_address');
+            $table->string('comercial_name')->nullable();
             // Dirección de la Tienda
-            $table->string('store_address');
+            $table->string('address');
             $table->integer('phone');
-            $table->string('payme_user')->nullable();
-            $table->string('payme_password')->nullable();
+            $table->string('store_email');
+            $table->string('site_url')->nullable();
+            $table->time('start_business_hour')->nullable();
+            $table->time('end_business_hour')->nullable();
+            // Financiero
+            $table->enum('financial_entity', array('BCP','BBVA','INTERBANK','SCOTIABANK','BANBIF'))->nullable();
+            $table->enum('account_type', array('Cuenta de Ahorros','Cuenta Corriente'))->nullable();
+            $table->string('account_statement_name')->nullable();
+            $table->string('bank_account_number')->nullable();
+            $table->string('cci_account_number')->nullable();
+            // Payme
+            $table->string('payme_comerce_id')->nullable();
+            $table->string('payme_wallet_id')->nullable();
             $table->string('payme_integration_key')->nullable();
             $table->string('payme_production_key')->nullable();
             // 0: pendiente - 1: integración - 2: producción

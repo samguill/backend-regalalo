@@ -30,7 +30,7 @@
             </a>
         </li>
         <li>
-            <a class="app-menu__item{{ Request::is('/tiendas') ? ' active' : null }}" href="{{url('/tiendas')}}">
+            <a class="app-menu__item{{ Request::is('/stores') ? ' active' : null }}" href="{{url('/stores')}}">
                 <i class="app-menu__icon fa fa-building"></i>
                 <span class="app-menu__label">Tiendas</span>
             </a>

@@ -7,3 +7,4 @@
 
 require('./bootstrap');
 require('./jquery/main');
+require('./components/autoload');

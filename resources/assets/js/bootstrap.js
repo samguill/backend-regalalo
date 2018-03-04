@@ -10,8 +10,10 @@ window.Popper = require('popper.js').default;
 
 try {
     window.$ = window.jQuery = require('jquery');
-
     require('bootstrap');
+    window.Simditor = require('simditor');
+    Simditor.locale = 'en-US';
+    window.moment = require('moment');
 } catch (e) {}
 
 /**
