@@ -24,6 +24,7 @@
     </main>
 
 <!-- Scripts -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJ0XvtnWS6I60xHgZ7u_rRc8aGFzBYEXQ&libraries=places" async defer></script>
 <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

@@ -34,6 +34,8 @@ export default class StoreBranchesComponent extends React.Component {
         this.onLatitudeChage = this.onLatitudeChage.bind(this);
         this.onLongitudeChage = this.onLongitudeChage.bind(this);
         this.onAddressChage = this.onAddressChage.bind(this);
+        this.clearForm = this.clearForm.bind(this);
+
     }
 
     onIdChage(e){ this.setState({id:e.target.value}); }
@@ -67,6 +69,28 @@ export default class StoreBranchesComponent extends React.Component {
             });
     }
 
+    editBranch(row){
+        this.setState({
+            id: row.id,
+            name: row.name,
+            address: row.address,
+            latitude: row.latitude,
+            longitude: row.longitude,
+            updating: true
+        });
+    }
+
+    clearForm(){
+        this.setState({
+            id: '',
+            name: '',
+            address: '',
+            latitude: '',
+            longitude: '',
+            updating: false
+        });
+    }
+
     render() {
         return (
             <div style={{margin: '10px'}}>
@@ -79,6 +103,18 @@ export default class StoreBranchesComponent extends React.Component {
                             <div className="form-group">
                                 <lable>Nombre de la sucursal</lable>
                                 <input id="name" name="name" onChange={this.onNameChage} className="form-control" type="text" value={this.state.name} />
+                            </div>
+                            <div className="form-group">
+                                <lable>Dirección</lable>
+                                <input id="address" name="address" onChange={this.onAddressChage} className="form-control" type="text" value={this.state.address} />
+                            </div>
+                            <div className="form-group">
+                                <lable>Latitud</lable>
+                                <input id="latitude" name="latitude" disabled onChange={this.onLatitudeChage} className="form-control" type="text" value={this.state.latitude} />
+                            </div>
+                            <div className="form-group">
+                                <lable>Longitud</lable>
+                                <input id="longitude" name="longitude" disabled onChange={this.onLongitudeChage} className="form-control" type="text" value={this.state.longitude} />
                             </div>
                             <div className="form-group" style={{textAlign:"center"}}>
                                 <div className="row">
@@ -111,7 +147,7 @@ export default class StoreBranchesComponent extends React.Component {
                                                 <td>{row.address}</td>
                                                 <td>
                                                     <Tooltip title={'Editar'} position={"top"}>
-                                                        <button type="button"  className="btn btn-primary btn-sm" style={{margin:"2px"}} >
+                                                        <button type="button"  className="btn btn-primary btn-sm" style={{margin:"2px"}} onClick={(e)=> {this.editBranch(row)}}>
                                                             <em className="fa fa-edit"></em>
                                                         </button>
                                                     </Tooltip>
