@@ -10,7 +10,7 @@
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar">
     <div class="app-sidebar__user">
-        <img class="app-sidebar__user-avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image">
+        <img class="app-sidebar__user-avatar" src="{{ asset('img/user-icon.png') }}" height="50" alt="User Image">
         <div>
             <p class="app-sidebar__user-name">{{ Auth::user()->name }}</p>
             <p class="app-sidebar__user-designation">{{ Auth::user()->email }}</p>
@@ -24,37 +24,37 @@
             </a>
         </li>
         <li>
-            <a class="app-menu__item{{ Request::is('/tiendas') ? ' active' : null }}" href="{{url('/tiendas')}}">
-                <i class="app-menu__icon fa fa-archive"></i>
-                <span class="app-menu__label">Productos</span>
-            </a>
-        </li>
-        <li>
-            <a class="app-menu__item{{ Request::is('/stores') ? ' active' : null }}" href="{{url('/stores')}}">
+            <a class="app-menu__item{{ Request::is('stores') ? ' active' : null }}" href="{{url('/stores')}}">
                 <i class="app-menu__icon fa fa-building"></i>
                 <span class="app-menu__label">Tiendas</span>
             </a>
         </li>
         <li>
-            <a class="app-menu__item{{ Request::is('/tiendas') ? ' active' : null }}" href="{{url('/tiendas')}}">
+            <a class="app-menu__item{{ Request::is('products') ? ' active' : null }}" href="{{url('/products')}}">
+                <i class="app-menu__icon fa fa-archive"></i>
+                <span class="app-menu__label">Productos</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item{{ Request::is('clients') ? ' active' : null }}" href="{{url('/clients')}}">
                 <i class="app-menu__icon fa fa-users"></i>
                 <span class="app-menu__label">Clientes</span>
             </a>
         </li>
         <li>
-            <a class="app-menu__item{{ Request::is('/tiendas') ? ' active' : null }}" href="{{url('/tiendas')}}">
+            <a class="app-menu__item{{ Request::is('sales') ? ' active' : null }}" href="{{url('/sales')}}">
                 <i class="app-menu__icon fa fa-paper-plane"></i>
                 <span class="app-menu__label">Ventas</span>
             </a>
         </li>
         <li>
-            <a class="app-menu__item{{ Request::is('/tiendas') ? ' active' : null }}" href="{{url('/tiendas')}}">
+            <a class="app-menu__item{{ Request::is('claims') ? ' active' : null }}" href="{{url('/claims')}}">
                 <i class="app-menu__icon fa fa-comments"></i>
                 <span class="app-menu__label">Reclamos</span>
             </a>
         </li>
         <li>
-            <a class="app-menu__item{{ Request::is('/tiendas') ? ' active' : null }}" href="{{url('/tiendas')}}">
+            <a class="app-menu__item{{ Request::is('web') ? ' active' : null }}" href="{{url('/tiendas')}}">
                 <i class="app-menu__icon fa fa-window-restore"></i>
                 <span class="app-menu__label">Página web</span>
             </a>

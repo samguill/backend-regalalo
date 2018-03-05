@@ -7,7 +7,9 @@
  */
 ?>
 <header class="app-header">
-    <a class="app-header__logo" href="index.html">Regalalo</a>
+    <a class="app-header__logo" href="{{url('/')}}">
+        <img src="{{ asset('img/logo-regalalo.png') }}" class="login-logo" height="40" />
+    </a>
     <!-- Sidebar toggle button-->
     <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
     <!-- Navbar Right Menu-->

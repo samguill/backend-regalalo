@@ -26,8 +26,8 @@ class CreateStoresTable extends Migration
             $table->integer('phone');
             $table->string('store_email');
             $table->string('site_url')->nullable();
-            $table->time('start_business_hour')->nullable();
-            $table->time('end_business_hour')->nullable();
+            $table->string('business_hour_1')->nullable();
+            $table->string('business_hour_2')->nullable();
             // Financiero
             $table->enum('financial_entity', array('BCP','BBVA','INTERBANK','SCOTIABANK','BANBIF'))->nullable();
             $table->enum('account_type', array('Cuenta de Ahorros','Cuenta Corriente'))->nullable();
@@ -41,6 +41,7 @@ class CreateStoresTable extends Migration
             $table->string('payme_production_key')->nullable();
             // 0: pendiente - 1: integración - 2: producción
             $table->integer('payme_process_status')->default(0);
+            $table->string('analytics_id')->nullable();
             // 0: pendiente - 1: activo - 2: inactivo
             $table->integer('status')->default(0);
             $table->timestamps();

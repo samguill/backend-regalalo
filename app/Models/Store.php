@@ -17,8 +17,8 @@ class Store extends Model
         'phone',
         'store_email',
         'site_url',
-        'start_business_hour',
-        'end_business_hour',
+        'business_hour_1',
+        'business_hour_2',
         'financial_entity',
         'account_type',
         'account_statement_name',
@@ -29,6 +29,7 @@ class Store extends Model
         'payme_integration_key',
         'payme_production_key',
         'payme_process_status',
+        'analytics_id',
         'status'
     ];
 

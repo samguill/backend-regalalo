@@ -13187,7 +13187,7 @@ be a descendant of the grid when it is being dragged.
     flex: 0 0 auto;
     display: block;
     width: 230px;
-    background-color: #e24717;
+    background-color: #fff;
   }
 }
 
@@ -14857,3 +14857,15 @@ be a descendant of the grid when it is being dragged.
   border-color: #4CAF50;
 }
 
+.Select.form-control {
+  padding: 0;
+}
+
+.Select.form-control .Select-control {
+  border: none;
+}
+
+p.error_message {
+  color: #F44336;
+  font-size: 12px;
+}

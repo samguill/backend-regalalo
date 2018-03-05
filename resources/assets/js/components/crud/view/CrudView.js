@@ -14,7 +14,7 @@ export default inject('store')(observer(class CrudView extends React.Component {
               </ol>
               <div className="card">
                 <div className="card-body">
-                  <table className='table table-responsive'>
+                  <table className='table'>
                     <thead>
                       <tr>
                         <th>Campo</th>

@@ -158,8 +158,8 @@ export default inject('store')(observer(class AutoForm extends React.Component {
       return <Redirect to="/" />
     }
     return (<form style={{background:"white", padding:"2%"}}>
-
         <h4>Formulario de Creación</h4>
+        <div className="row">
         {
           Object.keys(this.fields).filter((field_name)=>this.fields[field_name].fillable).map((k,i)=>{
               var field=this.fields[k];
@@ -240,6 +240,7 @@ export default inject('store')(observer(class AutoForm extends React.Component {
 
           })
         }
+        </div>
         <div className="form-group " style={{textAlign:"center"}}>
           <a onClick={()=>{
             this.handleSubmit();
