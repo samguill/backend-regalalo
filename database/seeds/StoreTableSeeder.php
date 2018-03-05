@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Store;
+use App\Models\StoreBranch;
 
 class StoreTableSeeder extends Seeder
 {
@@ -14,7 +15,7 @@ class StoreTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
         for ($i = 0; $i <= 20; $i++) {
-            Store::create([
+            $store = Store::create([
                 'business_name' => $faker->company,
                 'ruc' => $faker->randomNumber(8),
                 'legal_address' => $faker->address,
@@ -23,6 +24,14 @@ class StoreTableSeeder extends Seeder
                 'phone' => $faker->randomNumber(8),
                 'store_email' => $faker->companyEmail,
                 'site_url' => $faker->domainName
+            ]);
+
+            StoreBranch::create([
+                'name' => $faker->streetName,
+                'latitude' => $faker->latitude,
+                'longitude' => $faker->longitude,
+                'address' => $faker->address,
+                'store_id' => $store->id
             ]);
         }
     }

@@ -24,4 +24,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/stores/delete', 'StoreController@delete')->name('stores.delete');
     Route::post('/stores/create', 'StoreController@create')->name('stores.create');
 
+    // Store branche
+    Route::get('/stores/branches', 'StoreController@getBranches')->name('store.branches');
+    Route::post('/stores/branches/list', 'StoreController@listBranches')->name('store.branches-lists');
+
 });

@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
+use App\Models\StoreBranch;
 use Illuminate\Http\Request;
 use App\Models\Store;
 use Mockery\Exception;
@@ -52,6 +53,18 @@ class StoreController extends Controller
 
         }
         return response()->json(['status'=>"ok",'data'=>$model]);
+    }
+
+    // Sucursales
+    public function getBranches(Request $request){
+        $store_id = $request->input('id');
+        return view('stores.branches', compact('store_id'));
+    }
+
+    public function listBranches(Request $request){
+        $store_id = $request->input('id');
+        $branches = StoreBranch::where('store_id',  $store_id)->get();
+        return response()->json(['status'=>'ok','data' => $branches]);
     }
 
 }

@@ -88,6 +88,7 @@
             $builder->addField($analytics_idField);
 
             $actions = [];
+            $actions["custom"] = [];
             $actions['view'] = [];
             $actions['create'] = [
                 'url' => route('stores.create')
@@ -98,6 +99,20 @@
             $actions['delete'] = [
                 'url' => route('stores.delete')
             ];
+
+            $actions["custom"]=array_merge(
+                $actions["custom"],
+                [
+                    "branches" => [
+                        "link" => true,
+                        'url' => route('store.branches'),
+                        'icon' => "building",
+                        "color" => "#ff9800",
+                        "params" => [ 'id' ],
+                        "title" => "Sucursales"
+                    ]
+                ]
+            );
             $builder->setActions($actions);
 
        @endphp

@@ -33,6 +33,8 @@ class Store extends Model
         'status'
     ];
 
-
+    public function branches(){
+        return $this->hasMany('App\Models\StoreBranch', 'store_id', 'id');
+    }
 
 }
