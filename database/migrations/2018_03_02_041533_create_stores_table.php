@@ -44,6 +44,8 @@ class CreateStoresTable extends Migration
             $table->string('analytics_id')->nullable();
             // 0: pendiente - 1: activo - 2: inactivo
             $table->integer('status')->default(0);
+            $table->unsignedInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
