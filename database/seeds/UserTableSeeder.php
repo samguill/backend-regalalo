@@ -18,5 +18,13 @@ class UserTableSeeder extends Seeder
             'password'=>'123456',
             'type' => 'A'
         ]);
+
+
+        User::create([
+            'name'=>'Isaac Abensur',
+            'email'=>'isaacabensur@gmail.com',
+            'password'=>'123456',
+            'type' => 'A'
+        ]);
     }
 }
