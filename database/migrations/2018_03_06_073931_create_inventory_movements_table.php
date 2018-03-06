@@ -15,7 +15,11 @@ class CreateInventoryMovementsTable extends Migration
     {
         Schema::create('inventory_movements', function (Blueprint $table) {
             $table->increments('id');
+            $table->enum('movement_type', array('I', 'E'));
+            $table->integer('quantity');
+            $table->unsignedInteger('inventory_id');
             $table->timestamps();
+            $table->foreign('inventory_id')->references('id')->on('inventory');
         });
     }
 

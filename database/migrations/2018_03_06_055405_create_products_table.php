@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->enum('product_presentation', array('unidad', 'par', 'caja', 'docena'));
             $table->string('description');
             $table->string('age');
-            $table->enum('availability', array('D', 'S', 'A')); //D = Delibery, S = Store, A = All
+            $table->enum('availability', array('D', 'S', 'A')); //D = Delivery, S = Store, A = All
             $table->string('event');
             $table->string('interest');
             $table->timestamps();

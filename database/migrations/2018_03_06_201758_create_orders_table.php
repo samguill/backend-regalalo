@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateServiceImagesTable extends Migration
+class CreateOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateServiceImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('service_images', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('service_id');
-            $table->string('image_path');
-            $table->integer('order')->nulleable()->default(1);
-            $table->foreign('service_id')->references('id')->on('services');
+            $table->string('order_code');
+            $table->double('total');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateServiceImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('service_images');
+        Schema::dropIfExists('orders');
     }
 }

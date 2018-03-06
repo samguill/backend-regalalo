@@ -15,7 +15,11 @@ class CreateServiceCharacteristicsTable extends Migration
     {
         Schema::create('service_characteristics', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('service_characteristic_name');
+            $table->string('values');
+            $table->unsignedInteger('service_id');
             $table->timestamps();
+            $table->foreign('service_id')->references('id')->on('services');
         });
     }
 
