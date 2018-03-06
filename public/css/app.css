@@ -25970,6 +25970,10 @@ p.error_message {
   font-size: 12px;
 }
 
+#branche_map {
+  height: 200px;
+}
+
 .simditor {
   position: relative;
   border: 1px solid #c9d8db;

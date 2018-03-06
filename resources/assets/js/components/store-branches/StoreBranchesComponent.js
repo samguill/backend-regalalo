@@ -13,6 +13,8 @@ export default class StoreBranchesComponent extends React.Component {
     constructor(props) {
         super(props);
 
+        let autoComplete = new window.google.maps.places.Autocomplete();
+
         this.getBranches = this.getBranches.bind(this);
 
         this.storeid = this.props.storeid;
@@ -26,7 +28,9 @@ export default class StoreBranchesComponent extends React.Component {
             address: '',
             updating: false,
             is_loading: false,
-            branches: []
+            branches: [],
+            zoom: 13,
+            maptype: 'roadmap'
         };
 
         this.onIdChage = this.onIdChage.bind(this);
@@ -45,6 +49,45 @@ export default class StoreBranchesComponent extends React.Component {
     onAddressChage(e){ this.setState({address:e.target.value}); }
 
     componentDidMount(){
+        let map = new window.google.maps.Map(document.getElementById('branche_map'), {
+            center: {lat: -12.046374, lng: -77.042793},
+            zoom: 13,
+            mapTypeId: 'roadmap'
+        });
+
+        map.addListener('zoom_changed', () => {
+            this.setState({
+                zoom: map.getZoom()
+            });
+        });
+
+        map.addListener('maptypeid_changed', () => {
+            this.setState({
+                maptype: map.getMapTypeId()
+            });
+        });
+
+        let marker = new window.google.maps.Marker({
+            map: map,
+            position: {lat: -12.046374, lng: -77.042793}
+        });
+
+        let address = document.getElementById('address');
+        let autoComplete = new window.google.maps.places.Autocomplete(address);
+        autoComplete.addListener('place_changed', () => {
+            let place = autoComplete.getPlace();
+            let location = place.geometry.location;
+
+            this.setState({latitude: location.lat()});
+            this.setState({longitude: location.lng()});
+
+            map.fitBounds(place.geometry.viewport);
+            map.setCenter(location);
+            marker.setPlace({
+                placeId: place.place_id,
+                location: location
+            });
+        });
         this.getBranches();
     }
 
@@ -78,6 +121,29 @@ export default class StoreBranchesComponent extends React.Component {
             longitude: row.longitude,
             updating: true
         });
+
+        let map = new window.google.maps.Map(document.getElementById('branche_map'), {
+            center: {lat: row.latitude, lng: row.longitude},
+            zoom: 13,
+            mapTypeId: 'roadmap'
+        });
+
+        map.addListener('zoom_changed', () => {
+            this.setState({
+                zoom: map.getZoom()
+            });
+        });
+
+        map.addListener('maptypeid_changed', () => {
+            this.setState({
+                maptype: map.getMapTypeId()
+            });
+        });
+
+        let marker = new window.google.maps.Marker({
+            map: map,
+            position: {lat: row.latitude, lng: row.longitude}
+        });
     }
 
     clearForm(){
@@ -88,6 +154,28 @@ export default class StoreBranchesComponent extends React.Component {
             latitude: '',
             longitude: '',
             updating: false
+        });
+        let map = new window.google.maps.Map(document.getElementById('branche_map'), {
+            center: {lat: -12.046374, lng: -77.042793},
+            zoom: 13,
+            mapTypeId: 'roadmap'
+        });
+
+        map.addListener('zoom_changed', () => {
+            this.setState({
+                zoom: map.getZoom()
+            });
+        });
+
+        map.addListener('maptypeid_changed', () => {
+            this.setState({
+                maptype: map.getMapTypeId()
+            });
+        });
+
+        let marker = new window.google.maps.Marker({
+            map: map,
+            position: {lat: -12.046374, lng: -77.042793}
         });
     }
 
@@ -116,6 +204,7 @@ export default class StoreBranchesComponent extends React.Component {
                                 <lable>Longitud</lable>
                                 <input id="longitude" name="longitude" disabled onChange={this.onLongitudeChage} className="form-control" type="text" value={this.state.longitude} />
                             </div>
+                            <div id="branche_map"></div>
                             <div className="form-group" style={{textAlign:"center"}}>
                                 <div className="row">
                                     <div className={"col-md-" + (this.state.updating ? 6 : 12)}>
