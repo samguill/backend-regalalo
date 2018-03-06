@@ -67,4 +67,28 @@ class StoreController extends Controller
         return response()->json(['status'=>'ok','data' => $branches]);
     }
 
+    public function create_branch(Request $request){
+        try{
+            $model = StoreBranch::create($request->all());
+        }catch(Exception $e) {
+
+        }
+        return response()->json(['status'=>"ok",'data'=>$model]);
+    }
+
+    public function update_branch(Request $request){
+        $data = $request->all();
+        $model = StoreBranch::find($data['id']);
+        unset($data['id']);
+        foreach ($data as $field=>$value) {
+            $model->$field = $value;
+        }
+
+        if($model->save()) {
+            return response()->json(['status' => 'ok','data' => $model]);
+        }else{
+            return response()->json(['status' => 'error',"message" => "No se ha podido actualizar el registro, intente más tarde."]);
+        }
+    }
+
 }

@@ -27,5 +27,7 @@ Route::group(['middleware' => ['auth']], function(){
     // Store branche
     Route::get('/stores/branches', 'StoreController@getBranches')->name('store.branches');
     Route::post('/stores/branches/list', 'StoreController@listBranches')->name('store.branches-lists');
+    Route::post('/stores/branch/create', 'StoreController@create_branch')->name('store.branch-create');
+    Route::post('/stores/branch/update', 'StoreController@update_branch')->name('store.branch-update');
 
 });

@@ -19,6 +19,8 @@ export default class StoreBranchesComponent extends React.Component {
 
         this.storeid = this.props.storeid;
         this.url_brancheslist = this.props.url_brancheslist;
+        this.url_create_branch = this.props.url_create_branch;
+        this.url_update_branch = this.props.url_update_branch;
 
         this.state = {
             id: '',
@@ -179,6 +181,55 @@ export default class StoreBranchesComponent extends React.Component {
         });
     }
 
+    storeBranch(data){
+        let url = "";
+        let message = "";
+
+        if(this.state.updating){
+            url = this.url_update_branch;
+            message = "La información se ha actualizado de manera exitosa.";
+        }else{
+            url = this.url_create_branch;
+            message = "Se ha creado el registro.";
+        }
+        this.setState({is_loading:true});
+        axios.post(url, data)
+            .then((response) => {
+                if(response.data.status === "ok"){
+                    swal({  title: "Operación Exitosa",
+                        text: message,
+                        type: "success"});
+                    if(this.state.updating){
+                        var list = this.state.branches.map((item) => {
+                            if(response.data.data.id === item.id){
+                                item = response.data.data;
+                            }
+                            return item;
+                        });
+                        this.setState({branches: list, is_loading:false});
+                    }else{
+                        this.setState({branches: this.state.branches.concat(response.data.data), is_loading: false});
+                    }
+                    this.clearForm();
+                }
+                if(response.data.status === 'error') {
+                    swal({
+                        title: "Ha ocurrido un error.",
+                        text: "Por favor intente una vez más.",
+                        type: "error"
+                    });
+                    this.setState({is_loading:false});
+                }
+            })
+            .catch((error) => {
+                swal({  title: "Ha ocurrido un error.",
+                    text: "Por favor intente una vez más.",
+                    type: "error"});
+                console.log(error);
+                this.setState({is_loading:false});
+            });
+    }
+
     render() {
         return (
             <div style={{margin: '10px'}}>
@@ -208,7 +259,14 @@ export default class StoreBranchesComponent extends React.Component {
                             <div className="form-group" style={{textAlign:"center"}}>
                                 <div className="row">
                                     <div className={"col-md-" + (this.state.updating ? 6 : 12)}>
-                                        <a className="btn btn-success text-white btn-block">
+                                        <a className="btn btn-success text-white btn-block" onClick={(e) => { this.storeBranch({
+                                            id: this.state.id,
+                                            name: this.state.name,
+                                            address: this.state.address,
+                                            latitude: this.state.latitude,
+                                            longitude: this.state.longitude,
+                                            store_id: this.storeid
+                                        })}}>
                                             { (this.state.is_loading) ? <em className="fa fa-refresh fa-spin"></em> : 'Guardar'}
                                         </a>
                                     </div>
@@ -267,9 +325,14 @@ if (document.getElementsByClassName('store-branches')) {
         let element = elements[i];
         var storeid = element.getAttribute("storeid");
         var url_brancheslist = element.getAttribute("brancheslist");
+        var url_create_branch = element.getAttribute("url_create_branch");
+        var url_update_branch = element.getAttribute("url_update_branch");
+
         ReactDOM.render(<StoreBranchesComponent
             storeid={storeid}
             url_brancheslist={url_brancheslist}
+            url_create_branch={url_create_branch}
+            url_update_branch={url_update_branch}
         />, element);
     }
 }
