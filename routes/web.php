@@ -24,6 +24,22 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/stores/delete', 'StoreController@delete')->name('stores.delete');
     Route::post('/stores/create', 'StoreController@create')->name('stores.create');
 
+
+    // Products
+    Route::get('/products', 'ProductController@index')->name('products');
+    Route::get('/products/lists', 'ProductController@lists')->name('products.lists');
+    Route::post('/products/update', 'ProductController@update')->name('products.update');
+    Route::post('/products/delete', 'ProductController@delete')->name('products.delete');
+    Route::post('/products/create', 'ProductController@create')->name('products.create');
+
+
+    // Services
+    Route::get('/services', 'ServiceController@index')->name('services');
+    Route::get('/services/lists', 'ServiceController@lists')->name('services.lists');
+    Route::post('/services/update', 'ServiceController@update')->name('services.update');
+    Route::post('/services/delete', 'ServiceController@delete')->name('services.delete');
+    Route::post('/services/create', 'ServiceController@create')->name('services.create');
+
     // Store branche
     Route::get('/stores/branches', 'StoreController@getBranches')->name('store.branches');
     Route::post('/stores/branches/list', 'StoreController@listBranches')->name('store.branches-lists');
