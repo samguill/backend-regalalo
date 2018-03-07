@@ -21,13 +21,8 @@ class CreateStoresTable extends Migration
             $table->integer('ruc');
             $table->string('legal_address');
             $table->string('comercial_name')->nullable();
-            // Dirección de la Tienda
-            $table->string('address');
-            $table->integer('phone');
-            $table->string('store_email');
+            $table->integer('phone')->nullable();
             $table->string('site_url')->nullable();
-            $table->string('business_hour_1')->nullable();
-            $table->string('business_hour_2')->nullable();
             // Financiero
             $table->enum('financial_entity', array('BCP','BBVA','INTERBANK','SCOTIABANK','BANBIF'))->nullable();
             $table->enum('account_type', array('Cuenta de Ahorros','Cuenta Corriente'))->nullable();

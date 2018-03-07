@@ -20,9 +20,7 @@ class StoreTableSeeder extends Seeder
                 'ruc' => $faker->randomNumber(8),
                 'legal_address' => $faker->address,
                 'comercial_name'=> $faker->company,
-                'address' => $faker->address,
                 'phone' => $faker->randomNumber(8),
-                'store_email' => $faker->companyEmail,
                 'site_url' => $faker->domainName
             ]);
 
@@ -31,6 +29,8 @@ class StoreTableSeeder extends Seeder
                 'latitude' => $faker->latitude,
                 'longitude' => $faker->longitude,
                 'address' => $faker->address,
+                'phone' => $faker->randomNumber(8),
+                'branche_email' => $faker->companyEmail,
                 'store_id' => $store->id
             ]);
         }

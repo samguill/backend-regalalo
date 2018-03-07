@@ -15,8 +15,10 @@ class CreateLegalRepresentativesTable extends Migration
     {
         Schema::create('legal_representatives', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->integer('document_number');
             $table->integer('phone');
-            $table->integer('dni');
+            $table->integer('document_number');
             $table->unsignedInteger('store_id');
             $table->foreign('store_id')->references('id')->on('stores');
             $table->timestamps();

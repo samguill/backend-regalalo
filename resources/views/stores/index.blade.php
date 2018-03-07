@@ -20,31 +20,20 @@
             $comercial_nameField->show(false)->title('Nombre comercial')->width(6);
             $builder->addField($comercial_nameField);
 
-            $addressField = new \App\Utils\ReactCrudField('address');
-            $addressField->show(false)->required(true)->title('Dirección')->width(8);
-            $builder->addField($addressField);
-
             $storephoneField = new \App\Utils\ReactCrudField('phone');
-            $storephoneField->title('Teléfono')->required(true)->width(4);
+            $storephoneField->title('Teléfono')->required(true)->width(6);
             $builder->addField($storephoneField);
 
-            $storeEmailField = new \App\Utils\ReactCrudField('store_email');
-            $storeEmailField->show(false)->required(true)->title('E-mail')->width(6);
-            $builder->addField($storeEmailField);
+            $statusField = new \App\Utils\ReactCrudField('status');
+            $statusField->fillable(false)->title('Estado')->type('map', [
+                ["id"=> '0',"value"=>"Pendiente"],
+                ['id'=>'1','value'=>"Activo"],
+                ['id'=>"2",'value'=>"Inactivo"]])->required()->title("Estado");
+            $builder->addField($statusField);
 
             $site_urlField = new \App\Utils\ReactCrudField('site_url');
             $site_urlField->show(false)->title('URL de la Tienda')->width(6);
             $builder->addField($site_urlField);
-
-            $business_hour_1Field = new \App\Utils\ReactCrudField('business_hour_1');
-            $business_hour_1Field->show(false)
-                ->title('Horario de atención de Lunes a Viernes')->width(6);
-            $builder->addField($business_hour_1Field);
-
-            $business_hour_2Field = new \App\Utils\ReactCrudField('business_hour_2');
-            $business_hour_2Field->show(false)
-                ->title('Horario de atención Sábados y Domingo')->width(6);
-            $builder->addField($business_hour_2Field);
 
             $financial_entityField = new \App\Utils\ReactCrudField('financial_entity');
             $financial_entityField->show(false)->type('map', [

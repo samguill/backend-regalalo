@@ -91,4 +91,11 @@ class StoreController extends Controller
         }
     }
 
+    // Carga masiva
+    public function masive_charge(Request $request){
+        $file = $request->file('excel');
+        ini_set('max_execution_time', 300);
+        
+    }
+
 }

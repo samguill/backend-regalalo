@@ -13,8 +13,6 @@ export default class StoreBranchesComponent extends React.Component {
     constructor(props) {
         super(props);
 
-        let autoComplete = new window.google.maps.places.Autocomplete();
-
         this.getBranches = this.getBranches.bind(this);
 
         this.storeid = this.props.storeid;
