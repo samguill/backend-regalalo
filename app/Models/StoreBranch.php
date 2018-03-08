@@ -14,7 +14,7 @@ class StoreBranch extends Model
         'longitude',
         'address',
         'phone',
-        'branche_email',
+        'branch_email',
         'business_hour_1',
         'business_hour_2',
         'store_id'

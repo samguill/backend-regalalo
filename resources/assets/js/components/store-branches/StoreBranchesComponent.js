@@ -26,6 +26,10 @@ export default class StoreBranchesComponent extends React.Component {
             latitude: '',
             longitude: '',
             address: '',
+            phone: '',
+            branch_email: '',
+            business_hour_1: '',
+            business_hour_2: '',
             updating: false,
             is_loading: false,
             branches: [],
@@ -39,7 +43,10 @@ export default class StoreBranchesComponent extends React.Component {
         this.onLongitudeChage = this.onLongitudeChage.bind(this);
         this.onAddressChage = this.onAddressChage.bind(this);
         this.clearForm = this.clearForm.bind(this);
-
+        this.onPhoneChage = this.onPhoneChage.bind(this);
+        this.onBranchEmailChage = this.onBranchEmailChage.bind(this);
+        this.onBH1Chage = this.onBH1Chage.bind(this);
+        this.onBH2Chage = this.onBH2Chage.bind(this);
     }
 
     onIdChage(e){ this.setState({id:e.target.value}); }
@@ -47,6 +54,10 @@ export default class StoreBranchesComponent extends React.Component {
     onLatitudeChage(e){ this.setState({latitude:e.target.value}); }
     onLongitudeChage(e){ this.setState({longitude:e.target.value}); }
     onAddressChage(e){ this.setState({address:e.target.value}); }
+    onPhoneChage(e){ this.setState({phone:e.target.value}); }
+    onBranchEmailChage(e){ this.setState({branch_email:e.target.value}); }
+    onBH1Chage(e){ this.setState({business_hour_1:e.target.value}); }
+    onBH2Chage(e){ this.setState({business_hour_2:e.target.value}); }
 
     componentDidMount(){
         let map = new window.google.maps.Map(document.getElementById('branche_map'), {
@@ -119,6 +130,10 @@ export default class StoreBranchesComponent extends React.Component {
             address: row.address,
             latitude: row.latitude,
             longitude: row.longitude,
+            phone: row.phone,
+            branch_email: row.branch_email,
+            business_hour_1: row.business_hour_1,
+            business_hour_2: row.business_hour_2,
             updating: true
         });
 
@@ -153,7 +168,11 @@ export default class StoreBranchesComponent extends React.Component {
             address: '',
             latitude: '',
             longitude: '',
-            updating: false
+            phone: '',
+            branch_email: '',
+            business_hour_1: '',
+            business_hour_2: '',
+            updating: false,
         });
         let map = new window.google.maps.Map(document.getElementById('branche_map'), {
             center: {lat: -12.046374, lng: -77.042793},
@@ -244,6 +263,22 @@ export default class StoreBranchesComponent extends React.Component {
                             <div className="form-group">
                                 <lable>Dirección</lable>
                                 <input id="address" name="address" onChange={this.onAddressChage} className="form-control" type="text" value={this.state.address} />
+                            </div>
+                            <div className="form-group">
+                                <lable>Teléfono</lable>
+                                <input id="phone" name="phone" onChange={this.onPhoneChange} className="form-control" type="text" value={this.state.phone} />
+                            </div>
+                            <div className="form-group">
+                                <lable>E-mail</lable>
+                                <input id="branch_email" name="branch_email" onChange={this.onBranchEmailChage} className="form-control" type="text" value={this.state.branch_email} />
+                            </div>
+                            <div className="form-group">
+                                <lable>Horario de Lunes a Viernes</lable>
+                                <input id="business_hour_1" name="business_hour_1" onChange={this.onBH1Chage} className="form-control" type="text" value={this.state.business_hour_1} />
+                            </div>
+                            <div className="form-group">
+                                <lable>Horario sábado y domingo</lable>
+                                <input id="business_hour_2" name="business_hour_2" onChange={this.onBH2Chage} className="form-control" type="text" value={this.state.business_hour_2} />
                             </div>
                             <div className="form-group">
                                 <lable>Latitud</lable>

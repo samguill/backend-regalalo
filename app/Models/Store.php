@@ -33,4 +33,12 @@ class Store extends Model
         return $this->hasMany('App\Models\StoreBranch', 'store_id', 'id');
     }
 
+    public function comercial_contact(){
+        return $this->hasOne('\App\Models\ComercialContact', 'store_id', 'id');
+    }
+
+    public function legal_representatives(){
+        return $this->hasMany('App\Models\LegalRepresentative', 'store_id', 'id');
+    }
+
 }

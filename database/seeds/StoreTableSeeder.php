@@ -30,7 +30,9 @@ class StoreTableSeeder extends Seeder
                 'longitude' => $faker->longitude,
                 'address' => $faker->address,
                 'phone' => $faker->randomNumber(8),
-                'branche_email' => $faker->companyEmail,
+                'branch_email' => $faker->companyEmail,
+                'business_hour_1' => '10:00 - 20:00',
+                'business_hour_2'=> '13:00 - 20:00',
                 'store_id' => $store->id
             ]);
         }

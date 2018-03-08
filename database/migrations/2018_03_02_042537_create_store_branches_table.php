@@ -20,7 +20,7 @@ class CreateStoreBranchesTable extends Migration
             $table->double('longitude');
             $table->string('address');
             $table->integer('phone')->nullable();
-            $table->string('branche_email')->nullable();
+            $table->string('branch_email')->nullable();
             $table->string('business_hour_1')->nullable();
             $table->string('business_hour_2')->nullable();
             $table->unsignedInteger('store_id');
