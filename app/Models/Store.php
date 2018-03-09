@@ -26,6 +26,7 @@ class Store extends Model
         'payme_production_key',
         'payme_process_status',
         'analytics_id',
+        'user_id',
         'status'
     ];
 

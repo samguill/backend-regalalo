@@ -30,3 +30,54 @@
     });
 
 })();
+
+window.open_modal = function (id, title){
+    accion = "agregar";
+
+    $("div.modal form")[0].reset();
+    $("div.modal#"+ id).modal("show");
+    $("div.modal#"+ id + " h4.modal-title").text(title);
+}
+
+window.charge_stores = function (element) {
+    $(element).html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>');
+    $(element).attr('disabled', true);
+
+    var formData = new FormData($("form#charge_stores_form")[0]);
+    formData.append("_token", token);
+
+    $.ajax({
+        url: '/stores/charge',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData:false,
+        cache: false,
+        success: function(data){
+            if(data.status === "ok"){
+                $(element).html('Aceptar');
+                $(element).attr('disabled', false);
+                swal({
+                    title: "Operación Exitosa",
+                    text: "El archivo se ha cargado con éxito.",
+                    type: "success"
+                }, function(){
+                    window.location.href = '/stores';
+                });
+            }else{
+                swal({  title: "Ha ocurrido un error",
+                    text: data.message,
+                    type: "error"});
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            swal({  title: "Ha ocurrido un error",
+                text: "Por favor intenta de nuevo.",
+                type: "error"});
+            $(element).html('Aceptar');
+            $(element).attr('disabled', false);
+        }
+
+    });
+
+}

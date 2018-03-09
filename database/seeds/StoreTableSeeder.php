@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\ComercialContact;
+use App\Models\LegalRepresentative;
 use Illuminate\Database\Seeder;
 use App\Models\Store;
 use App\Models\StoreBranch;
@@ -33,6 +35,21 @@ class StoreTableSeeder extends Seeder
                 'branch_email' => $faker->companyEmail,
                 'business_hour_1' => '10:00 - 20:00',
                 'business_hour_2'=> '13:00 - 20:00',
+                'store_id' => $store->id
+            ]);
+
+            LegalRepresentative::create([
+                'name' => $faker->firstName . " " . $faker->lastName,
+                'document_number' => $faker->randomNumber(8),
+                'phone' => $faker->randomNumber(8),
+                'store_id' => $store->id
+            ]);
+
+            ComercialContact::create([
+                'name' => $faker->firstName . " " . $faker->lastName,
+                'document_number' => $faker->randomNumber(8),
+                'phone' => $faker->randomNumber(8),
+                'email' => $faker->companyEmail,
                 'store_id' => $store->id
             ]);
         }

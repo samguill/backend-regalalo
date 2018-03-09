@@ -47,6 +47,7 @@ export default class StoreBranchesComponent extends React.Component {
         this.onBranchEmailChage = this.onBranchEmailChage.bind(this);
         this.onBH1Chage = this.onBH1Chage.bind(this);
         this.onBH2Chage = this.onBH2Chage.bind(this);
+        this.iniMap = this.iniMap.bind(this);
     }
 
     onIdChage(e){ this.setState({id:e.target.value}); }
@@ -60,6 +61,11 @@ export default class StoreBranchesComponent extends React.Component {
     onBH2Chage(e){ this.setState({business_hour_2:e.target.value}); }
 
     componentDidMount(){
+        this.getBranches();
+        this.iniMap();
+    }
+
+    iniMap(){
         let map = new window.google.maps.Map(document.getElementById('branche_map'), {
             center: {lat: -12.046374, lng: -77.042793},
             zoom: 13,
@@ -99,7 +105,6 @@ export default class StoreBranchesComponent extends React.Component {
                 location: location
             });
         });
-        this.getBranches();
     }
 
     getBranches(){
@@ -288,7 +293,7 @@ export default class StoreBranchesComponent extends React.Component {
                                 <lable>Longitud</lable>
                                 <input id="longitude" name="longitude" disabled onChange={this.onLongitudeChage} className="form-control" type="text" value={this.state.longitude} />
                             </div>
-                            <div id="branche_map"></div>
+                            <div id="branche_map"/>
                             <div className="form-group" style={{textAlign:"center"}}>
                                 <div className="row">
                                     <div className={"col-md-" + (this.state.updating ? 6 : 12)}>
