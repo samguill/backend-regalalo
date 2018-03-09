@@ -7,7 +7,6 @@
  */
 
 namespace App\Http\Controllers;
-use App\Http\Controllers\Controller;
 use App\Models\ComercialContact;
 use App\Models\LegalRepresentative;
 use App\Models\StoreBranch;
@@ -75,6 +74,14 @@ class StoreController extends Controller
         $store->update(['user_id' => $store_user->id, 'status' => 1]);
         return response()->json(['status'=>'ok','data'=>$store]);
         //return response()->json($pin);
+    }
+
+    public function payme_document(Request $request){
+        $data = $request->all();
+        $store_id = $data["id"];
+        $store = Store::find($store_id);
+        //return response()->json($store);
+        return \PDF::loadView('stores.payme-pdf', compact('store'))->stream();
     }
 
     // Sucursales

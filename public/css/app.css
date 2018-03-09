@@ -25974,6 +25974,10 @@ p.error_message {
   height: 200px;
 }
 
+.page-break {
+  page-break-after: always;
+}
+
 .simditor {
   position: relative;
   border: 1px solid #c9d8db;

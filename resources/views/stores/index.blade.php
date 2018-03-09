@@ -31,6 +31,13 @@
                 ['id'=>"2",'value'=>"Inactivo"]])->required()->title("Estado");
             $builder->addField($statusField);
 
+            $statusField = new \App\Utils\ReactCrudField('payme_process_status');
+            $statusField->fillable(false)->title('PayMe')->type('map', [
+                ["id"=> '0',"value"=>"Pendiente"],
+                ['id'=>'1','value'=>"Integración"],
+                ['id'=>"2",'value'=>"Producción"]])->required()->title("PayMe");
+            $builder->addField($statusField);
+
             $site_urlField = new \App\Utils\ReactCrudField('site_url');
             $site_urlField->show(false)->title('URL de la Tienda')->width(6);
             $builder->addField($site_urlField);
@@ -118,6 +125,21 @@
                             "value" => [0]
                         ],
                         "title" => "Generar usuario"
+                    ]
+                ]
+            );
+
+            $actions["custom"]=array_merge(
+                $actions["custom"],
+                [
+                    "payme" => [
+                        "link" => true,
+                        "new_tab" => true,
+                        'url' => route('stores.payme_doc'),
+                        'icon' => "file-pdf-o",
+                        "color" => "#009688",
+                        "params" => [ 'id' ],
+                        "title" => "PayMe"
                     ]
                 ]
             );
