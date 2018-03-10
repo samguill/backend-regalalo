@@ -35,6 +35,13 @@
                 <span class="app-menu__label">Productos</span>
             </a>
         </li>
+
+        <li>
+            <a class="app-menu__item{{ Request::is('services') ? ' active' : null }}" href="{{url('/services')}}">
+                <i class="app-menu__icon fa fa-archive"></i>
+                <span class="app-menu__label">Servicios</span>
+            </a>
+        </li>
         <li>
             <a class="app-menu__item{{ Request::is('clients') ? ' active' : null }}" href="{{url('/clients')}}">
                 <i class="app-menu__icon fa fa-users"></i>
@@ -53,6 +60,21 @@
                 <span class="app-menu__label">Reclamos</span>
             </a>
         </li>
+
+        <li>
+            <a class="app-menu__item{{ Request::is('events') ? ' active' : null }}" href="{{url('/events')}}">
+                <i class="app-menu__icon fa fa-comments"></i>
+                <span class="app-menu__label">Ocasiones</span>
+            </a>
+        </li>
+
+        <li>
+            <a class="app-menu__item{{ Request::is('interests') ? ' active' : null }}" href="{{url('/interests')}}">
+                <i class="app-menu__icon fa fa-comments"></i>
+                <span class="app-menu__label">Intereses</span>
+            </a>
+        </li>
+
         <li>
             <a class="app-menu__item{{ Request::is('web') ? ' active' : null }}" href="{{url('/tiendas')}}">
                 <i class="app-menu__icon fa fa-window-restore"></i>
