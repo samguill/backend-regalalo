@@ -16,6 +16,12 @@ use Illuminate\Http\Request;
 Route::post('client/register', 'Api\RegisterClientController@register');
 Route::post('client/login', 'Api\RegisterClientController@login');
 
+Route::get('home', 'Api\PageController@home');
+
+/*Route::domain('regalalo.pe')->group(function(){
+    Route::get('home', 'Api\PageController@home');
+});*/
+
 Route::group(['middleware' => 'jwt.auth'], function (){
 
     Route::get('users/{user}', function (App\User $user) { return $user->email; });
