@@ -1,15 +1,15 @@
-@extends('layouts.dashboard')
+@extends('layouts.store')
 @section('content')
     <div class="row">
        @php
             $builder = new \App\Utils\ReactCrudSettingsBuilder();
 
             $skucodeField = new \App\Utils\ReactCrudField('sku_code');
-            $skucodeField->title('Código del producto')->required(true)->width(6);
+            $skucodeField->title('Código del servicio')->required(true)->width(6);
             $builder->addField($skucodeField);
 
             $productnameField = new \App\Utils\ReactCrudField('name');
-            $productnameField->title('Nombre del producto')->required(true)->width(6);
+            $productnameField->title('Nombre del servicio')->required(true)->width(6);
             $builder->addField($productnameField);
 
             $discountField = new \App\Utils\ReactCrudField('discount');
@@ -59,20 +59,20 @@
             $actions["custom"] = [];
             $actions['view'] = [];
             $actions['create'] = [
-                'url' => route('products.create')
+                'url' => route('services.create')
             ];
             $actions['update'] = [
-                'url' => route('products.update')
+                'url' => route('services.update')
             ];
             $actions['delete'] = [
-                'url' => route('products.delete')
+                'url' => route('services.delete')
             ];
 
             $builder->setActions($actions);
 
        @endphp
         <div class="col-md-12">
-            <div id="{{\App\Utils\ReactComponents::LARAVEL_CRUD_COMPONENT}}" data-url="{{route('products.lists')}}" data-settings="{{$builder->get()}}" />
+            <div id="{{\App\Utils\ReactComponents::LARAVEL_CRUD_COMPONENT}}" data-url="{{route('services.lists')}}" data-settings="{{$builder->get()}}" />
         </div>
     </div>
 @endsection
