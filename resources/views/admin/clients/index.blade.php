@@ -17,7 +17,7 @@
             $builder->addField($emailField);
 
             $passwordField = new \App\Utils\ReactCrudField('password');
-            $passwordField->title('Contraseña')->show(false)->required(true)->width(6)->type('password')->default('');
+            $passwordField->title('Contraseña')->show(false)->width(6)->type('password');
             $builder->addField($passwordField);
 
             $statusField = new \App\Utils\ReactCrudField('status');
