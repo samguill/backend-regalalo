@@ -28,14 +28,14 @@
             $statusField->fillable(false)->title('Estado')->type('map', [
                 ["id"=> '0',"value"=>"Pendiente"],
                 ['id'=>'1','value'=>"Activo"],
-                ['id'=>"2",'value'=>"Inactivo"]])->required()->title("Estado");
+                ['id'=>"2",'value'=>"Inactivo"]])->title("Estado")->default('0');
             $builder->addField($statusField);
 
             $statusField = new \App\Utils\ReactCrudField('payme_process_status');
             $statusField->fillable(false)->title('PayMe')->type('map', [
                 ["id"=> '0',"value"=>"Pendiente"],
                 ['id'=>'1','value'=>"Integración"],
-                ['id'=>"2",'value'=>"Producción"]])->required()->title("PayMe");
+                ['id'=>"2",'value'=>"Producción"]])->title("PayMe")->default('0');
             $builder->addField($statusField);
 
             $site_urlField = new \App\Utils\ReactCrudField('site_url');

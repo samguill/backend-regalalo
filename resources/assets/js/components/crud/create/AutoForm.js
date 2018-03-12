@@ -135,6 +135,10 @@ export default inject('store')(observer(class AutoForm extends React.Component {
             params[k]=this.state[k].format("Y-MM-DD");
 
           }
+        if(field.type=="password")
+        {
+            params[k]=this.state[k];
+        }
 
           if(field.type=="file")
           {
@@ -167,6 +171,13 @@ export default inject('store')(observer(class AutoForm extends React.Component {
               {
                 return <input type="hidden" key={k}  value={this.state[k]} />
               }
+            if(field.type=="password"){
+                return (<div key={i} className={"form-group col-md-"+field.width}>
+                {field.label?<label className="form-control-label" htmlFor={k}>{field.title}</label>:""}
+            <input id={k}  className={"form-control "+(field.error!=null?"error":"")} type="password" placeholder={field.title} value={this.state[k]} onChange={(e)=>{this.handleFieldChange(k,e.target.value)}}/>
+                {field.error!=null?<p className="error_message">{field.error.message}</p>:""}
+            </div>)
+            }
               if(['text','email','phone','money'].indexOf(field.type)>=0)
               {
                 if(!field.verbose)
@@ -185,6 +196,7 @@ export default inject('store')(observer(class AutoForm extends React.Component {
                 }
 
               }
+
               if(field.type=="map"||field.type=="json")
               {
 

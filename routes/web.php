@@ -38,7 +38,6 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/events/delete', 'EventController@delete')->name('events.delete');
         Route::post('/events/create', 'EventController@create')->name('events.create');
 
-
         // Intereses
         Route::get('/interests', 'InterestController@index')->name('interests');
         Route::get('/interests/lists', 'InterestController@lists')->name('interests.lists');
@@ -52,11 +51,17 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/stores/branch/create', 'StoreController@create_branch')->name('store.branch-create');
         Route::post('/stores/branch/update', 'StoreController@update_branch')->name('store.branch-update');
 
+        // Clientes
+        Route::get('/clients', 'ClientController@index')->name('clients');
+        Route::get('/clients/lists', 'ClientController@lists')->name('clients.lists');
+        Route::post('/clients/update', 'ClientController@update')->name('clients.update');
+        Route::post('/clients/delete', 'ClientController@delete')->name('clients.delete');
+        Route::post('/clients/create', 'ClientController@create')->name('clients.create');
+
     });
 
 
     Route::group(['middleware' => ['isstore']], function () {
-
 
         // Products
         Route::get('/products', 'ProductController@index')->name('products');
@@ -64,7 +69,6 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/products/update', 'ProductController@update')->name('products.update');
         Route::post('/products/delete', 'ProductController@delete')->name('products.delete');
         Route::post('/products/create', 'ProductController@create')->name('products.create');
-
 
         // Services
         Route::get('/services', 'ServiceController@index')->name('services');

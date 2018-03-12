@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Client extends Model
 {
     protected $fillable = [
-        'name', 'email', 'password', 'status'
+        'first_name', 'last_name' ,'email', 'password', 'status'
     ];
 
     protected $hidden = [
@@ -16,5 +16,13 @@ class Client extends Model
 
     public function setPasswordAttribute($value) {
         $this->attributes['password'] = \Hash::make($value);
+    }
+    
+    public function directions(){
+        return $this->hasMany('App\Models\ClientDirection', 'client_id', 'id');
+    }
+
+    public function wishlist(){
+        return $this->hasMany('App\Models\ClientDirection', 'client_id', 'id');
     }
 }
