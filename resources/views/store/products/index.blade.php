@@ -68,10 +68,41 @@
             ];
 
             $builder->setActions($actions);
+            $builder->addButton('Carga masiva de productos', "open_modal('products_charge_modal', 'Carga masiva de productos')", "btn-info");
 
        @endphp
         <div class="col-md-12">
             <div id="{{\App\Utils\ReactComponents::LARAVEL_CRUD_COMPONENT}}" data-url="{{route('products.lists')}}" data-settings="{{$builder->get()}}" />
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="products_charge_modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <a href="{{ asset('uploads/formats/products_charge.xlsx') }}" target="_blank" class="btn btn-block btn-success">
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar formato
+                    </a>
+                    <form class="mt-20" id="charge_stores_form" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <label for="exampleFormControlFile1">Subir archivo excel</label>
+                            <input type="file" class="form-control-file" id="excel" name="excel">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="charge_products(this)">Aceptar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
