@@ -163,6 +163,10 @@ export default inject('store')(observer(class AutoForm extends React.Component {
 
           }
 
+        if(field.type=="password")
+        {
+            params[k]=this.state[k];
+        }
           if(field.type=="file")
           {
             params[k]=this.state[k];

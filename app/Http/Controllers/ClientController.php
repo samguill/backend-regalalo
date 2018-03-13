@@ -22,16 +22,18 @@ class ClientController extends Controller
         $stores = Client::with('directions','wishlist')->where('status', 1)->get();
         return response()->json($stores);
     }
-
     public function update(Request $request) {
         $data = $request->all();
         $store = Client::find($data['id']);
         unset($data['id']);
-        if($store->update($data))
+        if($store->update($data)){
             return response()->json(['status'=>'ok', 'data'=>$store]);
-        else
+        }else{
             return response()->json(['status'=>'error', 'message' => "No se pudo actualizar el registro."]);
+        }
+
     }
+
 
     public function delete(Request $request){
         $data = $request->all();
