@@ -18,6 +18,7 @@ class CreateLegalRepresentativesTable extends Migration
             $table->string('name');
             $table->integer('document_number');
             $table->integer('phone')->nullable();
+            $table->string('position')->nullable();
             $table->unsignedInteger('store_id');
             $table->foreign('store_id')->references('id')->on('stores');
             $table->timestamps();

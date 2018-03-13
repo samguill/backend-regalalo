@@ -11,6 +11,7 @@ class LegalRepresentative extends Model
         'name',
         'document_number',
         'phone',
+        'position',
         'store_id'
     ];
 }
