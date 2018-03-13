@@ -79,7 +79,7 @@ class StoreController extends Controller
     public function payme_document(Request $request){
         $data = $request->all();
         $store_id = $data["id"];
-        $store = Store::find($store_id);
+        $store = Store::with(['legal_representatives', 'comercial_contact'])->find($store_id);
         //return response()->json($store);
         return \PDF::loadView('admin.stores.payme-pdf', compact('store'))->stream();
     }

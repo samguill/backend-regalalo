@@ -25,10 +25,10 @@
             $builder->addField($storephoneField);
 
             $statusField = new \App\Utils\ReactCrudField('status');
-            $statusField->fillable()->title('Estado')->type('map', [
+            $statusField->fillable(false)->title('Estado')->type('map', [
                 ["id"=> '0',"value"=>"Pendiente"],
                 ['id'=>'1','value'=>"Activo"],
-                ['id'=>"2",'value'=>"Inactivo"]])->title("Estado")->default('0')->width(4);
+                ['id'=>"2",'value'=>"Inactivo"]])->title("Estado")->width(4);
             $builder->addField($statusField);
 
             $statusField = new \App\Utils\ReactCrudField('payme_process_status');
@@ -56,11 +56,11 @@
             $account_typeField->show(false)->type('map', [
                 ['id' => 'Cuenta de Ahorros', 'value' => 'Cuenta de Ahorros'],
                 ['id' => 'Cuenta Corriente', 'value' => 'Cuenta Corriente']
-                ])->title('Tipo de cuenta')->width(6);
+                ])->title('Tipo de cuenta')->width(4);
             $builder->addField($account_typeField);
 
             $account_statement_nameField = new \App\Utils\ReactCrudField('account_statement_name');
-            $account_statement_nameField->show(false)->title('Nombre del Estado de Cuenta');
+            $account_statement_nameField->show(false)->title('Nombre del Estado de Cuenta')->width(8);
             $builder->addField($account_statement_nameField);
 
             $bank_account_numberField = new \App\Utils\ReactCrudField('bank_account_number');
@@ -70,6 +70,22 @@
             $cci_account_numberField = new \App\Utils\ReactCrudField('cci_account_number');
             $cci_account_numberField->show(false)->title('Código de Cuenta Interbancario (CCI)')->width(6);
             $builder->addField($cci_account_numberField);
+
+            $business_turnField = new \App\Utils\ReactCrudField('business_turn');
+            $business_turnField->show(false)->title('Giro de LA EMPRESA')->width(4);
+            $builder->addField($business_turnField);
+
+            $monthly_transactionsField = new \App\Utils\ReactCrudField('monthly_transactions');
+            $monthly_transactionsField->show(false)->title('Transacciones mensuales')->width(4);
+            $builder->addField($monthly_transactionsField);
+
+            $average_amountField = new \App\Utils\ReactCrudField('average_amount');
+            $average_amountField->show(false)->title('Importe promedio por transacción')->width(4);
+            $builder->addField($average_amountField);
+
+            $maximum_amountField = new \App\Utils\ReactCrudField('maximum_amount');
+            $maximum_amountField->show(false)->title('Importe máximo por transacción')->width(4);
+            $builder->addField($maximum_amountField);
 
             $payme_comerce_idField = new \App\Utils\ReactCrudField('payme_comerce_id');
             $payme_comerce_idField->show(false)->title('PayMe ID Comercio')->width(4);

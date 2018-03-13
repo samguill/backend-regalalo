@@ -42,6 +42,7 @@ class StoreTableSeeder extends Seeder
                 'name' => $faker->firstName . " " . $faker->lastName,
                 'document_number' => $faker->randomNumber(8),
                 'phone' => $faker->randomNumber(8),
+                'position' => "Representante Legal",
                 'store_id' => $store->id
             ]);
 
