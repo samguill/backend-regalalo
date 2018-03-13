@@ -47,14 +47,13 @@
             $builder->addField($availabilityField);
 
             $eventField = new \App\Utils\ReactCrudField('event');
-            $eventField->title('Ocasión')->required(false)->show(false)->width(6);
+            $eventField->fillable()->title('Ocasión')->type('json', $events)->show(false)->width(6)->renderAs('text');
             $builder->addField($eventField);
 
-              $interestField = new \App\Utils\ReactCrudField('interest');
-            $interestField->title('Interés')->required(false)->show(false)->width(6);
+            $interestField = new \App\Utils\ReactCrudField('interest');
+            $interestField->fillable()->title('Interés')->type('json', $interests)->show(false)->width(6)->renderAs('text');
             $builder->addField($interestField);
-
-
+            
             $actions = [];
             $actions["custom"] = [];
             $actions['view'] = [];

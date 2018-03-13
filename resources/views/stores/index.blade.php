@@ -5,7 +5,7 @@
             $builder = new \App\Utils\ReactCrudSettingsBuilder();
 
             $storenameField = new \App\Utils\ReactCrudField('business_name');
-            $storenameField->title('Razón social')->required(true)->width(6);
+            $storenameField->title('Razón social')->fillable()->show(true)->required(true)->width(6);
             $builder->addField($storenameField);
 
             $storerucField = new \App\Utils\ReactCrudField('ruc');
@@ -13,7 +13,7 @@
             $builder->addField($storerucField);
 
             $legal_addressField = new \App\Utils\ReactCrudField('legal_address');
-            $legal_addressField->show(false)->required(true)->title('Domicilio legal')->width(6);
+            $legal_addressField->show(false)->fillable(false)->required(true)->title('Domicilio legal')->width(6);
             $builder->addField($legal_addressField);
 
             $comercial_nameField = new \App\Utils\ReactCrudField('comercial_name');
@@ -25,10 +25,10 @@
             $builder->addField($storephoneField);
 
             $statusField = new \App\Utils\ReactCrudField('status');
-            $statusField->fillable(false)->title('Estado')->type('map', [
+            $statusField->fillable()->title('Estado')->type('map', [
                 ["id"=> '0',"value"=>"Pendiente"],
                 ['id'=>'1','value'=>"Activo"],
-                ['id'=>"2",'value'=>"Inactivo"]])->title("Estado")->default('0');
+                ['id'=>"2",'value'=>"Inactivo"]])->title("Estado")->default('0')->width(4);
             $builder->addField($statusField);
 
             $statusField = new \App\Utils\ReactCrudField('payme_process_status');

@@ -2,13 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
+use App\Models\Interest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     public function index(){
-        return view('store.Products.index');
+        $events = array_map(
+            function($item){
+                return [
+                    "id" => $item["id"],
+                    "value" => $item["name"]
+                ];
+            }, Event::all()->toArray()
+        );
+
+        $interests = array_map(
+            function($item){
+                return [
+                    "id" => $item["id"],
+                    "value" => $item["name"]
+                ];
+            }, Interest::all()->toArray()
+        );
+        return view('store.Products.index', compact('events', 'interests'));
     }
 
     public function lists(){

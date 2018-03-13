@@ -27,8 +27,6 @@ class ProductsTableSeeder extends Seeder
                 'description' => $faker->sentence($nbWords = 6, $variableNbWords = true),
                 'age' => $faker->numberBetween(10,20),
                 'availability' =>  $faker->randomElement(['D', 'S', 'A']), //D = Delivery, S = Store, A = All
-                'event' => $faker->realText($faker->numberBetween(10,20)),
-                'interest' => $faker->realText($faker->numberBetween(10,20)),
                 'store_id' => Store::all()->random()->id,
             ]);
 

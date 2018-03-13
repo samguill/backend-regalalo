@@ -23,8 +23,8 @@ class CreateProductsTable extends Migration
             $table->string('description');
             $table->string('age');
             $table->enum('availability', array('D', 'S', 'A')); //D = Delivery, S = Store, A = All
-            $table->string('event');
-            $table->string('interest');
+            $table->string('event')->nullable()->default(null);
+            $table->string('interest')->nullable()->default(null);
             $table->unsignedInteger('store_id');
             // 0: pendiente - 1: activo - 2: inactivo
             $table->integer('status')->default(0);

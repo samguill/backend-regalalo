@@ -160,7 +160,7 @@ export default inject('store')(observer(class AutoForm extends React.Component {
       return <Redirect to="/" />
     }
     return (<div style={{background:"#e4e6e6",padding:"5px",paddingTop:"20px",marginBottom:"10px",borderRadius:"3px"}}>
-
+        <div className="row" style={{width: "100%"}}>
         {
           Object.keys(this.fields).filter((field_name)=>this.fields[field_name].fillable).map((k,i)=>{
               var field=this.fields[k];
@@ -172,7 +172,7 @@ export default inject('store')(observer(class AutoForm extends React.Component {
               {
                 if(!field.verbose)
                 {
-                  return (<div key={i} className={"form-group col-md-"+field.width}>
+                  return (<div key={i} className={"form-group col-md-4"}>
                             {field.label?<label className="form-control-label" htmlFor={k}>{field.title}</label>:""}
                             <input id={k}  className={"form-control "+(field.error!=null?"error":"")} type="text" placeholder={field.title} value={this.state[k]} onChange={(e)=>{this.handleFieldChange(k,e.target.value)}}/>
                             {field.error!=null?<p className="error_message">{field.error.message}</p>:""}
@@ -227,6 +227,7 @@ export default inject('store')(observer(class AutoForm extends React.Component {
 
           })
         }
+        </div>
         <div className="form-group col-md-12">
             <a className="btn btn-danger" onClick={this.clearSearch} style={{color:"white",'cursor':"pointer"}}>Limpiar</a>
         </div>
