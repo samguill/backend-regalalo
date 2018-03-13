@@ -19,7 +19,7 @@ class StoreController extends Controller
 {
 
     public function index(){
-        return view('stores.index');
+        return view('admin.stores.index');
     }
 
     public function lists(){
@@ -81,13 +81,13 @@ class StoreController extends Controller
         $store_id = $data["id"];
         $store = Store::find($store_id);
         //return response()->json($store);
-        return \PDF::loadView('stores.payme-pdf', compact('store'))->stream();
+        return \PDF::loadView('admin.stores.payme-pdf', compact('store'))->stream();
     }
 
     // Sucursales
     public function getBranches(Request $request){
         $store_id = $request->input('id');
-        return view('stores.branches', compact('store_id'));
+        return view('admin.stores.branches', compact('store_id'));
     }
 
     public function listBranches(Request $request){

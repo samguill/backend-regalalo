@@ -66,26 +66,26 @@ export default class StoreBranchesComponent extends React.Component {
     }
 
     iniMap(){
-        let map = new window.google.maps.Map(document.getElementById('branche_map'), {
+        let mapa = new window.google.maps.Map(document.getElementById('branche_map'), {
             center: {lat: -12.046374, lng: -77.042793},
             zoom: 13,
             mapTypeId: 'roadmap'
         });
 
-        map.addListener('zoom_changed', () => {
+        mapa.addListener('zoom_changed', () => {
             this.setState({
-                zoom: map.getZoom()
+                zoom: 13
             });
         });
 
-        map.addListener('maptypeid_changed', () => {
+        mapa.addListener('maptypeid_changed', () => {
             this.setState({
-                maptype: map.getMapTypeId()
+                maptype: mapa.getMapTypeId()
             });
         });
 
         let marker = new window.google.maps.Marker({
-            map: map,
+            map: mapa,
             position: {lat: -12.046374, lng: -77.042793}
         });
 
@@ -98,8 +98,8 @@ export default class StoreBranchesComponent extends React.Component {
             this.setState({latitude: location.lat()});
             this.setState({longitude: location.lng()});
 
-            map.fitBounds(place.geometry.viewport);
-            map.setCenter(location);
+            mapa.fitBounds(place.geometry.viewport);
+            mapa.setCenter(location);
             marker.setPlace({
                 placeId: place.place_id,
                 location: location
@@ -142,26 +142,26 @@ export default class StoreBranchesComponent extends React.Component {
             updating: true
         });
 
-        let map = new window.google.maps.Map(document.getElementById('branche_map'), {
+        let mapa = new window.google.maps.Map(document.getElementById('branche_map'), {
             center: {lat: row.latitude, lng: row.longitude},
             zoom: 13,
             mapTypeId: 'roadmap'
         });
 
-        map.addListener('zoom_changed', () => {
+        mapa.addListener('zoom_changed', () => {
             this.setState({
-                zoom: map.getZoom()
+                zoom: mapa.getZoom()
             });
         });
 
-        map.addListener('maptypeid_changed', () => {
+        mapa.addListener('maptypeid_changed', () => {
             this.setState({
-                maptype: map.getMapTypeId()
+                maptype: mapa.getMapTypeId()
             });
         });
 
         let marker = new window.google.maps.Marker({
-            map: map,
+            map: mapa,
             position: {lat: row.latitude, lng: row.longitude}
         });
     }
@@ -177,30 +177,9 @@ export default class StoreBranchesComponent extends React.Component {
             branch_email: '',
             business_hour_1: '',
             business_hour_2: '',
-            updating: false,
+            updating: false
         });
-        let map = new window.google.maps.Map(document.getElementById('branche_map'), {
-            center: {lat: -12.046374, lng: -77.042793},
-            zoom: 13,
-            mapTypeId: 'roadmap'
-        });
-
-        map.addListener('zoom_changed', () => {
-            this.setState({
-                zoom: map.getZoom()
-            });
-        });
-
-        map.addListener('maptypeid_changed', () => {
-            this.setState({
-                maptype: map.getMapTypeId()
-            });
-        });
-
-        let marker = new window.google.maps.Marker({
-            map: map,
-            position: {lat: -12.046374, lng: -77.042793}
-        });
+        this.iniMap();
     }
 
     storeBranch(data){
@@ -271,7 +250,7 @@ export default class StoreBranchesComponent extends React.Component {
                             </div>
                             <div className="form-group">
                                 <lable>Teléfono</lable>
-                                <input id="phone" name="phone" onChange={this.onPhoneChange} className="form-control" type="text" value={this.state.phone} />
+                                <input id="phone" name="phone" onChange={this.onPhoneChage} className="form-control" type="text" value={this.state.phone} />
                             </div>
                             <div className="form-group">
                                 <lable>E-mail</lable>

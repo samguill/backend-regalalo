@@ -53,6 +53,7 @@ Route::group(['middleware' => ['auth']], function(){
 
         // Clientes
         Route::get('/clients', 'ClientController@index')->name('clients');
+        Route::get('/clients/detail', 'ClientController@detail')->name('clients.detail');
         Route::get('/clients/lists', 'ClientController@lists')->name('clients.lists');
         Route::post('/clients/update', 'ClientController@update')->name('clients.update');
         Route::post('/clients/delete', 'ClientController@delete')->name('clients.delete');

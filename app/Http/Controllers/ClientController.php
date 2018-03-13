@@ -34,7 +34,6 @@ class ClientController extends Controller
 
     }
 
-
     public function delete(Request $request){
         $data = $request->all();
         $model = Client::find($data['id']);
@@ -53,6 +52,11 @@ class ClientController extends Controller
 
         }
         return response()->json(['status'=>"ok",'data'=>$model]);
+    }
+
+    public function detail(Request $request){
+        $client_id = $request->input('id');
+        return view('admin.clients.detail', compact('client_id'));
     }
 
 }
