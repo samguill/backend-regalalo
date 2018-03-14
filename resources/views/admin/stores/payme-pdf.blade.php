@@ -129,6 +129,8 @@
             </tr>
         </table>
 
+        <div class="page-break"></div>
+
         <table border="0" width="100%">
             <tr>
                 <td colspan="2">
@@ -139,8 +141,23 @@
 
         <table width="100%" class="table" border="0">
             <tr>
-                <td bgcolor="#a9a9a9" width="40%">Contacto Comercial:</td>
-                <td width="60%">{{ $store->monthly_transactions }}</td>
+                <td bgcolor="#a9a9a9" rowspan="5" width="30%">Contacto Comercial:</td>
+            </tr>
+            <tr>
+                <td width="20%">Nombre:</td>
+                <td>{{ $store->comercial_contact["name"] }}</td>
+            </tr>
+            <tr>
+                <td>Cargo:</td>
+                <td>{{ $store->comercial_contact["position"] }}</td>
+            </tr>
+            <tr>
+                <td>Teléfono:</td>
+                <td>{{ $store->comercial_contact["phone"] }}</td>
+            </tr>
+            <tr>
+                <td>E-mail:</td>
+                <td>{{ $store->comercial_contact["email"] }}</td>
             </tr>
         </table>
 

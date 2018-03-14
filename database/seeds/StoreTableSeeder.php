@@ -51,6 +51,7 @@ class StoreTableSeeder extends Seeder
                 'document_number' => $faker->randomNumber(8),
                 'phone' => $faker->randomNumber(8),
                 'email' => $faker->companyEmail,
+                'position' => "Ventas",
                 'store_id' => $store->id
             ]);
         }

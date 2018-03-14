@@ -8,6 +8,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Regalalo | Tu regalo ideal') }}</title>
     <style type="text/css">
+        .page-break {
+            page-break-after: always;
+        }
+
         table.table {
             border: 1px solid #1b1e21;
             border-bottom: none;
@@ -39,14 +43,14 @@
         }
         .gray-text-1 {
             font-family: Helvetica Neue, Helvetica, Arial;
-            color: #CCC;
+            color: #ababab;
             font-size: 12px;
             text-align: left; margin-right: 10px;
         }
 
         .gray-text-2 {
             font-family: Helvetica Neue, Helvetica, Arial;
-            color: #CCC;
+            color: #ababab;
             font-size: 12px;
         }
     </style>

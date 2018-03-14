@@ -19,6 +19,7 @@ class CreateComercialContactsTable extends Migration
             $table->integer('document_number');
             $table->integer('phone');
             $table->string('email');
+            $table->string('position')->nullable()->default('');
             $table->unsignedInteger('store_id');
             $table->foreign('store_id')->references('id')->on('stores');
             $table->timestamps();
