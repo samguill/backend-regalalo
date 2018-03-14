@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
@@ -12,7 +13,7 @@ class ServiceController extends Controller
     }
 
     public function lists(){
-        $Services = Service::where('status', 0)->orWhere('status', 1)->get();
+        $Services = Service::where('store_id',Auth::user()->store->id)->where('status', 0)->orWhere('status', 1)->get();
         return response()->json($Services);
     }
 

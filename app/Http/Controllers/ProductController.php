@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Interest;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -31,7 +32,8 @@ class ProductController extends Controller
     }
 
     public function lists(){
-        $Products = Product::where('status', 0)->orWhere('status', 1)->get();
+
+        $Products = Product::where('store_id',Auth::user()->store->id)->where('status', 0)->orWhere('status', 1)->get();
         return response()->json($Products);
     }
 

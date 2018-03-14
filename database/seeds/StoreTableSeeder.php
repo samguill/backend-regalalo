@@ -55,5 +55,7 @@ class StoreTableSeeder extends Seeder
                 'store_id' => $store->id
             ]);
         }
+
+        $store->update(['user_id'=>3]);
     }
 }
