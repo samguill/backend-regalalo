@@ -68,6 +68,8 @@ window.charge_stores = function (element) {
                 swal({  title: "Ha ocurrido un error",
                     text: data.message,
                     type: "error"});
+                $(element).html('Aceptar');
+                $(element).attr('disabled', false);
             }
         },
         error: function(jqXHR, textStatus, errorThrown){
@@ -91,7 +93,7 @@ window.charge_products = function (element) {
     formData.append("_token", token);
 
     $.ajax({
-        url: '/stores/charge',
+        url: '/products/charge',
         type: 'POST',
         data: formData,
         contentType: false,
@@ -106,13 +108,16 @@ window.charge_products = function (element) {
                     text: "El archivo se ha cargado con éxito.",
                     type: "success"
                 }, function(){
-                    window.location.href = '/stores';
+                    window.location.href = '/products';
                 });
             }else{
                 swal({  title: "Ha ocurrido un error",
                     text: data.message,
                     type: "error"});
+                $(element).html('Aceptar');
+                $(element).attr('disabled', false);
             }
+
         },
         error: function(jqXHR, textStatus, errorThrown){
             swal({  title: "Ha ocurrido un error",

@@ -70,6 +70,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/products/update', 'ProductController@update')->name('products.update');
         Route::post('/products/delete', 'ProductController@delete')->name('products.delete');
         Route::post('/products/create', 'ProductController@create')->name('products.create');
+        Route::post('/products/charge', 'ProductController@masive_charge')->name('products.charge');
 
         // Services
         Route::get('/services', 'ServiceController@index')->name('services');
