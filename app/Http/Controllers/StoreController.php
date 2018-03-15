@@ -13,6 +13,7 @@ use App\Models\StoreBranch;
 use App\User;
 use Illuminate\Http\Request;
 use App\Models\Store;
+use Illuminate\Support\Facades\Auth;
 use Mockery\Exception;
 
 class StoreController extends Controller
@@ -86,7 +87,12 @@ class StoreController extends Controller
 
     // Sucursales
     public function getBranches(Request $request){
-        $store_id = $request->input('id');
+        $auth = Auth::user();
+        if($auth["type"] == "S"){
+            $store_id = Auth::user()->store->id;
+        }else{
+            $store_id = $request->input('id');
+        }
         return view('admin.stores.branches', compact('store_id'));
     }
 

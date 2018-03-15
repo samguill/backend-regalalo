@@ -79,6 +79,10 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/services/delete', 'ServiceController@delete')->name('services.delete');
         Route::post('/services/create', 'ServiceController@create')->name('services.create');
 
+        Route::get('/branches', 'StoreController@getBranches')->name('store.branches');
+        Route::post('/stores/branches/list', 'StoreController@listBranches')->name('store.branches-lists');
+        Route::post('/stores/branch/create', 'StoreController@create_branch')->name('store.branch-create');
+        Route::post('/stores/branch/update', 'StoreController@update_branch')->name('store.branch-update');
     });
 
 
