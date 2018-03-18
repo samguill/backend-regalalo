@@ -45,6 +45,14 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/interests/delete', 'InterestController@delete')->name('interests.delete');
         Route::post('/interests/create', 'InterestController@create')->name('interests.create');
 
+
+        // Experiencias
+        Route::get('/experiences', 'ExperienceController@index')->name('experiences');
+        Route::get('/experiences/lists', 'ExperienceController@lists')->name('experiences.lists');
+        Route::post('/experiences/update', 'ExperienceController@update')->name('experiences.update');
+        Route::post('/experiences/delete', 'ExperienceController@delete')->name('experiences.delete');
+        Route::post('/experiences/create', 'ExperienceController@create')->name('experiences.create');
+
         // Store branche
         Route::get('/stores/branches', 'StoreController@getBranches')->name('store.branches');
         Route::post('/stores/branches/list', 'StoreController@listBranches')->name('store.branches-lists');
@@ -78,6 +86,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/services/update', 'ServiceController@update')->name('services.update');
         Route::post('/services/delete', 'ServiceController@delete')->name('services.delete');
         Route::post('/services/create', 'ServiceController@create')->name('services.create');
+        Route::post('/services/charge', 'ServiceController@masive_charge')->name('services.charge');
 
         Route::get('/branches', 'StoreController@getBranches')->name('store.branches');
         Route::post('/stores/branches/list', 'StoreController@listBranches')->name('store.branches-lists');

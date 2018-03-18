@@ -28,6 +28,7 @@ class MenuTemporal
         ['icon'=>'fa-comments','menu'=>'Reclamos','route' => 'claims'],
         ['icon'=>'fa-comments','menu'=>'Ocasiones','route' => 'events'],
         ['icon'=>'fa-comments','menu'=>'Intereses','route' => 'interests'],
+        ['icon'=>'fa-comments','menu'=>'Experiencias','route' => 'experiences'],
         ['icon'=>'fa-window-restore','menu'=>'Página web','route' => 'interests'],
         ['icon'=>'fa-user-secret','menu'=>'Usuarios','route' => 'interests'],
         ['icon'=>'fa-sliders','menu'=>'Parámetros generales','route' => 'interests'],

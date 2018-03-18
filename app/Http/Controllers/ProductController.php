@@ -41,6 +41,9 @@ class ProductController extends Controller
         $data = $request->all();
         $Product = Product::find($data['id']);
         unset($data['id']);
+        $data['age'] = json_encode(array_map(function($age){return intval($age);},explode(",",$data['age'])));
+        $data['event'] = json_encode(array_map(function($event){return intval($event);},explode(",",$data['event'])));
+        $data['interest'] = json_encode(array_map(function($interest){return intval($interest);},explode(",",$data['interest'])));
         if($Product->update($data))
             return response()->json(['status'=>'ok', 'data'=>$Product]);
         else
@@ -60,7 +63,13 @@ class ProductController extends Controller
 
     public function create(Request $request){
         try{
-            $model = Product::create($request->all());
+            $data = $request->all();
+            $data['store_id'] = Auth::user()->store->id;
+            $data['age'] = json_encode(array_map(function($age){return intval($age);},explode(",",$data['age'])));
+            $data['event'] = json_encode(array_map(function($event){return intval($event);},explode(",",$data['event'])));
+            $data['interest'] = json_encode(array_map(function($interest){return intval($interest);},explode(",",$data['interest'])));
+
+            $model = Product::create($data);
         }catch(Exception $e) {
 
         }

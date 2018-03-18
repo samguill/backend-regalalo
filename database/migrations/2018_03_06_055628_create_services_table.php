@@ -24,7 +24,8 @@ class CreateServicesTable extends Migration
             $table->string('age');
             $table->enum('availability', array('D', 'S', 'A')); //D = Delivery, S = Store, A = All
             $table->unsignedInteger('store_id');
-            $table->string('experience');
+            $table->string('experience')->nullable()->default(null);
+            $table->enum('sex', array('G', 'F', 'M')); //G = General, F = Mujer , M = Hombre
             // 0: pendiente - 1: activo - 2: inactivo
             $table->integer('status')->default(0);
             $table->timestamps();
