@@ -13,8 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('client/register', 'Api\RegisterClientController@register');
-Route::post('client/login', 'Api\RegisterClientController@login');
+Route::group(['middleware' => 'cors'], function (){
+    Route::post('client/register', 'Api\RegisterClientController@register');
+    Route::post('client/login', 'Api\RegisterClientController@login');
+});
 
 Route::get('home', 'Api\PageController@home');
 
