@@ -14,6 +14,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Models\Store;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Mockery\Exception;
 
 class StoreController extends Controller
@@ -72,9 +73,15 @@ class StoreController extends Controller
             'type' => 'S'
         ]);
 
-        $store->update(['user_id' => $store_user->id, 'status' => 1]);
-        return response()->json(['status'=>'ok','data'=>$store]);
-        //return response()->json($pin);
+        $store->update([
+            'user_id' => $store_user->id,
+            'status' => 1
+        ]);
+
+        $path = public_path() . "/uploads/stores/" . $store->ruc;
+
+        File::isDirectory($path) or File::makeDirectory($path, 0775, true, true);
+        return response()->json(['status'=>'ok','data'=>$store, 'pin' => $pin]);
     }
 
     public function payme_document(Request $request){

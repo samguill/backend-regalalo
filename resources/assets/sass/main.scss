@@ -14877,3 +14877,64 @@ p.error_message {
 .page-break {
   page-break-after: always;
 }
+
+.dropzone-area {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.dropzone-area .drop-container{
+  width: 100%;
+  padding: 30px;
+  text-align: center;
+  border: 2px dashed #fa4e1a;
+  background: #f1f1f1;
+  cursor: pointer;
+  height: 100%;
+}
+
+.media-list-files .file .file-item-containter .file-options {
+  margin-top: 25px;
+}
+
+.dropzone-area .dropzone-text i.fa {
+  font-size: 60px;
+  color: #939393;
+}
+
+.dropzone-area .dropzone-text h3 {
+  color: #939393;
+  font-size: 28px;
+}
+
+.media-list-files .file {
+  margin-bottom: 20px;
+}
+
+.media-list-files .file .file-item-containter {
+  border: 1px solid #CCC;
+  min-height: 200px;
+  padding: 20px;
+}
+
+.media-list-files .file-item-containter .file-item img {
+  width: 100%;
+}
+
+div.over-loading {
+  position: absolute;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.2);
+  width: 94%;
+  height: 100%;
+  text-align: center;
+  top: 0;
+  left: 15px;
+}
+
+div.over-loading i.fa {
+  font-size: 30px;
+  margin-top: 10%;
+  color: #f94e19;
+}

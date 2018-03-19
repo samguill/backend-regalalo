@@ -16,8 +16,8 @@ class MenuTemporal
         ['icon'=>'fa-sitemap','menu'=>'Sucursales','route' => 'branches'],
         ['icon'=>'fa-shopping-bag','menu'=>'Productos','route' => 'products'],
         ['icon'=>'fa-archive','menu'=>'Servicios','route' => 'services'],
-        ['icon'=>'fa-paper-plane','menu'=>'Ventas','route' => 'sales']
-
+        ['icon'=>'fa-paper-plane','menu'=>'Ventas','route' => 'sales'],
+        ['icon'=>'fa-picture-o','menu'=>'Multimedia','route' => 'multimedia']
 
     ];
     const ADMIN = [

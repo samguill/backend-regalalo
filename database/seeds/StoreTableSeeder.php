@@ -2,6 +2,7 @@
 
 use App\Models\ComercialContact;
 use App\Models\LegalRepresentative;
+use App\Models\StoreImage;
 use Illuminate\Database\Seeder;
 use App\Models\Store;
 use App\Models\StoreBranch;
@@ -53,6 +54,11 @@ class StoreTableSeeder extends Seeder
                 'email' => $faker->companyEmail,
                 'position' => "Ventas",
                 'store_id' => $store->id
+            ]);
+
+            StoreImage::create([
+                'store_id' => $store->id,
+                'image_path' => 'https://sivard.nl/wp-content/uploads/2016/04/dropzone-logo.jpg'
             ]);
         }
 

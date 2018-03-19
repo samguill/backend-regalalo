@@ -88,10 +88,16 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/services/create', 'ServiceController@create')->name('services.create');
         Route::post('/services/charge', 'ServiceController@masive_charge')->name('services.charge');
 
+        // Branches
         Route::get('/branches', 'StoreController@getBranches')->name('store.branches');
         Route::post('/stores/branches/list', 'StoreController@listBranches')->name('store.branches-lists');
         Route::post('/stores/branch/create', 'StoreController@create_branch')->name('store.branch-create');
         Route::post('/stores/branch/update', 'StoreController@update_branch')->name('store.branch-update');
+
+        // Multimedia
+        Route::get('/multimedia', 'StoreImageController@index')->name('store.multimedia');
+        Route::post('/multimedia/list', 'StoreImageController@lists')->name('store.multimedia-lists');
+        Route::post('/multimedia/upload', 'StoreImageController@upload')->name('store.multimedia-upload');
     });
 
 
