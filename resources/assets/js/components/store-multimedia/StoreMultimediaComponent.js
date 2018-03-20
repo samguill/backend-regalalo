@@ -66,7 +66,7 @@ export default class StoreMultimediaComponent extends React.Component {
             return axios.post(this.upload_url, formData)
                 .then((response) => {
                     console.log(response);
-                    this.setState({is_loading:false});
+                    this.setState({files: this.state.files.concat(response.data.data), is_loading: false});
                 })
                 .catch(function (error) {
                     swal({  title: "Ha ocurrido un error.",
@@ -108,9 +108,7 @@ export default class StoreMultimediaComponent extends React.Component {
                                 this.state.files.map((row, ri) => {
                                     return <div key={ri} className="col-md-3 file">
                                         <div className="file-item-containter">
-                                            <div className="file-item">
-                                                <img src={row.image_path} />
-                                            </div>
+                                            <div className="file-item" style={{ backgroundImage : "url(http://regalalo.test/"+ row.image_path +")" }}></div>
                                             <div className="file-options">
                                                 <div className="row no-glutter">
                                                     <div className="col-md-6">

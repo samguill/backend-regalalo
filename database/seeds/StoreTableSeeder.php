@@ -58,7 +58,7 @@ class StoreTableSeeder extends Seeder
 
             StoreImage::create([
                 'store_id' => $store->id,
-                'image_path' => 'https://sivard.nl/wp-content/uploads/2016/04/dropzone-logo.jpg'
+                'image_path' => 'img/logo-regalalo.png'
             ]);
         }
 

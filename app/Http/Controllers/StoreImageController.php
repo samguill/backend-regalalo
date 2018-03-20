@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Store;
 use App\Models\StoreImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -27,9 +28,26 @@ class StoreImageController extends Controller {
     }
 
     public function upload(Request $request){
-        $image = $request->hasFile('file');
-        $image->move('uploads','123');
-        return response()->json($image);
+        $image = $request->file('file');
+        $name = $image->getClientOriginalName();
+        $store_id = Auth::user()->store->id;
+        $store = Store::find($store_id);
+        $ruc = $store->ruc;
+
+        $path = "uploads/stores/" . $ruc . "/";
+
+        $image->move($path , $image->getClientOriginalName());
+
+        $model = StoreImage::create([
+            'store_id' => $store_id,
+            'image_path' => $path . $name
+        ]);
+        return response()->json(['status'=>"ok",'data'=>$model]);
+    }
+
+    public function delete_file(Request $request){
+        $file = $request->input('file');
+        return response()->json(['status'=>"ok",'data'=>$file]);
     }
 
 }
