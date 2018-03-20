@@ -12,6 +12,7 @@ use App\Models\Store;
 use App\Models\StoreImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 
 class StoreImageController extends Controller {
@@ -46,8 +47,13 @@ class StoreImageController extends Controller {
     }
 
     public function delete_file(Request $request){
-        $file = $request->input('file');
-        return response()->json(['status'=>"ok",'data'=>$file]);
+        $file_id = $request->input('id');
+
+        $store_image = StoreImage::find($file_id);
+        if(File::exists($store_image["image_path"])) File::delete($store_image["image_path"]);
+        $store_image->delete();
+
+        return response()->json(['status'=>"ok",'data'=>$store_image]);
     }
 
 }

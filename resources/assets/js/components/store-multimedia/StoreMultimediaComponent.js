@@ -17,6 +17,7 @@ export default class StoreMultimediaComponent extends React.Component {
         this.storeid = this.props.storeid;
         this.url_multimedialist = this.props.url_multimedialist;
         this.upload_url = this.props.upload_url;
+        this.delete_url = this.props.delete_url;
 
         this.getImages = this.getImages.bind(this);
         this.uploadImages = this.uploadImages.bind(this);
@@ -53,6 +54,37 @@ export default class StoreMultimediaComponent extends React.Component {
                     type: "error"});
                 this.setState({is_loading:false});
             });
+    }
+
+    deleteImage(row){
+        swal({
+            title: "¿Estás seguro?",
+            text: "Si eliminas este item no podrás recuperarlo",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Si, eliminar",
+            showLoaderOnConfirm: true,
+            closeOnConfirm: false
+        },()=> {
+            axios.post(this.delete_url,{id:row.id}).then((r)=>{
+                if(r.data.status==='ok') {
+                    swal({  title: "Eliminación Exitosa",
+                        text: "El elemento ha sido eliminado de manera exitosa.",
+                        type: "success"});
+                    this.setState({files:this.state.files.filter((item) => item.id!=row.id)});
+                }
+                if(r.data.status==='error') {
+                    swal({  title: "Ha ocurrido un error al Eliminar",
+                        text: "Por favor intente una vez más.",
+                        type: "error"})
+                }
+            }).catch((e)=>{
+                swal({  title: "Ha ocurrido un error al Eliminar",
+                    text: "Por favor intente una vez más.",
+                    type: "error"})
+            })
+        });
     }
 
     uploadImages(files){
@@ -112,10 +144,10 @@ export default class StoreMultimediaComponent extends React.Component {
                                             <div className="file-options">
                                                 <div className="row no-glutter">
                                                     <div className="col-md-6">
-                                                        <a className="btn btn-danger btn-sm btn-block text-white">Eliminar</a>
+                                                        <a className="btn btn-danger btn-sm btn-block text-white" onClick={(e) => {this.deleteImage(row)}}>Eliminar</a>
                                                     </div>
                                                     <div className="col-md-6">
-                                                        <a className="btn btn-info btn-sm btn-block text-white">Ver</a>
+                                                        <a className="btn btn-info btn-sm btn-block text-white" href={"http://regalalo.test/"+ row.image_path} target="_blank">Ver</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -140,10 +172,12 @@ if (document.getElementsByClassName('store-images')) {
         var storeid = element.getAttribute("storeid");
         var url_multimedialist = element.getAttribute("multimedialist");
         var upload_url = element.getAttribute("upload_url");
+        var delete_url = element.getAttribute("delete_url");
 
         ReactDOM.render(<StoreMultimediaComponent
             storeid={storeid}
             url_multimedialist={url_multimedialist}
+            delete_url={delete_url}
             upload_url={upload_url}
         />, element);
     }

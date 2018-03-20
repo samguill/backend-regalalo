@@ -8,6 +8,7 @@
                          multimedialist="{{route('store.multimedia-lists')}}"
                          storeid="{{$store_id}}"
                          upload_url="{{route('store.multimedia-upload')}}"
+                         delete_url="{{route('store.multimedia-delete-file')}}"
                     />
                 </div>
             </div>

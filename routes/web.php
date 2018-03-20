@@ -98,6 +98,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('/multimedia', 'StoreImageController@index')->name('store.multimedia');
         Route::post('/multimedia/list', 'StoreImageController@lists')->name('store.multimedia-lists');
         Route::post('/multimedia/upload', 'StoreImageController@upload')->name('store.multimedia-upload');
+        Route::post('/multimedia/delete_file', 'StoreImageController@delete_file')->name('store.multimedia-delete-file');
     });
 
 
