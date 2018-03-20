@@ -16,9 +16,8 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => 'cors'], function (){
     Route::post('client/register', 'Api\RegisterClientController@register');
     Route::post('client/login', 'Api\RegisterClientController@login');
+    Route::get('home', 'Api\PageController@home');
 });
-
-Route::get('home', 'Api\PageController@home');
 
 /*Route::domain('regalalo.pe')->group(function(){
     Route::get('home', 'Api\PageController@home');
