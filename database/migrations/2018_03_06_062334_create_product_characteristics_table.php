@@ -15,11 +15,10 @@ class CreateProductCharacteristicsTable extends Migration
     {
         Schema::create('product_characteristics', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('product_characteristic_name');
-            $table->string('values');
-            $table->unsignedInteger('product_id');
+            $table->string('name');
+            $table->integer('status')->default(0);
             $table->timestamps();
-            $table->foreign('product_id')->references('id')->on('products');
+
         });
     }
 

@@ -53,6 +53,16 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/experiences/delete', 'ExperienceController@delete')->name('experiences.delete');
         Route::post('/experiences/create', 'ExperienceController@create')->name('experiences.create');
 
+        //Products Characteristics
+
+        Route::get('/productcharacteristics', 'ProductCharacteristicController@index')->name('productcharacteristics');
+        Route::get('/productcharacteristics/lists', 'ProductCharacteristicController@lists')->name('productcharacteristics.lists');
+        Route::post('/productcharacteristics/update', 'ProductCharacteristicController@update')->name('productcharacteristics.update');
+        Route::post('/productcharacteristics/delete', 'ProductCharacteristicController@delete')->name('productcharacteristics.delete');
+        Route::post('/productcharacteristics/create', 'ProductCharacteristicController@create')->name('productcharacteristics.create');
+        Route::get('/productcharacteristics/values', 'ProductCharacteristicController@values')->name('productcharacteristics.values');
+        Route::post('/productcharacteristics/addvalue', 'ProductCharacteristicController@addvalue')->name('productcharacteristics.addvalue');
+
         // Store branche
         Route::get('/stores/branches', 'StoreController@getBranches')->name('store.branches');
         Route::post('/stores/branches/list', 'StoreController@listBranches')->name('store.branches-lists');
@@ -79,6 +89,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/products/delete', 'ProductController@delete')->name('products.delete');
         Route::post('/products/create', 'ProductController@create')->name('products.create');
         Route::post('/products/charge', 'ProductController@masive_charge')->name('products.charge');
+
 
         // Services
         Route::get('/services', 'ServiceController@index')->name('services');

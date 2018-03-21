@@ -5,12 +5,8 @@
             $builder = new \App\Utils\ReactCrudSettingsBuilder();
 
             $nameField = new \App\Utils\ReactCrudField('name');
-            $nameField->title('Nombre del interés')->required(true)->width(6);
+            $nameField->title('Nombre de la característica')->required(true)->width(6);
             $builder->addField($nameField);
-
-            $descriptionField = new \App\Utils\ReactCrudField('description');
-            $descriptionField->title('Descripción')->required(true)->width(6);
-            $builder->addField($descriptionField);
 
             $actions = [];
             $actions["custom"] = [];
@@ -24,6 +20,20 @@
             $actions['delete'] = [
                 'url' => route('productcharacteristics.delete')
             ];
+
+            $actions["custom"]=array_merge(
+                $actions["custom"],
+                [
+                    "branches" => [
+                        "link" => true,
+                        'url' => route('productcharacteristics.values'),
+                        'icon' => "bars",
+                        "color" => "#ff9800",
+                        "params" => [ 'id' ],
+                        "title" => "Valores"
+                    ]
+                ]
+            );
 
             $builder->setActions($actions);
 
