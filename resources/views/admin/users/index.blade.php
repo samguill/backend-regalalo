@@ -20,8 +20,12 @@
             $statusField->fillable(false)->title('Estado')->type('map', [
                 ["id"=> '0',"value"=>"Pendiente"],
                 ['id'=>'1','value'=>"Activo"],
-                ['id'=>"2",'value'=>"Inactivo"]])->title("Estado")->default('1');
+                ['id'=>"2",'value'=>"Inactivo"]])->default('1');
             $builder->addField($statusField);
+
+            $typeField = new \App\Utils\ReactCrudField('type');
+            $typeField->fillable(false)->title('Tipo')->show(false)->default('A');
+            $builder->addField($typeField);
 
             $actions = [];
             $actions["custom"] = [];
