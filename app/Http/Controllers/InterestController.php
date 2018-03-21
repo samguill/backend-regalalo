@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 class InterestController extends Controller
 {
     public function index(){
-        return view('admin.interests.index');
+        $data = [
+            "title" => "Intereses"
+        ];
+        return view('admin.interests.index', compact('data'));
     }
 
     public function lists(){

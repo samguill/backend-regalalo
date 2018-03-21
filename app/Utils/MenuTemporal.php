@@ -22,17 +22,18 @@ class MenuTemporal
     ];
     const ADMIN = [
 
-        ['icon'=>'fa-building','menu'=>'Tiendas','route' => 'stores'],
-        ['icon'=>'fa-users','menu'=>'Clientes','route' => 'clients'],
-        ['icon'=>'fa-paper-plane','menu'=>'Ventas','route' => 'sales'],
-        ['icon'=>'fa-comments','menu'=>'Reclamos','route' => 'claims'],
-        ['icon'=>'fa-comments','menu'=>'Ocasiones','route' => 'events'],
-        ['icon'=>'fa-comments','menu'=>'Intereses','route' => 'interests'],
-        ['icon'=>'fa-comments','menu'=>'Experiencias','route' => 'experiences'],
-        ['icon'=>'fa-comments','menu'=>'Características de producto','route' => 'productcharacteristics'],
-        ['icon'=>'fa-window-restore','menu'=>'Página web','route' => 'interests'],
-        ['icon'=>'fa-user-secret','menu'=>'Usuarios','route' => 'interests'],
-        ['icon'=>'fa-sliders','menu'=>'Parámetros generales','route' => 'interests'],
+        ['icon'=>'fa-building','menu'=>'Tiendas','route' => 'stores', 'options' => []],
+        ['icon'=>'fa-users','menu'=>'Clientes','route' => 'clients', 'options' => []],
+        ['icon'=>'fa-paper-plane','menu'=>'Ventas','route' => 'sales', 'options' => []],
+        ['icon'=>'fa-comments','menu'=>'Reclamos','route' => 'claims', 'options' => []],
+        ['icon'=>'fa-window-restore','menu'=>'Página web','route' => 'webpage', 'options' => []],
+        ['icon'=>'fa-user-secret','menu'=>'Usuarios','route' => 'users', 'options' => []],
+        ['icon'=>'fa-sliders','menu'=>'Parámetros generales','route' => '#', 'options' => [
+            ['icon'=>'fa-comments','menu'=>'Ocasiones','route' => 'events'],
+            ['icon'=>'fa-comments','menu'=>'Intereses','route' => 'interests'],
+            ['icon'=>'fa-comments','menu'=>'Experiencias','route' => 'experiences'],
+            ['icon'=>'fa-comments','menu'=>'Características de producto','route' => 'productcharacteristics']
+        ]]
 
     ];
 

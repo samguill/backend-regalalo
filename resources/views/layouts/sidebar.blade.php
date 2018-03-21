@@ -40,11 +40,25 @@ $menuadmin = App\Utils\MenuTemporal::ADMIN;
 
         @if(\Illuminate\Support\Facades\Auth::user()->type =='A')
             @foreach($menuadmin as $item)
-                <li>
-                    <a class="app-menu__item{{ Request::is($item['route']) ? ' active' : null }}" href="{{url($item['route'])}}">
+                <li @if(count($item['options']) > 0) class="treeview" @endif>
+                    <a class="app-menu__item{{ Request::is($item['route']) ? ' active' : null }}" @if(count($item['options']) > 0) data-toggle="treeview" @endif href="{{url($item['route'])}}">
                         <i class="app-menu__icon fa {{$item['icon']}}"></i>
                         <span class="app-menu__label">{{$item['menu']}}</span>
+                        @if(count($item['options']) > 0)
+                            <i class="treeview-indicator fa fa-angle-right"></i>
+                        @endif
                     </a>
+                    @if(count($item['options']) > 0)
+                        <ul class="treeview-menu">
+                            @foreach($item['options'] as $option)
+                                <li>
+                                    <a class="treeview-item{{ Request::is($option['route']) ? ' active' : null }}" href="{{url($option['route'])}}">
+                                        {{$option['menu']}}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </li>
             @endforeach
         @endif

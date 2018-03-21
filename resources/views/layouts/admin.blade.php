@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Regalalo | Tu regalo ideal') }}</title>
+    <title>{{ config('app.name', 'Regalalo') }} @if(isset($data)) {{ " | " . $data["title"]}} @endif</title>
     <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" type="image/vnd.microsoft.icon" />
 
     <!-- Styles -->
@@ -20,6 +20,23 @@
     @component('layouts.sidebar')@endcomponent
 
     <main class="app-content">
+        @if(isset($data))
+            <div class="app-title">
+                <div>
+                    <h1>
+                        @if(isset($data["icon"]))
+                            <i class="fa {{ $data["icon"] }}"></i>
+                        @endif
+                        {{$data["title"]}}
+                    </h1>
+                </div>
+                <ul class="app-breadcrumb breadcrumb">
+                    <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+                    <li class="breadcrumb-item"><a href="#">{{$data["title"]}}</a></li>
+                </ul>
+            </div>
+        @endif
+
         @yield('content')
     </main>
 

@@ -77,6 +77,12 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/clients/delete', 'ClientController@delete')->name('clients.delete');
         Route::post('/clients/create', 'ClientController@create')->name('clients.create');
 
+        // Usuarios
+        Route::get('/users', 'UserController@index')->name('users');
+        Route::get('/users/lists', 'UserController@lists')->name('users.lists');
+        Route::post('/users/update', 'UserController@update')->name('users.update');
+        Route::post('/users/delete', 'UserController@delete')->name('users.delete');
+        Route::post('/users/create', 'UserController@create')->name('users.create');
     });
 
 

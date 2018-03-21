@@ -24,13 +24,17 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $data = [
+            "title" => "Escritorio",
+            "icon" => "fa-dashboard"
+        ];
         if(Auth::user()->type == 'A') {
 
-            return view('admin.home');
+            return view('admin.home', compact('data'));
 
         }else{
 
-            return view('store.home');
+            return view('store.home', compact('data'));
 
         }
     }

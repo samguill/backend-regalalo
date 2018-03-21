@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 class EventController extends Controller
 {
     public function index(){
-        return view('admin.events.index');
+        $data = [
+            "title" => "Ocasiones"
+        ];
+        return view('admin.events.index', compact('data'));
     }
 
     public function lists(){

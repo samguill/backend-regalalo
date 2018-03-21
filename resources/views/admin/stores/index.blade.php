@@ -13,7 +13,7 @@
             $builder->addField($storerucField);
 
             $legal_addressField = new \App\Utils\ReactCrudField('legal_address');
-            $legal_addressField->show(false)->fillable(false)->required(true)->title('Domicilio legal')->width(6);
+            $legal_addressField->show(false)->required(true)->title('Domicilio legal')->width(6);
             $builder->addField($legal_addressField);
 
             $comercial_nameField = new \App\Utils\ReactCrudField('comercial_name');
@@ -28,7 +28,7 @@
             $statusField->fillable(false)->title('Estado')->type('map', [
                 ["id"=> '0',"value"=>"Pendiente"],
                 ['id'=>'1','value'=>"Activo"],
-                ['id'=>"2",'value'=>"Inactivo"]])->title("Estado")->width(4);
+                ['id'=>"2",'value'=>"Inactivo"]])->title("Estado")->width(4)->default(0);
             $builder->addField($statusField);
 
             $statusField = new \App\Utils\ReactCrudField('payme_process_status');
@@ -49,7 +49,7 @@
                 ['id' => 'INTERBANK', 'value' => 'INTERBANK'],
                 ['id' => 'SCOTIABANK', 'value' => 'SCOTIABANK'],
                 ['id' => 'BANBIF', 'value' => 'BANBIF']
-                ])->title('Entidad Financiera')->width(6);
+                ])->title('Entidad Financiera')->width(4);
             $builder->addField($financial_entityField);
 
             $account_typeField = new \App\Utils\ReactCrudField('account_type');
@@ -58,6 +58,10 @@
                 ['id' => 'Cuenta Corriente', 'value' => 'Cuenta Corriente']
                 ])->title('Tipo de cuenta')->width(4);
             $builder->addField($account_typeField);
+
+            $analytics_idField = new \App\Utils\ReactCrudField('analytics_id');
+            $analytics_idField->show(false)->title('Google Analytics ID')->width(4);
+            $builder->addField($analytics_idField);
 
             $account_statement_nameField = new \App\Utils\ReactCrudField('account_statement_name');
             $account_statement_nameField->show(false)->title('Nombre del Estado de Cuenta')->width(8);
@@ -94,10 +98,6 @@
             $payme_wallet_idField = new \App\Utils\ReactCrudField('payme_wallet_id');
             $payme_wallet_idField->show(false)->title('PayMe ID Wallet')->width(4);
             $builder->addField($payme_wallet_idField);
-
-            $analytics_idField = new \App\Utils\ReactCrudField('analytics_id');
-            $analytics_idField->show(false)->title('Google Analytics ID')->width(4);
-            $builder->addField($analytics_idField);
 
             $actions = [];
             $actions["custom"] = [];

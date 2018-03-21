@@ -21,7 +21,11 @@ class StoreController extends Controller
 {
 
     public function index(){
-        return view('admin.stores.index');
+        $data = [
+            "title" => "Tiendas",
+            "icon" => "fa-building"
+        ];
+        return view('admin.stores.index', compact('data'));
     }
 
     public function lists(){

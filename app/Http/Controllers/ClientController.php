@@ -15,13 +15,18 @@ class ClientController extends Controller
 {
 
     public function index(){
-        return view('admin.clients.index');
+        $data = [
+            "title" => "Clientes",
+            "icon" => "fa-users"
+        ];
+        return view('admin.clients.index', compact('data'));
     }
 
     public function lists(){
         $stores = Client::with('directions','wishlist')->where('status', 1)->get();
         return response()->json($stores);
     }
+    
     public function update(Request $request) {
         $data = $request->all();
         $store = Client::find($data['id']);
