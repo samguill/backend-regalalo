@@ -9,6 +9,8 @@
 namespace App\Utils;
 
 
+use App\Models\ProductCharacteristic;
+
 class ParametersUtil
 {
     const sex = [
@@ -17,9 +19,24 @@ class ParametersUtil
        [ 'id' => 'F', 'value'  => 'Mujer']
     ];
 
-
     public function __construct(){
 
+    }
+
+    static function getProductCharacteristics()
+    {
+
+        $productcharacteristic = array_map(
+            function($item){
+
+                return [
+                    "id" => $item['id'],
+                    "value" => $item['name']
+                ];
+            }, ProductCharacteristic::all(['id','name'])->toArray()
+        );
+
+        return $productcharacteristic;
     }
 
 }

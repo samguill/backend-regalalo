@@ -18,6 +18,7 @@ class Product extends Model
         'event',
         'interest',
         'store_id',
+        'product_characteristic_id',
         'status'
     ];
 }

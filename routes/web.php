@@ -61,7 +61,10 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/productcharacteristics/delete', 'ProductCharacteristicController@delete')->name('productcharacteristics.delete');
         Route::post('/productcharacteristics/create', 'ProductCharacteristicController@create')->name('productcharacteristics.create');
         Route::get('/productcharacteristics/values', 'ProductCharacteristicController@values')->name('productcharacteristics.values');
-        Route::post('/productcharacteristics/addvalue', 'ProductCharacteristicController@addvalue')->name('productcharacteristics.addvalue');
+        Route::post('/productcharacteristics/values/list', 'ProductCharacteristicController@listValues')->name('productcharacteristic-values.lists');
+        Route::post('/productcharacteristics/values/create', 'ProductCharacteristicController@create_value')->name('productcharacteristic-values.create');
+        Route::post('/productcharacteristics/values/update', 'ProductCharacteristicController@update_value')->name('productcharacteristic-values.update');
+
 
         // Store branche
         Route::get('/stores/branches', 'StoreController@getBranches')->name('store.branches');

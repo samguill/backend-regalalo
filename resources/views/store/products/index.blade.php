@@ -3,97 +3,103 @@
     <div class="row">
        @php
 
-           $sex = array_map(
-                         function($item){
+         $roductcharacteristics =  App\Utils\ParametersUtil::getProductCharacteristics();
 
-                             return [
-                                 "id" => $item['id'],
-                                 "value" => $item['value']
-                             ];
-                         }, App\Utils\ParametersUtil::sex
-                     );
+                      $sex = array_map(
+                                    function($item){
 
-
-                      $ages = array_map(
-                 function($item){
-                     return [
-                         "id" => $item,
-                         "value" => $item
-                     ];
-                 }, range(1,80)
-             );
-                     $builder = new \App\Utils\ReactCrudSettingsBuilder();
-
-                     $skucodeField = new \App\Utils\ReactCrudField('sku_code');
-                     $skucodeField->title('Código del producto')->required(true)->width(6);
-                     $builder->addField($skucodeField);
-
-                     $productnameField = new \App\Utils\ReactCrudField('name');
-                     $productnameField->title('Nombre del producto')->required(true)->width(6);
-                     $builder->addField($productnameField);
-
-                     $discountField = new \App\Utils\ReactCrudField('discount');
-                     $discountField->title('Descuento')->required(false)->show(false)->width(4);
-                     $builder->addField($discountField);
-
-                     $priceField = new \App\Utils\ReactCrudField('price');
-                     $priceField->title('Precio')->required(false)->show(false)->width(4);
-                     $builder->addField($priceField);
-
-                     $productpresentationField = new \App\Utils\ReactCrudField('product_presentation');
-                     $productpresentationField->show(false)->type('map', [
-                         ['id' => 'unidad', 'value' => 'Unidad'],
-                         ['id' => 'par', 'value' => 'Par'],
-                         ['id' => 'caja', 'value' => 'Caja'],
-                         ['id' => 'docena', 'value' => 'Docena']
-                         ])->title('Venta por')->width(4);
-                     $builder->addField($productpresentationField);
-
-                      $descriptionField = new \App\Utils\ReactCrudField('description');
-                     $descriptionField->title('Descripción')->required(false)->show(false)->width(12);
-                     $builder->addField($descriptionField);
-
-                     $ageField = new \App\Utils\ReactCrudField('age');
-                     $ageField->title('Edad (Colocar solo un rango)')->type('json', $ages)->required(false)->show(false)->width(6)->renderAs('text');
-                     $builder->addField($ageField);
+                                        return [
+                                            "id" => $item['id'],
+                                            "value" => $item['value']
+                                        ];
+                                    }, App\Utils\ParametersUtil::sex
+                                );
 
 
-                    $sexField = new \App\Utils\ReactCrudField('sex');
-                     $sexField->show(false)->type('map', $sex)->title('¿A quién regalas?')->required(false)->width(4);
-                     $builder->addField($sexField);
+                                 $ages = array_map(
+                            function($item){
+                                return [
+                                    "id" => $item,
+                                    "value" => $item
+                                ];
+                            }, range(1,80)
+                        );
+                                $builder = new \App\Utils\ReactCrudSettingsBuilder();
 
-                     $availabilityField = new \App\Utils\ReactCrudField('availability');
-                     $availabilityField->show(false)->type('map', [
-                         ['id' => 'D', 'value' => 'Delivery'],
-                         ['id' => 'S', 'value' => 'Tienda'],
-                         ['id' => 'A', 'value' => 'Todos'],
+                                $skucodeField = new \App\Utils\ReactCrudField('sku_code');
+                                $skucodeField->title('Código del producto')->required(true)->width(6);
+                                $builder->addField($skucodeField);
 
-                         ])->title('Disponibilidad')->width(6);
-                     $builder->addField($availabilityField);
+                                $productnameField = new \App\Utils\ReactCrudField('name');
+                                $productnameField->title('Nombre del producto')->required(true)->width(6);
+                                $builder->addField($productnameField);
 
-                     $eventField = new \App\Utils\ReactCrudField('event');
-                     $eventField->fillable()->title('Ocasión')->type('json', $events)->show(false)->width(6)->renderAs('text');
-                     $builder->addField($eventField);
+                                $discountField = new \App\Utils\ReactCrudField('discount');
+                                $discountField->title('Descuento')->required(false)->show(false)->width(4);
+                                $builder->addField($discountField);
 
-                     $interestField = new \App\Utils\ReactCrudField('interest');
-                     $interestField->fillable()->title('Interés')->type('json', $interests)->show(false)->width(6)->renderAs('text');
-                     $builder->addField($interestField);
+                                $priceField = new \App\Utils\ReactCrudField('price');
+                                $priceField->title('Precio')->required(false)->show(false)->width(4);
+                                $builder->addField($priceField);
 
-                     $actions = [];
-                     $actions["custom"] = [];
-                     $actions['view'] = [];
-                     $actions['create'] = [
-                         'url' => route('products.create')
-                     ];
-                     $actions['update'] = [
-                         'url' => route('products.update')
-                     ];
-                     $actions['delete'] = [
-                         'url' => route('products.delete')
-                     ];
+                                $productpresentationField = new \App\Utils\ReactCrudField('product_presentation');
+                                $productpresentationField->show(false)->type('map', [
+                                    ['id' => 'unidad', 'value' => 'Unidad'],
+                                    ['id' => 'par', 'value' => 'Par'],
+                                    ['id' => 'caja', 'value' => 'Caja'],
+                                    ['id' => 'docena', 'value' => 'Docena']
+                                    ])->title('Venta por')->width(4);
+                                $builder->addField($productpresentationField);
 
-                     $builder->setActions($actions);
-                     $builder->addButton('Carga masiva de productos', "open_modal('products_charge_modal', 'Carga masiva de productos')", "btn-info");
+                                 $descriptionField = new \App\Utils\ReactCrudField('description');
+                                $descriptionField->title('Descripción')->required(false)->show(false)->width(12);
+                                $builder->addField($descriptionField);
+
+                                $ageField = new \App\Utils\ReactCrudField('age');
+                                $ageField->title('Edad (Colocar solo un rango)')->type('json', $ages)->required(false)->show(false)->width(6)->renderAs('text');
+                                $builder->addField($ageField);
+
+
+                               $sexField = new \App\Utils\ReactCrudField('sex');
+                                $sexField->show(false)->type('map', $sex)->title('¿A quién regalas?')->required(false)->width(4);
+                                $builder->addField($sexField);
+
+                                $availabilityField = new \App\Utils\ReactCrudField('availability');
+                                $availabilityField->show(false)->type('map', [
+                                    ['id' => 'D', 'value' => 'Delivery'],
+                                    ['id' => 'S', 'value' => 'Tienda'],
+                                    ['id' => 'A', 'value' => 'Todos'],
+
+                                    ])->title('Disponibilidad')->width(6);
+                                $builder->addField($availabilityField);
+
+                                $eventField = new \App\Utils\ReactCrudField('event');
+                                $eventField->fillable()->title('Ocasión')->type('json', $events)->show(false)->width(6)->renderAs('text');
+                                $builder->addField($eventField);
+
+                                $interestField = new \App\Utils\ReactCrudField('interest');
+                                $interestField->fillable()->title('Interés')->type('json', $interests)->show(false)->width(6)->renderAs('text');
+                                $builder->addField($interestField);
+
+                                $productCharacteristicField = new \App\Utils\ReactCrudField('product_characteristic_id');
+                                $productCharacteristicField->fillable()->title('Características del producto')->type('map', $roductcharacteristics)->show(false)->width(6)->renderAs('text');
+                                $builder->addField($productCharacteristicField);
+
+                                $actions = [];
+                                $actions["custom"] = [];
+                                $actions['view'] = [];
+                                $actions['create'] = [
+                                    'url' => route('products.create')
+                                ];
+                                $actions['update'] = [
+                                    'url' => route('products.update')
+                                ];
+                                $actions['delete'] = [
+                                    'url' => route('products.delete')
+                                ];
+
+                                $builder->setActions($actions);
+                                $builder->addButton('Carga masiva de productos', "open_modal('products_charge_modal', 'Carga masiva de productos')", "btn-info");
 
        @endphp
         <div class="col-md-12">
