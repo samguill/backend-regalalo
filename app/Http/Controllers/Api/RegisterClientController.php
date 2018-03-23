@@ -25,7 +25,7 @@ class RegisterClientController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json($validator->errors());
+            return response()->json(['status' => 'error', 'message' => $validator->errors()]);
         }
 
         $client = Client::create([
@@ -44,18 +44,22 @@ class RegisterClientController extends Controller
             'password' => 'required'
         ]);
         if($validator->fails()){
-            return response()->json($validator->errors());
+            return response()->json(['status' => 'error', 'message' => $validator->errors()]);
         }
         try {
             $client = Client::where('email', $request->input('email'))->first();
-            $valid_client = Hash::check($request->input('password'), $client->password);
-            if(!$valid_client){
-                return response()->json(['error' => 'invalid_credentials'], 401);
+            if(count($client) == 0){
+                return response()->json(['status' => 'error', 'message' => "El usuario no existe"]);
+            }else{
+                $valid_client = Hash::check($request->input('password'), $client->password);
+                if(!$valid_client){
+                    return response()->json(['status' => 'error', 'message' => 'Datos incorrectos. Inténtalo de nuevo.']);
+                }
+                $token = JWTAuth::fromUser($client);
             }
-            $token = JWTAuth::fromUser($client);
         } catch (JWTException $e){
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
-        return response()->json(compact('token'));
+        return response()->json(['status'=>'ok', 'token' => $token]);
     }
 }
