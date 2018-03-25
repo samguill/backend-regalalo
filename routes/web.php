@@ -119,6 +119,10 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/multimedia/list', 'StoreImageController@lists')->name('store.multimedia-lists');
         Route::post('/multimedia/upload', 'StoreImageController@upload')->name('store.multimedia-upload');
         Route::post('/multimedia/delete_file', 'StoreImageController@delete_file')->name('store.multimedia-delete-file');
+
+        //inventario
+        Route::get('/inventory', 'InventoryController@index')->name('inventory');
+        Route::get('/inventory/lists', 'InventoryController@lists')->name('inventory.lists');
     });
 
 
