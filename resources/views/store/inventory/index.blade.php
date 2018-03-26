@@ -32,7 +32,7 @@
 
     <div class="modal fade" id="incoming_inventory">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content"  style="width: 800px">
                 <div class="modal-header">
                     <h4 class="modal-title"></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

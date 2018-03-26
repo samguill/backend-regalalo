@@ -31,14 +31,26 @@ export default class ProductCharacteristicValuesComponent extends React.Componen
 
         this.onIdChage = this.onIdChage.bind(this);
         this.onKeyChage = this.onKeyChage.bind(this);
-        this.onValueChage = this.onValueChage.bind(this);
+        this.onLatitudeChage = this.onLatitudeChage.bind(this);
+        this.onLongitudeChage = this.onLongitudeChage.bind(this);
+        this.onAddressChage = this.onAddressChage.bind(this);
         this.clearForm = this.clearForm.bind(this);
+        this.onPhoneChage = this.onPhoneChage.bind(this);
+        this.onBranchEmailChage = this.onBranchEmailChage.bind(this);
+        this.onBH1Chage = this.onBH1Chage.bind(this);
+        this.onBH2Chage = this.onBH2Chage.bind(this);
 
     }
 
     onIdChage(e){ this.setState({id:e.target.value}); }
-    onKeyChage(e){ this.setState({key:e.target.value}); }
-    onValueChage(e){ this.setState({value:e.target.value}); }
+    onNameChage(e){ this.setState({key:e.target.value}); }
+    onLatitudeChage(e){ this.setState({latitude:e.target.value}); }
+    onLongitudeChage(e){ this.setState({longitude:e.target.value}); }
+    onAddressChage(e){ this.setState({value:e.target.value}); }
+    onPhoneChage(e){ this.setState({phone:e.target.value}); }
+    onBranchEmailChage(e){ this.setState({branch_email:e.target.value}); }
+    onBH1Chage(e){ this.setState({business_hour_1:e.target.value}); }
+    onBH2Chage(e){ this.setState({business_hour_2:e.target.value}); }
 
     componentDidMount(){
         this.getBranches();
@@ -138,7 +150,7 @@ export default class ProductCharacteristicValuesComponent extends React.Componen
         return (
             <div style={{margin: '10px'}}>
                 <form>
-                    <input type="hidden" name="product_characteristic_id" id="product_characteristic_id" value={this.props.storeid} />
+                    <input type="hidden" name="store_id" id="store_id" value={this.props.storeid} />
                     <input type="hidden" name="id" value={this.state.id} onChange={this.onIdChage} />
                     <div className="row">
                         <div className="col-md-4 b-right">
@@ -160,7 +172,7 @@ export default class ProductCharacteristicValuesComponent extends React.Componen
                                             id: this.state.id,
                                             key: this.state.key,
                                             value: this.state.value,
-                                            product_characteristic_id: this.storeid
+                                            store_id: this.storeid
                                         })}}>
                                             { (this.state.is_loading) ? <em className="fa fa-refresh fa-spin"></em> : 'Guardar'}
                                         </a>
