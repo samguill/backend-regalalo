@@ -30,7 +30,7 @@ export default class ProductCharacteristicValuesComponent extends React.Componen
         };
 
         this.onIdChage = this.onIdChage.bind(this);
-        this.onKeyChage = this.onKeyChage.bind(this);
+        this.onNameChage = this.onNameChage.bind(this);
         this.onLatitudeChage = this.onLatitudeChage.bind(this);
         this.onLongitudeChage = this.onLongitudeChage.bind(this);
         this.onAddressChage = this.onAddressChage.bind(this);
@@ -92,6 +92,7 @@ export default class ProductCharacteristicValuesComponent extends React.Componen
             id: '',
             key: '',
             value: '',
+
             updating: false
         });
 
@@ -157,11 +158,11 @@ export default class ProductCharacteristicValuesComponent extends React.Componen
                             <h5 className="underline mb-20">Registrar / Editar</h5>
                             <div className="form-group">
                                 <lable>Key</lable>
-                                <input id="key" name="key" onChange={this.onKeyChage} className="form-control" type="text" value={this.state.key} />
+                                <input id="key" name="key" onChange={this.onNameChage} className="form-control" type="text" value={this.state.key} />
                             </div>
                             <div className="form-group">
                                 <lable>Value</lable>
-                                <input id="value" name="value" onChange={this.onValueChage} className="form-control" type="text" value={this.state.value} />
+                                <input id="value" name="value" onChange={this.onAddressChage} className="form-control" type="text" value={this.state.address} />
                             </div>
 
 

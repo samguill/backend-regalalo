@@ -42,11 +42,12 @@
                 <div class="modal-body">
                     <div class="store-incoming-inventory"
                          data-products="{{json_encode($products)}}"
+                         data-branches="{{json_encode($branches)}}"
+                         url-incominginventory="{{route('inventory.incominginventory')}}"
 
                     ></div>
                 </div>
                 <div class="modal-footer">
-                   <!-- <button type="button" class="btn btn-primary" onclick="charge_products(this)">Aceptar</button>-->
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>

@@ -11,17 +11,22 @@ export default class IncomingInventoryComponent extends React.Component {
         super(props);
 
         this.dataproducts = this.props.dataproducts;
+        this.databranches = this.props.databranches;
+
 
         this.state = {
             products: [],
             selectValue: '',
             sku_code: '',
             description: '',
-            price:''
+            price:'',
+            selectBranch:''
         };
 
         this.updateValue = this.updateValue.bind(this);
         this.addProduct = this.addProduct.bind(this);
+        this.removeProduct = this.removeProduct.bind(this);
+        this.updateBranch = this.updateBranch.bind(this);
 
     }
 
@@ -43,7 +48,7 @@ export default class IncomingInventoryComponent extends React.Component {
     }
 
     addProduct (selectValue) {
-       console.log(selectValue);
+
 
         var products = this.state.products.slice();
 
@@ -57,6 +62,20 @@ export default class IncomingInventoryComponent extends React.Component {
                     products: products
                 });
             }})
+
+        console.log( this.state.products);
+    }
+
+    removeProduct(index) {
+        this.setState({
+            products: this.state.products.filter((_, i) => i !== index)
+        });
+    }
+
+    updateBranch (newValue) {
+        this.setState({
+            selectBranch: newValue,
+        });
 
     }
 
@@ -103,6 +122,7 @@ export default class IncomingInventoryComponent extends React.Component {
                                 <th>Producto</th>
                                 <th>Ubicación</th>
                                 <th width="60">Cantidad</th>
+                                <th width="60">Quitar</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -110,8 +130,19 @@ export default class IncomingInventoryComponent extends React.Component {
                                 this.state.products.map((row, ri) => {
                                     return <tr key={ri}>
                                         <td>{row.producto}</td>
-                                        <td></td>
+                                        <td> <Select
+                                            value={this.state.selectBranch}
+                                            options={this.databranches.map((opt,i)=>{
+                                                return {label:opt.name,value:opt.id}
+                                            })}
+                                            onChange={this.updateBranch}
+                                            className="form-control"
+
+                                        /></td>
                                         <td> <input id="cantidad" name="cantidad" className="form-control" type="text"/></td>
+                                        <td> <button type="button"  className="btn btn-danger" style={{margin:"0px"}} onClick={(e)=> {this.removeProduct(ri)}}>
+                                            <em className="fa fa-trash"></em>
+                                        </button></td>
                                     </tr>
                                 })
                             }
@@ -119,7 +150,7 @@ export default class IncomingInventoryComponent extends React.Component {
                         </table>
                     </div>
 
-
+                    <button type="button" className="btn btn-primary"  onClick={(e)=> {this.removeProduct(ri)}}>Registrar</button>
                 </form>
 
 
@@ -135,12 +166,15 @@ if (document.getElementsByClassName('store-incoming-inventory')) {
 
         let element = elements[i];
         var dataproducts = element.getAttribute("data-products");
-
+        var databranches = element.getAttribute("data-branches");
+        var urlincominginventory = element.getAttribute("url-incominginventory");
 
 
         ReactDOM.render(<IncomingInventoryComponent
 
             dataproducts={JSON.parse(dataproducts)}
+            databranches={JSON.parse(databranches)}
+            urlincominginventory={urlincominginventory}
 
         />, element);
     }
