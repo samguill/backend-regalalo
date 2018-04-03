@@ -11,7 +11,23 @@ class ProductController extends Controller
     public function search(Request $request){
 
         //Tabla principa del productos
-        $query = DB::table('products');
+        $query = DB::table('products')->select(DB::raw('*'));
+
+        // Solo si el usuario ha compartido su ubicación se muestra la distancia
+        if($request->has('latitude') and $request->has('longitude')) {
+
+            $latitude =   $request->input('latitude');
+            $longitude =   $request->input('longitude');
+
+            $query->addSelect(
+                DB::raw(
+                    '(select (acos(sin(radians(store_branches.latitude)) * sin(radians('.$latitude.')) +
+                    cos(radians(store_branches.latitude)) * cos(radians('.$latitude.')) *
+                    cos(radians(store_branches.longitude) - radians('.$longitude.'))) * 6378) 
+                    from store_branches where store_branches.store_id =  products.store_id) as distance'));
+
+            $query->orderBy('distance', 'asc');
+        }
 
         //Si se envía los parámetros condiciona la búsqueda con has
 
@@ -78,6 +94,9 @@ class ProductController extends Controller
             $availability = $request->input('availability');
             $query->where('availability',$availability);
         }
+
+
+
         $result = $query->paginate(15);
 
         return response()->json(['status'=>'ok', 'data'=>$result]);

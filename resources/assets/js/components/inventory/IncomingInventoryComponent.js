@@ -20,8 +20,10 @@ export default class IncomingInventoryComponent extends React.Component {
             sku_code: '',
             description: '',
             price:'',
-            selectBranch:''
-        };
+            selectBranch: []
+
+        }
+        ;
 
         this.updateValue = this.updateValue.bind(this);
         this.addProduct = this.addProduct.bind(this);
@@ -51,19 +53,21 @@ export default class IncomingInventoryComponent extends React.Component {
 
 
         var products = this.state.products.slice();
+        var selectBranch = [];
 
         this.dataproducts.map((item) => {
 
             if(item.id === selectValue.value){
 
-                products.push({producto: selectValue.label});
+                products.push({producto: selectValue.label, value: selectValue.value});
+
+                selectBranch[selectValue.value] = {};
 
                 this.setState({
-                    products: products
+                    products: products,
+                    selectBranch: selectBranch
                 });
-            }})
-
-        console.log( this.state.products);
+            }});
     }
 
     removeProduct(index) {
@@ -72,11 +76,16 @@ export default class IncomingInventoryComponent extends React.Component {
         });
     }
 
-    updateBranch (newValue) {
-        this.setState({
-            selectBranch: newValue,
-        });
+    updateBranch(value,newValue) {
 
+        var selectBranch = this.state.selectBranch.slice();
+        selectBranch[value]=newValue;
+
+
+        this.setState({
+            selectBranch: selectBranch,
+        });
+        console.log( this.state.selectBranch[value]);
     }
 
     render() {
@@ -131,11 +140,16 @@ export default class IncomingInventoryComponent extends React.Component {
                                     return <tr key={ri}>
                                         <td>{row.producto}</td>
                                         <td> <Select
-                                            value={this.state.selectBranch}
+
+                                            value={this.state.selectBranch[row.value]}
                                             options={this.databranches.map((opt,i)=>{
                                                 return {label:opt.name,value:opt.id}
                                             })}
-                                            onChange={this.updateBranch}
+                                            onChange={(v)=>{
+
+                                                    this.updateBranch(row.value,v.value)
+
+                                            }}
                                             className="form-control"
 
                                         /></td>
