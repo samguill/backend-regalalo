@@ -13,5 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
+        'products/search',
+        'services/search'
     ];
 }
