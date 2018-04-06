@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inventory;
+use App\Models\InventoryMovement;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,20 +33,27 @@ class InventoryController extends Controller
 
     public function lists(){
 
-        $Inventory = Inventory::get();
+        $branches = Auth::user()->store->branches()->get();
+        foreach ($branches  as $branch){
+        $branchesArray[] = $branch->id;
+        }
+
+
+        $Inventory = Inventory::whereIn('store_branche_id',$branchesArray)->with(['branch:id,name','product:id,name'])->get();
+
         return response()->json($Inventory);
     }
 
     public function incominginventory(Request $request)
     {
 
-        $data = $request->input('products');
+        $products = $request->input('products');
 
-        foreach ($data['products'] as $product) {
+        foreach ($products as $product) {
 
-            $inventory = Inventory::where('product_id', $product['product_id'])->where('branch_id', $product['branch_id'])->first();
+            $inventory = Inventory::where('product_id', $product['value'])->where('store_branche_id', $product['branchValue'])->first();
 
-            if (iseet($inventory)) {
+            if (isset($inventory)) {
 
                 $inventory->update([
 
@@ -59,9 +67,9 @@ class InventoryController extends Controller
 
 
                 $inventorycreate = Inventory::create([
-                    'product_id' => $product['product_id'],
+                    'product_id' => $product['value'],
                     'quantity' => $product['quantity'],
-                    'branch_id' => $product['branch_id'],
+                    'store_branche_id' => $product['branchValue'],
 
                 ]);
                 $inventory_id = $inventorycreate->id;
@@ -71,12 +79,13 @@ class InventoryController extends Controller
 
             InventoryMovement::create([
                 'inventory_id' => $inventory_id,
-                'branch_id' => $product['branch_id'],
                 'quantity' => $product['quantity'],
                 'tipo_movimiento' => 'I'
             ]);
 
         }
+
+        return response()->json(['status' => 'ok','data' => $inventory]);
     }
 
 }
