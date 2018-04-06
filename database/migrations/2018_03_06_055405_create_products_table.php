@@ -20,14 +20,14 @@ class CreateProductsTable extends Migration
             $table->string('discount');
             $table->double('price');
             $table->enum('product_presentation', array('unidad', 'par', 'caja', 'docena'));
-            $table->string('description');
+            $table->text('description');
             $table->string('age');
             $table->enum('availability', array('D', 'S', 'A')); //D = Delivery, S = Store, A = All
             $table->string('event')->nullable()->default(null);
             $table->string('interest')->nullable()->default(null);
             $table->enum('sex', array('G', 'F', 'M')); //G = General, F = Mujer , M = Hombre
             $table->unsignedInteger('store_id');
-            $table->unsignedInteger('product_characteristic_id')->nullable()->default(null);;
+            $table->unsignedInteger('product_characteristic_id')->nullable()->default(null);
             // 0: pendiente - 1: activo - 2: inactivo
             $table->integer('status')->default(0);
             $table->timestamps();

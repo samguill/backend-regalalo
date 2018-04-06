@@ -52,7 +52,7 @@
                                 $builder->addField($productpresentationField);
 
                                  $descriptionField = new \App\Utils\ReactCrudField('description');
-                                $descriptionField->title('Descripción')->required(false)->show(false)->width(12);
+                                $descriptionField->title('Descripción')->type('editor')->show(false)->width(12);
                                 $builder->addField($descriptionField);
 
                                 $ageField = new \App\Utils\ReactCrudField('age');
