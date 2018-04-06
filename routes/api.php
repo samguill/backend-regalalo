@@ -24,7 +24,7 @@ Route::group(['middleware' => 'cors'], function (){
 });*/
 
 Route::group(['middleware' => 'jwt.auth'], function (){
-
+    Route::post('client/profile', 'Api\RegisterClientController@profile');
     Route::get('users/{user}', function (App\User $user) { return $user->email; });
 
 });

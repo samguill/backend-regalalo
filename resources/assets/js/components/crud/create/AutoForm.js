@@ -1,5 +1,6 @@
 import React  from 'react';
 import DatePicker from 'react-datepicker';
+import CKEditor from 'react-ckeditor-component';
 import moment from 'moment';
 import Select from 'react-select';
 import * as swal from 'bootstrap-sweetalert'
@@ -117,6 +118,9 @@ export default inject('store')(observer(class AutoForm extends React.Component {
           {
             params[k]=this.state[k];
           }
+            if(field.type=="editor") {
+                params[k]=this.state[k];
+            }
           if(field.type=="email")
           {
             params[k]=this.state[k];
@@ -170,6 +174,13 @@ export default inject('store')(observer(class AutoForm extends React.Component {
               if(field.type=="hidden")
               {
                 return <input type="hidden" key={k}  value={this.state[k]} />
+              }
+              if(field.type==="editor") {
+                  return (<div key={i} className={"form-group col-md-"+field.width}>
+                      {field.label?<label className="form-control-label" htmlFor={k}>{field.title}</label>:""}
+                      <CKEditor activeClass={"p10"} id={k}  className={"form-control "+(field.error!=null?"error":"")} rows="3" type="text" placeholder={field.title} content={this.state[k]} events={{ "change": (e)=>{this.handleFieldChange(k,e.editor.getData())} }} />
+                      {field.error!=null?<p className="error_message">{field.error.message}</p>:""}
+                  </div>)
               }
             if(field.type=="password"){
                 return (<div key={i} className={"form-group col-md-"+field.width}>

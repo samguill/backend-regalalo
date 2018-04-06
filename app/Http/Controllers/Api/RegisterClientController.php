@@ -55,11 +55,16 @@ class RegisterClientController extends Controller
                 if(!$valid_client){
                     return response()->json(['status' => 'error', 'message' => 'Datos incorrectos. Inténtalo de nuevo.']);
                 }
-                $token = JWTAuth::fromUser($client);
+                $token = JWTAuth::fromUser($client, ['client' => $client]);
             }
         } catch (JWTException $e){
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
         return response()->json(['status'=>'ok', 'token' => $token]);
+    }
+
+    public function profile(Request $request){
+        $token = $request->input('token');
+        return response()->json($token);
     }
 }

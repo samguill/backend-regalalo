@@ -117,7 +117,7 @@
                 [
                     "branches" => [
                         "link" => true,
-                        'url' => route('store.branches'),
+                        'url' => route('store-branches'),
                         'icon' => "building",
                         "color" => "#ff9800",
                         "params" => [ 'id' ],

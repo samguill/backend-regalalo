@@ -29,7 +29,7 @@
 
        @endphp
         <div class="col-md-12">
-            <div id="{{\App\Utils\ReactComponents::LARAVEL_CRUD_COMPONENT}}" data-url="{{route('productcharacteristics.lists')}}" data-settings="{{$builder->get()}}" />
+            <div id="{{\App\Utils\ReactComponents::LARAVEL_CRUD_COMPONENT}}" data-url="{{route('interests.lists')}}" data-settings="{{$builder->get()}}" />
         </div>
     </div>
 @endsection
