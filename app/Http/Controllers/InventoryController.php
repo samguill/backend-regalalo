@@ -7,6 +7,7 @@ use App\Models\InventoryMovement;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class InventoryController extends Controller
 {
@@ -28,7 +29,23 @@ class InventoryController extends Controller
 
        $branches = Auth::user()->store->branches()->get()->toArray();
 
-        return view('store.inventory.index', compact('products','branches'));
+        foreach ($branches  as $branch){
+            $branchesArray[] = $branch['id'];
+        }
+
+        $inventoryproducts =
+            array_map(
+                function($item){
+
+                  //  dd($item);
+                    return [
+                        "id" => $item["id"],
+                        "value" =>  $item["product"]["name"].' - '.$item["branch"]["name"],
+                        "quantity" => $item["quantity"]
+                    ];
+                },Inventory::with('product','branch')->whereIn('store_branche_id',$branchesArray)->get()->toArray()
+            );
+        return view('store.inventory.index', compact('products','branches', 'inventoryproducts'));
     }
 
     public function lists(){
@@ -39,7 +56,12 @@ class InventoryController extends Controller
         }
 
 
-        $Inventory = Inventory::whereIn('store_branche_id',$branchesArray)->with(['branch:id,name','product:id,name'])->get();
+        $Inventory= DB::table('inventory')
+            ->select(DB::raw('*'))
+            ->addSelect(DB::raw('(select products.name from products where products.id=inventory.product_id) as product_name'))
+            ->addSelect(DB::raw('(select store_branches.name from store_branches where store_branches.id=inventory.store_branche_id) as branch_name'))
+            ->whereIn('store_branche_id',$branchesArray)
+            ->get();
 
         return response()->json($Inventory);
     }
@@ -86,6 +108,40 @@ class InventoryController extends Controller
         }
 
         return response()->json(['status' => 'ok','data' => $inventory]);
+    }
+
+
+    public function outgoinginventory(Request $request){
+
+        $data= $request->input('products');
+
+        foreach($data['products'] as $product) {
+
+            $inventory = Inventory::where('id', $product['inventory_id'])->first();
+
+            $inventory->update([
+
+                'cantidad' =>  $inventory->cantidad - $product['cantidad'],
+
+            ]) ;
+
+            InventoryMovement::create([
+                'inventory_id' => $inventory->id,
+                'quantity' => $product['quantity'],
+                'tipo_movimiento' => 'E'
+            ]);
+
+        }
+
+        return json_encode('success',200);
+
+    }
+
+
+    public function listProductInventory(Request $request){
+        $product_id = $request->input('product_id');
+
+        $productinventory = Inventory::where('product_id',$product_id)->first();
     }
 
 }

@@ -4,11 +4,11 @@
        @php
             $builder = new \App\Utils\ReactCrudSettingsBuilder();
 
-            $nameField = new \App\Utils\ReactCrudField('name');
+            $nameField = new \App\Utils\ReactCrudField('product_name');
             $nameField->title('Producto')->required(true)->width(6);
             $builder->addField($nameField);
 
-            $branchField = new \App\Utils\ReactCrudField('name');
+            $branchField = new \App\Utils\ReactCrudField('branch_name');
             $branchField->title('Ubicación')->required(true)->width(6);
             $builder->addField($branchField);
 
@@ -27,7 +27,7 @@
        @endphp
 
 
-            <div class="col-md-12">
+            <div class="col-md-12  mb-10">
                 <div class="card">
                     <div class="card-block">
                             <div class="card-body">
@@ -52,7 +52,15 @@
                                         ></div>
 
                                     </div>
-                                    <div class="tab-pane fade" id="outgoinginventory" role="tabpanel" aria-labelledby="outgoinginventory-tab">...</div>
+                                    <div class="tab-pane fade" id="outgoinginventory" role="tabpanel" aria-labelledby="outgoinginventory-tab">
+
+                                        <div class="store-outgoing-inventory"
+                                             data-products="{{json_encode($inventoryproducts)}}"
+                                             url-incominginventory="{{route('inventory.outgoinginventory')}}"
+
+                                        ></div>
+
+                                    </div>
 
                                 </div>
 
