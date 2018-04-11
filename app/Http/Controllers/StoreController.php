@@ -28,6 +28,17 @@ class StoreController extends Controller
         return view('admin.stores.index', compact('data'));
     }
 
+    public function edit(Request $request){
+        $store_id = $request->input('id');
+        $store = Store::with('branches', 'comercial_contact', 'legal_representatives')->find($store_id);
+        $data = [
+            "title" => "Editar datos de tienda: " . $store->comercial_name,
+            "icon" => "fa-building"
+        ];
+        //return response()->json($store);
+        return view('admin.stores.edit', compact('store', 'data'));
+    }
+
     public function lists(){
         $stores = Store::with('comercial_contact','legal_representatives')->where('status', 0)->orWhere('status', 1)->get();
         return response()->json($stores);

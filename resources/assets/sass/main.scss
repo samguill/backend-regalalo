@@ -3116,13 +3116,13 @@ fieldset:disabled a.btn {
 
 .btn-link {
   font-weight: 400;
-  color: #009688;
+  color: #f94e1a;
   background-color: transparent;
 }
 
 .btn-link:hover {
-  color: #004a43;
-  text-decoration: underline;
+  color: #c13c13;
+  text-decoration: none;
   background-color: transparent;
   border-color: transparent;
 }
@@ -13737,7 +13737,6 @@ be a descendant of the grid when it is being dragged.
   text-align: right;
   font-weight: 500;
   font-size: 13px;
-  text-transform: capitalize;
   padding: 0;
   text-align: left;
   padding: 0;

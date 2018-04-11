@@ -105,12 +105,20 @@
             $actions['create'] = [
                 'url' => route('stores.create')
             ];
-            $actions['update'] = [
-                'url' => route('stores.update')
-            ];
-            $actions['delete'] = [
-                'url' => route('stores.delete')
-            ];
+            $actions['custom']=array_merge(
+                $actions["custom"],
+                [
+                    "edit" => [
+                        "link" => true,
+                        'url' => route('stores.edit'),
+                        'icon' => "edit",
+                        "color" => "#4CAF50",
+                        "params" => [ 'id' ],
+                        "title" => "Editar"
+                    ]
+                ]
+            );
+            //$actions['delete'] = ['url' => route('stores.delete')];
 
             $actions["custom"]=array_merge(
                 $actions["custom"],

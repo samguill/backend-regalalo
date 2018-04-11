@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::group(['middleware' => ['isadmin']], function () {
         // Stores
         Route::get('/stores', 'StoreController@index')->name('stores');
+        Route::get('/stores/edit', 'StoreController@edit')->name('stores.edit');
         Route::get('/stores/lists', 'StoreController@lists')->name('stores.lists');
         Route::post('/stores/update', 'StoreController@update')->name('stores.update');
         Route::post('/stores/delete', 'StoreController@delete')->name('stores.delete');
