@@ -128,7 +128,10 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/inventory/incominginventory', 'InventoryController@incominginventory')->name('inventory.incominginventory');
         Route::post('/inventory/outgoinginventory', 'InventoryController@outgoinginventory')->name('inventory.outgoinginventory');
 
-
+        //Ordenes
+        Route::get('/orders', 'OrderController@index')->name('orders');
+        Route::get('/orders/lists', 'OrderController@lists')->name('orders.lists');
+        Route::get('/orders/view', 'OrderController@view')->name('orders.view');
     });
 
 

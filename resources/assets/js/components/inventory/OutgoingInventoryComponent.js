@@ -27,14 +27,16 @@ export default class OutgoingInventoryComponent extends React.Component {
         this.removeProduct = this.removeProduct.bind(this);
         this.handleQuantity = this.handleQuantity.bind(this);
         this.validateQuantity = this.validateQuantity.bind(this);
-
-
-
+        this.onQuantityOutChange = this.onQuantityOutChange.bind(this);
     }
+
+    onQuantityOutChange(e){ this.setState({outgoingquantity:e.target.value}); }
 
 
     validateQuantity(e) {
-        if(e.target.value > this.state.quantity){
+
+console.log(parseInt(e.target.value)+'   '+parseInt(this.state.quantity))
+        if(parseInt(e.target.value) > parseInt(this.state.quantity)){
 
     swal({
              title: "Valor superado.",
@@ -144,7 +146,7 @@ export default class OutgoingInventoryComponent extends React.Component {
 
                     <div className="col-md-2">
                         <lable>Cantidad a egresar</lable>
-                        <input id="outgoing_quantity" name="outgoing_quantity" type="text" value={this.state.outgoingquantity} className="form-control" onKeyPress={(e)=>{this.validateQuantity(e)}}/>
+                        <input id="outgoing_quantity" name="outgoing_quantity" type="text" value={this.state.outgoingquantity} className="form-control" onKeyPress={(e)=>{this.validateQuantity(e)}} onChange={this.onQuantityOutChange}/>
                     </div>
 
                     <div className="col-md-1" style={{paddingTop:"10px"}} >

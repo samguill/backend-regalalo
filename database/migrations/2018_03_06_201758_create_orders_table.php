@@ -18,8 +18,10 @@ class CreateOrdersTable extends Migration
             $table->string('order_code');
             $table->double('total');
             $table->unsignedInteger('client_id');
+            $table->unsignedInteger('store_id');
             $table->timestamps();
             $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('store_id')->references('id')->on('stores');
         });
     }
 

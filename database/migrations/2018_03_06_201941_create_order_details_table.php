@@ -16,10 +16,12 @@ class CreateOrderDetailsTable extends Migration
         Schema::create('order_details', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('order_id');
-            $table->unsignedInteger('product_id')->nulleable()->default(NULL);
-            $table->unsignedInteger('service_id')->nulleable()->default(NULL);
+            $table->unsignedInteger('product_id')->default(0);
+            $table->unsignedInteger('service_id')->default(0);
             $table->integer('quantity');
             $table->double('price');
+            $table->double('price_delivery')->nulleable()->default(NULL);
+            $table->string('tracking_id')->nulleable()->default(NULL);
             $table->double('igv');
             $table->foreign('order_id')->references('id')->on('orders');
             $table->timestamps();

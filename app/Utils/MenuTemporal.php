@@ -17,7 +17,7 @@ class MenuTemporal
         ['icon'=>'fa-shopping-bag','menu'=>'Productos','route' => 'products'],
         ['icon'=>'fa-archive','menu'=>'Servicios','route' => 'services'],
         ['icon'=>'fa-archive','menu'=>'Inventario','route' => 'inventory'],
-        ['icon'=>'fa-paper-plane','menu'=>'Ventas','route' => 'sales'],
+        ['icon'=>'fa-paper-plane','menu'=>'Ventas','route' => 'orders'],
         ['icon'=>'fa-picture-o','menu'=>'Multimedia','route' => 'multimedia']
 
     ];
