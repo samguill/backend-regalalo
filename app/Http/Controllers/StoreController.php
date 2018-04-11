@@ -35,7 +35,7 @@ class StoreController extends Controller
             "title" => "Editar datos de tienda: " . $store->comercial_name,
             "icon" => "fa-building"
         ];
-        //return response()->json($store);
+        //return response()->json($store->comercial_contact);
         return view('admin.stores.edit', compact('store', 'data'));
     }
 
