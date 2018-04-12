@@ -63,9 +63,10 @@
                         </button>
                         <div id="collapse-logo" class="collapse show" aria-labelledby="heading-logo" data-parent="#accordion">
                             <div class="card-body">
-                                <div class="update-logo-component"
-                                     default_data="{{$store->legal_representatives}}"
-                                     data_update_url="{{route('stores.update')}}"></div>
+                                <div class="logo-store-component"
+                                     store_id="{{$store->id}}"
+                                     logo_store="{{$store->logo_store}}"
+                                     data_upload_url="{{route('stores.upload-logo')}}"></div>
                             </div>
                         </div>
                     </div>

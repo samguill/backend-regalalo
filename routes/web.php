@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/stores/create', 'StoreController@create')->name('stores.create');
         Route::post('/stores/generate_user', 'StoreController@generate_user')->name('stores.generate_user');
         Route::post('/stores/charge', 'StoreController@masive_charge')->name('stores.charge');
+        Route::post('/stores/upload-logo', 'StoreController@upload_logo')->name('stores.upload-logo');
         Route::get('/stores/payme_doc/', 'StoreController@payme_document')->name('stores.payme_doc');
 
         // Ocasiones
@@ -56,7 +57,6 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/experiences/create', 'ExperienceController@create')->name('experiences.create');
 
         //Products Characteristics
-
         Route::get('/productcharacteristics', 'ProductCharacteristicController@index')->name('productcharacteristics');
         Route::get('/productcharacteristics/lists', 'ProductCharacteristicController@lists')->name('productcharacteristics.lists');
         Route::post('/productcharacteristics/update', 'ProductCharacteristicController@update')->name('productcharacteristics.update');

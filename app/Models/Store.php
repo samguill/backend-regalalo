@@ -30,6 +30,7 @@ class Store extends Model
         'payme_production_key',
         'payme_process_status',
         'analytics_id',
+        'logo_store',
         'urbaner_process_status',
         'urbaner_token',
         'user_id',

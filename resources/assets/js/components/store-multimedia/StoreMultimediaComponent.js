@@ -97,7 +97,6 @@ export default class StoreMultimediaComponent extends React.Component {
 
             return axios.post(this.upload_url, formData)
                 .then((response) => {
-                    console.log(response);
                     this.setState({files: this.state.files.concat(response.data.data), is_loading: false});
                 })
                 .catch(function (error) {

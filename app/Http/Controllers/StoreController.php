@@ -74,6 +74,23 @@ class StoreController extends Controller
         return response()->json(['status'=>"ok",'data'=>$model]);
     }
 
+    public function upload_logo(Request $request){
+        $image = $request->file('file');
+        $name = $image->getClientOriginalName();
+        $store_id = $request->input('store_id');
+
+        $store = Store::find($store_id);
+        $ruc = $store->ruc;
+
+        $path = "uploads/stores/" . $ruc . "/";
+        $image->move($path , $image->getClientOriginalName());
+
+        $model = $store->update([
+            'logo_store' => $path . $name
+        ]);
+        return response()->json(['status'=>"ok",'data'=>$store->logo_store]);
+    }
+
     public function generate_user(Request $request){
         $store_id = $request->input('id');
         $store = Store::with('comercial_contact')->find($store_id);
