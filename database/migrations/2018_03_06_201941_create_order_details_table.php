@@ -20,8 +20,8 @@ class CreateOrderDetailsTable extends Migration
             $table->unsignedInteger('service_id')->default(0);
             $table->integer('quantity');
             $table->double('price');
-            $table->double('price_delivery')->nulleable()->default(NULL);
-            $table->string('tracking_id')->nulleable()->default(NULL);
+            $table->double('price_delivery')->default(null)->nullable();
+            $table->string('tracking_id')->default(null)->nullable();
             $table->double('igv');
             $table->foreign('order_id')->references('id')->on('orders');
             $table->timestamps();

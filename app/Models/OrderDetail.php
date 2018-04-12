@@ -12,7 +12,11 @@ class OrderDetail extends Model
         'product_id',
         'service_id',
         'quantity',
-        'price'
+        'price',
+        'price_delivery',
+        'tracking_id',
+        'igv',
+        'order_id'
 
     ];
 
