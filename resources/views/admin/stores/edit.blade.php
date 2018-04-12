@@ -21,13 +21,13 @@
                     </div>
 
                     <div class="card mb-20">
-                        <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse-representant" aria-expanded="true" aria-controls="collapse-representant">
+                        <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse-representant" aria-expanded="false" aria-controls="collapse-representant">
                             <div class="card-header" id="heading-representant">
                                 <h5 class="mb-0 d-inline-block">Representantes</h5>
                                 <i class="fa fa-angle-down float-lg-right" style="margin-right: 10px;" aria-hidden="true"></i>
                             </div>
                         </button>
-                        <div id="collapse-representant" class="collapse show" aria-labelledby="heading-representant" data-parent="#accordion">
+                        <div id="collapse-representant" class="collapse" aria-labelledby="heading-representant" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="representantive-store-component"
                                      default_data="{{$store->legal_representatives}}"
@@ -39,17 +39,17 @@
                     </div>
 
                     <div class="card mb-20">
-                        <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse-comercial-contact" aria-expanded="true" aria-controls="collapse-comercial-contact">
+                        <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse-comercial-contact" aria-expanded="false" aria-controls="collapse-comercial-contact">
                             <div class="card-header" id="heading-comercial-contact">
                                 <h5 class="mb-0 d-inline-block">Contacto Comercial</h5>
                                 <i class="fa fa-angle-down float-lg-right" style="margin-right: 10px;" aria-hidden="true"></i>
                             </div>
                         </button>
-                        <div id="collapse-ccomercial-contact" class="collapse show" aria-labelledby="heading-comercial-contact" data-parent="#accordion">
+                        <div id="collapse-comercial-contact" class="collapse" aria-labelledby="heading-comercial-contact" data-parent="#accordion">
                             <div class="card-body">
-                                <div class="update-comercial-contact-component"
-                                     default_data="{{$store->legal_representatives}}"
-                                     data_update_url="{{route('stores.update')}}"></div>
+                                <div class="comercial-contact-edit-component"
+                                     default_data="{{$store->comercial_contact}}"
+                                     data_update_url="{{route('store.comercial-contact-update')}}"></div>
                             </div>
                         </div>
                     </div>

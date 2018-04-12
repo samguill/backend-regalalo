@@ -78,6 +78,9 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/stores/legal-representative/create', 'LegalRepresentativeController@create')->name('store.legal-representative-create');
         Route::post('/stores/legal-representative/update', 'LegalRepresentativeController@update')->name('store.legal-representative-update');
 
+        // Comercial Contact
+        Route::post('/stores/comercial-contact/update', 'ComercialContactController@update')->name('store.comercial-contact-update');
+
         // Clientes
         Route::get('/clients', 'ClientController@index')->name('clients');
         Route::get('/clients/detail', 'ClientController@detail')->name('clients.detail');

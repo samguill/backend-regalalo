@@ -12,6 +12,7 @@ class ComercialContact extends Model
         'document_number',
         'phone',
         'email',
+        'position',
         'store_id'
     ];
 }
