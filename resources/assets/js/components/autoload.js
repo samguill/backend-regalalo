@@ -6,3 +6,4 @@ require('./productcharacteristic/ProductCharacteristicValuesComponent');
 require('./inventory/IncomingInventoryComponent');
 require('./inventory/OutgoingInventoryComponent');
 require('./store-edit/StoreEditComponent');
+require('./representatives-store/RepresentativeStoreComponent');

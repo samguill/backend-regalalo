@@ -14945,3 +14945,13 @@ div.over-loading i.fa {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+div#accordion .collapsed i.fa {
+  transform: rotate(180deg);
+  transition: ease all 0.5s;
+}
+
+div#accordion i.fa {
+  transform: rotate(0deg);
+  transition: ease all 0.5s;
+}

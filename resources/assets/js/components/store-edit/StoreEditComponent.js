@@ -82,8 +82,6 @@ export default class StoreEditComponent extends React.Component {
 
         this.injectDefault = this.injectDefault.bind(this);
         this.injectDefault();
-
-        console.log(this.default_data);
     }
 
     handleChange(name,date) {
