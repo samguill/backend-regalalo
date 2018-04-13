@@ -12,9 +12,6 @@ use Illuminate\Support\Facades\DB;
 class InventoryController extends Controller
 {
     public function index(){
-
-
-
        $products = array_map(
             function($item){
                 return [
@@ -41,9 +38,10 @@ class InventoryController extends Controller
                     return [
                         "id" => $item["id"],
                         "value" =>  $item["product"]["name"].' - '.$item["branch"]["name"],
-                        "quantity" => $item["quantity"]
+                        "quantity" => $item["quantity"],
+                        "store_branche_id" => $item["store_branche_id"]
                     ];
-                },Inventory::with('product','branch')->whereIn('store_branche_id',$branchesArray)->get()->toArray()
+                },Inventory::with('product','branch')->whereIn('store_branche_id',$branchesArray)->where('quantity','<>',0)->get()->toArray()
             );
         return view('store.inventory.index', compact('products','branches', 'inventoryproducts'));
     }
@@ -64,6 +62,14 @@ class InventoryController extends Controller
             ->get();
 
         return response()->json($Inventory);
+    }
+
+    public function movements(Request $request)
+    {
+        $id = $request->input('id');
+        $inventory = Inventory::where('id', $id)->with(['movements.order', 'product'])->first();
+
+        return view('store.inventory.show', compact('inventory'));
     }
 
     public function incominginventory(Request $request)
@@ -115,13 +121,13 @@ class InventoryController extends Controller
 
         $data= $request->input('products');
 
-        foreach($data['products'] as $product) {
+        foreach($data as $product) {
 
-            $inventory = Inventory::where('id', $product['inventory_id'])->first();
+            $inventory = Inventory::where('id', $product['value'])->where('store_branche_id', $product['store_branche_id'])->first();
 
             $inventory->update([
 
-                'cantidad' =>  $inventory->cantidad - $product['cantidad'],
+                'quantity' =>  $inventory->quantity - $product['quantity'],
 
             ]) ;
 
@@ -133,7 +139,7 @@ class InventoryController extends Controller
 
         }
 
-        return json_encode('success',200);
+        return response()->json(['status' => 'ok','data' => $inventory]);
 
     }
 

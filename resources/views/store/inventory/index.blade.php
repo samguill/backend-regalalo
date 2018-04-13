@@ -19,7 +19,20 @@
 
             $actions = [];
             $actions["custom"] = [];
-            $actions['view'] = [];
+            $actions['custom']=array_merge(
+                    $actions["custom"],
+                      [
+                    "edit" => [
+                        "link" => true,
+                        'url' => route('inventory.movements'),
+                        'icon' => "edit",
+                        "color" => "#4CAF50",
+                        "params" => [ 'id' ],
+                        "title" => "Ver"
+                    ]
+                                    ]
+                            );
+
 
 
             $builder->setActions($actions);
@@ -56,7 +69,7 @@
 
                                         <div class="store-outgoing-inventory"
                                              data-products="{{json_encode($inventoryproducts)}}"
-                                             url-incominginventory="{{route('inventory.outgoinginventory')}}"
+                                             url-outgoinginventory="{{route('inventory.outgoinginventory')}}"
 
                                         ></div>
 

@@ -19,4 +19,9 @@ class Inventory extends Model
         return $this->hasONe('App\Models\Product', 'id', 'product_id');
     }
 
+    public function movements(){
+
+        return $this->hasMany('App\Models\InventoryMovement', 'inventory_id' , 'id');
+    }
+
 }

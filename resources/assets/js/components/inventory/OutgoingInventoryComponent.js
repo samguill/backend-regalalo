@@ -11,7 +11,7 @@ export default class OutgoingInventoryComponent extends React.Component {
         super(props);
 
         this.dataproducts = this.props.dataproducts;
-        this.urlincominginventory = this.props.urlincominginventory;
+        this.urloutgoinginventory = this.props.urloutgoinginventory;
 
 
         this.state = {
@@ -62,7 +62,8 @@ console.log(parseInt(e.target.value)+'   '+parseInt(this.state.quantity))
                     sku_code: item.sku_code,
                     quantity: item.quantity,
                     description: item.description,
-                    price:item.price
+                    price:item.price,
+                    store_branche_id:item.store_branche_id
                 });
             }})
 
@@ -76,7 +77,8 @@ console.log(parseInt(e.target.value)+'   '+parseInt(this.state.quantity))
                 products.push({
                     product: selectValue.label,
                     value: selectValue.value,
-                    quantity:this.state.quantity
+                    quantity:this.state.quantity,
+                    store_branche_id: item.store_branche_id
 
                 });
                 this.setState({
@@ -97,7 +99,7 @@ console.log(parseInt(e.target.value)+'   '+parseInt(this.state.quantity))
 
     storeIncomingInventory(){
 
-        axios.post(this.urlincominginventory, {products:this.state.products})
+        axios.post(this.urloutgoinginventory, {products:this.state.products})
             .then((response) => {
                 if(response.data.status === "ok"){
                     swal({  title: "Operación Exitosa",
@@ -204,13 +206,13 @@ if (document.getElementsByClassName('store-outgoing-inventory')) {
 
         let element = elements[i];
         var dataproducts = element.getAttribute("data-products");
-        var urlincominginventory = element.getAttribute("url-outgoinginventory");
+        var urloutgoinginventory = element.getAttribute("url-outgoinginventory");
 
 
         ReactDOM.render(<OutgoingInventoryComponent
 
             dataproducts={JSON.parse(dataproducts)}
-            urlincominginventory={urlincominginventory}
+            urloutgoinginventory={urloutgoinginventory}
 
         />, element);
     }
