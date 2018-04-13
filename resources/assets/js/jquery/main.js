@@ -154,7 +154,7 @@ window.charge_services = function (element) {
                     text: "El archivo se ha cargado con éxito.",
                     type: "success"
                 }, function(){
-                    window.location.href = '/products';
+                    window.location.href = '/services';
                 });
             }else{
                 swal({  title: "Ha ocurrido un error",
