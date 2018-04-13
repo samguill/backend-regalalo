@@ -55,13 +55,13 @@
                     </div>
 
                     <div class="card mb-20">
-                        <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse-logo" aria-expanded="true" aria-controls="collapse-logo">
+                        <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse-logo" aria-expanded="false" aria-controls="collapse-logo">
                             <div class="card-header" id="heading-logo">
                                 <h5 class="mb-0 d-inline-block">Imagen / Logo</h5>
                                 <i class="fa fa-angle-down float-lg-right" style="margin-right: 10px;" aria-hidden="true"></i>
                             </div>
                         </button>
-                        <div id="collapse-logo" class="collapse show" aria-labelledby="heading-logo" data-parent="#accordion">
+                        <div id="collapse-logo" class="collapse" aria-labelledby="heading-logo" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="logo-store-component"
                                      store_id="{{$store->id}}"

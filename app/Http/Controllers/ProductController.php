@@ -37,6 +37,20 @@ class ProductController extends Controller
         return response()->json($Products);
     }
 
+    public function edit(Request $request){
+        $data = $request->all();
+        $product = Product::with('images.image')->where("id", $data["id"])->first();
+        $auth = Auth::user();
+        if($auth["type"] == "S"){
+            if($auth->store["id"] == $product->store_id){
+                return response()->json($product);
+            }else{
+                return redirect('/');
+            }
+        }
+
+    }
+
     public function update(Request $request) {
         $data = $request->all();
         $Product = Product::find($data['id']);

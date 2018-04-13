@@ -137,7 +137,7 @@ export default inject('store')(observer(class AutoForm extends React.Component {
           {
             params[k]=this.state[k];
           }
-            if(field.type=="hidden")
+            if(field.type=="editor")
             {
                 params[k]=this.state[k];
             }

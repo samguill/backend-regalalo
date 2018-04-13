@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable= [
+        'id',
         'name',
         'sku_code',
         'discount',
@@ -21,4 +22,8 @@ class Product extends Model
         'product_characteristic_id',
         'status'
     ];
+
+    public function images() {
+        return $this->hasMany('App\Models\ProductImage', 'product_id', 'id');
+    }
 }
