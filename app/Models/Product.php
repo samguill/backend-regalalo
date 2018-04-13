@@ -23,7 +23,7 @@ class Product extends Model
         'status'
     ];
 
-    public function images() {
+    public function productimages() {
         return $this->hasMany('App\Models\ProductImage', 'product_id', 'id');
     }
 }

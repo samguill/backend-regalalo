@@ -12,7 +12,7 @@ class ProductImage extends Model
         'product_id'
     ];
 
-    public function image() {
+    public function store_image() {
         return $this->hasOne('App\Models\StoreImage', 'id', 'store_image_id');
     }
 

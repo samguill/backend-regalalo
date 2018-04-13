@@ -39,7 +39,7 @@ class ProductController extends Controller
 
     public function edit(Request $request){
         $data = $request->all();
-        $product = Product::with('images.image')->where("id", $data["id"])->first();
+        $product = Product::with('productimages.store_image')->where("id", $data["id"])->first();
         $auth = Auth::user();
         if($auth["type"] == "S"){
             if($auth->store["id"] == $product->store_id){
