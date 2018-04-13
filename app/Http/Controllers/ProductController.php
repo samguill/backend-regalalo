@@ -101,7 +101,7 @@ class ProductController extends Controller
                 $highestColumn = $worksheet->getHighestColumn();
                 $highestColumnIndex = \PHPExcel_Cell::columnIndexFromString($highestColumn);
 
-                for ($row = 3; $row <= $highestRow; ++$row) {
+                for ($row = 2; $row <= $highestRow; ++$row) {
                     $val = array();
                     for ($col = 0; $col < $highestColumnIndex; ++$col) {
                         $cell = $worksheet->getCellByColumnAndRow($col, $row);
@@ -129,6 +129,7 @@ class ProductController extends Controller
                         'description'=> $description ,
                         'age'=> $age,
                         'availability'=>  $availability,
+                        'sex' => '',
                         'store_id'=> Auth::user()->store->id
 
                     ]);
