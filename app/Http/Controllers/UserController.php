@@ -23,10 +23,13 @@ class UserController extends Controller
 
     public function update(Request $request) {
         $data = $request->all();
-        $store = User::find($data['id']);
+        if($request->input('password') == '' && $request->input('password') == null){
+            $data = $request->except(['password']);
+        }
+        $user = User::find($data['id']);
         unset($data['id']);
-        if($store->update($data)){
-            return response()->json(['status'=>'ok', 'data'=>$store]);
+        if($user->update($data)){
+            return response()->json(['status'=>'ok', 'data'=>$user]);
         }else{
             return response()->json(['status'=>'error', 'message' => "No se pudo actualizar el registro."]);
         }
