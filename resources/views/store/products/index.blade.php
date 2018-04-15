@@ -86,7 +86,7 @@
             $actions['create'] = [
                 'url' => route('products.create')
             ];
-            $actions['update'] = ['url' => route('products.update')];
+            //$actions['update'] = ['url' => route('products.update')];
             $actions['custom']=array_merge(
                 $actions["custom"],
                 [

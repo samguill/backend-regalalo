@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Interest;
 use App\Models\Product;
+use App\Models\StoreImage;
+use App\Utils\ParametersUtil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,18 +34,65 @@ class ProductController extends Controller
     }
 
     public function lists(){
-
         $Products = Product::where('store_id',Auth::user()->store->id)->where('status', 0)->orWhere('status', 1)->get();
         return response()->json($Products);
     }
 
     public function edit(Request $request){
         $data = $request->all();
-        $product = Product::with('productimages.store_image')->where("id", $data["id"])->first();
+
         $auth = Auth::user();
+        $store_id =  $auth->store["id"];
+
+        $product = Product::with('productimages.store_image')->where("id", $data["id"])->first();
+        $store_images = StoreImage::where('store_id', $store_id)->get();
+
+        $sex = array_map(
+            function($item){
+                return [
+                    "id" => $item['id'],
+                    "value" => $item['value']
+                ];
+            }, ParametersUtil::sex
+        );
+
+        $ages = array_map(
+            function($item){
+                return [
+                    "id" => $item,
+                    "value" => $item
+                ];
+            }, range(1,80)
+        );
+
+        $events = array_map(
+            function($item){
+                return [
+                    "id" => $item["id"],
+                    "value" => $item["name"]
+                ];
+            }, Event::all()->toArray()
+        );
+
+        $interests = array_map(
+            function($item){
+                return [
+                    "id" => $item["id"],
+                    "value" => $item["name"]
+                ];
+            }, Interest::all()->toArray()
+        );
+
+        $product_characteristics = ParametersUtil::getProductCharacteristics();
+
         if($auth["type"] == "S"){
-            if($auth->store["id"] == $product->store_id){
-                return response()->json($product);
+            if($store_id == $product->store_id){
+                return view('store.products.edit', compact(
+                    'store_images','product',
+                    'store_id', 'sex',
+                    'ages', 'events',
+                    'interests', 'product_characteristics')
+                );
             }else{
                 return redirect('/');
             }
@@ -55,9 +104,10 @@ class ProductController extends Controller
         $data = $request->all();
         $Product = Product::find($data['id']);
         unset($data['id']);
-        $data['age'] = json_encode(array_map(function($age){return intval($age);},explode(",",$data['age'])));
-        $data['event'] = json_encode(array_map(function($event){return intval($event);},explode(",",$data['event'])));
-        $data['interest'] = json_encode(array_map(function($interest){return intval($interest);},explode(",",$data['interest'])));
+        $data['age'] = implode(',',$data["age"]);
+        $data['event'] = implode(',',$data["event"]);
+        $data['interest'] = implode(',',$data["interest"]);
+        //return response()->json(['status'=>'ok', 'data'=> $data]);
         if($Product->update($data))
             return response()->json(['status'=>'ok', 'data'=>$Product]);
         else

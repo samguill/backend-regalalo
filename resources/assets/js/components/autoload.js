@@ -9,3 +9,6 @@ require('./store-edit/StoreEditComponent');
 require('./representatives-store/RepresentativeStoreComponent');
 require('./comercial-contact-edit/ComercialContactComponent');
 require('./store-upload-logo/StoreUploadLogoComponent');
+
+require('./product-edit/ProductEditComponent');
+require('./product-images/ProductImagesComponent');
