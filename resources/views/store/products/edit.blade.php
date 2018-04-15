@@ -36,8 +36,10 @@
                             <div class="card-body">
                                 <div class="product-images-component"
                                      data_store_images="{{$store_images}}"
-                                     data_update_url="{{route('store.legal-representative-update')}}"
-                                     data_create_url="{{route('store.legal-representative-create')}}"></div>
+                                     data_product_id="{{$product->id}}"
+                                     data_product_images="{{$product->productimages}}"
+                                     data_add_image_url="{{route('product.images.add')}}"
+                                     data_delete_image_url="{{route('product.images.delete')}}"></div>
                             </div>
                         </div>
                     </div>

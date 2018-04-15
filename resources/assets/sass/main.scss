@@ -14955,3 +14955,40 @@ div#accordion i.fa {
   transform: rotate(0deg);
   transition: ease all 0.5s;
 }
+
+.media-list-files.store .file-item-containter {
+  min-height: auto;
+}
+
+.media-list-files.store .remove-item {
+  display: inline-block;
+  top: 5px;
+  right: 20px;
+  position: absolute;
+  background: #F44336;
+  color: #FFF;
+  padding: 0px 5px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.overlay i.fa {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  color: #FFF;
+}

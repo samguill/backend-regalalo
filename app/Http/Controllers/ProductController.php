@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Interest;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\StoreImage;
 use App\Utils\ParametersUtil;
 use Illuminate\Http\Request;
@@ -87,6 +88,7 @@ class ProductController extends Controller
 
         if($auth["type"] == "S"){
             if($store_id == $product->store_id){
+                //return response()->json($product->productimages);
                 return view('store.products.edit', compact(
                     'store_images','product',
                     'store_id', 'sex',
@@ -191,5 +193,28 @@ class ProductController extends Controller
         }else{
             return response()->json(['status' => 'error', 'message' => 'El formato de archivo es incorrecto.']);
         }
+    }
+
+    // Asignación de imágenes
+    public function add_image_product(Request $request){
+        $data = $request->all();
+        try {
+            $model_create = ProductImage::create([
+                'store_image_id' => $data["id"],
+                'product_id' => $data["product_id"]
+            ]);
+            $model = ProductImage::with('store_image')->where('id', $model_create->id)->first();
+        }catch(Exception $e) {
+
+        }
+        return response()->json(['status'=>"ok",'data'=>$model]);
+    }
+
+    public function delete_image_product(Request $request){
+        $product_image_id = $request->input('id');
+        $product_image = ProductImage::find($product_image_id);
+        $model = $product_image;
+        $product_image->delete();
+        return response()->json(['status'=>"ok",'data'=>$model]);
     }
 }

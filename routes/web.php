@@ -109,6 +109,9 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/products/create', 'ProductController@create')->name('products.create');
         Route::post('/products/charge', 'ProductController@masive_charge')->name('products.charge');
 
+        // Images Product
+        Route::post('/product/images/add', 'ProductController@add_image_product')->name('product.images.add');
+        Route::post('/product/images/delete', 'ProductController@delete_image_product')->name('product.images.delete');
 
         // Services
         Route::get('/services', 'ServiceController@index')->name('services');
