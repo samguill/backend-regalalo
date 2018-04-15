@@ -18,7 +18,7 @@ class StoreTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
         for ($i = 0; $i <= 20; $i++) {
-            $name = \Illuminate\Support\Str::slug($faker->company);
+            $name = $faker->company;
             $store = Store::create([
                 'business_name' => $faker->company,
                 'ruc' => $faker->randomNumber(8),
@@ -26,7 +26,8 @@ class StoreTableSeeder extends Seeder
                 'comercial_name'=> $name,
                 'slug'=> \Illuminate\Support\Str::slug($name),
                 'phone' => $faker->randomNumber(8),
-                'site_url' => $faker->domainName
+                'site_url' => $faker->domainName,
+                'status' => $faker->randomElement([0,1])
             ]);
 
             StoreBranch::create([
@@ -64,6 +65,6 @@ class StoreTableSeeder extends Seeder
             ]);
         }
 
-        $store->update(['user_id'=>3]);
+        $store->update(['user_id'=>3, 'status'=> 1]);
     }
 }

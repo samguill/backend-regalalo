@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Event;
 use App\Models\Experience;
 use App\Models\Interest;
+use App\Models\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -26,6 +27,13 @@ class PageController extends Controller {
             'interests' => $interests,
             'experiences' => $experiences
         ]);
+    }
+
+    public function stores(){
+        $stores = Store::where('status', 1)->get();
+        return response()->json([
+            'status'=>'ok',
+            'stores' => $stores]);
     }
 
 }
