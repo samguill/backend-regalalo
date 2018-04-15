@@ -18,11 +18,13 @@ class StoreTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
         for ($i = 0; $i <= 20; $i++) {
+            $name = \Illuminate\Support\Str::slug($faker->company);
             $store = Store::create([
                 'business_name' => $faker->company,
                 'ruc' => $faker->randomNumber(8),
                 'legal_address' => $faker->address,
-                'comercial_name'=> $faker->company,
+                'comercial_name'=> $name,
+                'slug'=> \Illuminate\Support\Str::slug($name),
                 'phone' => $faker->randomNumber(8),
                 'site_url' => $faker->domainName
             ]);

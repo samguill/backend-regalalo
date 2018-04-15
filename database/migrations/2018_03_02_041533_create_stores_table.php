@@ -21,6 +21,7 @@ class CreateStoresTable extends Migration
             $table->bigInteger('ruc');
             $table->string('legal_address');
             $table->string('comercial_name')->nullable();
+            $table->string('slug')->nullable()->default(null);
             $table->integer('phone')->nullable();
             $table->string('site_url')->nullable();
             // Financiero

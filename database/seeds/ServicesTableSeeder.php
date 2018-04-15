@@ -17,9 +17,10 @@ class ServicesTableSeeder extends Seeder
 
         $limit = 100;
         for ($i = 0; $i < $limit; $i++) {
+            $name = $faker->realText($faker->numberBetween(10,20));
             Service::create([
-
-                'name' => $faker->realText($faker->numberBetween(10,20)),
+                'name' => $name,
+                'slug' => \Illuminate\Support\Str::slug($name),
                 'sku_code'=>$faker->randomNumber(3).$faker->realText(10),
                 'discount' => $faker->randomNumber(2).'.'.$faker->randomNumber(2),
                 'price' => $faker->randomNumber(3).'.'.$faker->randomNumber(2),
