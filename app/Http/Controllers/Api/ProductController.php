@@ -96,18 +96,12 @@ class ProductController extends Controller
         }
 
         //inventario
-        $query->addSelect(DB::raw('IFNULL(inventory.quantity, 0) as quantity'));
-        $query->leftJoin('inventory','inventory.product_id','products.id');
+        $query->addSelect(DB::raw('(SELECT IFNULL(inventory.quantity,\'0\') FROM inventory WHERE inventory.product_id = products.id) as quantity'));
 
-        //imagenes
 
-        $query->addSelect('store_images.image_path');
-        $query->leftJoin('product_images','inventory.product_id','products.id');
+        //imagen destacada
 
-        $query->leftJoin('store_images', function ($join) {
-            $join->on('product_images.store_image_id', '=', 'store_images.id');
-        });
-
+        $query->addSelect('featured_image');
 
         $result = $query->paginate(15);
 
