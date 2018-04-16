@@ -13,6 +13,7 @@ class Store extends Model
         'ruc',
         'legal_address',
         'comercial_name',
+        'slug',
         'phone',
         'site_url',
         'financial_entity',
