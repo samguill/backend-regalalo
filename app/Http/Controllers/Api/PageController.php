@@ -29,11 +29,4 @@ class PageController extends Controller {
         ]);
     }
 
-    public function stores(){
-        $stores = Store::where('status', 1)->get();
-        return response()->json([
-            'status'=>'ok',
-            'stores' => $stores]);
-    }
-
 }
