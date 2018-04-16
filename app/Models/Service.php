@@ -17,5 +17,6 @@ class Service extends Model
         'availability',
         'experience',
         'store_id',
+        'featured_image',
         'status'];
 }

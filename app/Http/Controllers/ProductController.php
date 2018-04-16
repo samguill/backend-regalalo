@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Interest;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\Store;
 use App\Models\StoreImage;
 use App\Utils\ParametersUtil;
 use Illuminate\Http\Request;
@@ -216,5 +217,29 @@ class ProductController extends Controller
         $model = $product_image;
         $product_image->delete();
         return response()->json(['status'=>"ok",'data'=>$model]);
+    }
+
+    // Subida de imagen destacada
+    public function store_featured_image(Request $request){
+        $image = $request->file('file');
+        $product_id = $request->input('product_id');
+        $product = Product::find($product_id);
+        //return response()->json($product);
+
+        $name = $image->getClientOriginalName();
+
+        $store_id = Auth::user()->store->id;
+        $store = Store::find($store_id);
+        $ruc = $store->ruc;
+
+        $path = "uploads/stores/" . $ruc . "/";
+
+        $image->move($path , $image->getClientOriginalName());
+
+        $model = $product->update([
+            'featured_image' => $path . $name
+        ]);
+        return response()->json(['status'=>"ok",'data'=>$product->featured_image]);
+
     }
 }

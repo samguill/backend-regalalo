@@ -26,13 +26,30 @@
                     </div>
 
                     <div class="card mb-20">
-                        <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse-representant" aria-expanded="true" aria-controls="collapse-representant">
+                        <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse-featured" aria-expanded="true" aria-controls="collapse-featured">
+                            <div class="card-header" id="heading-featured">
+                                <h5 class="mb-0 d-inline-block">Imagen destacada</h5>
+                                <i class="fa fa-angle-down float-lg-right" style="margin-right: 10px;" aria-hidden="true"></i>
+                            </div>
+                        </button>
+                        <div id="collapse-featured" class="collapse show" aria-labelledby="heading-featured" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="featured-image-product-component"
+                                     product_id="{{$product->id}}"
+                                     featured_image="{{$product->featured_image}}"
+                                     data_upload_url="{{route('product.upload.featured_image')}}"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-20">
+                        <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse-representant" aria-expanded="false" aria-controls="collapse-representant">
                             <div class="card-header" id="heading-representant">
                                 <h5 class="mb-0 d-inline-block">Fotos del producto</h5>
                                 <i class="fa fa-angle-down float-lg-right" style="margin-right: 10px;" aria-hidden="true"></i>
                             </div>
                         </button>
-                        <div id="collapse-representant" class="collapse show" aria-labelledby="heading-representant" data-parent="#accordion">
+                        <div id="collapse-representant" class="collapse" aria-labelledby="heading-representant" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="product-images-component"
                                      data_store_images="{{$store_images}}"

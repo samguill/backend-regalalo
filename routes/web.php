@@ -112,6 +112,7 @@ Route::group(['middleware' => ['auth']], function(){
         // Images Product
         Route::post('/product/images/add', 'ProductController@add_image_product')->name('product.images.add');
         Route::post('/product/images/delete', 'ProductController@delete_image_product')->name('product.images.delete');
+        Route::post('/product/upload/featured_image', 'ProductController@store_featured_image')->name('product.upload.featured_image');
 
         // Services
         Route::get('/services', 'ServiceController@index')->name('services');

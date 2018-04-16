@@ -27,6 +27,7 @@ class CreateProductsTable extends Migration
             $table->string('event')->nullable()->default(null);
             $table->string('interest')->nullable()->default(null);
             $table->enum('sex', array('G', 'F', 'M'))->default('G'); //G = General, F = Mujer , M = Hombre
+            $table->string('featured_image')->nullable()->default(null);
             $table->unsignedInteger('store_id');
             $table->unsignedInteger('product_characteristic_id')->nullable()->default(null);
             // 0: pendiente - 1: activo - 2: inactivo

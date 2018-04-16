@@ -12,3 +12,4 @@ require('./store-upload-logo/StoreUploadLogoComponent');
 
 require('./product-edit/ProductEditComponent');
 require('./product-images/ProductImagesComponent');
+require('./product-upload-featured-image/ProductoUploadFeaturedImage');
