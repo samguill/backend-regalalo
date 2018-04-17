@@ -5,7 +5,7 @@ import * as swal from 'bootstrap-sweetalert';
 import 'bootstrap-sweetalert/dist/sweetalert.css';
 import Tooltip from 'react-tooltip-component';
 
-export default class OutgoingInventoryComponent extends React.Component {
+export default class OutgoingCouponsComponent extends React.Component {
 
     constructor(props) {
         super(props);
@@ -207,7 +207,7 @@ if (document.getElementsByClassName('store-outgoing-inventory')) {
         var urloutgoinginventory = element.getAttribute("url-outgoinginventory");
 
 
-        ReactDOM.render(<OutgoingInventoryComponent
+        ReactDOM.render(<OutgoingCouponsComponent
 
             dataproducts={JSON.parse(dataproducts)}
             urloutgoinginventory={urloutgoinginventory}

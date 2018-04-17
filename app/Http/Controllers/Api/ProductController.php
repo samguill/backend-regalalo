@@ -24,7 +24,7 @@ class ProductController extends Controller
                     '(select (acos(sin(radians(store_branches.latitude)) * sin(radians('.$latitude.')) +
                     cos(radians(store_branches.latitude)) * cos(radians('.$latitude.')) *
                     cos(radians(store_branches.longitude) - radians('.$longitude.'))) * 6378) 
-                    from store_branches where store_branches.store_id =  products.store_id) as distance'));
+                    from store_branches where store_branches.id =  inventory.store_branche_id) as distance'));
 
             $query->orderBy('distance', 'asc');
         }
@@ -96,12 +96,9 @@ class ProductController extends Controller
         }
 
         //inventario
-        $query->addSelect(DB::raw('(SELECT IFNULL(inventory.quantity,\'0\') FROM inventory WHERE inventory.product_id = products.id) as quantity'));
+        $query->addSelect(DB::raw('IFNULL(inventory.quantity,0) as quantity'));
 
-
-        //imagen destacada
-
-        $query->addSelect('featured_image');
+        $query->leftJoin('inventory','inventory.product_id','=','products.id');
 
         $result = $query->paginate(15);
 

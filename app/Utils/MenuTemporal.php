@@ -15,8 +15,9 @@ class MenuTemporal
     const STORE = [
         ['icon'=>'fa-sitemap','menu'=>'Sucursales','route' => 'branches'],
         ['icon'=>'fa-shopping-bag','menu'=>'Productos','route' => 'products'],
-        ['icon'=>'fa-archive','menu'=>'Servicios','route' => 'services'],
+        ['icon'=>'fa-binoculars','menu'=>'Servicios','route' => 'services'],
         ['icon'=>'fa-archive','menu'=>'Inventario','route' => 'inventory'],
+        ['icon'=>'fa-ticket','menu'=>'Cupones','route' => 'coupons'],
         ['icon'=>'fa-paper-plane','menu'=>'Ventas','route' => 'orders'],
         ['icon'=>'fa-picture-o','menu'=>'Multimedia','route' => 'multimedia']
 

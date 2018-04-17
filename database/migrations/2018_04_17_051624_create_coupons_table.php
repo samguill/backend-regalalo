@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInventoryMovementsTable extends Migration
+class CreateCouponsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateInventoryMovementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventory_movements', function (Blueprint $table) {
+        Schema::create('coupons', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('movement_type', array('I', 'E'));
+            $table->unsignedInteger('service_id');
             $table->integer('quantity');
-            $table->unsignedInteger('inventory_id');
-            $table->unsignedInteger('order_id');
+            $table->unsignedInteger('store_branche_id');
             $table->timestamps();
-            $table->foreign('inventory_id')->references('id')->on('inventory');
+            $table->foreign('service_id')->references('id')->on('services');
+            $table->foreign('store_branche_id')->references('id')->on('store_branches');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateInventoryMovementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventory_movements');
+        Schema::dropIfExists('coupons');
     }
 }

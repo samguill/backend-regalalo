@@ -5,6 +5,8 @@ require('./store-multimedia/StoreMultimediaComponent');
 require('./productcharacteristic/ProductCharacteristicValuesComponent');
 require('./inventory/IncomingInventoryComponent');
 require('./inventory/OutgoingInventoryComponent');
+require('./coupons/IncomingCouponsComponent');
+require('./coupons/OutgoingCouponsComponent');
 require('./store-edit/StoreEditComponent');
 require('./representatives-store/RepresentativeStoreComponent');
 require('./comercial-contact-edit/ComercialContactComponent');

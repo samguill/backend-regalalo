@@ -58,7 +58,7 @@
                                     <div class="tab-pane fade show active" id="incominginventory" role="tabpanel" aria-labelledby="incominginventory-tab">
 
                                         <div class="store-incoming-inventory"
-                                             data-products="{{json_encode($products)}}"
+                                             data-products="{{json_encode($services)}}"
                                              data-branches="{{json_encode($branches)}}"
                                              url-incominginventory="{{route('inventory.incominginventory')}}"
 
@@ -68,7 +68,7 @@
                                     <div class="tab-pane fade" id="outgoinginventory" role="tabpanel" aria-labelledby="outgoinginventory-tab">
 
                                         <div class="store-outgoing-inventory"
-                                             data-products="{{json_encode($inventoryproducts)}}"
+                                             data-products="{{json_encode($couponservices)}}"
                                              url-outgoinginventory="{{route('inventory.outgoinginventory')}}"
 
                                         ></div>
@@ -87,7 +87,7 @@
 
 
         <div class="col-md-12">
-            <div id="{{\App\Utils\ReactComponents::LARAVEL_CRUD_COMPONENT}}" data-url="{{route('inventory.lists')}}" data-settings="{{$builder->get()}}" />
+            <div id="{{\App\Utils\ReactComponents::LARAVEL_CRUD_COMPONENT}}" data-url="{{route('coupons.lists')}}" data-settings="{{$builder->get()}}" />
         </div>
     </div>
 

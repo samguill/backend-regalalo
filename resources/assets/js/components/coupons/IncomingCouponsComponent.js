@@ -5,47 +5,32 @@ import * as swal from 'bootstrap-sweetalert';
 import 'bootstrap-sweetalert/dist/sweetalert.css';
 import Tooltip from 'react-tooltip-component';
 
-export default class OutgoingInventoryComponent extends React.Component {
+export default class IncomingCouponsComponent extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.dataproducts = this.props.dataproducts;
-        this.urloutgoinginventory = this.props.urloutgoinginventory;
+        this.databranches = this.props.databranches;
+        this.urlincominginventory = this.props.urlincominginventory;
 
 
         this.state = {
             products: [],
             selectValue: '',
             quantity: '',
-            outgoingquantity:''
+            selectBranch: ''
         }
         ;
 
         this.updateValue = this.updateValue.bind(this);
         this.addProduct = this.addProduct.bind(this);
         this.removeProduct = this.removeProduct.bind(this);
+        this.updateBranch = this.updateBranch.bind(this);
         this.handleQuantity = this.handleQuantity.bind(this);
-        this.validateQuantity = this.validateQuantity.bind(this);
-        this.onQuantityOutChange = this.onQuantityOutChange.bind(this);
-    }
-
-    onQuantityOutChange(e){ this.setState({outgoingquantity:e.target.value}); }
 
 
-    validateQuantity(e) {
-        if(parseInt(e.target.value) > parseInt(this.state.quantity)){
 
-    swal({
-             title: "Valor superado.",
-             text: "La cantidad a egresar no puede ser mayor a la cantidad actual.",
-             type: "error"
-         });
-
-        }else{
-            this.setState({ outgoingquantity: e.target.value });
-
-        };
     }
 
     updateValue (newValue) {
@@ -58,10 +43,8 @@ export default class OutgoingInventoryComponent extends React.Component {
             if(item.id === newValue.value){
                 this.setState({
                     sku_code: item.sku_code,
-                    quantity: item.quantity,
                     description: item.description,
-                    price:item.price,
-                    store_branche_id:item.store_branche_id
+                    price:item.price
                 });
             }})
 
@@ -75,8 +58,9 @@ export default class OutgoingInventoryComponent extends React.Component {
                 products.push({
                     product: selectValue.label,
                     value: selectValue.value,
-                    quantity:this.state.outgoingquantity,
-                    store_branche_id: item.store_branche_id
+                    branchValue:this.state.selectBranch.value,
+                    branchLabel:this.state.selectBranch.label,
+                    quantity:this.state.quantity
 
                 });
                 this.setState({
@@ -91,13 +75,20 @@ export default class OutgoingInventoryComponent extends React.Component {
         });
     }
 
+
+    updateBranch(newValue) {
+        this.setState({
+            selectBranch: newValue,
+        });
+    }
+
     handleQuantity(e) {
         this.setState({ quantity: e.target.value });
     }
 
     storeIncomingInventory(){
 
-        axios.post(this.urloutgoinginventory, {products:this.state.products})
+        axios.post(this.urlincominginventory, {products:this.state.products})
             .then((response) => {
                 if(response.data.status === "ok"){
                     swal({  title: "Operación Exitosa",
@@ -128,7 +119,7 @@ export default class OutgoingInventoryComponent extends React.Component {
 
                 <form className="form-group row mt-10" >
                     <div className="col-md-5">
-                        <lable>Producto en inventario</lable>
+                        <lable>Producto</lable>
                     <Select
                         value={this.state.selectValue}
                         options={this.dataproducts.map((opt,i)=>{
@@ -138,15 +129,22 @@ export default class OutgoingInventoryComponent extends React.Component {
                         onChange={this.updateValue}
                     />
                     </div>
+                    <div className="col-md-4">
+                        <lable>Sucursal</lable>
+                        <Select
+                            value={this.state.selectBranch}
+                            options={this.databranches.map((opt,i)=>{
+                                return {label:opt.name,value:opt.id}
+                            })}
+                            onChange={this.updateBranch}
+                            className="form-control"
 
-                    <div className="col-md-2">
-                        <lable>Cantidad actual</lable>
-                        <input id="actual_quantity" name="actual_quantity" readOnly type="text" value={this.state.quantity} className="form-control" onChange={(e)=>{this.handleQuantity(e)}}/>
+                        />
                     </div>
 
                     <div className="col-md-2">
-                        <lable>Cantidad a egresar</lable>
-                        <input id="outgoing_quantity" name="outgoing_quantity" type="text" value={this.state.outgoingquantity} className="form-control" onKeyPress={(e)=>{this.validateQuantity(e)}} onChange={this.onQuantityOutChange}/>
+                        <lable>Cantidad</lable>
+                        <input id="cantidad" name="cantidad" type="text" value={this.state.quantity} className="form-control" onChange={(e)=>{this.handleQuantity(e)}}/>
                     </div>
 
                     <div className="col-md-1" style={{paddingTop:"10px"}} >
@@ -187,7 +185,7 @@ export default class OutgoingInventoryComponent extends React.Component {
                     <div className="col-md-10">
                     </div>
                     <div className="col-md-2">
-                    <button type="button" className="btn btn-primary"  onClick={(e)=> {this.storeIncomingInventory()}}>Egresar productos</button>
+                    <button type="button" className="btn btn-primary"  onClick={(e)=> {this.storeIncomingInventory()}}>Ingresar productos</button>
                     </div>
                 </form>
 
@@ -197,20 +195,22 @@ export default class OutgoingInventoryComponent extends React.Component {
 
 }
 
-if (document.getElementsByClassName('store-outgoing-inventory')) {
-    var elements = document.getElementsByClassName('store-outgoing-inventory');
+if (document.getElementsByClassName('store-incoming-inventory')) {
+    var elements = document.getElementsByClassName('store-incoming-inventory');
     var count = elements.length;
     for(var i = 0; i < count; i++) {
 
         let element = elements[i];
         var dataproducts = element.getAttribute("data-products");
-        var urloutgoinginventory = element.getAttribute("url-outgoinginventory");
+        var databranches = element.getAttribute("data-branches");
+        var urlincominginventory = element.getAttribute("url-incominginventory");
 
 
-        ReactDOM.render(<OutgoingInventoryComponent
+        ReactDOM.render(<IncomingCouponsComponent
 
             dataproducts={JSON.parse(dataproducts)}
-            urloutgoinginventory={urloutgoinginventory}
+            databranches={JSON.parse(databranches)}
+            urlincominginventory={urlincominginventory}
 
         />, element);
     }
