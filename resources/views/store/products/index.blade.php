@@ -53,7 +53,9 @@
             $builder->addField($descriptionField);
 
             $ageField = new \App\Utils\ReactCrudField('age');
-            $ageField->title('Edad (Colocar solo un rango)')->type('json', $ages)->required(false)->show(false)->width(6)->renderAs('text');
+            $ageField->title('Edad (Colocar solo un rango)')->type('json', $ages)
+                ->required(false)->show(false)
+                ->width(6)->renderAs('text');
             $builder->addField($ageField);
 
             $sexField = new \App\Utils\ReactCrudField('sex');
@@ -65,19 +67,25 @@
                 ['id' => 'D', 'value' => 'Delivery'],
                 ['id' => 'S', 'value' => 'Tienda'],
                 ['id' => 'A', 'value' => 'Todos'],
-            ])->title('Disponibilidad')->width(6);
+            ])->title('Disponibilidad')->width(6)->renderAs('text');
             $builder->addField($availabilityField);
 
             $eventField = new \App\Utils\ReactCrudField('event');
-            $eventField->fillable()->title('Ocasión')->type('json', $events)->show(false)->width(6)->renderAs('text');
+            $eventField->fillable()->title('Ocasión')
+                ->type('json', $events)->show(false)
+                ->width(6)->renderAs('text');
             $builder->addField($eventField);
 
             $interestField = new \App\Utils\ReactCrudField('interest');
-            $interestField->fillable()->title('Interés')->type('json', $interests)->show(false)->width(6)->renderAs('text');
+            $interestField->fillable()->title('Interés')
+                ->type('json', $interests)->show(false)
+                ->width(6)->renderAs('text');
             $builder->addField($interestField);
 
             $productCharacteristicField = new \App\Utils\ReactCrudField('product_characteristic_id');
-            $productCharacteristicField->fillable()->title('Características del producto')->type('map', $roductcharacteristics)->show(false)->width(6)->renderAs('text');
+            $productCharacteristicField->fillable()->title('Características del producto')
+                ->type('map', $roductcharacteristics)->show(false)
+                ->width(6)->renderAs('text');
             $builder->addField($productCharacteristicField);
 
             $actions = [];

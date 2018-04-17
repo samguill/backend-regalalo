@@ -26,13 +26,13 @@
                     </div>
 
                     <div class="card mb-20">
-                        <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse-featured" aria-expanded="true" aria-controls="collapse-featured">
+                        <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse-featured" aria-expanded="false" aria-controls="collapse-featured">
                             <div class="card-header" id="heading-featured">
                                 <h5 class="mb-0 d-inline-block">Imagen destacada</h5>
                                 <i class="fa fa-angle-down float-lg-right" style="margin-right: 10px;" aria-hidden="true"></i>
                             </div>
                         </button>
-                        <div id="collapse-featured" class="collapse show" aria-labelledby="heading-featured" data-parent="#accordion">
+                        <div id="collapse-featured" class="collapse" aria-labelledby="heading-featured" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="featured-image-product-component"
                                      product_id="{{$product->id}}"

@@ -37,6 +37,7 @@ export default class ProductEditComponent extends React.Component {
             age:{
                 title:"Edad (Colocar solo un rango)",
                 type:"map",
+                renderAs: 'text',
                 multiple: true,
                 options:this.data_ages,
                 width:4
@@ -60,6 +61,7 @@ export default class ProductEditComponent extends React.Component {
             event:{
                 title:"Ocasión",
                 type:"map",
+                renderAs: 'text',
                 multiple: true,
                 options:this.data_events,
                 width:6
@@ -67,6 +69,7 @@ export default class ProductEditComponent extends React.Component {
             interest:{
                 title:"Interés",
                 type:"map",
+                renderAs: 'text',
                 multiple: true,
                 options:this.data_interests,
                 width:6
@@ -74,6 +77,7 @@ export default class ProductEditComponent extends React.Component {
             product_characteristic_id:{
                 title:"Características del producto",
                 type:"map",
+                renderAs: 'text',
                 options:this.data_product_characteristics,
                 width:4
             },

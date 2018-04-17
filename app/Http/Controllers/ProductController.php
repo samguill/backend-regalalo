@@ -11,6 +11,7 @@ use App\Models\StoreImage;
 use App\Utils\ParametersUtil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -107,10 +108,7 @@ class ProductController extends Controller
         $data = $request->all();
         $Product = Product::find($data['id']);
         unset($data['id']);
-        $data['age'] = implode(',',$data["age"]);
-        $data['event'] = implode(',',$data["event"]);
-        $data['interest'] = implode(',',$data["interest"]);
-        //return response()->json(['status'=>'ok', 'data'=> $data]);
+        $data['slug'] = Str::slug($data["name"]);
         if($Product->update($data))
             return response()->json(['status'=>'ok', 'data'=>$Product]);
         else
@@ -131,6 +129,7 @@ class ProductController extends Controller
     public function create(Request $request){
         try{
             $data = $request->all();
+            $data['slug'] = Str::slug($data["name"]);
             $data['store_id'] = Auth::user()->store->id;
             $data['age'] = json_encode(array_map(function($age){return intval($age);},explode(",",$data['age'])));
             $data['event'] = json_encode(array_map(function($event){return intval($event);},explode(",",$data['event'])));
@@ -175,6 +174,7 @@ class ProductController extends Controller
                     Product::create([
 
                         'name'=>  $name,
+                        'slug' => Str::slug($name),
                         'sku_code'=> $sku_code,
                         'discount'=> $discount,
                         'price'=> $price,

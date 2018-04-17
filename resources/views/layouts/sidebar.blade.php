@@ -16,7 +16,11 @@ $menuadmin = App\Utils\MenuTemporal::ADMIN;
     <div class="app-sidebar__user">
         <img class="app-sidebar__user-avatar" src="{{ asset('img/user-icon.png') }}" height="50" alt="User Image">
         <div>
-            <p class="app-sidebar__user-name">{{ Auth::user()->name }}</p>
+            @if(\Illuminate\Support\Facades\Auth::user()->type =='S')
+                <p class="app-sidebar__user-name">{{ Auth::user()->store->comercial_name }}</p>
+            @else
+                <p class="app-sidebar__user-name">{{ Auth::user()->name }}</p>
+            @endif
             <p class="app-sidebar__user-designation">{{ Auth::user()->email }}</p>
         </div>
     </div>
