@@ -108,7 +108,7 @@ class InventoryController extends Controller
             InventoryMovement::create([
                 'inventory_id' => $inventory_id,
                 'quantity' => $product['quantity'],
-                'tipo_movimiento' => 'I'
+                'movement_type' => 'I'
             ]);
 
         }

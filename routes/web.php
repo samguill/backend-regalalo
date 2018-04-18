@@ -15,6 +15,9 @@ Auth::routes();
 
 Route::post('products/search', 'Api\ProductController@search')->name('products.search');
 Route::post('services/search', 'Api\ServiceController@search')->name('services.search');
+Route::post('product/detail', 'Api\ProductController@detail')->name('product.detail');
+Route::post('service/detail', 'Api\ServiceController@detail')->name('service.detail');
+Route::post('orders/store', 'Api\OrderController@store')->name('orders.store');
 
 Route::group(['middleware' => ['auth']], function(){
 
@@ -146,8 +149,8 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('/coupons', 'CouponController@index')->name('coupons');
         Route::get('/coupons/lists', 'CouponController@lists')->name('coupons.lists');
         Route::get('/coupons/movements', 'CouponController@movements')->name('coupons.movements');
-        Route::post('/coupons/incominginventory', 'CouponController@incominginventory')->name('coupons.incominginventory');
-        Route::post('/coupons/outgoinginventory', 'CouponController@outgoinginventory')->name('coupons.outgoinginventory');
+        Route::post('/coupons/incomingcoupons', 'CouponController@incomingcoupons')->name('coupons.incomingcoupons');
+        Route::post('/coupons/outgoingcoupons', 'CouponController@outgoingcoupons')->name('coupons.outgoingcoupons');
 
         //Ordenes
         Route::get('/orders', 'OrderController@index')->name('orders');

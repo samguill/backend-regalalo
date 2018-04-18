@@ -19,4 +19,14 @@ class Service extends Model
         'store_id',
         'featured_image',
         'status'];
+
+
+    public function serviceimages() {
+        return $this->hasMany('App\Models\ServiceImage');
+    }
+
+    public function store(){
+
+        return $this->belongsTo('App\Models\Store');
+    }
 }

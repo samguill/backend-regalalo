@@ -10,10 +10,10 @@
                     <a href="{{ url('') }}">Home</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{ route('inventory') }}">Inventario</a>
+                    <a href="{{ route('coupons') }}">Cupos</a>
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong>Producto {{$inventory->product->sku_code}}</strong>
+                    <strong>Servicio {{$coupon->service->sku_code}}</strong>
                 </li>
             </ol>
 
@@ -22,25 +22,25 @@
             <div class="invoice">
                 <div class="row">
                     <div class="col-md-12 invoice-left">
-                        <h3>CÓDIGO DE PRODUCTO: {{$inventory->product->sku_code}}</h3>
+                        <h3>CÓDIGO DE SERVICIO: {{$coupon->service->sku_code}}</h3>
                     </div>
                 </div>
                 <hr>
                 <div class="row">
                     <div class="col-sm-3 invoice-left">
                         <h4>Cantidad</h4>
-                        {{$inventory->quantity}}
+                        {{$coupon->quantity}}
                     </div>
 
 
                     <div class="col-sm-3 invoice-left">
                         <h4>Ubicación</h4>
-                        {{$inventory->branch->name}}
+                        {{$coupon->branch->name}}
                     </div>
 
                     <div class="col-sm-3 invoice-left">
                         <h4>Fecha de Ingreso</h4>
-                        {{ date_format($inventory->created_at, 'd/m/Y')}}
+                        {{ date_format($coupon->created_at, 'd/m/Y')}}
                     </div>
                 </div>
 
@@ -49,7 +49,7 @@
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <h3>Movimientos de Producto</h3>
+                        <h3>Movimientos de cupos de servicio</h3>
                     </div>
                 </div>
             <table class="table">
@@ -61,7 +61,7 @@
                         <th>Fecha de Movimiento</th>
                     </tr>
                 </thead>
-                @foreach($inventory->movements as $movement)
+                @foreach($coupon->movements as $movement)
                     <tr>
                         <td> {{($movement->movement_type == "I") ? "Ingreso"  : "Egreso" }} </td>
                         <td>{{$movement->quantity}} </td>

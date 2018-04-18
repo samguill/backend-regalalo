@@ -10,13 +10,13 @@ export default class IncomingCouponsComponent extends React.Component {
     constructor(props) {
         super(props);
 
-        this.dataproducts = this.props.dataproducts;
+        this.dataservices = this.props.dataservices;
         this.databranches = this.props.databranches;
-        this.urlincominginventory = this.props.urlincominginventory;
+        this.urlincomingcoupons = this.props.urlincomingcoupons;
 
 
         this.state = {
-            products: [],
+            services: [],
             selectValue: '',
             quantity: '',
             selectBranch: ''
@@ -24,8 +24,8 @@ export default class IncomingCouponsComponent extends React.Component {
         ;
 
         this.updateValue = this.updateValue.bind(this);
-        this.addProduct = this.addProduct.bind(this);
-        this.removeProduct = this.removeProduct.bind(this);
+        this.addService = this.addService.bind(this);
+        this.removeService = this.removeService.bind(this);
         this.updateBranch = this.updateBranch.bind(this);
         this.handleQuantity = this.handleQuantity.bind(this);
 
@@ -38,7 +38,7 @@ export default class IncomingCouponsComponent extends React.Component {
             selectValue: newValue,
         });
 
-        this.dataproducts.map((item) => {
+        this.datservices.map((item) => {
 
             if(item.id === newValue.value){
                 this.setState({
@@ -50,13 +50,13 @@ export default class IncomingCouponsComponent extends React.Component {
 
     }
 
-    addProduct (selectValue) {
-        var products = this.state.products.slice();
+    addService (selectValue) {
+        var services = this.state.services.slice();
 
-        this.dataproducts.map((item) => {
+        this.dataservices.map((item) => {
             if(item.id === selectValue.value){
-                products.push({
-                    product: selectValue.label,
+                services.push({
+                    service: selectValue.label,
                     value: selectValue.value,
                     branchValue:this.state.selectBranch.value,
                     branchLabel:this.state.selectBranch.label,
@@ -64,14 +64,14 @@ export default class IncomingCouponsComponent extends React.Component {
 
                 });
                 this.setState({
-                    products: products,
+                    services: services,
                 });
             }});
     }
 
-    removeProduct(index) {
+    removeService(index) {
         this.setState({
-            products: this.state.products.filter((_, i) => i !== index)
+            services: this.state.services.filter((_, i) => i !== index)
         });
     }
 
@@ -86,16 +86,16 @@ export default class IncomingCouponsComponent extends React.Component {
         this.setState({ quantity: e.target.value });
     }
 
-    storeIncomingInventory(){
+    storeIncomingCoupons(){
 
-        axios.post(this.urlincominginventory, {products:this.state.products})
+        axios.post(this.urlincomingcoupons, {services:this.state.services})
             .then((response) => {
                 if(response.data.status === "ok"){
                     swal({  title: "Operación Exitosa",
                         text:  "Se ha creado el registro.",
                         type: "success"});
 
-                    window.location = "/inventory";
+                    window.location = "/coupons";
                 }
                 if(response.data.status === "error"){
                     swal({
@@ -119,10 +119,10 @@ export default class IncomingCouponsComponent extends React.Component {
 
                 <form className="form-group row mt-10" >
                     <div className="col-md-5">
-                        <lable>Producto</lable>
+                        <lable>Servicios</lable>
                     <Select
                         value={this.state.selectValue}
-                        options={this.dataproducts.map((opt,i)=>{
+                        options={this.dataservices.map((opt,i)=>{
                             return {label:opt.value,value:opt.id}
                         })}
                         className="form-control"
@@ -149,7 +149,7 @@ export default class IncomingCouponsComponent extends React.Component {
 
                     <div className="col-md-1" style={{paddingTop:"10px"}} >
 
-                        <button type="button"  className="btn btn-success" style={{margin:"2px"}} onClick={(e)=> {this.addProduct(this.state.selectValue)}}>
+                        <button type="button"  className="btn btn-success" style={{margin:"2px"}} onClick={(e)=> {this.addService(this.state.selectValue)}}>
                             <em className="fa fa-plus"></em>
                         </button>
                     </div>
@@ -160,7 +160,7 @@ export default class IncomingCouponsComponent extends React.Component {
                         <table className="table mt-10">
                             <thead>
                             <tr>
-                                <th>Producto</th>
+                                <th>Servicio</th>
                                 <th>Ubicación</th>
                                 <th width="60">Cantidad</th>
                                 <th width="60">Quitar</th>
@@ -168,12 +168,12 @@ export default class IncomingCouponsComponent extends React.Component {
                             </thead>
                             <tbody>
                             {
-                                this.state.products.map((row, ri) => {
+                                this.state.services.map((row, ri) => {
                                     return <tr key={ri}>
-                                        <td>{row.product}</td>
+                                        <td>{row.service}</td>
                                         <td>{row.branchLabel} </td>
                                         <td>{row.quantity}</td>
-                                        <td> <button type="button"  className="btn btn-danger" style={{margin:"0px"}} onClick={(e)=> {this.removeProduct(ri)}}>
+                                        <td> <button type="button"  className="btn btn-danger" style={{margin:"0px"}} onClick={(e)=> {this.removeService(ri)}}>
                                             <em className="fa fa-trash"></em>
                                         </button></td>
                                     </tr>
@@ -185,7 +185,7 @@ export default class IncomingCouponsComponent extends React.Component {
                     <div className="col-md-10">
                     </div>
                     <div className="col-md-2">
-                    <button type="button" className="btn btn-primary"  onClick={(e)=> {this.storeIncomingInventory()}}>Ingresar productos</button>
+                    <button type="button" className="btn btn-primary"  onClick={(e)=> {this.storeIncomingCoupons()}}>Ingresar cupos</button>
                     </div>
                 </form>
 
@@ -195,22 +195,22 @@ export default class IncomingCouponsComponent extends React.Component {
 
 }
 
-if (document.getElementsByClassName('store-incoming-inventory')) {
-    var elements = document.getElementsByClassName('store-incoming-inventory');
+if (document.getElementsByClassName('store-incoming-coupons')) {
+    var elements = document.getElementsByClassName('store-incoming-coupons');
     var count = elements.length;
     for(var i = 0; i < count; i++) {
 
         let element = elements[i];
-        var dataproducts = element.getAttribute("data-products");
+        var dataservices = element.getAttribute("data-services");
         var databranches = element.getAttribute("data-branches");
-        var urlincominginventory = element.getAttribute("url-incominginventory");
+        var urlincomingcoupons = element.getAttribute("url-incomingcoupons");
 
 
         ReactDOM.render(<IncomingCouponsComponent
 
-            dataproducts={JSON.parse(dataproducts)}
+            dataservices={JSON.parse(dataservices)}
             databranches={JSON.parse(databranches)}
-            urlincominginventory={urlincominginventory}
+            urlincomingcoupons={urlincomingcoupons}
 
         />, element);
     }

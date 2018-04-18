@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +25,7 @@ class ServiceController extends Controller
                     '(select (acos(sin(radians(store_branches.latitude)) * sin(radians('.$latitude.')) +
                     cos(radians(store_branches.latitude)) * cos(radians('.$latitude.')) *
                     cos(radians(store_branches.longitude) - radians('.$longitude.'))) * 6378) 
-                    from store_branches where store_branches.store_id =  services.store_id) as distance'));
+                    from store_branches where store_branches.store_id =  coupons.store_branche_id) as distance'));
 
             $query->orderBy('distance', 'asc');
         }
@@ -86,17 +87,31 @@ class ServiceController extends Controller
             $query->where('availability',$availability);
         }
 
-        //inventario
-      //  $query->addSelect(DB::raw('(SELECT IFNULL(inventory.quantity,\'0\') FROM inventory WHERE inventory.service_id = services.id) as quantity'));
+        //cupos disponibles
+        $query->addSelect(DB::raw('IFNULL(coupons.quantity,0) as quantity'));
 
-
-        //imagen destacada
-
-        $query->addSelect('featured_image');
+        $query->leftJoin('coupons','coupons.service_id','=','services.id');
 
         $result = $query->paginate(15);
 
         return response()->json(['status'=>'ok', 'data'=>$result]);
+
+    }
+
+
+    public function detail(Request $request)
+    {
+        $data = [];
+
+        if($request->has('slug')){
+
+            $slug = $request->input('slug');
+
+            $data = Service::where('slug',$slug)->with(['serviceimages.store_image','store'])->first();
+
+        };
+
+        return response()->json(['status'=>'ok', 'data'=>$data]);
 
     }
 }

@@ -4,8 +4,8 @@
        @php
             $builder = new \App\Utils\ReactCrudSettingsBuilder();
 
-            $nameField = new \App\Utils\ReactCrudField('product_name');
-            $nameField->title('Producto')->required(true)->width(6);
+            $nameField = new \App\Utils\ReactCrudField('service_name');
+            $nameField->title('Servicio')->required(true)->width(6);
             $builder->addField($nameField);
 
             $branchField = new \App\Utils\ReactCrudField('branch_name');
@@ -24,7 +24,7 @@
                       [
                     "edit" => [
                         "link" => true,
-                        'url' => route('inventory.movements'),
+                        'url' => route('coupons.movements'),
                         'icon' => "eye",
                         "color" => "#4CAF50",
                         "params" => [ 'id' ],
@@ -47,29 +47,29 @@
 
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="incominginventory-tab" data-toggle="tab" href="#incominginventory" role="tab" aria-controls="incominginventory" aria-selected="true">Ingreso de inventario</a>
+                                        <a class="nav-link active" id="incomingcoupons-tab" data-toggle="tab" href="#incomingcoupons" role="tab" aria-controls="incomingcoupons" aria-selected="true">Ingreso de cupos de servicios</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="outgoinginventory-tab" data-toggle="tab" href="#outgoinginventory" role="tab" aria-controls="outgoinginventory" aria-selected="false">Egreso de inventario</a>
+                                        <a class="nav-link" id="outgoingcoupons-tab" data-toggle="tab" href="#outgoingcoupons" role="tab" aria-controls="outgoingcoupons" aria-selected="false">Egreso de cupos de servicios</a>
                                     </li>
 
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="incominginventory" role="tabpanel" aria-labelledby="incominginventory-tab">
+                                    <div class="tab-pane fade show active" id="incomingcoupons" role="tabpanel" aria-labelledby="incomingcoupons-tab">
 
-                                        <div class="store-incoming-inventory"
-                                             data-products="{{json_encode($services)}}"
+                                        <div class="store-incoming-coupons"
+                                             data-services="{{json_encode($services)}}"
                                              data-branches="{{json_encode($branches)}}"
-                                             url-incominginventory="{{route('inventory.incominginventory')}}"
+                                             url-incomingcoupons="{{route('coupons.incomingcoupons')}}"
 
                                         ></div>
 
                                     </div>
-                                    <div class="tab-pane fade" id="outgoinginventory" role="tabpanel" aria-labelledby="outgoinginventory-tab">
+                                    <div class="tab-pane fade" id="outgoingcoupons" role="tabpanel" aria-labelledby="outgoingcoupons-tab">
 
-                                        <div class="store-outgoing-inventory"
-                                             data-products="{{json_encode($couponservices)}}"
-                                             url-outgoinginventory="{{route('inventory.outgoinginventory')}}"
+                                        <div class="store-outgoing-coupons"
+                                             data-services="{{json_encode($couponservices)}}"
+                                             url-outgoingcoupons="{{route('coupons.outgoingcoupons')}}"
 
                                         ></div>
 

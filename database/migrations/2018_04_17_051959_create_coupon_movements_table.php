@@ -18,7 +18,7 @@ class CreateCouponMovementsTable extends Migration
             $table->enum('movement_type', array('I', 'E'));
             $table->integer('quantity');
             $table->unsignedInteger('coupon_id');
-            $table->unsignedInteger('order_id');
+            $table->unsignedInteger('order_id')->default(null)->nullable();
             $table->timestamps();
             $table->foreign('coupon_id')->references('id')->on('coupons');
         });

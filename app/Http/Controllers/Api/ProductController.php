@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -103,6 +104,22 @@ class ProductController extends Controller
         $result = $query->paginate(15);
 
         return response()->json(['status'=>'ok', 'data'=>$result]);
+
+    }
+
+    public function detail(Request $request)
+    {
+        $data = [];
+
+        if($request->has('slug')){
+
+            $slug = $request->input('slug');
+
+            $data = Product::where('slug',$slug)->with(['productimages.store_image','store'])->first();
+
+        };
+
+        return response()->json(['status'=>'ok', 'data'=>$data]);
 
     }
 }

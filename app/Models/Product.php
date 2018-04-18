@@ -28,4 +28,9 @@ class Product extends Model
     public function productimages() {
         return $this->hasMany('App\Models\ProductImage', 'product_id', 'id');
     }
+
+    public function store(){
+
+        return $this->belongsTo('App\Models\Store');
+    }
 }

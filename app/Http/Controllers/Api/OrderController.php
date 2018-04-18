@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -9,13 +10,24 @@ class OrderController extends Controller
 {
     public function store(Request $request){
 
-        $data = $request->all();
+        $order = $request->input('order');
 
-        $order = Order::create([$data]);
+        $orderdetails = $request->input('orderdetails');
+
+        //Cabecera
+        $data = Order::create([$order]);
+        //Detalle
+        foreach ($orderdetails as $orderdetail){
+
+            $orderdetail['order_id'] = $data->id;
+
+            OrderDetail::create([$orderdetail]);
+
+        }
 
         return response()->json([
             'status'=>'ok',
-            'order' => $order]);
+            'order' => $data]);
 
     }
 }
