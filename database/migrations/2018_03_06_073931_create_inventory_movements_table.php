@@ -18,7 +18,7 @@ class CreateInventoryMovementsTable extends Migration
             $table->enum('movement_type', array('I', 'E'));
             $table->integer('quantity');
             $table->unsignedInteger('inventory_id');
-            $table->unsignedInteger('order_id');
+            $table->unsignedInteger('order_id')->nullable();
             $table->timestamps();
             $table->foreign('inventory_id')->references('id')->on('inventory');
         });

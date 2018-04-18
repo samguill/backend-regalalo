@@ -29,6 +29,41 @@
         return false;
     });
 
+    var data = {
+        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        datasets: [
+            {
+                label: "Productos",
+                fillColor: "rgba(220,220,220,0.2)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: [12, 19, 8, 28, 14, 56, 24, 30, 10, 2, 25, 11]
+            },
+            {
+                label: "Servicios",
+                fillColor: "rgba(151,187,205,0.2)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                data: [2, 29, 25, 12, 9, 24, 57, 10, 50, 23, 5, 16]
+            }
+        ]
+    };
+
+    if($('#lineChartDemo').length) {
+        var ctx = $("#lineChartDemo").get(0).getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: "line",
+            data: data
+        });
+    }
+
+
 })();
 
 window.open_modal = function (id, title){

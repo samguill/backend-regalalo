@@ -14,6 +14,7 @@ try {
     window.Simditor = require('simditor');
     Simditor.locale = 'en-US';
     window.moment = require('moment');
+    window.Chart = require('chart.js');
 } catch (e) {}
 
 /**
