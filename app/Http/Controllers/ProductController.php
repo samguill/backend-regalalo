@@ -108,6 +108,9 @@ class ProductController extends Controller
         $data = $request->all();
         $Product = Product::find($data['id']);
         unset($data['id']);
+        $data['age'] = implode(',',$data["age"]);
+        $data['event'] = implode(',',$data["event"]);
+        $data['interest'] = implode(',',$data["interest"]);
         $data['slug'] = Str::slug($data["name"]);
         if($Product->update($data))
             return response()->json(['status'=>'ok', 'data'=>$Product]);
