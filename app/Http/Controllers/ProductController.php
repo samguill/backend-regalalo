@@ -33,7 +33,7 @@ class ProductController extends Controller
                 ];
             }, Interest::all()->toArray()
         );
-        return view('store.Products.index', compact('events', 'interests'));
+        return view('store.products.index', compact('events', 'interests'));
     }
 
     public function lists(){
