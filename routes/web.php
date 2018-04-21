@@ -18,6 +18,7 @@ Route::post('services/search', 'Api\ServiceController@search')->name('services.s
 Route::post('product/detail', 'Api\ProductController@detail')->name('product.detail');
 Route::post('service/detail', 'Api\ServiceController@detail')->name('service.detail');
 Route::post('orders/store', 'Api\OrderController@store')->name('orders.store');
+Route::post('orders/calculatedelivery', 'Api\OrderController@calculateDelivery')->name('orders.calculatedelivery');
 
 Route::group(['middleware' => ['auth']], function(){
 

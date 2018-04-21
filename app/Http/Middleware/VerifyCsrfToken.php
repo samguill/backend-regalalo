@@ -16,6 +16,7 @@ class VerifyCsrfToken extends Middleware
         'products/search',
         'product/detail',
         'service/detail',
-        'services/search'
+        'services/search',
+        'orders/calculatedelivery'
     ];
 }
