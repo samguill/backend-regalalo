@@ -76,17 +76,34 @@
 
 
                     $actions = [];
-                    $actions["custom"] = [];
-                    $actions['view'] = [];
+                     $actions["custom"] = [];
+                   $actions['custom']=array_merge(
+                $actions["custom"],
+                [
+                    "edit" => [
+                        "link" => true,
+                        'url' => route('services.edit'),
+                        'icon' => "edit",
+                        "color" => "#4CAF50",
+                        "params" => [ 'id' ],
+                        "title" => "Editar"
+                    ]
+                ]
+            );
+                  /*   $actions['view'] = [];
                     $actions['create'] = [
                         'url' => route('services.create')
                     ];
                     $actions['update'] = [
                         'url' => route('services.update')
+
+
                     ];
-                    $actions['delete'] = [
+                   $actions['delete'] = [
                         'url' => route('services.delete')
-                    ];
+                    ];*/
+
+
 
                     $builder->setActions($actions);
                         $builder->addButton('Carga masiva de servicios', "open_modal('services_charge_modal', 'Carga masiva de servicios')", "btn-info");

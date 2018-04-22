@@ -121,10 +121,17 @@ Route::group(['middleware' => ['auth']], function(){
         // Services
         Route::get('/services', 'ServiceController@index')->name('services');
         Route::get('/services/lists', 'ServiceController@lists')->name('services.lists');
+        Route::get('/services/edit', 'ServiceController@edit')->name('services.edit');
         Route::post('/services/update', 'ServiceController@update')->name('services.update');
         Route::post('/services/delete', 'ServiceController@delete')->name('services.delete');
         Route::post('/services/create', 'ServiceController@create')->name('services.create');
         Route::post('/services/charge', 'ServiceController@masive_charge')->name('services.charge');
+
+
+        // Images Product
+        Route::post('/service/images/add', 'ServiceController@add_image_service')->name('service.images.add');
+        Route::post('/service/images/delete', 'ServiceController@delete_image_service')->name('service.images.delete');
+        Route::post('/service/upload/featured_image', 'ServiceController@store_featured_image')->name('service.upload.featured_image');
 
         // Branches
         Route::get('/branches', 'StoreController@getBranches')->name('store.branches');

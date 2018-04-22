@@ -10,6 +10,7 @@ namespace App\Utils;
 
 
 use App\Models\ProductCharacteristic;
+use App\Models\ServiceCharacteristic;
 
 class ParametersUtil
 {
@@ -37,6 +38,22 @@ class ParametersUtil
         );
 
         return $productcharacteristic;
+    }
+
+    static function getServiceCharacteristics()
+    {
+
+        $servicecharacteristic = array_map(
+            function($item){
+
+                return [
+                    "id" => $item['id'],
+                    "value" => $item['name']
+                ];
+            }, ServiceCharacteristic::all(['id','name'])->toArray()
+        );
+
+        return $servicecharacteristic;
     }
 
 }

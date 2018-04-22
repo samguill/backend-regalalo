@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Experience;
 use App\Models\Service;
+use App\Models\ServiceImage;
+use App\Models\StoreImage;
+use App\Utils\ParametersUtil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -64,6 +67,60 @@ class ServiceController extends Controller
         return response()->json(['status'=>"ok",'data'=>$model]);
     }
 
+    public function edit(Request $request){
+        $data = $request->all();
+
+        $auth = Auth::user();
+        $store_id =  $auth->store["id"];
+
+        $service = Service::with('serviceimages.store_image')->where("id", $data["id"])->first();
+        $store_images = StoreImage::where('store_id', $store_id)->get();
+
+        $sex = array_map(
+            function($item){
+                return [
+                    "id" => $item['id'],
+                    "value" => $item['value']
+                ];
+            }, ParametersUtil::sex
+        );
+
+        $ages = array_map(
+            function($item){
+                return [
+                    "id" => $item,
+                    "value" => $item
+                ];
+            }, range(1,80)
+        );
+
+        $experiences = array_map(
+            function($item){
+                return [
+                    "id" => $item["id"],
+                    "value" => $item["name"]
+                ];
+            }, Experience::all()->toArray()
+        );
+
+        $service_characteristics = ParametersUtil::getServiceCharacteristics();
+
+        if($auth["type"] == "S"){
+            if($store_id == $service->store_id){
+                //return response()->json($product->productimages);
+                return view('store.services.edit', compact(
+                        'store_images','service',
+                        'store_id', 'sex',
+                        'ages', 'experiences',
+                        'service_characteristics')
+                );
+            }else{
+                return redirect('/');
+            }
+        }
+
+    }
+
 
     // Carga masiva
     public function masive_charge(Request $request){
@@ -115,5 +172,53 @@ class ServiceController extends Controller
         }else{
             return response()->json(['status' => 'error', 'message' => 'El formato de archivo es incorrecto.']);
         }
+    }
+
+
+    // Asignación de imágenes
+    public function add_image_service(Request $request){
+        $data = $request->all();
+        try {
+            $model_create = ServiceImage::create([
+                'store_image_id' => $data["id"],
+                'service_id' => $data["service_id"]
+            ]);
+            $model = ServiceImage::with('store_image')->where('id', $model_create->id)->first();
+        }catch(Exception $e) {
+
+        }
+        return response()->json(['status'=>"ok",'data'=>$model]);
+    }
+
+    public function delete_image_service(Request $request){
+        $service_image_id = $request->input('id');
+        $service_image = ServiceImage::find($service_image_id);
+        $model = $service_image;
+        $service_image->delete();
+        return response()->json(['status'=>"ok",'data'=>$model]);
+    }
+
+    // Subida de imagen destacada
+    public function store_featured_image(Request $request){
+        $image = $request->file('file');
+        $product_id = $request->input('product_id');
+        $product = Product::find($product_id);
+        //return response()->json($product);
+
+        $name = $image->getClientOriginalName();
+
+        $store_id = Auth::user()->store->id;
+        $store = Store::find($store_id);
+        $ruc = $store->ruc;
+
+        $path = "uploads/stores/" . $ruc . "/";
+
+        $image->move($path , $image->getClientOriginalName());
+
+        $model = $product->update([
+            'featured_image' => $path . $name
+        ]);
+        return response()->json(['status'=>"ok",'data'=>$product->featured_image]);
+
     }
 }
