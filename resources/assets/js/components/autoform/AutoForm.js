@@ -112,6 +112,7 @@ export default class AutoForm extends React.Component {
   handleSubmit(){
     let prepared=this.prepareFields();
     var params=prepared.params;
+    console.log(params);
     this.clearErrors();
     var constraints=prepared.constraints;
     var errors=validator(params,constraints,{format: "detailed"});
@@ -192,6 +193,9 @@ export default class AutoForm extends React.Component {
             if(this.state[k]!=null)
             params[k]=this.state[k].format("YYYY-MM-DD");
 
+          }
+          if(field.renderAs=="text"){
+              params[k]=this.state[k].toString();
           }
           if(field.required){
             constraints[k]= Object.assign(constraints[k],{

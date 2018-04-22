@@ -106,14 +106,16 @@ class ProductController extends Controller
 
     public function update(Request $request) {
         $data = $request->all();
-        $Product = Product::find($data['id']);
+        $product = Product::find($data['id']);
         unset($data['id']);
-        $data['age'] = implode(',',$data["age"]);
-        $data['event'] = implode(',',$data["event"]);
-        $data['interest'] = implode(',',$data["interest"]);
         $data['slug'] = Str::slug($data["name"]);
-        if($Product->update($data))
-            return response()->json(['status'=>'ok', 'data'=>$Product]);
+        $ages = $data['age'];
+        $ages = explode(",", $ages);
+        $ages = range(intval($ages[0]), intval($ages[1]));
+        $ages = implode(",", $ages);
+        $data['age'] = $ages;
+        if($product->update($data))
+            return response()->json(['status'=>'ok', 'data'=>$product]);
         else
             return response()->json(['status'=>'error', 'message' => "No se pudo actualizar el registro."]);
     }

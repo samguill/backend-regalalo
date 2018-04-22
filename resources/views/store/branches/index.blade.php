@@ -5,10 +5,10 @@
             <div class="card">
                 <div class="card-body">
                     <div class="store-branches"
-                         brancheslist="{{route('store.branches-lists-admin')}}"
+                         brancheslist="{{route('store.branches-lists')}}"
                          storeid="{{$store_id}}"
-                         url_create_branch="{{route('store.branch-create-admin')}}"
-                         url_update_branch="{{route('store.branch-update-admin')}}"
+                         url_create_branch="{{route('store.branch-create')}}"
+                         url_update_branch="{{route('store.branch-update')}}"
                     />
                 </div>
             </div>

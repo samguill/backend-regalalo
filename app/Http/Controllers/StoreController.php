@@ -129,10 +129,11 @@ class StoreController extends Controller
         $auth = Auth::user();
         if($auth["type"] == "S"){
             $store_id = Auth::user()->store->id;
+            return view('stores.branches.index', compact('store_id'));
         }else{
             $store_id = $request->input('id');
+            return view('admin.stores.branches', compact('store_id'));
         }
-        return view('admin.stores.branches', compact('store_id'));
     }
 
     public function listBranches(Request $request){
@@ -142,8 +143,10 @@ class StoreController extends Controller
     }
 
     public function create_branch(Request $request){
+        $data = $request->all();
+        unset($data['id']);
         try{
-            $model = StoreBranch::create($request->all());
+            $model = StoreBranch::create($data);
         }catch(Exception $e) {
 
         }
