@@ -17,7 +17,7 @@
                 <i class="icon fa fa-shopping-bag fa-3x"></i>
                 <div class="info">
                     <h4>Productos</h4>
-                    <p><b>16</b></p>
+                    <p><b>{{count($products)}}</b></p>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
                 <i class="icon fa fa-binoculars fa-3x"></i>
                 <div class="info">
                     <h4>Servicios</h4>
-                    <p><b>12</b></p>
+                    <p><b>{{count($services)}}</b></p>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
                 <i class="icon fa fa-sitemap fa-3x"></i>
                 <div class="info">
                     <h4>Sucursales</h4>
-                    <p><b>4</b></p>
+                    <p><b>{{count($branches)}}</b></p>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
                 <i class="icon fa fa-paper-plane fa-3x"></i>
                 <div class="info">
                     <h4>Ventas</h4>
-                    <p><b>19</b></p>
+                    <p><b>{{count($orders)}}</b></p>
                 </div>
             </div>
         </div>

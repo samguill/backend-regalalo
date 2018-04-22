@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Service;
+use App\Models\StoreBranch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,8 +37,12 @@ class HomeController extends Controller
             return view('admin.home', compact('data'));
 
         }else{
-
-            return view('store.home', compact('data'));
+            $store_id = Auth::user()->store->id;
+            $products = Product::where('store_id', $store_id)->get();
+            $services = Service::where('store_id', $store_id)->get();
+            $branches = StoreBranch::where('store_id', $store_id)->get();
+            $orders = Order::where('store_id', $store_id)->get();
+            return view('store.home', compact('data', 'products', 'services', 'branches', 'orders'));
 
         }
     }
