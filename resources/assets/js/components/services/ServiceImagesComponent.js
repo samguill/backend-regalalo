@@ -5,20 +5,20 @@ export default class ServiceImagesComponent extends React.Component {
 
     constructor(props){
         super(props);
-        this.data_product_id = this.props.data_product_id;
+        this.data_service_id = this.props.data_service_id;
         this.data_add_image_url = this.props.data_add_image_url;
         this.data_delete_image_url = this.props.data_delete_image_url;
-        this.data_product_images_list = JSON.parse(this.props.data_store_images);
-        this.data_store_images = this.data_product_images_list.map((element) => {
+        this.data_service_images_list = JSON.parse(this.props.data_store_images);
+        this.data_store_images = this.data_service_images_list.map((element) => {
             var obj = {};
             obj['id'] = element.id;
             obj['image_path'] = element.image_path;
             return obj;
         });
 
-        this.data_product_images_list = JSON.parse(this.props.data_product_images);
+        this.data_service_images_list = JSON.parse(this.props.data_service_images);
 
-        this.data_product_images = this.data_product_images_list.map((element) => {
+        this.data_service_images = this.data_service_images_list.map((element) => {
             var obj = {};
             obj['id'] = element.id;
             obj['store_image_id'] = element.store_image_id;
@@ -29,17 +29,17 @@ export default class ServiceImagesComponent extends React.Component {
 
         this.state = {
             store_images: this.data_store_images,
-            product_images: this.data_product_images,
+            product_images: this.data_service_images,
             is_loading: false
         };
         console.log(this.data_store_images);
-        console.log(this.data_product_images);
+        console.log(this.data_service_images);
 
     }
 
     addImage(data){
         this.setState({is_loading:true});
-        data.product_id = this.data_product_id;
+        data.service_id = this.data_service_id;
         axios.post(this.data_add_image_url, data)
             .then((response)=>{
                 if(response.data.status === "ok"){
@@ -154,15 +154,15 @@ if (document.getElementsByClassName('service-images-component')) {
     for(var i=0;i<count;i++) {
         let element = elements[i];
         let data_store_images = element.getAttribute('data_store_images');
-        let data_product_images = element.getAttribute('data_product_images');
-        let data_product_id = element.getAttribute('data_product_id');
+        let data_service_images = element.getAttribute('data_service_images');
+        let data_service_id = element.getAttribute('data_service_id');
         let data_add_image_url = element.getAttribute('data_add_image_url');
         let data_delete_image_url = element.getAttribute('data_delete_image_url');
 
         ReactDOM.render(<ServiceImagesComponent
             data_store_images={data_store_images}
-            data_product_images={data_product_images}
-            data_product_id={data_product_id}
+            data_service_images={data_service_images}
+            data_service_id={data_service_id}
             data_add_image_url={data_add_image_url}
             data_delete_image_url={data_delete_image_url}
         />, element);

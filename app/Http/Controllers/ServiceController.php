@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Experience;
 use App\Models\Service;
 use App\Models\ServiceImage;
+use App\Models\Store;
 use App\Models\StoreImage;
 use App\Utils\ParametersUtil;
 use Illuminate\Http\Request;
@@ -201,8 +202,8 @@ class ServiceController extends Controller
     // Subida de imagen destacada
     public function store_featured_image(Request $request){
         $image = $request->file('file');
-        $product_id = $request->input('product_id');
-        $product = Product::find($product_id);
+        $service_id = $request->input('service_id');
+        $service= Service::find($service_id);
         //return response()->json($product);
 
         $name = $image->getClientOriginalName();
@@ -215,10 +216,10 @@ class ServiceController extends Controller
 
         $image->move($path , $image->getClientOriginalName());
 
-        $model = $product->update([
+        $model = $service->update([
             'featured_image' => $path . $name
         ]);
-        return response()->json(['status'=>"ok",'data'=>$product->featured_image]);
+        return response()->json(['status'=>"ok",'data'=>$service->featured_image]);
 
     }
 }

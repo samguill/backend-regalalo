@@ -15,9 +15,9 @@ class CreateServiceImagesTable extends Migration
     {
         Schema::create('service_images', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('store_image_id');
             $table->unsignedInteger('service_id');
-            $table->string('image_path');
-            $table->integer('order')->nulleable()->default(1);
+            $table->foreign('store_image_id')->references('id')->on('store_images');
             $table->foreign('service_id')->references('id')->on('services');
             $table->timestamps();
         });

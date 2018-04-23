@@ -20,6 +20,11 @@ Route::post('service/detail', 'Api\ServiceController@detail')->name('service.det
 Route::post('orders/store', 'Api\OrderController@store')->name('orders.store');
 Route::post('orders/calculatedelivery', 'Api\OrderController@calculateDelivery')->name('orders.calculatedelivery');
 
+Route::get('client/directions', 'Api\ClientDirectionController@directions')->name('client.directions');
+Route::post('client/directions/store', 'Api\ClientDirectionController@store')->name('client.directions.store');
+
+
+
 Route::group(['middleware' => ['auth']], function(){
 
     Route::get('/', 'HomeController@index')->name('home');

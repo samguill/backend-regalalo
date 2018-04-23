@@ -9,7 +9,7 @@ export default class ServiceUploadFeaturedImage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.product_id = this.props.product_id;
+        this.service_id = this.props.service_id;
         this.data_upload_url = this.props.data_upload_url;
         this.featured_image = this.props.featured_image;
 
@@ -33,7 +33,7 @@ export default class ServiceUploadFeaturedImage extends React.Component {
         const uploaders = files.map(file => {
             const formData = new FormData();
             formData.append("file", file);
-            formData.append("product_id", this.product_id);
+            formData.append("service_id", this.service_id);
 
             return axios.post(this.data_upload_url, formData)
                 .then((response) => {
@@ -93,12 +93,12 @@ if (document.getElementsByClassName('featured-image-service-component')) {
     var count = elements.length;
     for(var i = 0; i < count; i++) {
         let element = elements[i];
-        var product_id = element.getAttribute("product_id");
+        var service_id = element.getAttribute("service_id");
         var data_upload_url = element.getAttribute("data_upload_url");
         var featured_image = element.getAttribute("featured_image");
 
         ReactDOM.render(<ServiceUploadFeaturedImage
-            product_id={product_id}
+            service_id={service_id}
             data_upload_url={data_upload_url}
             featured_image={featured_image}
         />, element);
