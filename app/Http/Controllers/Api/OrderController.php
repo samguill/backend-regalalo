@@ -21,10 +21,13 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $response='';
         $order = $request->input('order');
         $orderdetails = $request->input('orderdetails');
         $destination_client = $request->input('destination_client');
         $store_branche_id = $request->input('store_branche_id');
+        $delivery = $request->input('delivery');
+
 
         $store = Store::find($order['store_id']);
         $branch = $store->branches()->where('id', $store_branche_id)->first();
@@ -48,6 +51,7 @@ class OrderController extends Controller
         DB::beginTransaction();
 
         try {
+
 
             //Cabecera
             $data = Order::create($order);
@@ -76,6 +80,7 @@ class OrderController extends Controller
 
             }
             //Order in Urbaner
+            if($delivery){
             $json = [
                 "type" => "1",
                 "destinations" => [
@@ -92,7 +97,8 @@ class OrderController extends Controller
                // "coupon" => "MY_REGISTERED_COUPON"
             ];
             $response = UrbanerUtil::apipost($json, UrbanerUtil::API_CLI_ORDER);
-
+            }
+            
         } catch (\Exception $e) {
             DB::rollback();
             throw new \Exception($e->getMessage());
