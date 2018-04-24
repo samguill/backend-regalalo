@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Inventory;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Store;
@@ -49,29 +50,31 @@ class OrderController extends Controller
         try {
 
             //Cabecera
-            $data = Order::create([$order]);
+            $data = Order::create($order);
             //Detalle
             foreach ($orderdetails as $orderdetail) {
+
                 $orderdetail['order_id'] = $data->id;
-                $od = OrderDetail::create([$orderdetail]);
+                $od = OrderDetail::create($orderdetail);
 
             }
             //Inventario
 
             $inventory = Inventory::where('product_id', $od['product_id'])->where('store_branche_id', $store_branche_id)->first();
 
-            $inventory->update([
-                'quantity' => $inventory->quantity - $od['quantity']
-            ]);
+            if(isset($inventory)){
+                        $inventory->update([
+                            'quantity' => $inventory->quantity - $od['quantity']
+                        ]);
 
-            InventoryMovement::create([
-                'inventory_id' => $inventory->id,
-                'quantity' => $od['quantity'],
-                'order_id'=>$data->id,
-                'movement_type' => 'E'
-            ]);
+                        InventoryMovement::create([
+                            'inventory_id' => $inventory->id,
+                            'quantity' => $od['quantity'],
+                            'order_id'=>$data->id,
+                            'movement_type' => 'E'
+                        ]);
 
-
+            }
             //Order in Urbaner
             $json = [
                 "type" => "1",
@@ -86,7 +89,7 @@ class OrderController extends Controller
                 //"programmed_date" => "2017-11-10 13:00:00",
                 "is_return" => false,
                 "has_extended_search_time" => "true",
-                "coupon" => "MY_REGISTERED_COUPON"
+               // "coupon" => "MY_REGISTERED_COUPON"
             ];
             $response = UrbanerUtil::apipost($json, UrbanerUtil::API_CLI_ORDER);
 

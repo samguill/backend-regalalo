@@ -28,7 +28,8 @@ class UrbanerUtil
 
         $res = $client->request('POST', $base_url_urbaner.$url,[
             'headers' =>$headers,
-            'json' =>  $json
+            'json' =>  $json,
+            'verify' => false,
         ]);
 
         /*if($res->getStatusCode()>=401)

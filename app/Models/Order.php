@@ -12,7 +12,7 @@ class Order extends Model
         'status',
         'store_id',
         'client_id',
-        'subtotal',
+        'sub_total',
         'total',
 
     ];
