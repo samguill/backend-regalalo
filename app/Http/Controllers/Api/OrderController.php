@@ -89,7 +89,7 @@ class OrderController extends Controller
                     $destination_store_branch,
                     $destination_client,
                 ],
-                "payment" => ["backend" => "purse"],
+                "payment" => ["backend" => "card"],
                 "description" => "comida",
                 "vehicle_id" => "2",
                 "memo" => $data->order_code,
