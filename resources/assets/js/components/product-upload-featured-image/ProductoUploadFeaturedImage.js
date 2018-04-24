@@ -37,7 +37,7 @@ export default class ProductoUploadFeaturedImage extends React.Component {
 
             return axios.post(this.data_upload_url, formData)
                 .then((response) => {
-                    this.setState({featured_image: 'http://regalalo.test/' + response.data.data, is_loading: false});
+                    this.setState({featured_image: 'http://adminv2.regalaloprueba.com/' + response.data.data, is_loading: false});
                 })
                 .catch(function (error) {
                     swal({  title: "Ha ocurrido un error.",

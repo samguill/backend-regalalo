@@ -135,7 +135,7 @@ export default class ProductImagesComponent extends React.Component {
 
                                 return <div key={ri} className="col-md-3 file" style={{cursor:'pointer'}} onClick={(e) => this.addImage(row, e)}>
                                     <div className="file-item-containter">
-                                        <div className="file-item" style={{ backgroundImage : "url(http://regalalo.test/"+ row.image_path +")" }}></div>
+                                        <div className="file-item" style={{ backgroundImage : "url(http://adminv2.regalaloprueba.com/"+ row.image_path +")" }}></div>
                                     </div>
                                 </div>
 
