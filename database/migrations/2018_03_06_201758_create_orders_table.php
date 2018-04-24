@@ -16,7 +16,9 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->string('order_code');
+            $table->enum('status',['P', 'C', 'A'])->default('P'); //Pending, Canceled, Atended
             $table->double('total');
+            $table->double('sub_total');
             $table->unsignedInteger('client_id');
             $table->unsignedInteger('store_id');
             $table->timestamps();

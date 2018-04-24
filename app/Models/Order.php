@@ -8,10 +8,10 @@ class Order extends Model
 {
     protected $fillable = [
 
-        'code',
-        'discount',
+        'order_code',
         'status',
         'store_id',
+        'client_id',
         'subtotal',
         'total',
 

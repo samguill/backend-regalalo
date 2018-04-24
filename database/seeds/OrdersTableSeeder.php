@@ -30,6 +30,7 @@ class OrdersTableSeeder extends Seeder
 
             Order::create([
                 'order_code' => $faker->postcode,
+                'sub_total' => $faker->randomNumber(3).'.'.$faker->randomNumber(2),
                 'total' => $faker->randomNumber(3).'.'.$faker->randomNumber(2),
                 'store_id' => Store::all()->random()->id,
                 'client_id' => Client::all()->random()->id,
