@@ -23,6 +23,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $response='';
+        $data='';
         $order = $request->input('order');
         $orderdetails = $request->input('orderdetails');
         $destination_client = $request->input('destination_client');
@@ -102,7 +103,12 @@ class OrderController extends Controller
             
         } catch (\Exception $e) {
             DB::rollback();
-            throw new \Exception($e->getMessage());
+            //throw new \Exception($e->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'order' => $data,
+                'urbaner' => $e->getMessage()
+            ]);
         }
 
         DB::commit();
