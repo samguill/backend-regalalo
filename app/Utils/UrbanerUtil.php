@@ -36,7 +36,8 @@ class UrbanerUtil
             return 'El servicio de Urbarne no responde';*/
 
         $body = $res->getBody();
-        return $body;
+        $data = \GuzzleHttp\json_decode($body->getContents());
+        return $data;
     }
 
 }

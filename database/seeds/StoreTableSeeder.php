@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\ComercialContact;
+use App\Models\Inventory;
 use App\Models\LegalRepresentative;
 use App\Models\Product;
 use App\Models\StoreImage;
@@ -48,7 +49,16 @@ class StoreTableSeeder extends Seeder
             'user_id' => $user_regalalo->id
         ]);
 
-        StoreBranch::create([
+        ComercialContact::create([
+            'name' => "Arturo García",
+            'document_number' => "444444",
+            'phone' => "77777",
+            'email' => 'arturo.garcia@regalalo.pe',
+            'position' => 'Gerente General',
+            'store_id' => $store_regalalo->id
+        ]);
+
+        $branch = StoreBranch::create([
             'name' => 'Local de la Venta de Garaje',
             'latitude' => -12.085937,
             'longitude' => -76.9934232,
@@ -60,7 +70,7 @@ class StoreTableSeeder extends Seeder
             'store_id' => $store_regalalo->id
         ]);
 
-        Product::create([
+        $product_1 = Product::create([
             'name' => 'Maceta Miniatura de Mono y Panda',
             'slug' => 'maceta-miniatura-de-mono-y-panda',
             'sku_code' => 'P01',
@@ -77,7 +87,13 @@ class StoreTableSeeder extends Seeder
             'status' => 0
         ]);
 
-        Product::create([
+        Inventory::create([
+            'product_id' => $product_1->id,
+            'quantity' => 100,
+            'store_branche_id' => $branch->id
+        ]);
+
+        $product_2 = Product::create([
             'name' => 'Macetas de Modelos Variados',
             'slug' => 'macetas-de-modelos-variados',
             'sku_code' => 'P02',
@@ -94,7 +110,13 @@ class StoreTableSeeder extends Seeder
             'status' => 0
         ]);
 
-        Product::create([
+        Inventory::create([
+            'product_id' => $product_2->id,
+            'quantity' => 100,
+            'store_branche_id' => $branch->id
+        ]);
+
+        $product_3 = Product::create([
             'name' => 'Macetas de Modelos Variados',
             'slug' => 'macetas-de-modelos-variados' . $faker->randomDigit() . $faker->randomDigit() . $faker->randomDigit(),
             'sku_code' => 'P02',
@@ -111,7 +133,13 @@ class StoreTableSeeder extends Seeder
             'status' => 0
         ]);
 
-        Product::create([
+        Inventory::create([
+            'product_id' => $product_2->id,
+            'quantity' => 100,
+            'store_branche_id' => $branch->id
+        ]);
+
+        $product_4 = Product::create([
             'name' => 'Macetas de Modelos Variados',
             'slug' => 'macetas-de-modelos-variados' . $faker->randomDigit() . $faker->randomDigit() . $faker->randomDigit(),
             'sku_code' => 'P02',
@@ -128,15 +156,21 @@ class StoreTableSeeder extends Seeder
             'status' => 0
         ]);
 
+        Inventory::create([
+            'product_id' => $product_4->id,
+            'quantity' => 100,
+            'store_branche_id' => $branch->id
+        ]);
+
         $user_hp = User::create([
-            'name' => 'Arturo García',
+            'name' => 'Miguel Falcón',
             'email' => 'admin@hp.com',
             'password' => '011227',
             'type' => 'S',
             'status' => 1
         ]);
 
-        Store::create([
+        $store_hp = Store::create([
             'business_name' => "HP SAC",
             'ruc' => $faker->randomNumber(8),
             'legal_address' => $faker->address,
@@ -154,6 +188,15 @@ class StoreTableSeeder extends Seeder
             'payme_acquirer_id' => 144,
             'payme_process_status' => 1,
             'user_id' => $user_hp->id
+        ]);
+
+        ComercialContact::create([
+            'name' => "Miguel Falcón",
+            'document_number' => "444444",
+            'phone' => "77777",
+            'email' => 'admin@hp.com',
+            'position' => 'Gerente General',
+            'store_id' => $store_hp->id
         ]);
 
         /*for ($i = 0; $i <= 20; $i++) {

@@ -13,8 +13,7 @@ class Order extends Model
         'store_id',
         'client_id',
         'sub_total',
-        'total',
-        'delivery_amount'
+        'total'
     ];
 
 
