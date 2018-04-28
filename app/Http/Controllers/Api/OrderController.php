@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Utils\UrbanerUtil;
 use Illuminate\Support\Facades\DB;
+use SoapClient;
 
 class OrderController extends Controller
 {
@@ -162,7 +163,7 @@ class OrderController extends Controller
         //Referencia al Servicio Web de Wallet
         $wsdl = 'https://integracion.alignetsac.com/WALLETWS/services/WalletCommerce?wsdl';
 
-        $client = new \SoapClient($wsdl);
+        $client = new SoapClient($wsdl);
 
         $params = array(
             'idEntCommerce'=>$idEntCommerce,
