@@ -27,13 +27,10 @@ class Store extends Model
         'maximum_amount',
         'payme_comerce_id',
         'payme_wallet_id',
-        'payme_integration_key',
-        'payme_production_key',
+        'payme_acquirer_id',
         'payme_process_status',
         'analytics_id',
         'logo_store',
-        'urbaner_process_status',
-        'urbaner_token',
         'user_id',
         'status'
     ];

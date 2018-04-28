@@ -9,6 +9,7 @@ use App\Models\ProductImage;
 use App\Models\Store;
 use App\Models\StoreImage;
 use App\Utils\ParametersUtil;
+use Faker\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -105,10 +106,11 @@ class ProductController extends Controller
     }
 
     public function update(Request $request) {
+        $faker = Factory::create();
         $data = $request->all();
         $product = Product::find($data['id']);
         unset($data['id']);
-        $data['slug'] = Str::slug($data["name"]);
+        $data['slug'] = Str::slug($data["name"])  . $faker->randomDigit() . $faker->randomDigit() . $faker->randomDigit();
         $ages = $data['age'];
         $ages = explode(",", $ages);
         $ages = range(intval($ages[0]), intval($ages[1]));
@@ -134,7 +136,8 @@ class ProductController extends Controller
     public function create(Request $request){
         try{
             $data = $request->all();
-            $data['slug'] = Str::slug($data["name"]);
+            $faker = Factory::create();
+            $data['slug'] = Str::slug($data["name"])  . $faker->randomDigit() . $faker->randomDigit() . $faker->randomDigit();
             $data['store_id'] = Auth::user()->store->id;
             $data['age'] = json_encode(array_map(function($age){return intval($age);},explode(",",$data['age'])));
             $data['event'] = json_encode(array_map(function($event){return intval($event);},explode(",",$data['event'])));
@@ -150,6 +153,7 @@ class ProductController extends Controller
     // Carga masiva
     public function masive_charge(Request $request){
         $file = $request->file('excel');
+        $faker = Factory::create();
         ini_set('max_execution_time', 300);
         if ($file->extension() == "xls" || $file->extension() == "xlsx") {
             $objPHPExcel = \PHPExcel_IOFactory::load($file);
@@ -179,7 +183,7 @@ class ProductController extends Controller
                     Product::create([
 
                         'name'=>  $name,
-                        'slug' => Str::slug($name),
+                        'slug' => Str::slug($name) . $faker->randomDigit() . $faker->randomDigit() . $faker->randomDigit(),
                         'sku_code'=> $sku_code,
                         'discount'=> $discount,
                         'price'=> $price,

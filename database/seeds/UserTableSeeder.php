@@ -36,7 +36,7 @@ class UserTableSeeder extends Seeder
 
         User::create([
             'name'=>'Arturo García',
-            'email'=>'arturo.garcia@regalalo.pe',
+            'email'=>'admin@regalalo.pe',
             'password'=>'123456',
             'type' => 'A'
         ]);

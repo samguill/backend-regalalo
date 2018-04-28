@@ -61,17 +61,7 @@ export default class StoreEditComponent extends React.Component {
 
             payme_comerce_id:{title:"PayMe ID Comercio",type:"text",width:4},
             payme_wallet_id:{title:"PayMe ID Wallet",type:"text",width:4},
-
-            urbaner_process_status:{
-                title:"Urbaner",
-                type: "map",
-                width:4,
-                options:[
-                    {id:"0", value:"Pendiente"},
-                    {id:"1", value:"Integración"},
-                    {id:"2", value:"Producción"}
-                ]},
-            urbaner_token:{title:"Token Urbaner",type:"text",width:4},
+            payme_acquirer_id:{title:"PayMe ID Adquiriente",type:"text",width:4},
 
             analytics_id:{title:"Google Analytics ID",type:"text",width:4},
         };

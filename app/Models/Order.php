@@ -14,7 +14,7 @@ class Order extends Model
         'client_id',
         'sub_total',
         'total',
-
+        'delivery_amount'
     ];
 
 

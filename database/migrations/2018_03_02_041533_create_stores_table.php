@@ -40,15 +40,9 @@ class CreateStoresTable extends Migration
             // Payme
             $table->string('payme_comerce_id')->nullable();
             $table->string('payme_wallet_id')->nullable();
-            $table->string('payme_integration_key')->nullable();
-            $table->string('payme_production_key')->nullable();
+            $table->string('payme_acquirer_id')->nullable();
             // 0: pendiente - 1: integración - 2: producción
             $table->integer('payme_process_status')->default(0);
-
-            // Urbaner
-            // 0: pendiente - 1: integración - 2: producción
-            $table->integer('urbaner_process_status')->default(0);
-            $table->string('urbaner_token')->default(0);
 
             $table->string('analytics_id')->nullable();
 

@@ -13,9 +13,19 @@ class ClientTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
-        $faker = Faker\Factory::create();
+    public function run(){
+        $client = Client::create([
+            'first_name' => "Jhon",
+            'last_name' => "Doe",
+            'email' => "jhon@gmail",
+            'password' => '123456'
+        ]);
+
+        ClientWishlist::create([
+            'product_id' => Product::all()->random()->id,
+            'client_id' => $client->id
+        ]);
+        /*$faker = Faker\Factory::create();
         for ($i = 0; $i <= 10; $i++) {
             $client = Client::create([
                 'first_name' => $faker->firstName,
@@ -35,6 +45,6 @@ class ClientTableSeeder extends Seeder
                 'product_id' => Product::all()->random()->id,
                 'client_id' => $client->id
             ]);
-        }
+        }*/
     }
 }

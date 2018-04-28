@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Utils\UrbanerUtil;
 use Illuminate\Support\Facades\DB;
-use SoapClient;
 
 class OrderController extends Controller
 {
@@ -150,6 +149,11 @@ class OrderController extends Controller
     }
 
     public function paymentGenerate(Request $request){
+        //$store_id = Store::find()
+        $data = $request->all();
+
+        $store = Store::find($data["store_id"]);
+
         $idEntCommerce = '420';
         $codCardHolderCommerce = 'pruebawallet1';
         $names = 'Arturo';
@@ -163,7 +167,7 @@ class OrderController extends Controller
         //Referencia al Servicio Web de Wallet
         $wsdl = 'https://integracion.alignetsac.com/WALLETWS/services/WalletCommerce?wsdl';
 
-        $client = new SoapClient($wsdl);
+        $client = new \SoapClient($wsdl);
 
         $params = array(
             'idEntCommerce'=>$idEntCommerce,
@@ -181,8 +185,8 @@ class OrderController extends Controller
         $acquirerId = '144'; //29
         $idCommerce = '9092';
         $purchaseOperationNumber = '10542';
-        $purchaseAmount = '10000';
-        $purchaseCurrencyCode = '840'; //604
+        $purchaseAmount = $data["total"];
+        $purchaseCurrencyCode = '604';
 
         $claveSecretaPasarela = 'LbABXJkbcaFRLJchXCb?679658268743';
 
