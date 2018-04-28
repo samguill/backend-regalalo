@@ -15,7 +15,7 @@ export default class ProductoUploadFeaturedImage extends React.Component {
 
         let featured_image_url = 'http://via.placeholder.com/400x200';
         if(this.featured_image !== ""){
-            featured_image_url = "http://regalalo.test/" + this.featured_image;
+            featured_image_url = "https://adminv2.regalaloprueba.com/" + this.featured_image;
         }
 
         this.uploadImage = this.uploadImage.bind(this);
@@ -37,7 +37,7 @@ export default class ProductoUploadFeaturedImage extends React.Component {
 
             return axios.post(this.data_upload_url, formData)
                 .then((response) => {
-                    this.setState({featured_image: 'http://adminv2.regalaloprueba.com/' + response.data.data, is_loading: false});
+                    this.setState({featured_image: 'https://adminv2.regalaloprueba.com/' + response.data.data, is_loading: false});
                 })
                 .catch(function (error) {
                     swal({  title: "Ha ocurrido un error.",
