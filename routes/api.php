@@ -23,6 +23,7 @@ Route::group(['middleware' => 'cors'], function (){
     Route::post('store/branche', 'Api\ProductController@branche');
     Route::post('orders/calculatedelivery', 'Api\OrderController@calculateDelivery');
     Route::post('orders/store', 'Api\OrderController@store')->name('orders.store');
+    Route::post('orders/payment/generate', 'Api\OrderController@paymentGenerate');
 });
 
 /*Route::domain('regalalo.pe')->group(function(){

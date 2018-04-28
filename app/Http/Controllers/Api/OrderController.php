@@ -146,6 +146,52 @@ class OrderController extends Controller
         $response = UrbanerUtil::apipost($destinations, UrbanerUtil::API_CLI_PRICE);
 
         return $response;
+    }
+
+    public function paymentGenerate(Request $request){
+        $idEntCommerce = '420';
+        $codCardHolderCommerce = 'pruebawallet1';
+        $names = 'Arturo';
+        $lastNames = 'García';
+        $mail = 'arturo.garcia@regalalo.pe';
+
+        //Clave SHA-2 de Wallet
+        $claveSecretaWallet = 'nXBqMLdasxQQurMz.422979735';
+
+        $registerVerification = openssl_digest($idEntCommerce . $codCardHolderCommerce . $mail . $claveSecretaWallet, 'sha512');
+        //Referencia al Servicio Web de Wallet
+        $wsdl = 'https://integracion.alignetsac.com/WALLETWS/services/WalletCommerce?wsdl';
+
+        $client = new \SoapClient($wsdl);
+
+        $params = array(
+            'idEntCommerce'=>$idEntCommerce,
+            'codCardHolderCommerce'=>$codCardHolderCommerce,
+            'names'=>$names,
+            'lastNames'=>$lastNames,
+            'mail'=>$mail,
+            'registerVerification'=>$registerVerification
+        );
+
+        //Consumo del metodo RegisterCardHolder
+        $result = $client->RegisterCardHolder($params);
+
+        //Se definen todos los parametros obligatorios.
+        $acquirerId = '144'; //29
+        $idCommerce = '9092';
+        $purchaseOperationNumber = '10542';
+        $purchaseAmount = '10000';
+        $purchaseCurrencyCode = '840'; //604
+
+        $claveSecretaPasarela = 'LbABXJkbcaFRLJchXCb?679658268743';
+
+        $purchaseVerification = openssl_digest($acquirerId . $idCommerce . $purchaseOperationNumber . $purchaseAmount . $purchaseCurrencyCode . $claveSecretaPasarela, 'sha512');
+
+        $data = array(
+            "purchaseVerification" => $purchaseVerification,
+            "result" => $result
+        );
+        return response()->json($data);
 
     }
 }
