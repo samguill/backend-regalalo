@@ -14,7 +14,8 @@ class OrderDetail extends Model
         'quantity',
         'price',
         'price_delivery',
-        'tracking_id',
+        'tracking_url',
+        'tracking_code',
         'igv'
 
     ];
