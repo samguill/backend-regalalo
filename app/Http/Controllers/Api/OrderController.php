@@ -134,6 +134,7 @@ class OrderController extends Controller
 
         $storebranch = StoreBranch::find($store_branche_id);
 
+        $storebranch = StoreBranch::find($data['store_branche_id']);
         $destinations = [
             'destinations' => [
                     ['latlon' => $data['lat_origin'].','.$data['lon_origin']],
