@@ -17,7 +17,7 @@ class ClientTableSeeder extends Seeder
         $client = Client::create([
             'first_name' => "Jhon",
             'last_name' => "Doe",
-            'email' => "jhon@gmail",
+            'email' => "jhon@gmail.com",
             'password' => '123456'
         ]);
 
