@@ -21,6 +21,8 @@ Route::group(['middleware' => 'cors'], function (){
     Route::post('store/products', 'Api\StoreController@products_store');
     Route::post('product/detail', 'Api\ProductController@detail');
     Route::post('store/branche', 'Api\ProductController@branche');
+    Route::post('orders/list', 'Api\OrderController@orders');
+    Route::post('order/details', 'Api\OrderController@orderdetails');
     Route::post('orders/calculatedelivery', 'Api\OrderController@calculateDelivery');
     Route::post('orders/store', 'Api\OrderController@store')->name('orders.store');
     Route::post('orders/generate', 'Api\OrderController@generateOrder');

@@ -205,4 +205,30 @@ class OrderController extends Controller
         $response = UrbanerUtil::apipost($destinations, UrbanerUtil::API_CLI_PRICE);
         return response()->json($response);
     }
+
+    public function orders(Request $request){
+
+        $result= '';
+
+        if($request->has('client_id')) {
+        $client_id = $request->input('client_id');
+
+            $result = Order::where('client_id ',$client_id )->get();
+
+        }
+        return response()->json(['status'=>'ok', 'data'=>$result]);
+    }
+
+    public function orderdetails(Request $request){
+
+        $result= '';
+
+        if($request->has('order_id')) {
+            $order_id = $request->input('order_id');
+
+            $result = OrderDetail::where('order_id ',$order_id )->get();
+
+        }
+        return response()->json(['status'=>'ok', 'data'=>$result]);
+    }
 }
