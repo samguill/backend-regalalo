@@ -25,7 +25,7 @@ class ClientDirectionController extends Controller
 
         $client_id = $request->input('client_id');
 
-        $data =  ClientDirection::where('cliente_id',$client_id)->get();
+        $data =  ClientDirection::where('client_id',$client_id)->get();
 
         return response()->json([
             'status'=>'ok',
