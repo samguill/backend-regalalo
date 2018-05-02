@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Store;
+use App\Http\Controllers\Controller;
 use App\Models\Inventory;
 use App\Models\InventoryMovement;
 use App\Models\Product;

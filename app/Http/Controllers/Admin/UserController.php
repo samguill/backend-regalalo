@@ -1,38 +1,45 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use App\Models\Experience;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
+use Mockery\Exception;
 
-class ExperienceController extends Controller
+class UserController extends Controller
 {
     public function index(){
         $data = [
-            "title" => "Experiencias"
+            "title" => "Usuarios",
+            "icon" => "fa-user-secret"
         ];
-        return view('admin.experiences.index', compact('data'));
+        return view('admin.users.index', compact('data'));
     }
 
     public function lists(){
-        $experiences = Experience::where('status', 0)->orWhere('status', 1)->get();
-        return response()->json($experiences);
+        $stores = User::where('status', 1)->where('type','A')->get();
+        return response()->json($stores);
     }
 
     public function update(Request $request) {
         $data = $request->all();
-        $exerience = Experience::find($data['id']);
+        if($request->input('password') == '' && $request->input('password') == null){
+            $data = $request->except(['password']);
+        }
+        $user = User::find($data['id']);
         unset($data['id']);
-        if($exerience->update($data))
-            return response()->json(['status'=>'ok', 'data'=>$exerience]);
-        else
+        if($user->update($data)){
+            return response()->json(['status'=>'ok', 'data'=>$user]);
+        }else{
             return response()->json(['status'=>'error', 'message' => "No se pudo actualizar el registro."]);
+        }
+
     }
 
     public function delete(Request $request){
         $data = $request->all();
-        $model = Experience::find($data['id']);
-        $model->status = 2;
+        $model = User::find($data['id']);
+        $model->status = 0;
         if($model->save()) {
             return response()->json(['status'=>'ok','data'=>$model]);
         }else{
@@ -42,7 +49,7 @@ class ExperienceController extends Controller
 
     public function create(Request $request){
         try{
-            $model = Experience::create($request->all());
+            $model = User::create($request->all());
         }catch(Exception $e) {
 
         }

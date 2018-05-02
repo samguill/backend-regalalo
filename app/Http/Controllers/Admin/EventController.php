@@ -1,37 +1,37 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use App\Models\Interest;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
-class InterestController extends Controller
+class EventController extends Controller
 {
     public function index(){
         $data = [
-            "title" => "Intereses"
+            "title" => "Ocasiones"
         ];
-        return view('admin.interests.index', compact('data'));
+        return view('admin.events.index', compact('data'));
     }
 
     public function lists(){
-        $Interests = Interest::where('status', 0)->orWhere('status', 1)->get();
-        return response()->json($Interests);
+        $Events = Event::where('status', 0)->orWhere('status', 1)->get();
+        return response()->json($Events);
     }
 
     public function update(Request $request) {
         $data = $request->all();
-        $Interest = Interest::find($data['id']);
+        $Event = Event::find($data['id']);
         unset($data['id']);
-        if($Interest->update($data))
-            return response()->json(['status'=>'ok', 'data'=>$Interest]);
+        if($Event->update($data))
+            return response()->json(['status'=>'ok', 'data'=>$Event]);
         else
             return response()->json(['status'=>'error', 'message' => "No se pudo actualizar el registro."]);
     }
 
     public function delete(Request $request){
         $data = $request->all();
-        $model = Interest::find($data['id']);
+        $model = Event::find($data['id']);
         $model->status = 2;
         if($model->save()) {
             return response()->json(['status'=>'ok','data'=>$model]);
@@ -42,7 +42,7 @@ class InterestController extends Controller
 
     public function create(Request $request){
         try{
-            $model = Interest::create($request->all());
+            $model = Event::create($request->all());
         }catch(Exception $e) {
 
         }

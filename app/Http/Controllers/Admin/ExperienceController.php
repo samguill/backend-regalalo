@@ -1,37 +1,37 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use App\Models\Event;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
+use App\Models\Experience;
 use Illuminate\Http\Request;
 
-class EventController extends Controller
+class ExperienceController extends Controller
 {
     public function index(){
         $data = [
-            "title" => "Ocasiones"
+            "title" => "Experiencias"
         ];
-        return view('admin.events.index', compact('data'));
+        return view('admin.experiences.index', compact('data'));
     }
 
     public function lists(){
-        $Events = Event::where('status', 0)->orWhere('status', 1)->get();
-        return response()->json($Events);
+        $experiences = Experience::where('status', 0)->orWhere('status', 1)->get();
+        return response()->json($experiences);
     }
 
     public function update(Request $request) {
         $data = $request->all();
-        $Event = Event::find($data['id']);
+        $exerience = Experience::find($data['id']);
         unset($data['id']);
-        if($Event->update($data))
-            return response()->json(['status'=>'ok', 'data'=>$Event]);
+        if($exerience->update($data))
+            return response()->json(['status'=>'ok', 'data'=>$exerience]);
         else
             return response()->json(['status'=>'error', 'message' => "No se pudo actualizar el registro."]);
     }
 
     public function delete(Request $request){
         $data = $request->all();
-        $model = Event::find($data['id']);
+        $model = Experience::find($data['id']);
         $model->status = 2;
         if($model->save()) {
             return response()->json(['status'=>'ok','data'=>$model]);
@@ -42,7 +42,7 @@ class EventController extends Controller
 
     public function create(Request $request){
         try{
-            $model = Event::create($request->all());
+            $model = Experience::create($request->all());
         }catch(Exception $e) {
 
         }

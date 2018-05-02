@@ -6,8 +6,8 @@
  * Time: 10:44 AM
  */
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Store;
+use App\Http\Controllers\Controller;
 use App\Models\Store;
 use App\Models\StoreImage;
 use Illuminate\Support\Facades\Auth;

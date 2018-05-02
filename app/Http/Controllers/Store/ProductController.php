@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Store;
+use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Interest;
 use App\Models\Product;

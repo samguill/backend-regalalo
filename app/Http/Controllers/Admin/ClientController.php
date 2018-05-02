@@ -6,7 +6,8 @@
  * Time: 7:02 PM
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 use App\Models\Client;
 use Mockery\Exception;
 use Illuminate\Http\Request;

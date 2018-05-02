@@ -6,7 +6,8 @@
  * Time: 21:15
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Store;
+use App\Http\Controllers\Controller;
 use App\Models\ComercialContact;
 use App\Models\LegalRepresentative;
 use App\Models\StoreBranch;

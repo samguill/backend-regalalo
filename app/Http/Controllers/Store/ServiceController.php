@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Store;
+use App\Http\Controllers\Controller;
 use App\Models\Experience;
 use App\Models\Service;
 use App\Models\ServiceImage;
