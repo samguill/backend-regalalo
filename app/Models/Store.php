@@ -28,6 +28,8 @@ class Store extends Model
         'payme_comerce_id',
         'payme_wallet_id',
         'payme_acquirer_id',
+        'payme_wallet_password',
+        'payme_gateway_password',
         'payme_process_status',
         'analytics_id',
         'logo_store',

@@ -62,6 +62,8 @@ export default class StoreEditComponent extends React.Component {
             payme_comerce_id:{title:"PayMe ID Comercio",type:"text",width:4},
             payme_wallet_id:{title:"PayMe ID Wallet",type:"text",width:4},
             payme_acquirer_id:{title:"PayMe ID Adquiriente",type:"text",width:4},
+            payme_gateway_password:{title:"PayMe Contraseña Pasarela",type:"text",width:4},
+            payme_wallet_password:{title:"PayMe Contraseña Wallet",type:"text",width:4},
 
             analytics_id:{title:"Google Analytics ID",type:"text",width:4},
         };

@@ -41,6 +41,8 @@ class CreateStoresTable extends Migration
             $table->string('payme_comerce_id')->nullable();
             $table->string('payme_wallet_id')->nullable();
             $table->string('payme_acquirer_id')->nullable();
+            $table->string('payme_wallet_password')->nullable();
+            $table->string('payme_gateway_password')->nullable();
             // 0: pendiente - 1: integración - 2: producción
             $table->integer('payme_process_status')->default(0);
 

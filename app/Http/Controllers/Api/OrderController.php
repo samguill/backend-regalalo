@@ -39,7 +39,7 @@ class OrderController extends Controller
         }
 
         //Clave SHA-2 de Wallet
-        $claveSecretaWallet = 'nXBqMLdasxQQurMz.422979735';
+        $claveSecretaWallet = $store->payme_wallet_password;
 
         $registerVerification = openssl_digest(
             $store->payme_comerce_id .
@@ -48,41 +48,42 @@ class OrderController extends Controller
             $claveSecretaWallet,
             'sha512');
 
-        //Referencia al Servicio Web de Wallet
-        $wsdl = 'https://integracion.alignetsac.com/WALLETWS/services/WalletCommerce?wsdl';
-        // Producción
-        //$wsdl = 'https://www.pay-me.pe/WALLETWS/services/WalletCommerce?wsdl';
+        // Si el estado de proceso con PayMe es 1
+        // El pago irá a los servidores de integración
+        if($store->payme_process_status == 1){
+            $wsdl = 'https://integracion.alignetsac.com/WALLETWS/services/WalletCommerce?wsdl';
+        }else {
+            // Si el estado de proceso con PayMe es 2
+            // El pago irá a los servidores de producción
+            $wsdl = 'https://www.pay-me.pe/WALLETWS/services/WalletCommerce?wsdl';
+        }
 
         $client_soap = new \SoapClient($wsdl);
 
         $params = array(
             'idEntCommerce' => $store->payme_comerce_id,
-            'codCardHolderCommerce'=> $client->id,
+            'codCardHolderCommerce'=> "prueba-" . time(),
             'names' => $client->first_name,
             'lastNames' => $client->last_name,
             'mail' => $client->email,
             'registerVerification' => $registerVerification
         );
-
-        //Consumo del metodo RegisterCardHolder
         $result = $client_soap->RegisterCardHolder($params);
-
         //Se definen todos los parametros obligatorios.
         $acquirerId = $store->payme_acquirer_id;
         $idCommerce = $store->payme_comerce_id;
-        $purchaseOperationNumber = $order["order_code"];
+        $purchaseOperationNumber = "10560";
         $purchaseAmount = $order["total"];
         $purchaseCurrencyCode = '604';
 
-        $claveSecretaPasarela = 'LbABXJkbcaFRLJchXCb?679658268743';
+        $claveSecretaPasarela = $store->payme_gateway_password;
 
         $purchaseVerification = openssl_digest($acquirerId . $idCommerce . $purchaseOperationNumber . $purchaseAmount . $purchaseCurrencyCode . $claveSecretaPasarela, 'sha512');
 
-        $data = array(
-            "purchaseVerification" => $purchaseVerification,
-            "result" => $result
-        );
-        return response()->json($data);
+        return response()->json([
+            'status' => 'ok',
+            'purchaseVerification' => $purchaseVerification
+        ]);
     }
 
     public function store(Request $request){

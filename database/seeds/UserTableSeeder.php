@@ -28,13 +28,6 @@ class UserTableSeeder extends Seeder
         ]);
 
         User::create([
-            'name'=>'Precio Peru',
-            'email'=>'admin@precio.pe',
-            'password'=>'123456',
-            'type' => 'S'
-        ]);
-
-        User::create([
             'name'=>'Arturo García',
             'email'=>'admin@regalalo.pe',
             'password'=>'123456',
