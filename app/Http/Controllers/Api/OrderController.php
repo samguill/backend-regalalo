@@ -60,15 +60,14 @@ class OrderController extends Controller
 
         // Si el estado de proceso con PayMe es 1
         // El pago irá a los servidores de integración
-        /*if($store->payme_process_status == 1){
+        if($store->payme_process_status == 1){
             $wsdl = 'https://integracion.alignetsac.com/WALLETWS/services/WalletCommerce?wsdl';
         }else {
             // Si el estado de proceso con PayMe es 2
             // El pago irá a los servidores de producción
             $wsdl = 'https://www.pay-me.pe/WALLETWS/services/WalletCommerce?wsdl';
-        }*/
+        }
 
-        $wsdl = 'https://integracion.alignetsac.com/WALLETWS/services/WalletCommerce?wsdl';
         $client_soap = new SoapClient($wsdl);
 
         $params = array(
@@ -109,6 +108,10 @@ class OrderController extends Controller
             'userCodePayme' => $result->codAsoCardHolderWallet,
             'result' => $result
         ]);
+    }
+
+    public function comerce_alignet(Request $request){
+        dd($request->all());
     }
 
     public function store(Request $request){
