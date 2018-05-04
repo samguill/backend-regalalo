@@ -16,8 +16,8 @@ class CreateClientDirectionsTable extends Migration
         Schema::create('client_directions', function (Blueprint $table) {
             $table->increments('id');
             $table->string("name")->default("Casa");
-            $table->string('city');
-            $table->string('address');
+            $table->string('city')->nullable()->default(null);
+            $table->string('address')->nullable()->default(null);
             $table->double('latitude')->nullable()->default(null);
             $table->double('longitude')->nullable()->default(null);
             $table->unsignedInteger('client_id');

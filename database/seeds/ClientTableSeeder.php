@@ -25,6 +25,14 @@ class ClientTableSeeder extends Seeder
             'product_id' => Product::all()->random()->id,
             'client_id' => $client->id
         ]);
+
+        ClientDirection::create([
+            'name' => "Mi casa",
+            'address' => 'Speziani 245, Cercado de Lima 07006, Perú',
+            'latitude' => -12.05426,
+            'longitude' => -77.09135,
+            'client_id' => $client->id
+         ]);
         /*$faker = Faker\Factory::create();
         for ($i = 0; $i <= 10; $i++) {
             $client = Client::create([
