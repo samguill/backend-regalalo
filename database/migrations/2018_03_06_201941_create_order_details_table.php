@@ -23,8 +23,12 @@ class CreateOrderDetailsTable extends Migration
             $table->double('price_delivery')->default(null)->nullable();
             $table->string('tracking_url')->default(null)->nullable();
             $table->string('tracking_code')->default(null)->nullable();
-            $table->double('igv');
+            $table->unsignedInteger('store_branche_id');
+            $table->double('igv')->default(null)->nullable();
+
             $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('store_branche_id')->references('id')->on('store_branches');
+
             $table->timestamps();
         });
     }

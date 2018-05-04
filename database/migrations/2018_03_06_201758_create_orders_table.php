@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->double('sub_total');
             $table->unsignedInteger('client_id');
             $table->unsignedInteger('store_id');
+            $table->boolean('delivery')->default(false);
             $table->timestamps();
             $table->foreign('client_id')->references('id')->on('clients');
             $table->foreign('store_id')->references('id')->on('stores');

@@ -27,6 +27,7 @@ class OrderController extends Controller
     public function generateOrder(Request $request){
         $order = $request->input('order');
         $store_branche_id = $request->input('store_branche_id');
+        $destination_client = $request->input('destination_client');
         $orderdetails = $request->input('orderdetails');
 
         $branche = StoreBranch::find($store_branche_id);

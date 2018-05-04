@@ -11,6 +11,8 @@ class ClientDirection extends Model
         'name',
         'city',
         'address',
+        'latitude',
+        'longitude',
         'client_id'
     ];
 }

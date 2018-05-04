@@ -11,10 +11,7 @@ class ClientDirectionController extends Controller
     public function store(Request $request){
 
         $direction = $request->input('direction');
-
         $data =  ClientDirection::create([$direction]);
-
-
         return response()->json([
             'status'=>'ok',
             'order' => $data]);
