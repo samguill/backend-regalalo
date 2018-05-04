@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Utils\UrbanerUtil;
 use Illuminate\Support\Facades\DB;
+use SoapClient;
 
 class OrderController extends Controller
 {
@@ -25,6 +26,7 @@ class OrderController extends Controller
     public function generateOrder(Request $request){
         $order = $request->input('order');
         $store_branche_id = $request->input('store_branche_id');
+        $orderdetails = $request->input('orderdetails');
 
         $branche = StoreBranch::find($store_branche_id);
 
@@ -33,9 +35,17 @@ class OrderController extends Controller
 
         $occode = Order::select(['id'])->orderBy('id', 'desc')->first();
         if($occode){
-            $order['order_code'] = '0' . ($occode->id + 1) . '-' . date("Y");
+            $order['order_code'] = ($occode->id + 1) . date("Y");
         }else{
-            $order['order_code'] = '0' . 1 . '-' . date("Y");
+            $order['order_code'] = 1 . date("Y");
+        }
+
+        //Cabecera
+        $data = Order::create($order);
+        //Detalle
+        foreach ($orderdetails as $orderdetail) {
+            $orderdetail['order_id'] = $data->id;
+            $od = OrderDetail::create($orderdetail);
         }
 
         //Clave SHA-2 de Wallet
@@ -50,15 +60,16 @@ class OrderController extends Controller
 
         // Si el estado de proceso con PayMe es 1
         // El pago irá a los servidores de integración
-        if($store->payme_process_status == 1){
+        /*if($store->payme_process_status == 1){
             $wsdl = 'https://integracion.alignetsac.com/WALLETWS/services/WalletCommerce?wsdl';
         }else {
             // Si el estado de proceso con PayMe es 2
             // El pago irá a los servidores de producción
             $wsdl = 'https://www.pay-me.pe/WALLETWS/services/WalletCommerce?wsdl';
-        }
+        }*/
 
-        $client_soap = new \SoapClient($wsdl);
+        $wsdl = 'https://integracion.alignetsac.com/WALLETWS/services/WalletCommerce?wsdl';
+        $client_soap = new SoapClient($wsdl);
 
         $params = array(
             'idEntCommerce' => $store->payme_comerce_id,
@@ -66,14 +77,17 @@ class OrderController extends Controller
             'names' => $client->first_name,
             'lastNames' => $client->last_name,
             'mail' => $client->email,
+            'reserved1' => '',
+            'reserved2' => '',
+            'reserved3' => '',
             'registerVerification' => $registerVerification
         );
         $result = $client_soap->RegisterCardHolder($params);
         //Se definen todos los parametros obligatorios.
         $acquirerId = $store->payme_acquirer_id;
         $idCommerce = $store->payme_comerce_id;
-        $purchaseOperationNumber = "10560";
-        $purchaseAmount = $order["total"];
+        $purchaseOperationNumber = $data->order_code;
+        $purchaseAmount = $data->total * 100;
         $purchaseCurrencyCode = '604';
 
         $claveSecretaPasarela = $store->payme_gateway_password;
@@ -82,7 +96,18 @@ class OrderController extends Controller
 
         return response()->json([
             'status' => 'ok',
-            'purchaseVerification' => $purchaseVerification
+            'purchaseVerification' => $purchaseVerification,
+            'acquirerId' => $acquirerId,
+            'idCommerce' => $idCommerce,
+            'purchaseOperationNumber' => $purchaseOperationNumber,
+            'purchaseAmount' => $purchaseAmount,
+            'shippingFirstName' => $client->first_name,
+            'shippingLastName' => $client->last_name,
+            'shippingEmail' => $client->email,
+            'shippingAddress' => 'Direccion ABC',
+            'userCommerce' => "CLI-" . $client->id,
+            'userCodePayme' => $result->codAsoCardHolderWallet,
+            'result' => $result
         ]);
     }
 

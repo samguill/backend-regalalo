@@ -78,7 +78,7 @@ class StoreTableSeeder extends Seeder
             'monthly_transactions' => 100,
             'average_amount' => 100,
             'maximum_amount' => 1000,
-            'payme_comerce_id' => 9092,
+            'payme_comerce_id' => 420,
             'payme_wallet_id' => 641,
             'payme_acquirer_id' => 144,
             'payme_wallet_password' => "bnjNhRABweZCFdx=33744339",
