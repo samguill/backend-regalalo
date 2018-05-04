@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Utils\UrbanerUtil;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use SoapClient;
 
 class OrderController extends Controller
@@ -111,7 +112,7 @@ class OrderController extends Controller
     }
 
     public function comerce_alignet(Request $request){
-        dd($request->all());
+        Storage::put('resp-' . time() . ".json", json_encode($request->all()));
     }
 
     public function store(Request $request){
