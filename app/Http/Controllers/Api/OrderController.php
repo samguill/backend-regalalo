@@ -27,28 +27,15 @@ class OrderController extends Controller
     public function generateOrder(Request $request){
         $order = $request->input('order');
         $store_branche_id = $request->input('store_branche_id');
-        $destination_client = $request->input('destination_client');
-        $orderdetails = $request->input('orderdetails');
+
+        //$orderdetails = $request->input('orderdetails');
 
         $branche = StoreBranch::find($store_branche_id);
-
         $store = Store::find($branche->store_id);
         $client = Client::find($order["client_id"]);
 
-        $occode = Order::select(['id'])->orderBy('id', 'desc')->first();
-        if($occode){
-            $order['order_code'] = ($occode->id + 1) . date("Y");
-        }else{
-            $order['order_code'] = 1 . date("Y");
-        }
-
-        //Cabecera
-        $data = Order::create($order);
-        //Detalle
-        foreach ($orderdetails as $orderdetail) {
-            $orderdetail['order_id'] = $data->id;
-            $od = OrderDetail::create($orderdetail);
-        }
+        // Creando orden de compra local
+        $data =  $this->storeOrder($order);
 
         //Clave SHA-2 de Wallet
         $claveSecretaWallet = $store->payme_wallet_password;
@@ -113,10 +100,84 @@ class OrderController extends Controller
     }
 
     public function comerce_alignet(Request $request){
+
         Storage::put('resp-' . time() . ".json", json_encode($request->all()));
+
+
+        if($request->has('authorizationResult')){
+
+            //Obteniendo la autorización de payme
+
+            $authorizationResult = $request->input('authorizationResult');
+            $purchaseOperationNumber = $request->input('purchaseOperationNumber');
+
+            //Obteniendo la orden de acuerdo a la respuesta de payme
+
+            $order = Order::where('order_code', $purchaseOperationNumber)->first();
+
+            // //Validacion de respuesta de payme, solo si el pago es autorizado se descuenta del inventario y se envía a urbaner
+            if($authorizationResult === "00"){
+
+                // Se actualiza la orden de compra de acuerdo de acuerdo a si ha elegido delivery o no:
+
+                if($order->delivery){
+                //P: Pending, A: Atended, R: Rejected payment, D: Delivery pendiente
+                $order->update([
+                    'status' => 'D'
+                ]);
+
+
+                    //Ademas se genera la orden en urbaner
+
+                    $this->storeUrbaner();
+
+                }else{
+                    $order->update([
+                        'status' => 'A'
+                    ]);
+                }
+
+                //Actualizando el inventario de acuerdo a la compra
+                $this->inventory($order);
+
+            }else{
+
+                // Se actualiza la orden de compra de acuerdo como rechazado:
+
+                //P: Pending, A: Atended, R: Rejected payment, D: Delivary pendiente
+                $order->update([
+                    'status' => 'R'
+                ]);
+            }
+
+        };
+        return redirect()->away('https://v2.regalaloprueba.com/#/orders');
     }
 
-    public function store(Request $request){
+
+    public function inventory($order)
+    {
+        //Inventario
+
+
+
+        $inventory = Inventory::where('product_id', $od['product_id'])->where('store_branche_id', $store_branche_id)->first();
+
+        if(isset($inventory)){
+            $inventory->update([
+                'quantity' => $inventory->quantity - $od['quantity']
+            ]);
+
+            InventoryMovement::create([
+                'inventory_id' => $inventory->id,
+                'quantity' => $od['quantity'],
+                'order_id'=>$data->id,
+                'movement_type' => 'E'
+            ]);
+        }
+    }
+
+    public function storeUrbaner(Request $request){
         $response='';
         $data='';
         $order = $request->input('order');
@@ -151,29 +212,8 @@ class OrderController extends Controller
 
         DB::beginTransaction();
         try {
-            //Cabecera
-            $data = Order::create($order);
-            //Detalle
-            foreach ($orderdetails as $orderdetail) {
-                $orderdetail['order_id'] = $data->id;
-                $od = OrderDetail::create($orderdetail);
-            }
 
-            //Inventario
-            $inventory = Inventory::where('product_id', $od['product_id'])->where('store_branche_id', $store_branche_id)->first();
 
-            if(isset($inventory)){
-                $inventory->update([
-                    'quantity' => $inventory->quantity - $od['quantity']
-                ]);
-
-                InventoryMovement::create([
-                    'inventory_id' => $inventory->id,
-                    'quantity' => $od['quantity'],
-                    'order_id'=>$data->id,
-                    'movement_type' => 'E'
-                ]);
-            }
 
             //Order in Urbaner
             if($delivery){
@@ -219,6 +259,34 @@ class OrderController extends Controller
             'urbaner' => $response
         ]);
 
+    }
+
+
+
+    public function storeOrder($request){
+
+        //Obteniendio inputs
+        $order = $request->input('order');
+        $orderdetails = $request->input('orderdetails');
+        $store_branche_id = $request->input('store_branche_id');
+
+        $store = Store::find($order['store_id']);
+        $branch = $store->branches()->where('id', $store_branche_id)->first();
+        //Generando Codigo de orden
+        $occode = Order::select(['id'])->orderBy('id', 'desc')->first();
+        if($occode){
+            $order['order_code'] = ($occode->id + 1) . date("Y");
+        }else{
+            $order['order_code'] = 1 . date("Y");
+        }
+        //Generando Cabecera de orden
+        $data = Order::create($order);
+        //Generando Detalle
+        foreach ($orderdetails as $orderdetail) {
+            $orderdetail['order_id'] = $data->id;
+            $od = OrderDetail::create($orderdetail);
+        }
+        return $data;
     }
 
 

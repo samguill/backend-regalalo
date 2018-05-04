@@ -16,10 +16,12 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->string('order_code');
-            $table->enum('status',['P', 'C', 'A'])->default('P'); //Pending, Canceled, Atended
+            $table->enum('status',['P', 'C', 'A','R','D'])->default('P'); //P: Pending, A: Atended, R: Rejected payment, D: Delivery pendiente
             $table->double('total');
             $table->double('sub_total');
             $table->unsignedInteger('client_id');
+            $table->unsignedInteger('client_direction_id')->default(null)->nullable();
+
             $table->unsignedInteger('store_id');
             $table->boolean('delivery')->default(false);
             $table->timestamps();

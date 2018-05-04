@@ -15,4 +15,8 @@ class ClientDirection extends Model
         'longitude',
         'client_id'
     ];
+
+    public function client(){
+        return $this->belongsTo('App\Models\Client');
+    }
 }
