@@ -30,6 +30,7 @@ class OrderController extends Controller
         $order = $request->input('order');
         $orderdetails = $request->input('orderdetails');
         $store_branche_id = $request->input('store_branche_id');
+        $delivery = $request->input('delivery');
 
         //Obteniendo sucursal de tienda
         $branche = StoreBranch::find($store_branche_id);
@@ -39,7 +40,7 @@ class OrderController extends Controller
         $client = Client::find($order["client_id"]);
 
         // Creando orden de compra local
-        $data =  $this->storeOrder($order, $orderdetails, $store_branche_id);
+        $data =  $this->storeOrder($order, $orderdetails, $store_branche_id, $delivery);
 
         //Clave SHA-2 de Wallet
         $claveSecretaWallet = $store->payme_wallet_password;
@@ -142,7 +143,8 @@ class OrderController extends Controller
             }
         };
 
-        return redirect()->away('https://v2.regalaloprueba.com/#/orders');
+        //return redirect()->away('https://v2.regalaloprueba.com/#/mis-pedidos');
+        return redirect()->away('http://localhost:4200/#/mis-pedidos');
     }
 
 
@@ -261,7 +263,7 @@ class OrderController extends Controller
 
 
 
-    public function storeOrder($order, $orderdetails, $store_branche_id){
+    public function storeOrder($order, $orderdetails, $store_branche_id, $delivery){
 
         $store = Store::find($order['store_id']);
         $branch = $store->branches()->where('id', $store_branche_id)->first();
@@ -271,6 +273,11 @@ class OrderController extends Controller
             $order['order_code'] = ($occode->id + 1) . date("Y");
         }else{
             $order['order_code'] = 1 . date("Y");
+        }
+        if($delivery){
+            foreach ($orderdetails as $orderdetail) {
+                $order['total'] = $order['total']+$orderdetail['price_delivery'];
+            }
         }
         //Generando Cabecera de orden
         $data = Order::create($order);
