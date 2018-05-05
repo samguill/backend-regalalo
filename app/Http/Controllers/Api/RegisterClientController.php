@@ -34,7 +34,7 @@ class RegisterClientController extends Controller
             'email' => $request->get('email'),
             'password' => $request->get('password')
         ]);
-        $token = JWTAuth::fromUser($client);
+        $token = JWTAuth::fromUser($client, ['client' => $client]);
         return response()->json(['status'=>'ok', 'token' => $token]);
     }
 
