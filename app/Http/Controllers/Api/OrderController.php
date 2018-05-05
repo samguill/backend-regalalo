@@ -28,6 +28,7 @@ class OrderController extends Controller
     public function generateOrder(Request $request){
 
         $order = $request->input('order');
+        $orderdetails = $request->input('orderdetails');
         $store_branche_id = $request->input('store_branche_id');
 
         //Obteniendo sucursal de tienda
@@ -38,7 +39,7 @@ class OrderController extends Controller
         $client = Client::find($order["client_id"]);
 
         // Creando orden de compra local
-        $data =  $this->storeOrder($order);
+        $data =  $this->storeOrder($order, $orderdetails, $store_branche_id);
 
         //Clave SHA-2 de Wallet
         $claveSecretaWallet = $store->payme_wallet_password;
@@ -260,12 +261,7 @@ class OrderController extends Controller
 
 
 
-    public function storeOrder($request){
-
-        //Obteniendio inputs
-        $order = $request->input('order');
-        $orderdetails = $request->input('orderdetails');
-        $store_branche_id = $request->input('store_branche_id');
+    public function storeOrder($order, $orderdetails, $store_branche_id){
 
         $store = Store::find($order['store_id']);
         $branch = $store->branches()->where('id', $store_branche_id)->first();
@@ -281,6 +277,7 @@ class OrderController extends Controller
         //Generando Detalle
         foreach ($orderdetails as $orderdetail) {
             $orderdetail['order_id'] = $data->id;
+            $orderdetail['store_branche_id'] = $store_branche_id;
             $od = OrderDetail::create($orderdetail);
         }
         return $data;
