@@ -18,7 +18,8 @@ class ClientTableSeeder extends Seeder
             'first_name' => "Jhon",
             'last_name' => "Doe",
             'email' => "jhon@gmail.com",
-            'password' => '123456'
+            'password' => '123456',
+            'phone' => "95037741"
         ]);
 
         ClientWishlist::create([

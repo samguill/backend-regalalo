@@ -20,7 +20,40 @@ Route::post('service/detail', 'Api\ServiceController@detail')->name('service.det
 Route::get('client/directions', 'Api\ClientDirectionController@directions')->name('client.directions');
 Route::post('client/directions/store', 'Api\ClientDirectionController@store')->name('client.directions.store');
 
-
+Route::get('urbaner', function(){
+    $json = [
+        "type" => "1",
+        "destinations" => [
+            [
+                "contact_person" => "Juan Perez",
+                "phone" => 999631259,
+                "address" => "Jr. Dos 553",
+                "latlon" => "-12.085937,-76.9934232",
+                "email" => "marzioperez@gmail.com"
+            ],
+            [
+               "contact_person" => "Isaac Abensur",
+                "phone" => 999631259,
+                "address" => "Segovia, Lima, Peru",
+	            "latlon" => "-12.05435,-77.09138",
+	            "email" => "isaacabensur@gmail.com"
+            ],
+        ],
+        "payment" => [
+            "backend" => "card",
+            "args" => [
+                "bankcard" => 261
+            ]
+        ],
+        "description" => "comida",
+        "vehicle_id" => "2",
+        "memo" => "2010",
+        "is_return" => false,
+        "has_extended_search_time" => "true",
+    ];
+    $response = \App\Utils\UrbanerUtil::apipost($json, \App\Utils\UrbanerUtil::API_CLI_ORDER);
+    return response()->json($response);
+});
 
 Route::group(['middleware' => ['auth']], function(){
 
