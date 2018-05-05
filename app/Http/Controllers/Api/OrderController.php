@@ -144,7 +144,7 @@ class OrderController extends Controller
         };
 
         //return redirect()->away('https://v2.regalaloprueba.com/#/mis-pedidos');
-        return redirect()->away('http://localhost:4200/#/mis-pedidos');
+        //return redirect()->away('http://localhost:4200/#/mis-pedidos');
     }
 
 
