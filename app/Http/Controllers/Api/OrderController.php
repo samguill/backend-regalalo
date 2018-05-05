@@ -105,8 +105,7 @@ class OrderController extends Controller
     }
 
     public function comerce_alignet(Request $request){
-
-        Storage::put('resp-' . time() . ".json", json_encode($request->all()));
+        //Storage::put('resp-' . time() . ".json", json_encode($request->all()));
 
         if($request->has('authorizationResult')){
             //Obteniendo la autorización de payme
@@ -143,7 +142,7 @@ class OrderController extends Controller
             }
         };
 
-        //return redirect()->away('https://v2.regalaloprueba.com/#/mis-pedidos');
+        return redirect()->away('https://v2.regalaloprueba.com/#/mis-pedidos');
         //return redirect()->away('http://localhost:4200/#/mis-pedidos');
     }
 
@@ -192,7 +191,6 @@ class OrderController extends Controller
             $store_branche_id = $orderdetail->store_branche_id;
         }
 
-
         $store = Store::find($order['store_id']);
         $branch = $store->branches()->where('id', $store_branche_id)->first();
 
@@ -211,39 +209,35 @@ class OrderController extends Controller
         DB::beginTransaction();
         try {
             //Order in Urbaner
+            $json = [
+                "type" => "1",
+                "destinations" => [
+                    $destination_store_branch,
+                    $destination_client,
+                ],
+                "payment" => [
+                    "backend" => "card",
+                    "args" => [
+                        "bankcard" => 261
+                    ]
+                ],
+                "description" => "comida",
+                "vehicle_id" => "2",
+                "memo" => $order->order_code,
+                "is_return" => false,
+                "has_extended_search_time" => "true",
+            ];
+            $response = UrbanerUtil::apipost($json, UrbanerUtil::API_CLI_ORDER);
 
-                $json = [
-                    "type" => "1",
-                    "destinations" => [
-                        $destination_store_branch,
-                        $destination_client,
-                    ],
-                    "payment" => [
-                        "backend" => "card",
-                        "args" => [
-                            "bankcard" => 261
-                        ]
-                    ],
-                    "description" => "comida",
-                    "vehicle_id" => "2",
-                    "memo" => $order->order_code,
-                    "is_return" => false,
-                    "has_extended_search_time" => "true",
-                ];
-                $response = UrbanerUtil::apipost($json, UrbanerUtil::API_CLI_ORDER);
-
-            Storage::put('resp-urbaner-' . time() . ".json", json_encode($response));
+            //Storage::put('resp-urbaner-' . time() . ".json", json_encode($response));
 
             foreach ($orderdetails  as $orderdetail) {
-
                 $od = OrderDetail::find($orderdetail->id);
-
                 $od->update([
                     "tracking_url" => $response->tracking,
                     "tracking_code" => $response->code,
                 ]);
             }
-
             
         } catch (\Exception $e) {
             DB::rollback();
@@ -264,18 +258,17 @@ class OrderController extends Controller
 
     }
 
-
-
     public function storeOrder($order, $orderdetails, $store_branche_id, $delivery){
-
         $store = Store::find($order['store_id']);
         $branch = $store->branches()->where('id', $store_branche_id)->first();
         //Generando Codigo de orden
         $occode = Order::select(['id'])->orderBy('id', 'desc')->first();
         if($occode){
-            $order['order_code'] = ($occode->id + 1) . date("Y");
+            //$order['order_code'] = ($occode->id + 1) . date("Y");
+            $order['order_code'] = ($occode->id + 1) . "2016";
         }else{
-            $order['order_code'] = 1 . date("Y");
+            //$order['order_code'] = 1 . date("Y");
+            $order['order_code'] = 1 . "2016";
         }
         if($delivery){
             $order["delivery"] = $delivery;
@@ -311,27 +304,19 @@ class OrderController extends Controller
     }
 
     public function orders(Request $request){
-
         $result= '';
-
         if($request->has('client_id')) {
         $client_id = $request->input('client_id');
-
             $result = Order::where('client_id',$client_id )->get();
-
         }
         return response()->json(['status'=>'ok', 'data'=>$result]);
     }
 
     public function orderdetails(Request $request){
-
         $result= '';
-
         if($request->has('order_id')) {
             $order_id = $request->input('order_id');
-
             $result = OrderDetail::where('order_id',$order_id )->get();
-
         }
         return response()->json(['status'=>'ok', 'data'=>$result]);
     }

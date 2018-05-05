@@ -24,10 +24,6 @@ Route::group(['middleware' => 'cors'], function (){
     Route::post('orders/list', 'Api\OrderController@orders');
     Route::post('order/details', 'Api\OrderController@orderdetails');
     Route::post('orders/calculatedelivery', 'Api\OrderController@calculateDelivery');
-    Route::post('orders/store', 'Api\OrderController@store')->name('orders.store');
-    Route::post('orders/generate', 'Api\OrderController@generateOrder');
-
-    //
     Route::post('comerce-alignet', 'Api\OrderController@comerce_alignet');
 });
 
@@ -37,6 +33,8 @@ Route::group(['middleware' => 'cors'], function (){
 
 Route::group(['middleware' => 'jwt.auth'], function (){
     Route::post('client/profile', 'Api\RegisterClientController@profile');
+    Route::post('client/directions', 'Api\ClientDirectionController@directions');
+    Route::post('client/directions/store', 'Api\ClientDirectionController@store');
+    Route::post('orders/generate', 'Api\OrderController@generateOrder');
     Route::get('users/{user}', function (App\User $user) { return $user->email; });
-
 });
