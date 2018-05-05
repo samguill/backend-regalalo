@@ -275,6 +275,7 @@ class OrderController extends Controller
             $order['order_code'] = 1 . date("Y");
         }
         if($delivery){
+            $order["delivery"] = $delivery;
             foreach ($orderdetails as $orderdetail) {
                 $order['total'] = $order['total']+$orderdetail['price_delivery'];
             }
