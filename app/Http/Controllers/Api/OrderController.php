@@ -232,10 +232,13 @@ class OrderController extends Controller
                 ];
                 $response = UrbanerUtil::apipost($json, UrbanerUtil::API_CLI_ORDER);
 
+            Storage::put('resp-urbaner-' . time() . ".json", json_encode($response));
 
             foreach ($orderdetails  as $orderdetail) {
 
-                $orderdetail->update([
+                $od = OrderDetail::find($orderdetail->id);
+
+                $od->update([
                     "tracking_url" => $response->tracking,
                     "tracking_code" => $response->code,
                 ]);
