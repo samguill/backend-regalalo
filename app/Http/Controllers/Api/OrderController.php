@@ -100,80 +100,67 @@ class OrderController extends Controller
     }
 
     public function comerce_alignet(Request $request){
-
         Storage::put('resp-' . time() . ".json", json_encode($request->all()));
 
-
         if($request->has('authorizationResult')){
-
             //Obteniendo la autorización de payme
-
             $authorizationResult = $request->input('authorizationResult');
             $purchaseOperationNumber = $request->input('purchaseOperationNumber');
 
             //Obteniendo la orden de acuerdo a la respuesta de payme
-
             $order = Order::where('order_code', $purchaseOperationNumber)->first();
 
-            // //Validacion de respuesta de payme, solo si el pago es autorizado se descuenta del inventario y se envía a urbaner
+            // Validacion de respuesta de payme
+            // solo si el pago es autorizado se descuenta del inventario y se envía a urbaner
             if($authorizationResult === "00"){
-
-                // Se actualiza la orden de compra de acuerdo de acuerdo a si ha elegido delivery o no:
-
+                // Se actualiza la orden de compra de acuerdo de acuerdo a si ha elegido
+                // delivery o no:
                 if($order->delivery){
-                //P: Pending, A: Atended, R: Rejected payment, D: Delivery pendiente
-                $order->update([
-                    'status' => 'D'
-                ]);
-
+                    //P: Pending, A: Atended, R: Rejected payment, D: Delivery pendiente
+                    $order->update([
+                        'status' => 'D'
+                    ]);
 
                     //Ademas se genera la orden en urbaner
-
-                    $this->storeUrbaner();
+                    //$this->storeUrbaner();
 
                 }else{
-                    $order->update([
-                        'status' => 'A'
-                    ]);
+                    $order->update(['status' => 'A']);
                 }
 
                 //Actualizando el inventario de acuerdo a la compra
                 $this->inventory($order);
-
             }else{
-
                 // Se actualiza la orden de compra de acuerdo como rechazado:
-
                 //P: Pending, A: Atended, R: Rejected payment, D: Delivary pendiente
-                $order->update([
-                    'status' => 'R'
-                ]);
+                $order->update(['status' => 'R']);
             }
-
         };
         return redirect()->away('https://v2.regalaloprueba.com/#/orders');
     }
 
 
-    public function inventory($order)
-    {
-        //Inventario
-
-
-
-        $inventory = Inventory::where('product_id', $od['product_id'])->where('store_branche_id', $store_branche_id)->first();
-
-        if(isset($inventory)){
-            $inventory->update([
-                'quantity' => $inventory->quantity - $od['quantity']
-            ]);
-
-            InventoryMovement::create([
-                'inventory_id' => $inventory->id,
-                'quantity' => $od['quantity'],
-                'order_id'=>$data->id,
-                'movement_type' => 'E'
-            ]);
+    public function inventory($order) {
+        // Se obtiene la orden
+        $order = Order::find($order->id);
+        // Se obtiene el detalle de la orden
+        $order_details = OrderDetail::where('order_id', $order->id)->get();
+        foreach ($order_details as $od){
+            $store_branche_id = $od['store_branche_id'];
+            //Inventario
+            $inventory = Inventory::where('product_id', $od['product_id'])->where('store_branche_id', $store_branche_id)->first();
+            if(isset($inventory)){
+                // Se realiza el movimiento del inventario de tipo E: Egreso
+                $inventory->update([
+                    'quantity' => $inventory->quantity - $od['quantity']
+                ]);
+                InventoryMovement::create([
+                    'inventory_id' => $inventory->id,
+                    'quantity' => $od['quantity'],
+                    'order_id'=>$order->id,
+                    'movement_type' => 'E'
+                ]);
+            }
         }
     }
 
