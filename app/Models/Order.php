@@ -14,7 +14,8 @@ class Order extends Model
         'sub_total',
         'client_id',
         'store_id',
-        'delivery'
+        'delivery',
+        'client_direction_id'
     ];
 
 

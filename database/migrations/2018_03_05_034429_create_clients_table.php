@@ -17,6 +17,7 @@ class CreateClientsTable extends Migration
             $table->increments('id');
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('phone')->nullable()->default(null);
             $table->string('email')->unique();
             $table->string('password');
             // 0: Inactivo - 1: Activo - 2: Pendiente
