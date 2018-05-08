@@ -18,6 +18,7 @@ export default class StoreMultimediaComponent extends React.Component {
         this.url_multimedialist = this.props.url_multimedialist;
         this.upload_url = this.props.upload_url;
         this.delete_url = this.props.delete_url;
+        this.site_url = this.props.site_url;
 
         this.getImages = this.getImages.bind(this);
         this.uploadImages = this.uploadImages.bind(this);
@@ -89,7 +90,6 @@ export default class StoreMultimediaComponent extends React.Component {
 
     uploadImages(files){
         this.setState({is_loading:true});
-        console.log(files);
 
         const uploaders = files.map(file => {
             const formData = new FormData();
@@ -107,9 +107,7 @@ export default class StoreMultimediaComponent extends React.Component {
                 });
         });
 
-        axios.all(uploaders).then((data) =>{
-            console.log(data);
-        });
+        axios.all(uploaders).then((data) =>{});
     }
 
     render() {
@@ -139,14 +137,14 @@ export default class StoreMultimediaComponent extends React.Component {
                                 this.state.files.map((row, ri) => {
                                     return <div key={ri} className="col-md-3 file">
                                         <div className="file-item-containter">
-                                            <div className="file-item" style={{ backgroundImage : "url(http://regalalo.test/"+ row.image_path +")" }}></div>
+                                            <div className="file-item" style={{ backgroundImage : "url("+ this.site_url + row.image_path + ")" }}></div>
                                             <div className="file-options">
                                                 <div className="row no-glutter">
                                                     <div className="col-md-6">
                                                         <a className="btn btn-danger btn-sm btn-block text-white" onClick={(e) => {this.deleteImage(row)}}>Eliminar</a>
                                                     </div>
                                                     <div className="col-md-6">
-                                                        <a className="btn btn-info btn-sm btn-block text-white" href={"http://regalalo.test/"+ row.image_path} target="_blank">Ver</a>
+                                                        <a className="btn btn-info btn-sm btn-block text-white" href={this.site_url + row.image_path} target="_blank">Ver</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -172,12 +170,14 @@ if (document.getElementsByClassName('store-images')) {
         var url_multimedialist = element.getAttribute("multimedialist");
         var upload_url = element.getAttribute("upload_url");
         var delete_url = element.getAttribute("delete_url");
+        let site_url = element.getAttribute('site_url');
 
         ReactDOM.render(<StoreMultimediaComponent
             storeid={storeid}
             url_multimedialist={url_multimedialist}
             delete_url={delete_url}
             upload_url={upload_url}
+            site_url={site_url}
         />, element);
     }
 }

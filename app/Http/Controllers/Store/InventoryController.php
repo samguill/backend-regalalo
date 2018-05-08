@@ -30,11 +30,9 @@ class InventoryController extends Controller
             $branchesArray[] = $branch['id'];
         }
 
-        $inventoryproducts =
-            array_map(
+        if (count($branches) > 0){
+            $inventoryproducts = array_map(
                 function($item){
-
-                  //  dd($item);
                     return [
                         "id" => $item["id"],
                         "value" =>  $item["product"]["name"].' - '.$item["branch"]["name"],
@@ -43,6 +41,9 @@ class InventoryController extends Controller
                     ];
                 },Inventory::with('product','branch')->whereIn('store_branche_id',$branchesArray)->where('quantity','<>',0)->get()->toArray()
             );
+        }else{
+            $inventoryproducts = [];
+        }
         return view('store.inventory.index', compact('products','branches', 'inventoryproducts'));
     }
 
@@ -50,18 +51,17 @@ class InventoryController extends Controller
 
         $branches = Auth::user()->store->branches()->get();
         foreach ($branches  as $branch){
-        $branchesArray[] = $branch->id;
+            $branchesArray[] = $branch->id;
         }
 
-
-        $Inventory= DB::table('inventory')
+        $inventory= DB::table('inventory')
             ->select(DB::raw('*'))
             ->addSelect(DB::raw('(select products.name from products where products.id=inventory.product_id) as product_name'))
             ->addSelect(DB::raw('(select store_branches.name from store_branches where store_branches.id=inventory.store_branche_id) as branch_name'))
             ->whereIn('store_branche_id',$branchesArray)
             ->get();
 
-        return response()->json($Inventory);
+        return response()->json($inventory);
     }
 
     public function movements(Request $request)

@@ -30,11 +30,9 @@ class CouponController extends Controller
             $branchesArray[] = $branch['id'];
         }
 
-        $couponservices =
-            array_map(
+        if (count($branches) > 0){
+            $couponservices = array_map(
                 function($item){
-
-                    //  dd($item);
                     return [
                         "id" => $item["id"],
                         "value" =>  $item["service"]["name"].' - '.$item["branch"]["name"],
@@ -43,6 +41,11 @@ class CouponController extends Controller
                     ];
                 },Coupon::with('service','branch')->whereIn('store_branche_id',$branchesArray)->where('quantity','<>',0)->get()->toArray()
             );
+        }else{
+            $couponservices = [];
+        }
+
+
         return view('store.coupons.index', compact('services','branches', 'couponservices'));
     }
 

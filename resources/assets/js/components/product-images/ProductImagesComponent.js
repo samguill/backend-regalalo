@@ -9,6 +9,7 @@ export default class ProductImagesComponent extends React.Component {
         this.data_add_image_url = this.props.data_add_image_url;
         this.data_delete_image_url = this.props.data_delete_image_url;
         this.data_product_images_list = JSON.parse(this.props.data_store_images);
+        this.site_url = this.props.site_url;
         this.data_store_images = this.data_product_images_list.map((element) => {
             var obj = {};
             obj['id'] = element.id;
@@ -121,7 +122,7 @@ export default class ProductImagesComponent extends React.Component {
                                     <div className="remove-item" onClick={(e) => this.removeImage(row, e)}>
                                         <i className="fa fa-remove"></i>
                                     </div>
-                                    <div className="file-item" style={{ backgroundImage : "url(http://regalalo.test/"+ row.image_path +")" }}></div>
+                                    <div className="file-item" style={{ backgroundImage : "url(" + this.site_url + row.image_path +")" }}></div>
                                 </div>
                             </div>
                         })
@@ -135,7 +136,7 @@ export default class ProductImagesComponent extends React.Component {
 
                                 return <div key={ri} className="col-md-3 file" style={{cursor:'pointer'}} onClick={(e) => this.addImage(row, e)}>
                                     <div className="file-item-containter">
-                                        <div className="file-item" style={{ backgroundImage : "url(http://adminv2.regalaloprueba.com/"+ row.image_path +")" }}></div>
+                                        <div className="file-item" style={{ backgroundImage : "url("+ this.site_url + row.image_path +")" }}></div>
                                     </div>
                                 </div>
 
@@ -158,6 +159,7 @@ if (document.getElementsByClassName('product-images-component')) {
         let data_product_id = element.getAttribute('data_product_id');
         let data_add_image_url = element.getAttribute('data_add_image_url');
         let data_delete_image_url = element.getAttribute('data_delete_image_url');
+        let site_url = element.getAttribute('site_url');
 
         ReactDOM.render(<ProductImagesComponent
             data_store_images={data_store_images}
@@ -165,6 +167,7 @@ if (document.getElementsByClassName('product-images-component')) {
             data_product_id={data_product_id}
             data_add_image_url={data_add_image_url}
             data_delete_image_url={data_delete_image_url}
+            site_url={site_url}
         />, element);
     }
 }

@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Mail\Mail\StoreAccess;
 use App\Models\ComercialContact;
 use App\Models\LegalRepresentative;
 use App\Models\StoreBranch;
@@ -16,6 +17,7 @@ use Illuminate\Http\Request;
 use App\Models\Store;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
 use Mockery\Exception;
 
 class StoreController extends Controller
@@ -105,6 +107,8 @@ class StoreController extends Controller
             'password' => $pin,
             'type' => 'S'
         ]);
+
+        Mail::to($store->comercial_contact->email)->send(new StoreAccess($store_user, $pin));
 
         $store->update([
             'user_id' => $store_user->id,

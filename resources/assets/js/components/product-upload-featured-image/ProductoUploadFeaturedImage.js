@@ -12,10 +12,11 @@ export default class ProductoUploadFeaturedImage extends React.Component {
         this.product_id = this.props.product_id;
         this.data_upload_url = this.props.data_upload_url;
         this.featured_image = this.props.featured_image;
+        this.site_url = this.props.site_url;
 
         let featured_image_url = 'http://via.placeholder.com/400x200';
         if(this.featured_image !== ""){
-            featured_image_url = "https://adminv2.regalaloprueba.com/" + this.featured_image;
+            featured_image_url = this.site_url + this.featured_image;
         }
 
         this.uploadImage = this.uploadImage.bind(this);
@@ -37,7 +38,7 @@ export default class ProductoUploadFeaturedImage extends React.Component {
 
             return axios.post(this.data_upload_url, formData)
                 .then((response) => {
-                    this.setState({featured_image: 'https://adminv2.regalaloprueba.com/' + response.data.data, is_loading: false});
+                    this.setState({featured_image:  this.site_url + response.data.data, is_loading: false});
                 })
                 .catch(function (error) {
                     swal({  title: "Ha ocurrido un error.",
@@ -96,11 +97,13 @@ if (document.getElementsByClassName('featured-image-product-component')) {
         var product_id = element.getAttribute("product_id");
         var data_upload_url = element.getAttribute("data_upload_url");
         var featured_image = element.getAttribute("featured_image");
+        let site_url = element.getAttribute('site_url');
 
         ReactDOM.render(<ProductoUploadFeaturedImage
             product_id={product_id}
             data_upload_url={data_upload_url}
             featured_image={featured_image}
+            site_url={site_url}
         />, element);
     }
 }

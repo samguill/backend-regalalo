@@ -5,6 +5,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="store-images"
+                         site_url="{{env('APP_URL')}}"
                          multimedialist="{{route('store.multimedia-lists')}}"
                          storeid="{{$store_id}}"
                          upload_url="{{route('store.multimedia-upload')}}"

@@ -35,6 +35,7 @@
                         <div id="collapse-featured" class="collapse" aria-labelledby="heading-featured" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="featured-image-product-component"
+                                     site_url="{{env('APP_URL')}}"
                                      product_id="{{$product->id}}"
                                      featured_image="{{$product->featured_image}}"
                                      data_upload_url="{{route('product.upload.featured_image')}}"></div>
@@ -52,6 +53,7 @@
                         <div id="collapse-representant" class="collapse" aria-labelledby="heading-representant" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="product-images-component"
+                                     site_url="{{env('APP_URL')}}"
                                      data_store_images="{{$store_images}}"
                                      data_product_id="{{$product->id}}"
                                      data_product_images="{{$product->productimages}}"

@@ -21,13 +21,6 @@ class StoreTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        $user_precio = User::create([
-            'name'=>'Precio Peru',
-            'email'=>'admin@precio.pe',
-            'password'=>'123456',
-            'type' => 'S'
-        ]);
-
         $store_precio = Store::create([
             'business_name' => "Precio SAC",
             'ruc' => 92760388,
@@ -36,7 +29,7 @@ class StoreTableSeeder extends Seeder
             'slug'=> \Illuminate\Support\Str::slug("Precio Perú"),
             'phone' => $faker->randomNumber(8),
             'site_url' => 'http://precio.pe',
-            'status' => 1,
+            'status' => 0,
             'business_turn' => 'Ventas',
             'monthly_transactions' => 100,
             'average_amount' => 100,
@@ -44,15 +37,14 @@ class StoreTableSeeder extends Seeder
             'payme_comerce_id' => 8752,
             'payme_wallet_id' => 1192,
             'payme_acquirer_id' => 144,
-            'payme_process_status' => 1,
-            'user_id' => $user_precio->id
+            'payme_process_status' => 1
         ]);
 
         ComercialContact::create([
             'name' => "Marzio Perez",
             'document_number' => "444444",
             'phone' => "77777",
-            'email' => 'admin@precio.pe',
+            'email' => 'noreply@regalalo.pe',
             'position' => 'Gerente General',
             'store_id' => $store_precio->id
         ]);
