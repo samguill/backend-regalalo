@@ -125,7 +125,6 @@ class StoreController extends Controller
         $data = $request->all();
         $store_id = $data["id"];
         $store = Store::with(['legal_representatives', 'comercial_contact'])->find($store_id);
-        //return response()->json($store);
         return \PDF::loadView('admin.stores.payme-pdf', compact('store'))->stream();
     }
 
@@ -207,7 +206,10 @@ class StoreController extends Controller
                     $cci = $val[16];
                     $payme_comerce = $val[17];
                     $payme_wallet = $val[18];
-                    $ga = $val[19];
+                    $payme_acquirer_id = $val[19];
+                    $payme_wallet_password = $val[20];
+                    $payme_gateway_password = $val[21];
+                    $ga = $val[22];
 
                     $store = Store::create([
                         'business_name' => $razon_social,
@@ -223,6 +225,9 @@ class StoreController extends Controller
                         'cci_account_number' => $cci,
                         'payme_comerce_id' => $payme_comerce,
                         'payme_wallet_id' => $payme_wallet,
+                        'payme_acquirer_id' => $payme_acquirer_id,
+                        'payme_wallet_password' => $payme_wallet_password,
+                        'payme_gateway_password' => $payme_gateway_password,
                         'analytics_id' => $ga,
                     ]);
 
