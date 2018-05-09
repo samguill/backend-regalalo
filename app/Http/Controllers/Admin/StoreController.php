@@ -211,47 +211,91 @@ class StoreController extends Controller
                     $payme_gateway_password = $val[21];
                     $ga = $val[22];
 
-                    $store = Store::create([
-                        'business_name' => $razon_social,
-                        'ruc' => $ruc,
-                        'legal_address' => $direccion_legal,
-                        'comercial_name'=> $nombre_comercial,
-                        'phone' => $telefono,
-                        'site_url' => $url,
-                        'financial_entity' => $entidad,
-                        'account_type' => $tipo_cuenta,
-                        'account_statement_name' => $nombre_cuenta,
-                        'bank_account_number' => $numero_cuenta,
-                        'cci_account_number' => $cci,
-                        'payme_comerce_id' => $payme_comerce,
-                        'payme_wallet_id' => $payme_wallet,
-                        'payme_acquirer_id' => $payme_acquirer_id,
-                        'payme_wallet_password' => $payme_wallet_password,
-                        'payme_gateway_password' => $payme_gateway_password,
-                        'analytics_id' => $ga,
-                    ]);
+                    $store = Store::where('ruc', $ruc)->first();
+                    if ($store){
+                        $store->update([
+                            'business_name' => $razon_social,
+                            'legal_address' => $direccion_legal,
+                            'comercial_name'=> $nombre_comercial,
+                            'phone' => $telefono,
+                            'site_url' => $url,
+                            'financial_entity' => $entidad,
+                            'account_type' => $tipo_cuenta,
+                            'account_statement_name' => $nombre_cuenta,
+                            'bank_account_number' => $numero_cuenta,
+                            'cci_account_number' => $cci,
+                            'payme_comerce_id' => $payme_comerce,
+                            'payme_wallet_id' => $payme_wallet,
+                            'payme_acquirer_id' => $payme_acquirer_id,
+                            'payme_wallet_password' => $payme_wallet_password,
+                            'payme_gateway_password' => $payme_gateway_password,
+                            'analytics_id' => $ga,
+                        ]);
 
-                    // Representante legal
-                    $nombres = $val[3];
-                    $dni_rl = $val[4];
-                    LegalRepresentative::create([
-                        'name' => $nombres,
-                        'document_number' => $dni_rl,
-                        'store_id' => $store->id
-                    ]);
+                        // Representante legal
+                        $nombres = $val[3];
+                        $dni_rl = $val[4];
+                        $legal_representative = LegalRepresentative::where('store_id', $store->id)->first();
+                        $legal_representative->update([
+                            'name' => $nombres,
+                            'document_number' => $dni_rl
+                        ]);
 
-                    // Contacto comercial
-                    $nombres_cc = $val[8];
-                    $dni_cc = $val[9];
-                    $telefono_cc = $val[10];
-                    $email_cc = $val[11];
-                    ComercialContact::create([
-                        'name' => $nombres_cc,
-                        'document_number' => $dni_cc,
-                        'phone' => $telefono_cc,
-                        'email' => $email_cc,
-                        'store_id' => $store->id
-                    ]);
+                        // Contacto comercial
+                        $nombres_cc = $val[8];
+                        $dni_cc = $val[9];
+                        $telefono_cc = $val[10];
+                        $email_cc = $val[11];
+                        $comercial_contact = ComercialContact::where('store_id', $store->id)->first();
+                        $comercial_contact->update([
+                            'name' => $nombres_cc,
+                            'document_number' => $dni_cc,
+                            'phone' => $telefono_cc,
+                            'email' => $email_cc
+                        ]);
+                    }else{
+                        $store = Store::create([
+                            'business_name' => $razon_social,
+                            'ruc' => $ruc,
+                            'legal_address' => $direccion_legal,
+                            'comercial_name'=> $nombre_comercial,
+                            'phone' => $telefono,
+                            'site_url' => $url,
+                            'financial_entity' => $entidad,
+                            'account_type' => $tipo_cuenta,
+                            'account_statement_name' => $nombre_cuenta,
+                            'bank_account_number' => $numero_cuenta,
+                            'cci_account_number' => $cci,
+                            'payme_comerce_id' => $payme_comerce,
+                            'payme_wallet_id' => $payme_wallet,
+                            'payme_acquirer_id' => $payme_acquirer_id,
+                            'payme_wallet_password' => $payme_wallet_password,
+                            'payme_gateway_password' => $payme_gateway_password,
+                            'analytics_id' => $ga
+                        ]);
+
+                        // Representante legal
+                        $nombres = $val[3];
+                        $dni_rl = $val[4];
+                        LegalRepresentative::create([
+                            'name' => $nombres,
+                            'document_number' => $dni_rl,
+                            'store_id' => $store->id
+                        ]);
+
+                        // Contacto comercial
+                        $nombres_cc = $val[8];
+                        $dni_cc = $val[9];
+                        $telefono_cc = $val[10];
+                        $email_cc = $val[11];
+                        ComercialContact::create([
+                            'name' => $nombres_cc,
+                            'document_number' => $dni_cc,
+                            'phone' => $telefono_cc,
+                            'email' => $email_cc,
+                            'store_id' => $store->id
+                        ]);
+                    }
                 }
 
             }
