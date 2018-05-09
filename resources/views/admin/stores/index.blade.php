@@ -8,6 +8,10 @@
             $storenameField->title('Razón social')->fillable()->show(true)->required(true)->width(6);
             $builder->addField($storenameField);
 
+            $comercial_nameField = new \App\Utils\ReactCrudField('comercial_name');
+            $comercial_nameField->title('Nombre comercial')->width(6);
+            $builder->addField($comercial_nameField);
+
             $storerucField = new \App\Utils\ReactCrudField('ruc');
             $storerucField->title('RUC')->required(true)->width(6);
             $builder->addField($storerucField);
@@ -15,10 +19,6 @@
             $legal_addressField = new \App\Utils\ReactCrudField('legal_address');
             $legal_addressField->show(false)->required(true)->title('Domicilio legal')->width(6);
             $builder->addField($legal_addressField);
-
-            $comercial_nameField = new \App\Utils\ReactCrudField('comercial_name');
-            $comercial_nameField->show(false)->title('Nombre comercial')->width(6);
-            $builder->addField($comercial_nameField);
 
             $storephoneField = new \App\Utils\ReactCrudField('phone');
             $storephoneField->title('Teléfono')->required(true)->width(6);
