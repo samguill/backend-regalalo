@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Store;
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers\Admin;
+
 use App\Models\Event;
 use App\Models\Interest;
 use App\Models\Product;
-use App\Models\ProductImage;
 use App\Models\Store;
 use App\Models\StoreImage;
 use App\Utils\ParametersUtil;
-use Faker\Factory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Mockery\Exception;
+use Faker\Factory;
 
 class ProductController extends Controller
 {
@@ -35,21 +34,29 @@ class ProductController extends Controller
                 ];
             }, Interest::all()->toArray()
         );
-        return view('store.products.index', compact('events', 'interests'));
+
+        $stores = array_map(
+            function($item){
+                return [
+                    "id" => $item["id"],
+                    "value" => $item["comercial_name"]
+                ];
+            }, Store::all()->toArray()
+        );
+        return view('admin.products.index', compact('events', 'interests', 'stores'));
     }
 
     public function lists(){
-        $Products = Product::where('store_id',Auth::user()->store->id)->where('status', 0)->orWhere('status', 1)->get();
-        return response()->json($Products);
+        $products = Product::where('status', 0)->orWhere('status', 1)->get();
+        return response()->json($products);
     }
 
     public function edit(Request $request){
         $data = $request->all();
 
-        $auth = Auth::user();
-        $store_id =  $auth->store["id"];
-
         $product = Product::with('productimages.store_image')->where("id", $data["id"])->first();
+        $store = Store::find($product->store_id);
+        $store_id = $store->id;
         $store_images = StoreImage::where('store_id', $store_id)->get();
 
         $sex = array_map(
@@ -90,20 +97,12 @@ class ProductController extends Controller
 
         $product_characteristics = ParametersUtil::getProductCharacteristics();
 
-        if($auth["type"] == "S"){
-            if($store_id == $product->store_id){
-                //return response()->json($product->productimages);
-                return view('store.products.edit', compact(
-                    'store_images','product',
-                    'store_id', 'sex',
-                    'ages', 'events',
-                    'interests', 'product_characteristics')
-                );
-            }else{
-                return redirect('/');
-            }
-        }
-
+        return view('admin.products.edit', compact(
+                'store_images','product',
+                'store_id', 'sex',
+                'ages', 'events',
+                'interests', 'product_characteristics')
+        );
     }
 
     public function update(Request $request) {
@@ -123,37 +122,10 @@ class ProductController extends Controller
             return response()->json(['status'=>'error', 'message' => "No se pudo actualizar el registro."]);
     }
 
-    public function delete(Request $request){
-        $data = $request->all();
-        $model = Product::find($data['id']);
-        $model->status = 2;
-        if($model->save()) {
-            return response()->json(['status'=>'ok','data'=>$model]);
-        }else{
-            return response()->json(['status'=>'error', "message" => "No se ha podido eliminar el registro, intente más tarde."]);
-        }
-    }
-
-    public function create(Request $request){
-        try{
-            $data = $request->all();
-            $faker = Factory::create();
-            $data['slug'] = Str::slug($data["name"])  . $faker->randomDigit() . $faker->randomDigit() . $faker->randomDigit();
-            $data['store_id'] = Auth::user()->store->id;
-            $data['age'] = json_encode(array_map(function($age){return intval($age);},explode(",",$data['age'])));
-            $data['event'] = json_encode(array_map(function($event){return intval($event);},explode(",",$data['event'])));
-            $data['interest'] = json_encode(array_map(function($interest){return intval($interest);},explode(",",$data['interest'])));
-
-            $model = Product::create($data);
-        }catch(Exception $e) {
-
-        }
-        return response()->json(['status'=>"ok",'data'=>$model]);
-    }
-
     // Carga masiva
     public function masive_charge(Request $request){
         $file = $request->file('excel');
+        $store_id = $request->input('store_id');
         $faker = Factory::create();
         ini_set('max_execution_time', 300);
         if ($file->extension() == "xls" || $file->extension() == "xlsx") {
@@ -180,7 +152,6 @@ class ProductController extends Controller
                     $age = $val[6];
                     $ages = explode("-", $age);
                     $availability = $val[7];
-                    $store_id = Auth::user()->store->id;
 
                     if($name !== "" && $ages[0] !== ""){
                         $ages = range(intval($ages[0]), intval($ages[1]));
@@ -220,52 +191,5 @@ class ProductController extends Controller
         }else{
             return response()->json(['status' => 'error', 'message' => 'El formato de archivo es incorrecto.']);
         }
-    }
-
-    // Asignación de imágenes
-    public function add_image_product(Request $request){
-        $data = $request->all();
-        try {
-            $model_create = ProductImage::create([
-                'store_image_id' => $data["id"],
-                'product_id' => $data["product_id"]
-            ]);
-            $model = ProductImage::with('store_image')->where('id', $model_create->id)->first();
-        }catch(Exception $e) {
-
-        }
-        return response()->json(['status'=>"ok",'data'=>$model]);
-    }
-
-    public function delete_image_product(Request $request){
-        $product_image_id = $request->input('id');
-        $product_image = ProductImage::find($product_image_id);
-        $model = $product_image;
-        $product_image->delete();
-        return response()->json(['status'=>"ok",'data'=>$model]);
-    }
-
-    // Subida de imagen destacada
-    public function store_featured_image(Request $request){
-        $image = $request->file('file');
-        $product_id = $request->input('product_id');
-        $product = Product::find($product_id);
-        //return response()->json($product);
-
-        $name = $image->getClientOriginalName();
-
-        $store_id = Auth::user()->store->id;
-        $store = Store::find($store_id);
-        $ruc = $store->ruc;
-
-        $path = "uploads/stores/" . $ruc . "/";
-
-        $image->move($path , $image->getClientOriginalName());
-
-        $model = $product->update([
-            'featured_image' => $path . $name
-        ]);
-        return response()->json(['status'=>"ok",'data'=>$product->featured_image]);
-
     }
 }

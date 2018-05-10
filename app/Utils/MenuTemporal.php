@@ -25,6 +25,7 @@ class MenuTemporal
     const ADMIN = [
 
         ['icon'=>'fa-building','menu'=>'Tiendas','route' => 'stores', 'options' => []],
+        ['icon'=>'fa-shopping-bag','menu'=>'Productos','route' => 'product', 'options' => []],
         ['icon'=>'fa-users','menu'=>'Clientes','route' => 'clients', 'options' => []],
         ['icon'=>'fa-paper-plane','menu'=>'Ventas','route' => 'sales', 'options' => []],
         ['icon'=>'fa-comments','menu'=>'Reclamos','route' => 'claims', 'options' => []],

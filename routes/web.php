@@ -35,6 +35,15 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/stores/upload-logo', 'Admin\StoreController@upload_logo')->name('stores.upload-logo');
         Route::get('/stores/payme_doc/', 'Admin\StoreController@payme_document')->name('stores.payme_doc');
 
+        // Productos
+        Route::get('/product', 'Admin\ProductController@index')->name('product');
+        Route::get('/product/lists', 'Admin\ProductController@lists')->name('product.lists');
+        Route::get('/product/edit', 'Admin\ProductController@edit')->name('product.edit');
+        Route::post('/product/update', 'Admin\ProductController@update')->name('product.update');
+        Route::post('/product/delete', 'Admin\ProductController@delete')->name('product.delete');
+        Route::post('/product/create', 'Admin\ProductController@create')->name('product.create');
+        Route::post('/product/charge', 'Admin\ProductController@masive_charge')->name('product.charge');
+
         // Ocasiones
         Route::get('/events', 'Admin\EventController@index')->name('events');
         Route::get('/events/lists', 'Admin\EventController@lists')->name('events.lists');
