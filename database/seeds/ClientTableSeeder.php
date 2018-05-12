@@ -4,6 +4,7 @@ use App\Models\Client;
 use App\Models\ClientDirection;
 use App\Models\ClientWishlist;
 use App\Models\Product;
+use App\Models\Service;
 use Illuminate\Database\Seeder;
 
 class ClientTableSeeder extends Seeder
@@ -24,6 +25,11 @@ class ClientTableSeeder extends Seeder
 
         ClientWishlist::create([
             'product_id' => Product::all()->random()->id,
+            'client_id' => $client->id
+        ]);
+
+        ClientWishlist::create([
+            'service_id' => Service::all()->random()->id,
             'client_id' => $client->id
         ]);
 

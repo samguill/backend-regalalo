@@ -25,6 +25,14 @@ Route::group(['middleware' => 'cors'], function (){
     Route::post('order/details', 'Api\OrderController@orderdetails');
     Route::post('orders/calculatedelivery', 'Api\OrderController@calculateDelivery');
     Route::post('comerce-alignet', 'Api\OrderController@comerce_alignet');
+
+
+    //Wish Cliente List
+
+    Route::post('wishclientlist', 'Api\ClientWishListController@lists');
+    Route::post('wishclient/create', 'Api\ClientWishListController@create');
+    Route::post('wishclient/delete', 'Api\ClientWishListController@delete');
+
 });
 
 /*Route::domain('regalalo.pe')->group(function(){

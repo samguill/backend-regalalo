@@ -15,10 +15,10 @@ class CreateClientWishlistsTable extends Migration
     {
         Schema::create('client_wishlists', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('product_id')->nullable()->default(null);
+            $table->unsignedInteger('service_id')->nullable()->default(null);
             $table->unsignedInteger('client_id');
-
-            $table->foreign('product_id')->references('id')->on('products');
+            //$table->foreign('product_id')->references('id')->on('products');
             $table->foreign('client_id')->references('id')->on('clients');
             $table->timestamps();
         });
