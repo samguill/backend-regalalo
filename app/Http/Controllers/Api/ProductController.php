@@ -40,12 +40,16 @@ class ProductController extends Controller
         }
 
         // Edad
-        if($request->has('ages'))
+        if($request->has('age'))
         {
-            $ages = $request->input('ages');
-            foreach ($ages as $age) {
+
+            $age = $request->input('age');
+           /* foreach ($ages as $age) {
                 $query->where('age','LIKE','%'.$age.'%');
-            }
+            }*/
+
+            $query->whereRaw('SUBSTRING_INDEX(age, ",", 1) <= ?' ,$age);
+            $query->whereRaw('SUBSTRING_INDEX(age, ",", -1) >= ?' ,$age);
 
         }
 
@@ -102,6 +106,7 @@ class ProductController extends Controller
         $query->leftJoin('inventory','inventory.product_id','=','products.id');
 
         $result = $query->paginate(15);
+        //$result = $query->tosql();
 
         return response()->json(['status'=>'ok', 'data'=>$result]);
 

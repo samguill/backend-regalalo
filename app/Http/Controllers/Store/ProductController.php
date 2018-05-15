@@ -112,11 +112,13 @@ class ProductController extends Controller
         $product = Product::find($data['id']);
         unset($data['id']);
         $data['slug'] = Str::slug($data["name"])  . $faker->randomDigit() . $faker->randomDigit() . $faker->randomDigit();
-        $ages = $data['age'];
+       /* $ages = $data['age'];
         $ages = explode(",", $ages);
         $ages = range(intval($ages[0]), intval($ages[1]));
         $ages = implode(",", $ages);
-        $data['age'] = $ages;
+        $data['age'] = $ages;*/
+       // $data['age'] = json_encode(array_map(function($age){return intval($age);},explode(",",$data['age'])));
+
         if($product->update($data))
             return response()->json(['status'=>'ok', 'data'=>$product]);
         else
@@ -140,7 +142,7 @@ class ProductController extends Controller
             $faker = Factory::create();
             $data['slug'] = Str::slug($data["name"])  . $faker->randomDigit() . $faker->randomDigit() . $faker->randomDigit();
             $data['store_id'] = Auth::user()->store->id;
-            $data['age'] = json_encode(array_map(function($age){return intval($age);},explode(",",$data['age'])));
+           // $data['age'] = json_encode(array_map(function($age){return intval($age);},explode(",",$data['age'])));
             $data['event'] = json_encode(array_map(function($event){return intval($event);},explode(",",$data['event'])));
             $data['interest'] = json_encode(array_map(function($interest){return intval($interest);},explode(",",$data['interest'])));
 

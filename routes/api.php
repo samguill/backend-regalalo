@@ -14,6 +14,14 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['middleware' => 'cors'], function (){
+
+    //Búsqueda de productos
+
+    Route::post('products/search', 'Api\ProductController@search')->name('products.search');
+    Route::post('services/search', 'Api\ServiceController@search')->name('services.search');
+    Route::post('service/detail', 'Api\ServiceController@detail')->name('service.detail');
+
+
     Route::post('client/register', 'Api\RegisterClientController@register');
     Route::post('client/login', 'Api\RegisterClientController@login');
     Route::get('home', 'Api\PageController@home');

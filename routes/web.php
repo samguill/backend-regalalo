@@ -13,10 +13,6 @@
 
 Auth::routes();
 
-Route::post('products/search', 'Api\ProductController@search')->name('products.search');
-Route::post('services/search', 'Api\ServiceController@search')->name('services.search');
-Route::post('service/detail', 'Api\ServiceController@detail')->name('service.detail');
-
 Route::group(['middleware' => ['auth']], function(){
 
     Route::get('/', 'HomeController@index')->name('home');
