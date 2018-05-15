@@ -21,6 +21,7 @@ class Product extends Model
         'interest',
         'store_id',
         'product_characteristic_id',
+        'product_characteristic_values',
         'featured_image',
         'status'
     ];

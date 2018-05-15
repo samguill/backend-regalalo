@@ -30,6 +30,7 @@ class CreateProductsTable extends Migration
             $table->string('featured_image')->nullable()->default(null);
             $table->unsignedInteger('store_id');
             $table->unsignedInteger('product_characteristic_id')->nullable()->default(null);
+            $table->string('product_characteristic_values')->nullable()->default(null);
             // 0: pendiente - 1: activo - 2: inactivo
             $table->integer('status')->default(0);
             $table->timestamps();
