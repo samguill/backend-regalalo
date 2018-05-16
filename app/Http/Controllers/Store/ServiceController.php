@@ -36,7 +36,7 @@ class ServiceController extends Controller
         $data = $request->all();
         $Service = Service::find($data['id']);
         unset($data['id']);
-        $data['age'] = json_encode(array_map(function($age){return intval($age);},explode(",",$data['age'])));
+       // $data['age'] = json_encode(array_map(function($age){return intval($age);},explode(",",$data['age'])));
         $data['experience'] = json_encode(array_map(function($experience){return intval($experience);},explode(",",$data['experience'])));
         if($Service->update($data))
             return response()->json(['status'=>'ok', 'data'=>$Service]);
@@ -59,7 +59,7 @@ class ServiceController extends Controller
         try{
             $data = $request->all();
             $data['store_id'] = Auth::user()->store->id;
-            $data['age'] = json_encode(array_map(function($age){return intval($age);},explode(",",$data['age'])));
+         //   $data['age'] = json_encode(array_map(function($age){return intval($age);},explode(",",$data['age'])));
             $data['experience'] = json_encode(array_map(function($experience){return intval($experience);},explode(",",$data['experience'])));
             $model = Service::create($data);
         }catch(Exception $e) {

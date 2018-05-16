@@ -40,12 +40,13 @@ class ServiceController extends Controller
         }
 
         // Edad
-        if($request->has('ages'))
+        if($request->has('age'))
         {
-            $ages = $request->input('ages');
-            foreach ($ages as $age) {
-                $query->where('age','LIKE','%'.$age.'%');
-            }
+
+            $age = $request->input('age');
+
+            $query->whereRaw('SUBSTRING_INDEX(age, ",", 1) <= ?' ,$age);
+            $query->whereRaw('SUBSTRING_INDEX(age, ",", -1) >= ?' ,$age);
 
         }
 

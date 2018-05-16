@@ -42,12 +42,7 @@ class ProductController extends Controller
         // Edad
         if($request->has('age'))
         {
-
             $age = $request->input('age');
-           /* foreach ($ages as $age) {
-                $query->where('age','LIKE','%'.$age.'%');
-            }*/
-
             $query->whereRaw('SUBSTRING_INDEX(age, ",", 1) <= ?' ,$age);
             $query->whereRaw('SUBSTRING_INDEX(age, ",", -1) >= ?' ,$age);
 

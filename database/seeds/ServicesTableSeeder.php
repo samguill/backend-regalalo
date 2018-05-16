@@ -26,7 +26,7 @@ class ServicesTableSeeder extends Seeder
                 'price' => $faker->randomNumber(3).'.'.$faker->randomNumber(2),
                 'product_presentation' =>  $faker->randomElement(['unidad', 'par', 'caja', 'docena']),
                 'description' => $faker->sentence($nbWords = 6, $variableNbWords = true),
-                'age' => $faker->numberBetween(10,20),
+                'age' => $faker->numberBetween(10,20).','.$faker->numberBetween(21,50),
                 'availability' =>  $faker->randomElement(['D', 'S', 'A']), //D = Delivery, S = Store, A = All
                 'store_id' => Store::all()->random()->id
             ]);
