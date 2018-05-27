@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\ClientWishlist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Mockery\Exception;
 
 class ClientWishListController extends Controller
 {

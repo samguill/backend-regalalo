@@ -3,20 +3,23 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Client;
-use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class RegisterClientController extends Controller
 {
-    public function register(Request $request){
 
+    private $client;
+
+    public function __construct() {
+        $this->client = \Laravel\Passport\Client::find(1);
+    }
+
+    public function register(Request $request){
+        $data = $request->all();
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:255|unique:clients',
             'first_name' => 'required',
@@ -28,17 +31,28 @@ class RegisterClientController extends Controller
             return response()->json(['status' => 'error', 'message' => $validator->errors()]);
         }
 
-        $client = Client::create([
+        Client::create([
             'first_name' => $request->get('first_name'),
             'last_name' => $request->get('last_name'),
             'email' => $request->get('email'),
             'password' => $request->get('password')
         ]);
-        $token = JWTAuth::fromUser($client, ['client' => $client]);
-        return response()->json(['status'=>'ok', 'token' => $token]);
+
+        $params = [
+            "grant_type" => "password",
+            "client_id" => $this->client->id,
+            "client_secret" => $this->client->secret,
+            "username" => $data["email"],
+            "password" => $data["password"],
+            "scope" => "*"
+        ];
+        $request->request->add($params);
+
+        $proxy = Request::create('oauth/token', 'POST');
+        return Route::dispatch($proxy);
     }
 
-    public function login(Request $request){
+    /*public function login(Request $request){
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:255',
             'password' => 'required'
@@ -66,5 +80,5 @@ class RegisterClientController extends Controller
     public function profile(Request $request){
         $token = $request->input('token');
         return response()->json($token);
-    }
+    }*/
 }

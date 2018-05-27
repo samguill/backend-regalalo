@@ -14,7 +14,7 @@ class ClientDirectionController extends Controller
         $data =  ClientDirection::create([$direction]);
         return response()->json([
             'status'=>'ok',
-            'order' => $data]);
+            'directions' => $data]);
 
     }
 
@@ -26,7 +26,7 @@ class ClientDirectionController extends Controller
 
         return response()->json([
             'status'=>'ok',
-            'order' => $data]);
+            'directions' => $data]);
 
     }
 
