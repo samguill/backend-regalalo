@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::group(['middleware' => 'cors'], function (){
 //Route::domain('regalalo.pe')->group(function(){
     Route::post('client/register', 'Api\RegisterClientController@register');
     Route::post('client/login', 'Api\LoginController@login');
@@ -28,6 +29,7 @@ use Illuminate\Http\Request;
     Route::post('orders/calculatedelivery', 'Api\OrderController@calculateDelivery');
     Route::post('comerce-alignet', 'Api\OrderController@comerce_alignet');
 //});
+});
 
 Route::middleware('auth:api')->group(function (){
     Route::post('client/profile', 'Api\RegisterClientController@profile');
