@@ -32,11 +32,11 @@ Route::group(['middleware' => 'cors'], function (){
 });
 
 Route::middleware('auth:api')->group(function (){
-    Route::post('client/profile', 'Api\RegisterClientController@profile');
-    Route::post('client/directions', 'Api\ClientDirectionController@directions');
+    Route::get('client/profile', 'Api\LoginController@profile');
+    Route::get('client/directions', 'Api\ClientDirectionController@directions');
     Route::post('client/directions/store', 'Api\ClientDirectionController@store');
 
-    Route::post('client/wishlist', 'Api\ClientWishListController@lists');
+    Route::get('client/wishlist', 'Api\ClientWishListController@lists');
     Route::post('client/wishlist/create', 'Api\ClientWishListController@create');
     Route::post('client/wishlist/delete', 'Api\ClientWishListController@delete');
 

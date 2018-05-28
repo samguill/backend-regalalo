@@ -5,31 +5,30 @@ namespace App\Http\Controllers\Api;
 use App\Models\ClientDirection;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Mockery\Exception;
 
-class ClientDirectionController extends Controller
-{
+class ClientDirectionController extends Controller {
+
     public function store(Request $request){
-
-        $direction = $request->input('direction');
-        $data =  ClientDirection::create([$direction]);
-        return response()->json([
-            'status'=>'ok',
-            'directions' => $data]);
-
+        $user_login = Auth::user();
+        try{
+            $data = $request->all();
+            $data["client_id"] = $user_login->id;
+            $model = ClientDirection::create($data);
+        }catch(Exception $e) {
+            return response()->json(['status'=>"error",'message'=>$e->getMessage()]);
+        }
+        return response()->json(['status'=>"ok",'data'=>$model]);
     }
 
-    public function directions(Request $request){
-
-        $client_id = $request->input('client_id');
-
-        $data =  ClientDirection::where('client_id',$client_id)->get();
-
+    public function directions(){
+        $user_login = Auth::user();
+        $data =  ClientDirection::where('client_id',$user_login->id)->get();
         return response()->json([
             'status'=>'ok',
-            'directions' => $data]);
-
+            'directions' => $data
+        ]);
     }
-
-
-
+    
 }

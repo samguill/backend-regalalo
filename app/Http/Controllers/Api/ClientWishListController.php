@@ -6,32 +6,30 @@ use App\Models\ClientWishlist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Mockery\Exception;
+use Illuminate\Support\Facades\Auth;
 
-class ClientWishListController extends Controller
-{
-    public function lists(Request $request){
+class ClientWishListController extends Controller {
 
-        $clientewishlist = '';
-        $data = $request->all();
-
-        if($request->has('client_id'))
-            $clientewishlist = ClientWishlist::with('product','service','client' )->where('client_id', $data['client_id'] )->get();
-
-        return response()->json($clientewishlist);
+    public function lists(){
+        $user_login = Auth::user();
+        $wishlist = ClientWishlist::with('product','service')->where('client_id', $user_login->id)->get();
+        return response()->json($wishlist);
     }
 
     public function create(Request $request){
+        $user_login = Auth::user();
         try{
-            $model = ClientWishlist::create($request->all());
+            $data = $request->all();
+            $data["client_id"] = $user_login->id;
+            $model = ClientWishlist::create($data);
         }catch(Exception $e) {
-
+            return response()->json(['status'=>"error",'message'=>$e->getMessage()]);
         }
         return response()->json(['status'=>"ok",'data'=>$model]);
     }
 
     public function delete(Request $request){
         $id = $request->input('id');
-
         $clientwish = ClientWishlist::find($id);
         $model = $clientwish;
         $clientwish->delete();
