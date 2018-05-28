@@ -18,9 +18,27 @@
                                      data_ages="{{json_encode($ages)}}"
                                      data_events="{{json_encode($events)}}"
                                      data_interests="{{json_encode($interests)}}"
-                                     data_product_characteristics="{{json_encode($product_characteristics)}}"
                                      default_data="{{$product}}"
                                      data_update_url="{{route('product.update')}}"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-20">
+                        <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse-characteristics" aria-expanded="false" aria-controls="collapse-characteristics">
+                            <div class="card-header" id="heading-characteristics">
+                                <h5 class="mb-0 d-inline-block">Características del producto</h5>
+                                <i class="fa fa-angle-down float-lg-right" style="margin-right: 10px;" aria-hidden="false"></i>
+                            </div>
+                        </button>
+                        <div id="collapse-characteristics" class="collapse" aria-labelledby="heading-characteristics" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="characteristics-product-component"
+                                    product_id="{{$product->id}}"
+                                    characteristic_id="{{$product->product_characteristic_id}}"
+                                    characteristic_values="{{$product->product_characteristic_values}}"
+                                    data_product_characteristics="{{json_encode($product_characteristics)}}"
+                                    data_update_url="{{route('product.characteristics_update')}}"></div>
                             </div>
                         </div>
                     </div>

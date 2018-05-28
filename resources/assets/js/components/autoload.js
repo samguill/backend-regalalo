@@ -15,6 +15,7 @@ require('./store-upload-logo/StoreUploadLogoComponent');
 require('./product-edit/ProductEditComponent');
 require('./product-images/ProductImagesComponent');
 require('./product-upload-featured-image/ProductoUploadFeaturedImage');
+require('./product-characteristics/ProductCharacteristicsComponent');
 
 require('./services/ServiceEditComponent');
 require('./services/ServiceImagesComponent');

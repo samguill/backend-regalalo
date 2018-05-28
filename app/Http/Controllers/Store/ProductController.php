@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Interest;
 use App\Models\Product;
+use App\Models\ProductCharacteristic;
 use App\Models\ProductImage;
 use App\Models\Store;
 use App\Models\StoreImage;
@@ -88,7 +89,7 @@ class ProductController extends Controller
             }, Interest::all()->toArray()
         );
 
-        $product_characteristics = ParametersUtil::getProductCharacteristics();
+        $product_characteristics = ProductCharacteristic::with('values')->get();
 
         if($auth["type"] == "S"){
             if($store_id == $product->store_id){
@@ -123,6 +124,17 @@ class ProductController extends Controller
             return response()->json(['status'=>'ok', 'data'=>$product]);
         else
             return response()->json(['status'=>'error', 'message' => "No se pudo actualizar el registro."]);
+    }
+
+    // Actualización de características del producto
+    public function characteristics_update(Request $request){
+        $data = $request->all();
+        $product = Product::find($data["product_id"]);
+        $product->update([
+            'product_characteristic_id' => $data["product_characteristic_id"],
+            'product_characteristic_values' => $data["product_characteristic_values"]
+        ]);
+        return response()->json(['status' => 'ok', 'data' => $data]);
     }
 
     public function delete(Request $request){

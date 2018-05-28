@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/product/delete', 'Admin\ProductController@delete')->name('product.delete');
         Route::post('/product/create', 'Admin\ProductController@create')->name('product.create');
         Route::post('/product/charge', 'Admin\ProductController@masive_charge')->name('product.charge');
+        Route::post('/product/characteristics-update', 'Admin\ProductController@characteristics_update')->name('product.characteristics_update');
 
         // Ocasiones
         Route::get('/events', 'Admin\EventController@index')->name('events');
@@ -112,6 +113,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/products/delete', 'Store\ProductController@delete')->name('products.delete');
         Route::post('/products/create', 'Store\ProductController@create')->name('products.create');
         Route::post('/products/charge', 'Store\ProductController@masive_charge')->name('products.charge');
+        Route::post('/products/characteristics-update', 'Store\ProductController@characteristics_update')->name('products.characteristics_update');
 
         // Images Product
         Route::post('/product/images/add', 'Store\ProductController@add_image_product')->name('product.images.add');

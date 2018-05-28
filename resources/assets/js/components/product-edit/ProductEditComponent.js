@@ -11,7 +11,6 @@ export default class ProductEditComponent extends React.Component {
         this.data_ages = JSON.parse(this.props.data_ages);
         this.data_events = JSON.parse(this.props.data_events);
         this.data_interests = JSON.parse(this.props.data_interests);
-        this.data_product_characteristics = JSON.parse(this.props.data_product_characteristics);
 
         this.handleChange = this.handleChange.bind(this);
 
@@ -73,14 +72,7 @@ export default class ProductEditComponent extends React.Component {
                 renderAS:'text',
                 options:this.data_interests,
                 width:6
-            },
-            product_characteristic_id:{
-                title:"Características del producto",
-                type:"map",
-                renderAs: 'text',
-                options:this.data_product_characteristics,
-                width:4
-            },
+            }
         };
 
         this.state = {
@@ -126,14 +118,12 @@ if (document.getElementsByClassName('update-product-component')) {
         var data_ages = element.getAttribute('data_ages');
         var data_events = element.getAttribute('data_events');
         var data_interests = element.getAttribute('data_interests');
-        var data_product_characteristics = element.getAttribute('data_product_characteristics');
 
         ReactDOM.render(<ProductEditComponent
             data_ages={data_ages}
             data_sex={data_sex}
             data_events={data_events}
             data_interests={data_interests}
-            data_product_characteristics={data_product_characteristics}
             data_update_url={data_update_url}
             default_data={default_data} />, element);
     }
