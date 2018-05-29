@@ -21,6 +21,7 @@ Route::group(['middleware' => 'cors'], function (){
     Route::get('stores', 'Api\StoreController@stores');
     Route::post('products/search', 'Api\ProductController@search')->name('products.search');
     Route::post('services/search', 'Api\ServiceController@search')->name('services.search');
+    Route::post('quicksearch', 'Api\SearchController@quicksearch')->name('quicksearch');
     Route::post('service/detail', 'Api\ServiceController@detail')->name('service.detail');
 
     Route::post('store/products', 'Api\StoreController@products_store');
