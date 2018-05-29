@@ -21,11 +21,14 @@ class PageController extends Controller {
         $interests = Interest::where('status', 0)->get();
         $experiences = Experience::where('status', 0)->get();
 
+        $stores = Store::all(['id', 'slug','logo_store']);
+
         return response()->json([
             'status'=>'ok',
             'events' => $events,
             'interests' => $interests,
-            'experiences' => $experiences
+            'experiences' => $experiences,
+            'stores' => $stores
         ]);
     }
 
