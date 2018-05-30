@@ -11,13 +11,14 @@ class Service extends Model
         'sku_code',
         'discount',
         'price',
-        'product_presentation',
         'description',
         'age',
         'availability',
         'experience',
         'store_id',
         'featured_image',
+        'meta_title',
+        'meta_description',
         'status'];
 
 

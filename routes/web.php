@@ -40,6 +40,17 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/product/create', 'Admin\ProductController@create')->name('product.create');
         Route::post('/product/charge', 'Admin\ProductController@masive_charge')->name('product.charge');
         Route::post('/product/characteristics-update', 'Admin\ProductController@characteristics_update')->name('product.characteristics_update');
+        Route::post('/product/seo-update', 'Admin\ProductController@update_seo')->name('product.update_seo');
+
+        // Servicios
+        Route::get('/service', 'Admin\ServiceController@index')->name('service');
+        Route::get('/service/lists', 'Admin\ServiceController@lists')->name('service.lists');
+        Route::get('/service/edit', 'Admin\ServiceController@edit')->name('service.edit');
+        Route::post('/service/update', 'Admin\ServiceController@update')->name('service.update');
+        Route::post('/service/delete', 'Admin\ServiceController@delete')->name('service.delete');
+        Route::post('/service/create', 'Admin\ServiceController@create')->name('service.create');
+        Route::post('/service/charge', 'Admin\ServiceController@masive_charge')->name('service.charge');
+        Route::post('/service/seo-update', 'Admin\ServiceController@update_seo')->name('service.update_seo');
 
         // Ocasiones
         Route::get('/events', 'Admin\EventController@index')->name('events');

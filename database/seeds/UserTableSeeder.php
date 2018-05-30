@@ -35,6 +35,13 @@ class UserTableSeeder extends Seeder
         ]);
 
         User::create([
+            'name'=>'Webtilia',
+            'email'=>'regalalo@webtilia.com',
+            'password'=>'webtilia2018',
+            'type' => 'A'
+        ]);
+
+        User::create([
             'name'=>'Juan Saavedra',
             'email'=>'juan.saavedra@regalalo.pe',
             'password'=>'123456',

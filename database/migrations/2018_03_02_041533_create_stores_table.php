@@ -47,6 +47,8 @@ class CreateStoresTable extends Migration
             $table->integer('payme_process_status')->default(0);
 
             $table->string('analytics_id')->nullable();
+            $table->string('meta_title')->nullable()->default(null);
+            $table->text('meta_description')->nullable()->default(null);
 
             $table->string('logo_store')->nullable()->default(null);
 

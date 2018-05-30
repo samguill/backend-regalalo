@@ -11,11 +11,13 @@ require('./store-edit/StoreEditComponent');
 require('./representatives-store/RepresentativeStoreComponent');
 require('./comercial-contact-edit/ComercialContactComponent');
 require('./store-upload-logo/StoreUploadLogoComponent');
+require('./store-seo/StoreSeoComponent');
 
 require('./product-edit/ProductEditComponent');
 require('./product-images/ProductImagesComponent');
 require('./product-upload-featured-image/ProductoUploadFeaturedImage');
 require('./product-characteristics/ProductCharacteristicsComponent');
+require('./product-seo/ProductSeoComponent');
 
 require('./services/ServiceEditComponent');
 require('./services/ServiceImagesComponent');

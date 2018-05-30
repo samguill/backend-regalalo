@@ -32,6 +32,8 @@ class Store extends Model
         'payme_gateway_password',
         'payme_process_status',
         'analytics_id',
+        'meta_title',
+        'meta_description',
         'logo_store',
         'user_id',
         'status'

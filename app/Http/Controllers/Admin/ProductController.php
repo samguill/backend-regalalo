@@ -52,6 +52,22 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
+    public function create(Request $request){
+        try{
+            $data = $request->all();
+            $data['slug'] = Str::slug($data["name"]);
+            $ages = $data['age'];
+            $ages = explode(",", $ages);
+            $ages = range(intval($ages[0]), intval($ages[1]));
+            $ages = implode(",", $ages);
+            $data['age'] = $ages;
+            $model = Product::create($data);
+        }catch(Exception $e) {
+
+        }
+        return response()->json(['status'=>"ok",'data'=>$model]);
+    }
+
     public function edit(Request $request){
         $data = $request->all();
 
@@ -107,16 +123,25 @@ class ProductController extends Controller
     }
 
     public function update(Request $request) {
-        $faker = Factory::create();
         $data = $request->all();
         $product = Product::find($data['id']);
         unset($data['id']);
-        $data['slug'] = Str::slug($data["name"])  . $faker->randomDigit() . $faker->randomDigit() . $faker->randomDigit();
+        $data['slug'] = Str::slug($data["name"]);
         $ages = $data['age'];
         $ages = explode(",", $ages);
         $ages = range(intval($ages[0]), intval($ages[1]));
         $ages = implode(",", $ages);
         $data['age'] = $ages;
+        if($product->update($data))
+            return response()->json(['status'=>'ok', 'data'=>$product]);
+        else
+            return response()->json(['status'=>'error', 'message' => "No se pudo actualizar el registro."]);
+    }
+
+    public function update_seo(Request $request){
+        $data = $request->all();
+        $product = Product::find($data['id']);
+        unset($data['id']);
         if($product->update($data))
             return response()->json(['status'=>'ok', 'data'=>$product]);
         else
@@ -172,7 +197,7 @@ class ProductController extends Controller
                         if($product){
                             $product->update([
                                 'name'=>  $name,
-                                'slug' => Str::slug($name) . $faker->randomDigit() . $faker->randomDigit() . $faker->randomDigit(),
+                                'slug' => Str::slug($name),
                                 'discount'=> $discount,
                                 'price'=> $price,
                                 'product_presentation'=> $product_presentation,
@@ -183,7 +208,7 @@ class ProductController extends Controller
                         }else{
                             Product::create([
                                 'name'=>  $name,
-                                'slug' => Str::slug($name) . $faker->randomDigit() . $faker->randomDigit() . $faker->randomDigit(),
+                                'slug' => Str::slug($name),
                                 'sku_code'=> $sku_code,
                                 'discount'=> $discount,
                                 'price'=> $price,

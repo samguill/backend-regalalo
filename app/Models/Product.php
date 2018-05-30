@@ -22,6 +22,8 @@ class Product extends Model
         'store_id',
         'product_characteristic_id',
         'product_characteristic_values',
+        'meta_title',
+        'meta_description',
         'featured_image',
         'status'
     ];

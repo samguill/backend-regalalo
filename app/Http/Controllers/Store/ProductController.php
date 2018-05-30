@@ -151,8 +151,7 @@ class ProductController extends Controller
     public function create(Request $request){
         try{
             $data = $request->all();
-            $faker = Factory::create();
-            $data['slug'] = Str::slug($data["name"])  . $faker->randomDigit() . $faker->randomDigit() . $faker->randomDigit();
+            $data['slug'] = Str::slug($data["name"]);
             $data['store_id'] = Auth::user()->store->id;
            // $data['age'] = json_encode(array_map(function($age){return intval($age);},explode(",",$data['age'])));
             $data['event'] = json_encode(array_map(function($event){return intval($event);},explode(",",$data['event'])));
