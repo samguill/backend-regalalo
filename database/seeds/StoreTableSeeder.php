@@ -147,8 +147,8 @@ class StoreTableSeeder extends Seeder
         ]);
 
         $product_3 = Product::create([
-            'name' => 'Macetas de Modelos Variados',
-            'slug' => 'macetas-de-modelos-variados' . $faker->randomDigit() . $faker->randomDigit() . $faker->randomDigit(),
+            'name' => 'Macetas de Modelos Variados 1',
+            'slug' => 'macetas-de-modelos-variados-1',
             'sku_code' => 'P02',
             'discount' => 0,
             'price' => 45,
@@ -170,8 +170,8 @@ class StoreTableSeeder extends Seeder
         ]);
 
         $product_4 = Product::create([
-            'name' => 'Macetas de Modelos Variados',
-            'slug' => 'macetas-de-modelos-variados' . $faker->randomDigit() . $faker->randomDigit() . $faker->randomDigit(),
+            'name' => 'Macetas de Modelos Variados 2',
+            'slug' => 'macetas-de-modelos-variados-2',
             'sku_code' => 'P02',
             'discount' => 0,
             'price' => 50,
