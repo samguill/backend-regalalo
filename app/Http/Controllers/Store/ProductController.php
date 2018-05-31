@@ -153,10 +153,11 @@ class ProductController extends Controller
             $data = $request->all();
             $data['slug'] = Str::slug($data["name"]);
             $data['store_id'] = Auth::user()->store->id;
-           // $data['age'] = json_encode(array_map(function($age){return intval($age);},explode(",",$data['age'])));
-            $data['event'] = json_encode(array_map(function($event){return intval($event);},explode(",",$data['event'])));
-            $data['interest'] = json_encode(array_map(function($interest){return intval($interest);},explode(",",$data['interest'])));
-
+            $ages = $data['age'];
+            $ages = explode(",", $ages);
+            $ages = range(intval($ages[0]), intval($ages[1]));
+            $ages = implode(",", $ages);
+            $data['age'] = $ages;
             $model = Product::create($data);
         }catch(Exception $e) {
 

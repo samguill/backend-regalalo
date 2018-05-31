@@ -18,7 +18,6 @@ export default class StoreMultimediaComponent extends React.Component {
         this.url_multimedialist = this.props.url_multimedialist;
         this.upload_url = this.props.upload_url;
         this.delete_url = this.props.delete_url;
-        this.site_url = this.props.site_url;
 
         this.getImages = this.getImages.bind(this);
         this.uploadImages = this.uploadImages.bind(this);
@@ -137,7 +136,7 @@ export default class StoreMultimediaComponent extends React.Component {
                                 this.state.files.map((row, ri) => {
                                     return <div key={ri} className="col-md-3 file">
                                         <div className="file-item-containter">
-                                            <div className="file-item" style={{ backgroundImage : "url("+ this.site_url + row.image_path + ")" }}></div>
+                                            <div className="file-item" style={{ backgroundImage : "url("+ row.image_path + ")" }}></div>
                                             <div className="file-options">
                                                 <div className="row no-glutter">
                                                     <div className="col-md-6">

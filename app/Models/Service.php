@@ -30,4 +30,13 @@ class Service extends Model
 
         return $this->belongsTo('App\Models\Store');
     }
+
+    public function getFeaturedImageAttribute(){
+        $base_url = env('APP_URL');
+        $featured_image = $this->attributes["featured_image"];
+        if($featured_image){
+            return $base_url . $this->attributes["featured_image"];
+        }
+        return $this->attributes["featured_image"];
+    }
 }

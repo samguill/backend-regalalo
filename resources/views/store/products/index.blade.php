@@ -67,26 +67,20 @@
                 ['id' => 'D', 'value' => 'Delivery'],
                 ['id' => 'S', 'value' => 'Tienda'],
                 ['id' => 'A', 'value' => 'Todos'],
-            ])->title('Disponibilidad')->width(6)->renderAs('text');
+            ])->title('Disponibilidad')->width(4)->renderAs('text');
             $builder->addField($availabilityField);
 
             $eventField = new \App\Utils\ReactCrudField('event');
             $eventField->fillable()->title('Ocasión')
                 ->type('json', $events)->show(false)
-                ->width(6)->renderAs('text');
+                ->width(4)->renderAs('text');
             $builder->addField($eventField);
 
             $interestField = new \App\Utils\ReactCrudField('interest');
             $interestField->fillable()->title('Interés')
                 ->type('json', $interests)->show(false)
-                ->width(6)->renderAs('text');
+                ->width(4)->renderAs('text');
             $builder->addField($interestField);
-
-            $productCharacteristicField = new \App\Utils\ReactCrudField('product_characteristic_id');
-            $productCharacteristicField->fillable()->title('Características del producto')
-                ->type('map', $roductcharacteristics)->show(false)
-                ->width(6)->renderAs('text');
-            $builder->addField($productCharacteristicField);
 
             $actions = [];
             $actions["custom"] = [];

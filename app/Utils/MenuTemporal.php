@@ -30,7 +30,9 @@ class MenuTemporal
         ['icon'=>'fa-users','menu'=>'Clientes','route' => 'clients', 'options' => []],
         ['icon'=>'fa-paper-plane','menu'=>'Ventas','route' => 'sales', 'options' => []],
         ['icon'=>'fa-comments','menu'=>'Reclamos','route' => 'claims', 'options' => []],
-        ['icon'=>'fa-window-restore','menu'=>'Página web','route' => 'webpage', 'options' => []],
+        ['icon'=>'fa-window-restore','menu'=>'Página web','route' => 'webpage', 'options' => [
+            ['icon'=>'fa-comments','menu'=>'Slider','route' => 'slides']
+        ]],
         ['icon'=>'fa-user-secret','menu'=>'Usuarios','route' => 'users', 'options' => []],
         ['icon'=>'fa-sliders','menu'=>'Parámetros generales','route' => '#', 'options' => [
             ['icon'=>'fa-comments','menu'=>'Ocasiones','route' => 'events'],

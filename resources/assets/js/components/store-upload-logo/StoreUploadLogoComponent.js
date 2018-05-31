@@ -15,7 +15,7 @@ export default class StoreUploadLogoComponent extends React.Component {
 
         let logo_store_url = 'http://via.placeholder.com/400x200';
         if(this.logo_store !== ""){
-            logo_store_url = "http://regalalo.test/" + this.logo_store;
+            logo_store_url = this.logo_store;
         }
 
         this.uploadImage = this.uploadImage.bind(this);
@@ -37,7 +37,7 @@ export default class StoreUploadLogoComponent extends React.Component {
 
             return axios.post(this.data_upload_url, formData)
                 .then((response) => {
-                    this.setState({logo_store: 'http://regalalo.test/' + response.data.data, is_loading: false});
+                    this.setState({logo_store: response.data.data, is_loading: false});
                 })
                 .catch(function (error) {
                     swal({  title: "Ha ocurrido un error.",

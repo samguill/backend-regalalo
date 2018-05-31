@@ -51,4 +51,13 @@ class Store extends Model
         return $this->hasMany('App\Models\LegalRepresentative', 'store_id', 'id');
     }
 
+    public function getLogoStoreAttribute(){
+        $base_url = env('APP_URL');
+        $logo = $this->attributes["logo_store"];
+        if($logo){
+            return $base_url . $this->attributes["logo_store"];
+        }
+        return $this->attributes["logo_store"];
+    }
+
 }
