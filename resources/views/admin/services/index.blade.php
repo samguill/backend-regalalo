@@ -75,7 +75,7 @@
                 [
                     "edit" => [
                         "link" => true,
-                        'url' => route('services.edit'),
+                        'url' => route('service.edit'),
                         'icon' => "edit",
                         "color" => "#4CAF50",
                         "params" => [ 'id' ],

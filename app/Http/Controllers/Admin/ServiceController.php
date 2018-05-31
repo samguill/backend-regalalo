@@ -78,7 +78,7 @@ class ServiceController extends Controller
         $data = $request->all();
 
         $service = Service::with('serviceimages.store_image')->where("id", $data["id"])->first();
-        $store_images = StoreImage::where('store_id', $data["store_id"])->get();
+        $store_images = StoreImage::where('store_id', $service->store->id)->get();
 
         $sex = array_map(
             function($item){
