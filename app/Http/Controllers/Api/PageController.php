@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Event;
 use App\Models\Experience;
 use App\Models\Interest;
+use App\Models\Product;
 use App\Models\Slide;
 use App\Models\Store;
 use Illuminate\Http\Request;
@@ -18,13 +19,20 @@ use App\Http\Controllers\Controller;
 class PageController extends Controller {
 
     public function home(){
-        $stores = Store::all(['id', 'slug','logo_store']);
+        $stores = Store::take(4)->get(['id', 'slug','logo_store']);
         $slides = Slide::with('elements')->get();
+
+        $products = Product::take(10)->get();
+
+        $offers = [
+
+        ];
 
         return response()->json([
             'status'=>'ok',
             'stores' => $stores,
-            'slides' => $slides
+            'slides' => $slides,
+            'products' => $products
         ]);
     }
 
