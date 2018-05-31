@@ -27,7 +27,7 @@ class ProductController extends Controller
                     cos(radians(store_branches.longitude) - radians('.$longitude.'))) * 6378) 
                     from store_branches where store_branches.id =  inventory.store_branche_id) as distance'));
 
-            $query->orderBy('distance', 'dsc');
+            $query->orderBy('distance', 'desc');
         }
 
         //Si se envía los parámetros condiciona la búsqueda con has
