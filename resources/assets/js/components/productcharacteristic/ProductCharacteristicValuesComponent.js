@@ -31,26 +31,15 @@ export default class ProductCharacteristicValuesComponent extends React.Componen
 
         this.onIdChage = this.onIdChage.bind(this);
         this.onNameChage = this.onNameChage.bind(this);
-        this.onLatitudeChage = this.onLatitudeChage.bind(this);
-        this.onLongitudeChage = this.onLongitudeChage.bind(this);
         this.onAddressChage = this.onAddressChage.bind(this);
         this.clearForm = this.clearForm.bind(this);
-        this.onPhoneChage = this.onPhoneChage.bind(this);
-        this.onBranchEmailChage = this.onBranchEmailChage.bind(this);
-        this.onBH1Chage = this.onBH1Chage.bind(this);
-        this.onBH2Chage = this.onBH2Chage.bind(this);
 
     }
 
     onIdChage(e){ this.setState({id:e.target.value}); }
     onNameChage(e){ this.setState({key:e.target.value}); }
-    onLatitudeChage(e){ this.setState({latitude:e.target.value}); }
-    onLongitudeChage(e){ this.setState({longitude:e.target.value}); }
     onAddressChage(e){ this.setState({value:e.target.value}); }
-    onPhoneChage(e){ this.setState({phone:e.target.value}); }
-    onBranchEmailChage(e){ this.setState({branch_email:e.target.value}); }
-    onBH1Chage(e){ this.setState({business_hour_1:e.target.value}); }
-    onBH2Chage(e){ this.setState({business_hour_2:e.target.value}); }
+
 
     componentDidMount(){
         this.getBranches();
@@ -162,7 +151,7 @@ export default class ProductCharacteristicValuesComponent extends React.Componen
                             </div>
                             <div className="form-group">
                                 <lable>Value</lable>
-                                <input id="value" name="value" onChange={this.onAddressChage} className="form-control" type="text" value={this.state.address} />
+                                <input id="value" name="value" onChange={this.onAddressChage} className="form-control" type="text" value={this.state.value} />
                             </div>
 
 
@@ -173,7 +162,7 @@ export default class ProductCharacteristicValuesComponent extends React.Componen
                                             id: this.state.id,
                                             key: this.state.key,
                                             value: this.state.value,
-                                            store_id: this.storeid
+                                            product_characteristic_id: this.storeid
                                         })}}>
                                             { (this.state.is_loading) ? <em className="fa fa-refresh fa-spin"></em> : 'Guardar'}
                                         </a>
