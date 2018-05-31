@@ -57,4 +57,13 @@ class ProductCharacteristicController extends Controller
             return response()->json(['status' => 'error',"message" => "No se ha podido actualizar el registro, intente más tarde."]);
         }
     }
+
+    public function create(Request $request){
+        try{
+            $model = ProductCharacteristic::create($request->all());
+        }catch(Exception $e) {
+
+        }
+        return response()->json(['status'=>"ok",'data'=>$model]);
+    }
 }
