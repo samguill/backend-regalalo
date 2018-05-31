@@ -22,6 +22,7 @@ class StoreController extends Controller {
         $products = Product::where('status', 0)->where('store_id', $store->id)->get();
         return response()->json([
             'status'=>'ok',
-            'products' => $products]);
+            'products' => $products,
+            'store' => $store]);
     }
 }
