@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Utils\UrbanerUtil;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use SoapClient;
 
 class OrderController extends Controller
@@ -26,8 +26,9 @@ class OrderController extends Controller
      */
 
     public function generateOrder(Request $request){
-
+        $client_login = Auth::user();
         $order = $request->input('order');
+        $order["client_id"] = $client_login->id;
         $orderdetails = $request->input('orderdetails');
         $store_branche_id = $request->input('store_branche_id');
         $delivery = $request->input('delivery');
