@@ -45,7 +45,7 @@ class SearchController extends Controller
                     cos(radians(store_branches.longitude) - radians('.$longitude.'))) * 6378) 
                     from store_branches where store_branches.id =  '.$store_table.'.store_branche_id) as distance'));
 
-            $query->orderBy('distance', 'desc')
+            $query->orderBy('distance', 'desc');
         }
 
 
