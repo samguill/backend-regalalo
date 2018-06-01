@@ -18,7 +18,7 @@ class SearchController extends Controller
 
         $services = $this->query('services','service_id','coupons',$request);
 
-        $result  = $services->union($products)->orderBy('distance', 'desc')->get();
+        $result  = $services->union($products)->get();
 
         $result = $this->paginate($result);
 
@@ -45,7 +45,7 @@ class SearchController extends Controller
                     cos(radians(store_branches.longitude) - radians('.$longitude.'))) * 6378) 
                     from store_branches where store_branches.id =  '.$store_table.'.store_branche_id) as distance'));
 
-
+            $query->orderBy('distance', 'desc')
         }
 
 
