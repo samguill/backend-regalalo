@@ -31,7 +31,7 @@ class SearchController extends Controller
 
     public function query($table, $field_id,$store_table,$request){
 
-        $query = DB::table($table)->select([$table.'.id','sku_code','name','description','slug','featured_image','price','discount']);
+        $query = DB::table($table)->select([$table.'.id','sku_code','name','description','slug','featured_image','price','discount','store_id','store_branche_id']);
 
         if($request->has('latitude') and $request->has('longitude')) {
 
