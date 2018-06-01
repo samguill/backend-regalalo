@@ -16,22 +16,10 @@ export default class ServiceEditComponent extends React.Component {
 
         this.fields = {
             id:{type:"hidden"},
-            sku_code:{title:"Código del producto",type:"text",required:true,width:6},
-            name:{title:"Nombre del producto",type:"text",required:true,width:6},
+            sku_code:{title:"Código del servicio",type:"text",required:true,width:6},
+            name:{title:"Nombre del servicio",type:"text",required:true,width:6},
             discount:{title:"Descuento",type:"text",required:true,width:4},
             price:{title:"Precio",type:"text",required:true,width:4},
-            product_presentation:{
-                title:"Venta por",
-                type:"map",
-                required:true,
-                width:4,
-                options:[
-                    {id:"unidad", value:"Unidad"},
-                    {id:"par", value:"Par"},
-                    {id:"caja", value:"Caja"},
-                    {id:"docena", value:"Docena"}
-                ]
-            },
             description:{title:"Descripción",type:"editor",required:true,width:12},
             age:{
                 title:"Edad (Colocar solo un rango)",
@@ -54,14 +42,7 @@ export default class ServiceEditComponent extends React.Component {
                 renderAS:'text',
                 options:this.data_experiences,
                 width:6
-            },
-            product_characteristic_id:{
-                title:"Características del producto",
-                type:"map",
-                renderAs: 'text',
-                options:this.data_product_characteristics,
-                width:4
-            },
+            }
         };
 
         this.state = {

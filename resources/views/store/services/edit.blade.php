@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 @section('content')
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{route('services')}}">  Servicios</a></li>
+        <li class="breadcrumb-item active">Editar</li>
+    </ol>
     <div class="row">
         <div class="col-md-12">
             <div class="card-body">

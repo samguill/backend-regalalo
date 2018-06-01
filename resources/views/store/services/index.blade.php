@@ -90,10 +90,10 @@
                     ]
                 ]
             );
-                  /*   $actions['view'] = [];
+                   $actions['view'] = [];
                     $actions['create'] = [
                         'url' => route('services.create')
-                    ];
+                    ]; /*
                     $actions['update'] = [
                         'url' => route('services.update')
 

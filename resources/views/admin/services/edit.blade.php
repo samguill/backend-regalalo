@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 @section('content')
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{route('service')}}">  Servicios</a></li>
+        <li class="breadcrumb-item active">Editar</li>
+    </ol>
     <div class="row">
         <div class="col-md-12">
             <div class="card-body">
@@ -19,7 +23,7 @@
                                      data_experiences="{{json_encode($experiences)}}"
                                      data_product_characteristics="{{json_encode($service_characteristics)}}"
                                      default_data="{{$service}}"
-                                     data_update_url="{{route('services.update')}}"></div>
+                                     data_update_url="{{route('service.update')}}"></div>
                             </div>
                         </div>
                     </div>

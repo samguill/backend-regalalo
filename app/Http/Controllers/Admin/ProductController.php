@@ -56,11 +56,11 @@ class ProductController extends Controller
         try{
             $data = $request->all();
             $data['slug'] = Str::slug($data["name"]);
-            $ages = $data['age'];
+           /* $ages = $data['age'];
             $ages = explode(",", $ages);
             $ages = range(intval($ages[0]), intval($ages[1]));
             $ages = implode(",", $ages);
-            $data['age'] = $ages;
+            $data['age'] = $ages;*/
             $model = Product::create($data);
         }catch(Exception $e) {
 
@@ -127,11 +127,11 @@ class ProductController extends Controller
         $product = Product::find($data['id']);
         unset($data['id']);
         $data['slug'] = Str::slug($data["name"]);
-        $ages = $data['age'];
+       /* $ages = $data['age'];
         $ages = explode(",", $ages);
         $ages = range(intval($ages[0]), intval($ages[1]));
         $ages = implode(",", $ages);
-        $data['age'] = $ages;
+        $data['age'] = $ages;*/
         if($product->update($data))
             return response()->json(['status'=>'ok', 'data'=>$product]);
         else

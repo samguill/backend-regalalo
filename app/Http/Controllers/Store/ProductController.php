@@ -153,11 +153,11 @@ class ProductController extends Controller
             $data = $request->all();
             $data['slug'] = Str::slug($data["name"]);
             $data['store_id'] = Auth::user()->store->id;
-            $ages = $data['age'];
+          /*  $ages = $data['age'];
             $ages = explode(",", $ages);
             $ages = range(intval($ages[0]), intval($ages[1]));
             $ages = implode(",", $ages);
-            $data['age'] = $ages;
+            $data['age'] = $ages;*/
             $model = Product::create($data);
         }catch(Exception $e) {
 
