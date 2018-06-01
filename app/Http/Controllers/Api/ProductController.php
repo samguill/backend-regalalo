@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Product;
+use App\Models\StoreBranch;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -138,5 +139,11 @@ class ProductController extends Controller
 
         return response()->json(['status'=>'ok', 'data'=>$data]);
 
+    }
+
+    public function branche(Request $request){
+        $data = $request->all();
+        $branch = StoreBranch::find($data["store_branche_id"]);
+        return response()->json(['status'=>'ok', 'data'=>$branch]);
     }
 }
