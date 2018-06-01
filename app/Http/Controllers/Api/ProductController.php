@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Product;
+use App\Models\StoreBranch;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -95,6 +96,9 @@ class ProductController extends Controller
             $query->where('availability',$availability);
         }
 
+        //precio con descuento
+        $query->addSelect(DB::raw('IF(discount >0,price*(1-discount/100),0) as discount_price'));
+
         //inventario
         $query->addSelect(DB::raw('IFNULL(inventory.quantity,0) as quantity'));
 
@@ -135,5 +139,11 @@ class ProductController extends Controller
 
         return response()->json(['status'=>'ok', 'data'=>$data]);
 
+    }
+
+    public function branche(Request $request){
+        $data = $request->all();
+        $branch = StoreBranch::find($data["store_branche_id"]);
+        return response()->json(['status'=>'ok', 'data'=>$branch]);
     }
 }
