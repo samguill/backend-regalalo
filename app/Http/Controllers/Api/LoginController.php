@@ -64,7 +64,7 @@ class LoginController extends Controller
             ->where('access_token_id', $accessToken->id)
             ->update(["revoked" => true]);
         $accessToken->revoke();
-        return response()->json([], 204);
+        return response()->json(["status" => "ok"], 200);
     }
 
     public function profile(){

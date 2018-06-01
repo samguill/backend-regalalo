@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Mockery\Exception;
+use Illuminate\Support\Str;
 
 class StoreController extends Controller
 {
@@ -38,7 +39,6 @@ class StoreController extends Controller
             "title" => "Editar datos de tienda: " . $store->comercial_name,
             "icon" => "fa-building"
         ];
-        //return response()->json($store->comercial_contact);
         return view('admin.stores.edit', compact('store', 'data'));
     }
 
@@ -217,6 +217,7 @@ class StoreController extends Controller
                             'business_name' => $razon_social,
                             'legal_address' => $direccion_legal,
                             'comercial_name'=> $nombre_comercial,
+                            'slug' => Str::slug($nombre_comercial),
                             'phone' => $telefono,
                             'site_url' => $url,
                             'financial_entity' => $entidad,
@@ -259,6 +260,7 @@ class StoreController extends Controller
                             'ruc' => $ruc,
                             'legal_address' => $direccion_legal,
                             'comercial_name'=> $nombre_comercial,
+                            'slug' => Str::slug($nombre_comercial),
                             'phone' => $telefono,
                             'site_url' => $url,
                             'financial_entity' => $entidad,
