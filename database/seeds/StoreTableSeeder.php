@@ -21,34 +21,6 @@ class StoreTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        $store_precio = Store::create([
-            'business_name' => "Precio SAC",
-            'ruc' => 92760388,
-            'legal_address' => $faker->address,
-            'comercial_name'=> "Precio Perú",
-            'slug'=> \Illuminate\Support\Str::slug("Precio Perú"),
-            'phone' => $faker->randomNumber(8),
-            'site_url' => 'http://precio.pe',
-            'status' => 0,
-            'business_turn' => 'Ventas',
-            'monthly_transactions' => 100,
-            'average_amount' => 100,
-            'maximum_amount' => 1000,
-            'payme_comerce_id' => 8752,
-            'payme_wallet_id' => 1192,
-            'payme_acquirer_id' => 144,
-            'payme_process_status' => 1
-        ]);
-
-        ComercialContact::create([
-            'name' => "Marzio Perez",
-            'document_number' => "444444",
-            'phone' => "77777",
-            'email' => 'noreply@regalalo.pe',
-            'position' => 'Gerente General',
-            'store_id' => $store_precio->id
-        ]);
-
         $user_regalalo = User::create([
             'name' => 'Arturo García',
             'email' => 'arturo.garcia@regalalo.pe',
@@ -190,43 +162,6 @@ class StoreTableSeeder extends Seeder
             'product_id' => $product_4->id,
             'quantity' => 100,
             'store_branche_id' => $branch->id
-        ]);
-
-        $user_hp = User::create([
-            'name' => 'Miguel Falcón',
-            'email' => 'admin@hp.com',
-            'password' => '011227',
-            'type' => 'S',
-            'status' => 1
-        ]);
-
-        $store_hp = Store::create([
-            'business_name' => "HP SAC",
-            'ruc' => $faker->randomNumber(8),
-            'legal_address' => $faker->address,
-            'comercial_name'=> "HP",
-            'slug'=> \Illuminate\Support\Str::slug("HP"),
-            'phone' => $faker->randomNumber(8),
-            'site_url' => 'http://hp.pe',
-            'status' => 1,
-            'business_turn' => 'Ventas',
-            'monthly_transactions' => 100,
-            'average_amount' => 100,
-            'maximum_amount' => 1000,
-            'payme_comerce_id' => 9092,
-            'payme_wallet_id' => 641,
-            'payme_acquirer_id' => 144,
-            'payme_process_status' => 1,
-            'user_id' => $user_hp->id
-        ]);
-
-        ComercialContact::create([
-            'name' => "Miguel Falcón",
-            'document_number' => "444444",
-            'phone' => "77777",
-            'email' => 'admin@hp.com',
-            'position' => 'Gerente General',
-            'store_id' => $store_hp->id
         ]);
 
         /*for ($i = 0; $i <= 20; $i++) {

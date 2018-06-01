@@ -35,6 +35,7 @@ Route::group(['middleware' => 'cors'], function (){
 
 Route::middleware('auth:api')->group(function (){
     Route::get('client/profile', 'Api\LoginController@profile');
+    Route::get('client/logout', 'Api\LoginController@logout');
     Route::get('client/directions', 'Api\ClientDirectionController@directions');
     Route::post('client/directions/store', 'Api\ClientDirectionController@store');
 
