@@ -95,6 +95,9 @@ class ProductController extends Controller
             $query->where('availability',$availability);
         }
 
+        //precio con descuento
+        $query->addSelect(DB::raw('IF(discount >0,price*(1-discount/100),0) as discount_price'));
+
         //inventario
         $query->addSelect(DB::raw('IFNULL(inventory.quantity,0) as quantity'));
 
