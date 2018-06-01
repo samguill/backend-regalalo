@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('slug')->nullable()->default(null);
             $table->string('sku_code');
-            $table->string('discount');
+            $table->string('discount')->default(0);
             $table->double('price');
             $table->enum('product_presentation', array('unidad', 'par', 'caja', 'docena'));
             $table->text('description');

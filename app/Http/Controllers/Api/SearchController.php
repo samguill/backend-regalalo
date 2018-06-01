@@ -31,7 +31,7 @@ class SearchController extends Controller
 
     public function query($table, $field_id,$store_table,$request){
 
-        $query = DB::table($table)->select([$table.'.id','name','description','slug','featured_image']);
+        $query = DB::table($table)->select([$table.'.id','sku_code','name','description','slug','featured_image','price','discount']);
 
         if($request->has('latitude') and $request->has('longitude')) {
 
@@ -62,6 +62,11 @@ class SearchController extends Controller
         }
 
         $query->addSelect(DB::raw('\''.$table.'\' as type'));
+
+        //precio con descuento
+
+
+        $query->addSelect(DB::raw('IF(discount >0,price*(1-discount/100),0) as discount_price'));
 
         //inventario
         $query->addSelect(DB::raw('IFNULL('.$store_table.'.quantity,0) as quantity'));
