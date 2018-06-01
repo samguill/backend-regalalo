@@ -18,7 +18,7 @@ class CreateServicesTable extends Migration
             $table->string('name');
             $table->string('slug')->nullable()->default(null);
             $table->string('sku_code');
-            $table->string('discount')->default(0);
+            $table->double('discount')->default(0);
             $table->double('price');
             $table->string('description');
             $table->string('age');
