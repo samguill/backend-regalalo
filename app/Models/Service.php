@@ -21,6 +21,7 @@ class Service extends Model
         'meta_description',
         'status'];
 
+    protected $appends = ['discount_price'];
 
     public function serviceimages() {
         return $this->hasMany('App\Models\ServiceImage');
@@ -38,5 +39,15 @@ class Service extends Model
             return $base_url . $this->attributes["featured_image"];
         }
         return $this->attributes["featured_image"];
+    }
+
+    public function getDiscountPriceAttribute()
+    {
+        $discount_price = 0;
+
+        if($this->discount>0){
+            $discount_price =  $this->price*(1-$this->discount/100);
+        }
+        return $discount_price;
     }
 }
