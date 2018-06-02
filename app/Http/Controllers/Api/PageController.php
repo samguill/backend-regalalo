@@ -25,10 +25,7 @@ class PageController extends Controller {
 
         $products = Product::take(10)->get();
 
-        $offers = Offer::with('offerdetails.product', 'offerdetails.service')
-            ->where('status', 1)
-            ->orderBy('order')
-            ->take(4)->get();
+        $offers = Offer::where('status', 1)->orderBy('order')->take(4)->get();
 
         return response()->json([
             'status'=>'ok',
