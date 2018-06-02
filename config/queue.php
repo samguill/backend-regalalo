@@ -64,6 +64,14 @@ return [
             'retry_after' => 90,
             'block_for' => null,
         ],
+        'sqs-plain' => [
+            'driver' => 'sqs-plain',
+            'key'    => env('SES_KEY', ''),
+            'secret' => env('SES_SECRET', ''),
+            'prefix' => 'https://sqs.us-west-2.amazonaws.com/268040191341/',
+            'queue'  => 'ses-bounces-queue',
+            'region' => 'us-west-2',
+        ],
 
     ],
 
