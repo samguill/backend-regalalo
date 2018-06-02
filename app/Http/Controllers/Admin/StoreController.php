@@ -70,7 +70,13 @@ class StoreController extends Controller
 
     public function create(Request $request){
         try{
-            $model = Store::create($request->all());
+            $data = $request->all();
+            $data['slug'] = Str::slug($data["comercial_name"]);
+            $model = Store::create($data);
+
+            ComercialContact::create([
+                'store_id' => $model->id
+            ]);
         }catch(Exception $e) {
 
         }

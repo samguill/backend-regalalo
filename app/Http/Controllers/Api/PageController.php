@@ -19,14 +19,10 @@ use App\Http\Controllers\Controller;
 class PageController extends Controller {
 
     public function home(){
-        $stores = Store::take(4)->get(['id', 'slug','logo_store']);
+        $stores = Store::where('status', 1)->take(4)->get(['id', 'slug','logo_store']);
         $slides = Slide::with('elements')->get();
 
         $products = Product::take(10)->get();
-
-        $offers = [
-
-        ];
 
         return response()->json([
             'status'=>'ok',
