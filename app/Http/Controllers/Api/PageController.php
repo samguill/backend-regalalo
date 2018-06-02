@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Event;
 use App\Models\Experience;
 use App\Models\Interest;
+use App\Models\Offer;
 use App\Models\Product;
 use App\Models\Slide;
 use App\Models\Store;
@@ -24,11 +25,17 @@ class PageController extends Controller {
 
         $products = Product::take(10)->get();
 
+        $offers = Offer::with('offerdetails.product', 'offerdetails.service')
+            ->where('status', 1)
+            ->orderBy('order')
+            ->take(4)->get();
+
         return response()->json([
             'status'=>'ok',
             'stores' => $stores,
             'slides' => $slides,
-            'products' => $products
+            'products' => $products,
+            'offers' => $offers
         ]);
     }
 

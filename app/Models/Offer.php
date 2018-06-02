@@ -19,7 +19,7 @@ class Offer extends Model
         'status'
     ];
 
-    public function elements(){
+    public function offerdetails(){
         return $this->hasMany('App\Models\OfferDetail', 'offer_id', 'id');
     }
 }

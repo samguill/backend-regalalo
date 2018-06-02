@@ -21,4 +21,12 @@ class OfferDetail extends Model
         return $this->BelongsTo('App\Models\Offer', 'offer_id', 'id');
     }
 
+    public function product(){
+        return $this->hasOne('App\Models\Product', 'id', 'product_id');
+    }
+
+    public function service(){
+        return $this->hasOne('App\Models\Service', 'id', 'service_id');
+    }
+
 }
