@@ -22,4 +22,13 @@ class Offer extends Model
     public function offerdetails(){
         return $this->hasMany('App\Models\OfferDetail', 'offer_id', 'id');
     }
+
+    public function getImageAttribute(){
+        $base_url = env('APP_URL');
+        $image = $this->attributes["image"];
+        if($image){
+            return $base_url . $this->attributes["image"];
+        }
+        return $this->attributes["image"];
+    }
 }
