@@ -124,6 +124,13 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/users/update', 'Admin\UserController@update')->name('users.update');
         Route::post('/users/delete', 'Admin\UserController@delete')->name('users.delete');
         Route::post('/users/create', 'Admin\UserController@create')->name('users.create');
+
+        // Preguntas frecuentes
+        Route::get('/frequent-questions', 'Admin\FrequentQuestionController@index')->name('faq');
+        Route::get('/frequent-questions/lists', 'Admin\FrequentQuestionController@lists')->name('faq.lists');
+        Route::post('/frequent-questions/update', 'Admin\FrequentQuestionController@update')->name('faq.update');
+        Route::post('/frequent-questions/delete', 'Admin\FrequentQuestionController@delete')->name('faq.delete');
+        Route::post('/frequent-questions/create', 'Admin\FrequentQuestionController@create')->name('faq.create');
     });
 
 
