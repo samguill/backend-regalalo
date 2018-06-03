@@ -20,10 +20,10 @@ use App\Http\Controllers\Controller;
 class PageController extends Controller {
 
     public function home(){
-        $stores = Store::where('status', 1)->take(4)->get(['id', 'slug','logo_store']);
-        $slides = Slide::with('elements')->get();
+        $stores = Store::where('status', 1)->take(6)->get(['id', 'slug','logo_store']);
+        $slides = Slide::with('elements')->orderBy('order')->get();
 
-        $products = Product::take(10)->get();
+        $products = Product::take(15)->get();
 
         $offers = Offer::where('status', 1)->orderBy('order')->take(4)->get();
 

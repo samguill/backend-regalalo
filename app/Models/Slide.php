@@ -12,7 +12,8 @@ class Slide extends Model
     protected $fillable = [
         'id',
         'name',
-        'image'
+        'image',
+        'order'
     ];
 
     public function elements(){
