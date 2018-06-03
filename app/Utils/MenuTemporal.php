@@ -38,7 +38,8 @@ class MenuTemporal
             ['icon'=>'fa-comments','menu'=>'Ocasiones','route' => 'events'],
             ['icon'=>'fa-comments','menu'=>'Intereses','route' => 'interests'],
             ['icon'=>'fa-comments','menu'=>'Experiencias','route' => 'experiences'],
-            ['icon'=>'fa-comments','menu'=>'Características de producto','route' => 'productcharacteristics']
+            ['icon'=>'fa-comments','menu'=>'Características de producto','route' => 'productcharacteristics'],
+            ['icon'=>'fa-comments','menu'=>'Características de servicio','route' => 'servicecharacteristics']
         ]]
 
     ];

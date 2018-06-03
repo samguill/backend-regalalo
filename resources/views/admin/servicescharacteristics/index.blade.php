@@ -12,13 +12,13 @@
             $actions["custom"] = [];
           //  $actions['view'] = [];
             $actions['create'] = [
-                'url' => route('productcharacteristics.create')
+                'url' => route('servicecharacteristics.create')
             ];
             $actions['update'] = [
-                'url' => route('productcharacteristics.update')
+                'url' => route('servicecharacteristics.update')
             ];
             $actions['delete'] = [
-                'url' => route('productcharacteristics.delete')
+                'url' => route('servicecharacteristics.delete')
             ];
 
             $actions["custom"]=array_merge(
@@ -26,7 +26,7 @@
                 [
                     "branches" => [
                         "link" => true,
-                        'url' => route('productcharacteristics.values'),
+                        'url' => route('servicecharacteristics.values'),
                         'icon' => "bars",
                         "color" => "#ff9800",
                         "params" => [ 'id' ],
@@ -39,7 +39,7 @@
 
        @endphp
         <div class="col-md-12">
-            <div id="{{\App\Utils\ReactComponents::LARAVEL_CRUD_COMPONENT}}" data-url="{{route('productcharacteristics.lists')}}" data-settings="{{$builder->get()}}" />
+            <div id="{{\App\Utils\ReactComponents::LARAVEL_CRUD_COMPONENT}}" data-url="{{route('servicecharacteristics.lists')}}" data-settings="{{$builder->get()}}" />
         </div>
     </div>
 @endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Experience;
 use App\Models\Service;
+use App\Models\ServiceCharacteristic;
 use App\Models\ServiceImage;
 use App\Models\Store;
 use App\Models\StoreImage;
@@ -107,7 +108,10 @@ class ServiceController extends Controller
             }, Experience::all()->toArray()
         );
 
-        $service_characteristics = ParametersUtil::getServiceCharacteristics();
+      //  $service_characteristics = ParametersUtil::getServiceCharacteristics();
+
+        $service_characteristics = ServiceCharacteristic::with('values')->get();
+
 
         return view('admin.services.edit', compact(
                 'store_images','service',
@@ -117,6 +121,18 @@ class ServiceController extends Controller
         );
 
     }
+
+    // Actualización de características del servicio
+    public function characteristics_update(Request $request){
+        $data = $request->all();
+        $service = Service::find($data["service_id"]);
+        $service->update([
+            'service_characteristic_id' => $data["service_characteristic_id"],
+            'service_characteristic_values' => $data["service_characteristic_values"]
+        ]);
+        return response()->json(['status' => 'ok', 'data' => $data]);
+    }
+
 
 
     // Carga masiva

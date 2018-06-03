@@ -16,6 +16,8 @@ class Service extends Model
         'availability',
         'experience',
         'store_id',
+        'service_characteristic_id',
+        'service_characteristic_values',
         'featured_image',
         'meta_title',
         'meta_description',

@@ -3,6 +3,8 @@ require('./crud/');
 require('./store-branches/StoreBranchesComponent');
 require('./store-multimedia/StoreMultimediaComponent');
 require('./productcharacteristic/ProductCharacteristicValuesComponent');
+require('./servicecharacteristic/ServiceCharacteristicValuesComponent');
+require('./servicecharacteristic/ServiceCharacteristicsComponent');
 require('./inventory/IncomingInventoryComponent');
 require('./inventory/OutgoingInventoryComponent');
 require('./coupons/IncomingCouponsComponent');

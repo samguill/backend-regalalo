@@ -8,6 +8,7 @@
         <div class="col-md-12">
             <div class="card-body">
                 <div class="accordion" id="accordion">
+
                     <div class="card mb-20">
                         <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse-product" aria-expanded="false" aria-controls="collapse-product">
                             <div class="card-header" id="heading-product">
@@ -24,6 +25,25 @@
                                      data_product_characteristics="{{json_encode($service_characteristics)}}"
                                      default_data="{{$service}}"
                                      data_update_url="{{route('service.update')}}"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-20">
+                        <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse-characteristics" aria-expanded="false" aria-controls="collapse-characteristics">
+                            <div class="card-header" id="heading-characteristics">
+                                <h5 class="mb-0 d-inline-block">Características del servicio</h5>
+                                <i class="fa fa-angle-down float-lg-right" style="margin-right: 10px;" aria-hidden="false"></i>
+                            </div>
+                        </button>
+                        <div id="collapse-characteristics" class="collapse" aria-labelledby="heading-characteristics" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="characteristics-service-component"
+                                     service_id="{{$service->id}}"
+                                     characteristic_id="{{$service->service_characteristic_id}}"
+                                     characteristic_values="{{$service->service_characteristic_values}}"
+                                     data_service_characteristics="{{json_encode($service_characteristics)}}"
+                                     data_update_url="{{route('service.characteristics_update')}}"></div>
                             </div>
                         </div>
                     </div>

@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/service/delete', 'Admin\ServiceController@delete')->name('service.delete');
         Route::post('/service/create', 'Admin\ServiceController@create')->name('service.create');
         Route::post('/service/charge', 'Admin\ServiceController@masive_charge')->name('service.charge');
+        Route::post('/service/characteristics-update', 'Admin\ServiceController@characteristics_update')->name('service.characteristics_update');
         Route::post('/service/seo-update', 'Admin\ServiceController@update_seo')->name('service.update_seo');
 
         // Ocasiones
@@ -83,6 +84,18 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/productcharacteristics/values/list', 'Admin\ProductCharacteristicController@listValues')->name('productcharacteristic-values.lists');
         Route::post('/productcharacteristics/values/create', 'Admin\ProductCharacteristicController@create_value')->name('productcharacteristic-values.create');
         Route::post('/productcharacteristics/values/update', 'Admin\ProductCharacteristicController@update_value')->name('productcharacteristic-values.update');
+
+
+        //Services Characteristics
+        Route::get('/servicecharacteristics', 'Admin\ServiceCharacteristicController@index')->name('servicecharacteristics');
+        Route::get('/servicecharacteristics/lists', 'Admin\ServiceCharacteristicController@lists')->name('servicecharacteristics.lists');
+        Route::post('/servicecharacteristics/update', 'Admin\ServiceCharacteristicController@update')->name('servicecharacteristics.update');
+        Route::post('/servicecharacteristics/delete', 'Admin\ServiceCharacteristicController@delete')->name('servicecharacteristics.delete');
+        Route::post('/servicecharacteristics/create', 'Admin\ServiceCharacteristicController@create')->name('servicecharacteristics.create');
+        Route::get('/servicecharacteristics/values', 'Admin\ServiceCharacteristicController@values')->name('servicecharacteristics.values');
+        Route::post('/servicecharacteristics/values/list', 'Admin\ServiceCharacteristicController@listValues')->name('servicecharacteristic-values.lists');
+        Route::post('/servicecharacteristics/values/create', 'Admin\ServiceCharacteristicController@create_value')->name('servicecharacteristic-values.create');
+        Route::post('/servicecharacteristics/values/update', 'Admin\ServiceCharacteristicController@update_value')->name('servicecharacteristic-values.update');
 
         // Store branches
         Route::get('/stores-branches', 'Admin\StoreController@getBranches')->name('store-branches');
