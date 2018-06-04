@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Api;
 use App\Models\Event;
 use App\Models\Experience;
+use App\Models\FrequentQuestion;
 use App\Models\Interest;
 use App\Models\Offer;
 use App\Models\Product;
@@ -46,6 +47,14 @@ class PageController extends Controller {
             'events' => $events,
             'interests' => $interests,
             'experiences' => $experiences
+        ]);
+    }
+
+    public function faq(){
+        $faq = FrequentQuestion::all();
+        return response()->json([
+            'status'=>'ok',
+            'faq' => $faq
         ]);
     }
 
