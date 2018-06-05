@@ -14,9 +14,9 @@
 
             $positionField = new \App\Utils\ReactCrudField('position');
             $positionField ->fillable(true)->required(true)->title('Posición')->type('map', [
-                ["id"=> 'bottomleft',"value"=>"Abajo Izquierda"],
-                ['id'=>'bottommiddle','value'=>"Abajo Medio"],
-                ['id'=>"bottomright",'value'=>"Abajo Derecha"]]);
+                ["id"=> 'footer-servicio-cliente',"value"=>"Footer - Servicio al cliente"],
+                ['id'=>'footer-informes','value'=>"Footer - Informes"],
+                ['id'=>"footer-venta-compra",'value'=>"Footer - Venta y compra"]]);
             $builder->addField($positionField );
 
             $actions = [];
