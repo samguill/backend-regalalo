@@ -31,7 +31,7 @@ class RegisterClientController extends Controller
             return response()->json(['status' => 'error', 'message' => $validator->errors()]);
         }
 
-        Client::create([
+        $client = Client::create([
             'first_name' => $request->get('first_name'),
             'last_name' => $request->get('last_name'),
             'email' => $request->get('email'),
@@ -48,37 +48,13 @@ class RegisterClientController extends Controller
         ];
         $request->request->add($params);
 
+        $get_client = Client::with('directions')->find($client->id);
+
         $proxy = Request::create('oauth/token', 'POST');
-        return Route::dispatch($proxy);
+        $response = Route::dispatch($proxy);
+        $json = (array) json_decode($response->getContent());
+        $json["client"] = $get_client;
+        $response->setContent(json_encode($json));
+        return $response;
     }
-
-    /*public function login(Request $request){
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email|max:255',
-            'password' => 'required'
-        ]);
-        if($validator->fails()){
-            return response()->json(['status' => 'error', 'message' => $validator->errors()]);
-        }
-        try {
-            $client = Client::where('email', $request->input('email'))->first();
-            if(count($client) == 0){
-                return response()->json(['status' => 'error', 'message' => "El usuario no existe"]);
-            }else{
-                $valid_client = Hash::check($request->input('password'), $client->password);
-                if(!$valid_client){
-                    return response()->json(['status' => 'error', 'message' => 'Datos incorrectos. Inténtalo de nuevo.']);
-                }
-                $token = JWTAuth::fromUser($client, ['client' => $client]);
-            }
-        } catch (JWTException $e){
-            return response()->json(['error' => 'could_not_create_token'], 500);
-        }
-        return response()->json(['status'=>'ok', 'token' => $token]);
-    }
-
-    public function profile(Request $request){
-        $token = $request->input('token');
-        return response()->json($token);
-    }*/
 }
