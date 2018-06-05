@@ -12,6 +12,7 @@ use App\Models\Experience;
 use App\Models\FrequentQuestion;
 use App\Models\Interest;
 use App\Models\Offer;
+use App\Models\Page;
 use App\Models\Product;
 use App\Models\Slide;
 use App\Models\Store;
@@ -57,5 +58,16 @@ class PageController extends Controller {
             'faq' => $faq
         ]);
     }
+
+    public function pages(){
+        $page = Page::all();
+        return response()->json([
+            'status'=>'ok',
+            'pages' => $page
+        ]);
+    }
+
+
+
 
 }
