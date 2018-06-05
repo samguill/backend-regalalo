@@ -31,7 +31,8 @@ class MenuTemporal
         ['icon'=>'fa-paper-plane','menu'=>'Ventas','route' => 'sales', 'options' => []],
         ['icon'=>'fa-comments','menu'=>'Reclamos','route' => 'claims', 'options' => []],
         ['icon'=>'fa-window-restore','menu'=>'Página web','route' => 'webpage', 'options' => [
-            ['icon'=>'fa-comments','menu'=>'Slider','route' => 'slides']
+            ['icon'=>'fa-comments','menu'=>'Slider','route' => 'slides'],
+            ['icon'=>'fa-comments','menu'=>'Preguntas frecuentes','route' => 'frequent-questions']
         ]],
         ['icon'=>'fa-user-secret','menu'=>'Usuarios','route' => 'users', 'options' => []],
         ['icon'=>'fa-sliders','menu'=>'Parámetros generales','route' => '#', 'options' => [

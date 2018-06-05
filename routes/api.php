@@ -32,6 +32,7 @@ Route::group(['middleware' => 'cors'], function (){
     Route::post('comerce-alignet', 'Api\OrderController@comerce_alignet');
 
     Route::post('offer/details', 'Api\OfferController@get');
+    Route::get('faq', 'Api\PageController@faq');
 //});
 });
 

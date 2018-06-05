@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Api;
 use App\Models\Event;
 use App\Models\Experience;
+use App\Models\FrequentQuestion;
 use App\Models\Interest;
 use App\Models\Offer;
 use App\Models\Product;
@@ -20,10 +21,10 @@ use App\Http\Controllers\Controller;
 class PageController extends Controller {
 
     public function home(){
-        $stores = Store::where('status', 1)->take(4)->get(['id', 'slug','logo_store']);
-        $slides = Slide::with('elements')->get();
+        $stores = Store::where('status', 1)->take(6)->get(['id', 'slug','logo_store']);
+        $slides = Slide::with('elements')->orderBy('order')->get();
 
-        $products = Product::take(10)->get();
+        $products = Product::take(15)->get();
 
         $offers = Offer::where('status', 1)->orderBy('order')->take(4)->get();
 
@@ -46,6 +47,14 @@ class PageController extends Controller {
             'events' => $events,
             'interests' => $interests,
             'experiences' => $experiences
+        ]);
+    }
+
+    public function faq(){
+        $faq = FrequentQuestion::all();
+        return response()->json([
+            'status'=>'ok',
+            'faq' => $faq
         ]);
     }
 
