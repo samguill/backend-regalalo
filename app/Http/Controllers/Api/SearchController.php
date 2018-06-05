@@ -50,13 +50,15 @@ class SearchController extends Controller
 
 
         //Se busca por descripción y el nombre
-        if($request->has('description') and $request->has('name')){
+        if($request->has('searchtext')){
 
-            $description = $request->input('description');
-            $name = $request->input('name');
+            $searchtext = $request->input('searchtext');
 
-            $query->where('name','LIKE','%'.$name.'%');
-            $query->orWhere('description','LIKE','%'.$description.'%');
+            $query->leftJoin('store','store.id','=',$table.'.store_id');
+
+            $query->where('name','LIKE','%'.$searchtext.'%');
+            $query->orWhere('description','LIKE','%'.$searchtext.'%');
+            $query->orWhere('store.comercial_name','LIKE','%'.$searchtext.'%');
 
 
         }
@@ -73,6 +75,7 @@ class SearchController extends Controller
 
 
         $query->leftJoin($store_table,$store_table.'.'.$field_id,'=',$table.'.id');
+
 
         return $query;
 
