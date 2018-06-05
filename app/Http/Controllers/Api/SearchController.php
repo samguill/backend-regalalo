@@ -18,18 +18,22 @@ class SearchController extends Controller
 
         $services = $this->query('services','service_id','coupons',$request);
 
+        $stores = DB::table('stores')->where('comercial_name','LIKE','%'.$request->input('searchtext').'%')->get();
+
         $result  = $services->union($products)->get();
 
-        $result = $this->paginate($result);
+        $data['items'] = $this->paginate($result);
 
-        return response()->json(['status'=>'ok', 'data'=>$result]);
+        $data['stores'] = $this->paginate($stores);
+
+        return response()->json(['status'=>'ok', 'data'=>$data]);
 
 
         //Tabla principal del servicios
         //$query = DB::table('services')->select(DB::raw('*'));
     }
 
-    public function query($table, $field_id,$store_table,$request){
+    public function query($table, $field_id = null,$store_table = null,$request){
 
         $query = DB::table($table)->select([$table.'.id','sku_code','name','description',$table.'.slug','featured_image','price','discount','store_id','store_branche_id']);
 
@@ -54,11 +58,8 @@ class SearchController extends Controller
 
             $searchtext = $request->input('searchtext');
 
-            $query->leftJoin('stores','stores.id','=',$table.'.store_id');
-
             $query->where('name','LIKE','%'.$searchtext.'%');
             $query->orWhere('description','LIKE','%'.$searchtext.'%');
-            $query->orWhere('stores.comercial_name','LIKE','%'.$searchtext.'%');
 
 
         }
