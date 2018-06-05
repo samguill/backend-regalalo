@@ -31,7 +31,7 @@ class SearchController extends Controller
 
     public function query($table, $field_id,$store_table,$request){
 
-        $query = DB::table($table)->select([$table.'.id','sku_code','name','description','slug','featured_image','price','discount','store_id','store_branche_id']);
+        $query = DB::table($table)->select([$table.'.id','sku_code','name','description',$table.'.slug','featured_image','price','discount','store_id','store_branche_id']);
 
         if($request->has('latitude') and $request->has('longitude')) {
 
@@ -54,11 +54,11 @@ class SearchController extends Controller
 
             $searchtext = $request->input('searchtext');
 
-            $query->leftJoin('store','store.id','=',$table.'.store_id');
+            $query->leftJoin('stores','stores.id','=',$table.'.store_id');
 
             $query->where('name','LIKE','%'.$searchtext.'%');
             $query->orWhere('description','LIKE','%'.$searchtext.'%');
-            $query->orWhere('store.comercial_name','LIKE','%'.$searchtext.'%');
+            $query->orWhere('stores.comercial_name','LIKE','%'.$searchtext.'%');
 
 
         }
@@ -66,8 +66,6 @@ class SearchController extends Controller
         $query->addSelect(DB::raw('\''.$table.'\' as type'));
 
         //precio con descuento
-
-
         $query->addSelect(DB::raw('IF(discount >0,price*(1-discount/100),0) as discount_price'));
 
         //inventario
