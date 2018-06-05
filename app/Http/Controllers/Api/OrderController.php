@@ -306,7 +306,7 @@ class OrderController extends Controller
 
     public function orders(){
         $user_login = Auth::user();
-        $result = Order::where('client_id',$user_login->id )->get();
+        $result = Order::with('store', 'orderdetails')->where('client_id',$user_login->id )->get();
         return response()->json(['status'=>'ok', 'data'=>$result]);
     }
 
