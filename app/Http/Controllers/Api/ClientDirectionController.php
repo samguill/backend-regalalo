@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Client;
 use App\Models\ClientDirection;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,11 +16,12 @@ class ClientDirectionController extends Controller {
         try{
             $data = $request->all();
             $data["client_id"] = $user_login->id;
-            $model = ClientDirection::create($data);
+            ClientDirection::create($data);
+            $client = Client::with('directions')->find($user_login->id);
         }catch(Exception $e) {
             return response()->json(['status'=>"error",'message'=>$e->getMessage()]);
         }
-        return response()->json(['status'=>"ok",'data'=>$model]);
+        return response()->json(['status'=>"ok",'data'=>$client]);
     }
 
     public function directions(){
