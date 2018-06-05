@@ -306,20 +306,9 @@ class OrderController extends Controller
 
     public function orders(){
         $user_login = Auth::user();
-        $result = Order::with('store', 'orderdetails')->where('client_id',$user_login->id )->get();
+        $result = Order::with('store', 'orderdetails.product', 'orderdetails.service', 'orderdetails.branch')
+            ->where('client_id',$user_login->id )
+            ->get();
         return response()->json(['status'=>'ok', 'data'=>$result]);
-    }
-
-    public function orderdetails(Request $request){
-        $user_login = Auth::user();
-        $client_id = $user_login->id;
-        $order = Order::find($request->input('order_id'));
-
-        if($client_id == $order->client_id){
-            $result = OrderDetail::where('order_id',$order->id )->get();
-            return response()->json(['status'=>'ok', 'data'=>$result]);
-        }else {
-            return response()->json(['status'=>'error', 'message'=>"La orden consultada no le pertenece."]);
-        }
     }
 }
