@@ -28,4 +28,8 @@ class Order extends Model
     {
         return $this->BelongsTo('App\Models\Store', 'store_id', 'id');
     }
+
+    public function clientdirection(){
+        return $this->hasOne('App\Models\ClientDirection', 'id', 'client_direction_id');
+    }
 }

@@ -23,4 +23,16 @@ class OrderDetail extends Model
     {
         return $this->BelongsTo('App\Models\Order', 'order_id', 'id');
     }
+
+    public function product(){
+        return $this->hasOne('App\Models\Product', 'id', 'product_id');
+    }
+
+    public function service(){
+        return $this->hasOne('App\Models\Service', 'id', 'service_id');
+    }
+
+    public function branch(){
+        return $this->hasOne('App\Models\StoreBranch', 'id', 'store_branche_id');
+    }
 }
