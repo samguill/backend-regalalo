@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 class LoginController extends Controller
@@ -19,6 +21,7 @@ class LoginController extends Controller
 
     public function login(Request $request){
         $data = $request->all();
+        $sucess = false;
 
         $this->validate($request, [
             'username' => 'required',
@@ -33,11 +36,29 @@ class LoginController extends Controller
             "password" => $data["password"],
             "scope" => "*"
         ];
-
         $request->request->add($params);
-
         $proxy = Request::create('oauth/token', 'POST');
-        return Route::dispatch($proxy);
+        $response = Route::dispatch($proxy);
+
+        $client = Client::with('directions')->where('email', $data["username"])->first();
+        if($client){
+            if(Hash::check($data["password"], $client->password)){
+                $sucess = true;
+            }else{
+                $sucess = false;
+            }
+        }else{
+            $sucess = false;
+        }
+
+        if($sucess){
+            $json = (array) json_decode($response->getContent());
+            $json["client"] = $client;
+            $response->setContent(json_encode($json));
+            return $response;
+        }else{
+            return $response;
+        }
     }
 
     public function refresh(Request $request){

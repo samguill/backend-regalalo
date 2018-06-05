@@ -304,21 +304,22 @@ class OrderController extends Controller
         return response()->json($response);
     }
 
-    public function orders(Request $request){
-        $result= '';
-        if($request->has('client_id')) {
-        $client_id = $request->input('client_id');
-            $result = Order::where('client_id',$client_id )->get();
-        }
+    public function orders(){
+        $user_login = Auth::user();
+        $result = Order::where('client_id',$user_login->id )->get();
         return response()->json(['status'=>'ok', 'data'=>$result]);
     }
 
     public function orderdetails(Request $request){
-        $result= '';
-        if($request->has('order_id')) {
-            $order_id = $request->input('order_id');
-            $result = OrderDetail::where('order_id',$order_id )->get();
+        $user_login = Auth::user();
+        $client_id = $user_login->id;
+        $order = Order::find($request->input('order_id'));
+
+        if($client_id == $order->client_id){
+            $result = OrderDetail::where('order_id',$order->id )->get();
+            return response()->json(['status'=>'ok', 'data'=>$result]);
+        }else {
+            return response()->json(['status'=>'error', 'message'=>"La orden consultada no le pertenece."]);
         }
-        return response()->json(['status'=>'ok', 'data'=>$result]);
     }
 }
