@@ -46,7 +46,7 @@ Route::middleware('auth:api')->group(function (){
     Route::post('client/wishlist/create', 'Api\ClientWishListController@create');
     Route::post('client/wishlist/delete', 'Api\ClientWishListController@delete');
 
+    Route::get('orders/list', 'Api\OrderController@orders');
     Route::post('orders/generate', 'Api\OrderController@generateOrder');
-    Route::post('orders/list', 'Api\OrderController@orders');
     Route::post('order/details', 'Api\OrderController@orderdetails');
 });
