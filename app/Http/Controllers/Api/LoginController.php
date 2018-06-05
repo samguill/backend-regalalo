@@ -93,4 +93,20 @@ class LoginController extends Controller
         return response()->json($user_login);
     }
 
+    public function update_profile(Request $request){
+        $user_login = Auth::user();
+        $data = $request->all();
+
+        if($request->input('password') == '' && $request->input('password') == null){
+            $data = $request->except(['password']);
+        }
+        $user = Client::with('directions')->find($user_login->id);
+        unset($user_login->id);
+        if($user->update($data)){
+            return response()->json(['status'=>'ok', 'data'=>$user]);
+        }else{
+            return response()->json(['status'=>'error', 'message' => "No se pudo actualizar el registro."]);
+        }
+    }
+
 }

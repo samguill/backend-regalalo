@@ -33,12 +33,12 @@ Route::group(['middleware' => 'cors'], function (){
 
     Route::post('offer/details', 'Api\OfferController@get');
     Route::get('faq', 'Api\PageController@faq');
-    Route::get('pages', 'Api\PageController@pages');
 //});
 });
 
 Route::middleware('auth:api')->group(function (){
     Route::get('client/profile', 'Api\LoginController@profile');
+    Route::post('client/profile/update', 'Api\LoginController@update_profile');
     Route::get('client/logout', 'Api\LoginController@logout');
     Route::get('client/directions', 'Api\ClientDirectionController@directions');
     Route::post('client/directions/store', 'Api\ClientDirectionController@store');
@@ -49,5 +49,4 @@ Route::middleware('auth:api')->group(function (){
 
     Route::get('orders/list', 'Api\OrderController@orders');
     Route::post('orders/generate', 'Api\OrderController@generateOrder');
-    Route::post('order/details', 'Api\OrderController@orderdetails');
 });
