@@ -145,6 +145,7 @@ export default class RepresentativeStoreComponent extends React.Component {
                                     <div className={"col-md-" + (this.state.updating ? 6 : 12)}>
                                         <a className="btn btn-success text-white btn-block" onClick={(e) => { this.storeRepresentative({
                                             id: this.state.id,
+                                            store_id: this.store_id,
                                             name: this.state.name,
                                             document_number: this.state.document_number,
                                             phone: this.state.phone,
