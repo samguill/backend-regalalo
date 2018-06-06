@@ -22,7 +22,7 @@ use App\Http\Controllers\Controller;
 class PageController extends Controller {
 
     public function home(){
-        $stores = Store::where('status', 1)->take(6)->get(['id', 'slug','logo_store']);
+        $stores = Store::whereNotNull('logo_store')->where('status', 1)->take(6)->get(['id', 'slug','logo_store']);
         $slides = Slide::with('elements')->orderBy('order')->get();
 
         $products = Product::take(15)->get();
