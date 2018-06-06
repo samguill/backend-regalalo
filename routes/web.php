@@ -138,6 +138,11 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/pages/update', 'Admin\PageController@update')->name('pages.update');
         Route::post('/pages/delete', 'Admin\PageController@delete')->name('pages.delete');
         Route::post('/pages/create', 'Admin\PageController@create')->name('pages.create');
+
+        //Ordenes
+        Route::get('/order', 'Admin\OrderController@index')->name('order');
+        Route::get('/order/lists', 'Admin\OrderController@lists')->name('order.lists');
+        Route::get('/order/show', 'Admin\OrderController@show')->name('order.show');
     });
 
 
@@ -201,7 +206,7 @@ Route::group(['middleware' => ['auth']], function(){
         //Ordenes
         Route::get('/orders', 'Store\OrderController@index')->name('orders');
         Route::get('/orders/lists', 'Store\OrderController@lists')->name('orders.lists');
-        Route::get('/orders/view', 'Store\OrderController@view')->name('orders.view');
+        Route::get('/orders/show', 'Store\OrderController@show')->name('orders.show');
     });
 
 

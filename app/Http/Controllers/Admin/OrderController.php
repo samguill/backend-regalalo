@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Store;
+namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -10,23 +10,21 @@ class OrderController extends Controller
 {
     public function index(){
 
-        return view('store.orders.index');
+        return view('admin.orders.index');
     }
 
     public function lists(){
 
-        $stores = Order::where('store_id',Auth::user()->store->id)->get();
+        $stores = Order::get();
         return response()->json($stores);
     }
 
     public function show(Request $request){
         $id = $request->input('id');
         $order = Order::find($id);
-
-        if(isset($order) and Auth::user()->store->id ==$order->store_id){
-        return view('store.orders.show',compact('order'));
-
-        } else{
+        if($order){
+        return view('admin.orders.show',compact('order'));
+        }else{
             return redirect('/');
         }
 

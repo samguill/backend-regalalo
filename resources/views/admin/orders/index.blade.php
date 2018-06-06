@@ -9,6 +9,10 @@
                     $codeField ->title('Código de la orden')->width(6);
                     $builder->addField($codeField);
 
+                    $storenameField = new \App\Utils\ReactCrudField('store_name');
+                    $storenameField  ->title('Tienda')->width(6);
+                    $builder->addField($storenameField );
+
                     $clientnameField = new \App\Utils\ReactCrudField('client_name');
                     $clientnameField  ->title('Cliente')->width(6);
                     $builder->addField($clientnameField );
@@ -30,7 +34,7 @@
                       [
                     "edit" => [
                         "link" => true,
-                        'url' => route('orders.show'),
+                        'url' => route('order.show'),
                         'icon' => "eye",
                         "color" => "#4CAF50",
                         "params" => [ 'id' ],
@@ -45,7 +49,7 @@
 
        @endphp
         <div class="col-md-12">
-            <div id="{{\App\Utils\ReactComponents::LARAVEL_CRUD_COMPONENT}}" data-url="{{route('orders.lists')}}" data-settings="{{$builder->get()}}" />
+            <div id="{{\App\Utils\ReactComponents::LARAVEL_CRUD_COMPONENT}}" data-url="{{route('order.lists')}}" data-settings="{{$builder->get()}}" />
         </div>
     </div>
 @endsection

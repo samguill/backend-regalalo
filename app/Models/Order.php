@@ -15,9 +15,11 @@ class Order extends Model
         'client_id',
         'store_id',
         'delivery',
-        'client_direction_id'
+        'client_direction_id',
+        'created_at'
     ];
 
+    protected $appends = ['client_name','store_name'];
 
     public function orderdetails()
     {
@@ -32,4 +34,21 @@ class Order extends Model
     public function clientdirection(){
         return $this->hasOne('App\Models\ClientDirection', 'id', 'client_direction_id');
     }
+
+    public function client(){
+        return $this->belongsTo('App\Models\Client');
+    }
+
+    public function getClientNameAttribute()
+    {
+        return $this->client->first_name.' '.$this->client->last_name;
+    }
+
+    public function getStoreNameAttribute()
+    {
+        return $this->store->comercial_name;
+    }
+
+
+
 }

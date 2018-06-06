@@ -28,7 +28,7 @@ class MenuTemporal
         ['icon'=>'fa-shopping-bag','menu'=>'Productos','route' => 'product', 'options' => []],
         ['icon'=>'fa-binoculars','menu'=>'Servicios','route' => 'service', 'options' => []],
         ['icon'=>'fa-users','menu'=>'Clientes','route' => 'clients', 'options' => []],
-        ['icon'=>'fa-paper-plane','menu'=>'Ventas','route' => 'sales', 'options' => []],
+        ['icon'=>'fa-paper-plane','menu'=>'Ventas','route' => 'order', 'options' => []],
         ['icon'=>'fa-comments','menu'=>'Reclamos','route' => 'claims', 'options' => []],
         ['icon'=>'fa-window-restore','menu'=>'Página web','route' => 'webpage', 'options' => [
             ['icon'=>'fa-comments','menu'=>'Slider','route' => 'slides'],
