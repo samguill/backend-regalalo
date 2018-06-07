@@ -67,6 +67,14 @@ class PageController extends Controller {
         ]);
     }
 
+    public function page($slug){
+        $page = Page::where("slug", $slug)->first();
+        return response()->json([
+            'status'=>'ok',
+            'page' => $page
+        ]);
+    }
+
 
 
 

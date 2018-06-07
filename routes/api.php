@@ -34,6 +34,7 @@ Route::group(['middleware' => 'cors'], function (){
     Route::post('offer/details', 'Api\OfferController@get');
     Route::get('faq', 'Api\PageController@faq');
     Route::get('pages', 'Api\PageController@pages');
+    Route::get('page/{slug}', 'Api\PageController@page');
 //});
 });
 
