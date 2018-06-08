@@ -7,6 +7,7 @@
  */
 
 namespace App\Http\Controllers\Api;
+use App\Models\Brand;
 use App\Models\Event;
 use App\Models\Experience;
 use App\Models\FrequentQuestion;
@@ -27,6 +28,8 @@ class PageController extends Controller {
 
         $products = Product::whereNotNull('featured_image')->take(15)->get();
 
+        $brands = Brand::whereNotNull('image')->get();
+
         $offers = Offer::where('status', 1)->orderBy('order')->take(4)->get();
 
         return response()->json([
@@ -34,7 +37,8 @@ class PageController extends Controller {
             'stores' => $stores,
             'slides' => $slides,
             'products' => $products,
-            'offers' => $offers
+            'offers' => $offers,
+            'brands' => $brands
         ]);
     }
 

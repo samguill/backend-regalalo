@@ -30,13 +30,14 @@ class MenuTemporal
         ['icon'=>'fa-users','menu'=>'Clientes','route' => 'clients', 'options' => []],
         ['icon'=>'fa-paper-plane','menu'=>'Ventas','route' => 'order', 'options' => []],
         ['icon'=>'fa-comments','menu'=>'Reclamos','route' => 'claims', 'options' => []],
-        ['icon'=>'fa-window-restore','menu'=>'Página web','route' => 'webpage', 'options' => [
+        ['icon'=>'fa-window-restore','menu'=>'Página web','route' => '#', 'options' => [
             ['icon'=>'fa-comments','menu'=>'Slider','route' => 'slides'],
             ['icon'=>'fa-comments','menu'=>'Preguntas frecuentes','route' => 'frequent-questions'],
             ['icon'=>'fa-comments','menu'=>'Páginas','route' => 'pages']
         ]],
         ['icon'=>'fa-user-secret','menu'=>'Usuarios','route' => 'users', 'options' => []],
         ['icon'=>'fa-sliders','menu'=>'Parámetros generales','route' => '#', 'options' => [
+            ['icon'=>'fa-comments','menu'=>'Marcas','route' => 'brands'],
             ['icon'=>'fa-comments','menu'=>'Ocasiones','route' => 'events'],
             ['icon'=>'fa-comments','menu'=>'Intereses','route' => 'interests'],
             ['icon'=>'fa-comments','menu'=>'Experiencias','route' => 'experiences'],
