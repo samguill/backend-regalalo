@@ -25,7 +25,7 @@ class PageController extends Controller {
         $stores = Store::whereNotNull('logo_store')->where('status', 1)->take(6)->get(['id', 'slug','logo_store']);
         $slides = Slide::with('elements')->orderBy('order')->get();
 
-        $products = Product::take(15)->get();
+        $products = Product::whereNotNull('featured_image')->take(15)->get();
 
         $offers = Offer::where('status', 1)->orderBy('order')->take(4)->get();
 
