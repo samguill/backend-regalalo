@@ -187,12 +187,12 @@ class ProductController extends Controller
                     $product_presentation = $val[4];
                     $description = $val[5];
                     $age = $val[6];
-                    $ages = explode("-", $age);
+                    //$ages = explode("-", $age);
                     $availability = $val[7];
 
-                    if($name !== "" && $ages[0] !== ""){
-                        $ages = range(intval($ages[0]), intval($ages[1]));
-                        $ages = implode(",", $ages);
+                    if($name !== "" && $age !== ""){
+                        //$ages = range(intval($ages[0]), intval($ages[1]));
+                        //$ages = implode(",", $ages);
                         $product = Product::where('sku_code', $sku_code)->where('store_id', $store_id)->first();
                         if($product){
                             $product->update([
@@ -202,7 +202,7 @@ class ProductController extends Controller
                                 'price'=> $price,
                                 'product_presentation'=> $product_presentation,
                                 'description'=> $description,
-                                'age'=> $ages,
+                                'age'=> $age,
                                 'availability'=>  $availability
                             ]);
                         }else{
@@ -214,7 +214,7 @@ class ProductController extends Controller
                                 'price'=> $price,
                                 'product_presentation'=> $product_presentation,
                                 'description'=> $description ,
-                                'age'=> $ages,
+                                'age'=> $age,
                                 'availability'=>  $availability,
                                 'store_id'=> $store_id
                             ]);
