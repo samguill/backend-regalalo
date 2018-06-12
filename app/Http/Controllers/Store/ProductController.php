@@ -108,18 +108,11 @@ class ProductController extends Controller
     }
 
     public function update(Request $request) {
-        $faker = Factory::create();
         $data = $request->all();
         $product = Product::find($data['id']);
         unset($data['id']);
-        $data['slug'] = Str::slug($data["name"])  . $faker->randomDigit() . $faker->randomDigit() . $faker->randomDigit();
-       /* $ages = $data['age'];
-        $ages = explode(",", $ages);
-        $ages = range(intval($ages[0]), intval($ages[1]));
-        $ages = implode(",", $ages);
-        $data['age'] = $ages;*/
-       // $data['age'] = json_encode(array_map(function($age){return intval($age);},explode(",",$data['age'])));
-
+        $data["age"] = $data["min_age"] . "," . $data["max_age"];
+        $data['slug'] = Str::slug($data["name"]);
         if($product->update($data))
             return response()->json(['status'=>'ok', 'data'=>$product]);
         else
@@ -153,11 +146,7 @@ class ProductController extends Controller
             $data = $request->all();
             $data['slug'] = Str::slug($data["name"]);
             $data['store_id'] = Auth::user()->store->id;
-          /*  $ages = $data['age'];
-            $ages = explode(",", $ages);
-            $ages = range(intval($ages[0]), intval($ages[1]));
-            $ages = implode(",", $ages);
-            $data['age'] = $ages;*/
+            $data["age"] = $data["min_age"] . "," . $data["max_age"];
             $model = Product::create($data);
         }catch(Exception $e) {
 

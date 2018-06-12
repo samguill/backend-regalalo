@@ -33,13 +33,19 @@ export default class ProductEditComponent extends React.Component {
                 ]
             },
             description:{title:"Descripción",type:"editor",required:true,width:12},
-            age:{
-                title:"Edad (Colocar solo un rango)",
+            min_age:{
+                title:"Edad mínima",
                 type:"map",
-                multiple:true,
                 renderAS:'text',
                 options:this.data_ages,
-                width:4
+                width:2
+            },
+            max_age:{
+                title:"Edad máxima",
+                type:"map",
+                renderAS:'text',
+                options:this.data_ages,
+                width:2
             },
             sex:{
                 title:"¿A quién regalas?",
@@ -90,6 +96,9 @@ export default class ProductEditComponent extends React.Component {
     }
 
     injectDefault(){
+        let ages = this.default_data.age.split(",");
+        this.default_data["min_age"] = ages[0];
+        this.default_data["max_age"] = ages[1];
         Object.keys(this.default_data).map((field_name)=>{
             if(this.fields[field_name]!=null) {
                 this.fields[field_name].default=this.default_data[field_name];

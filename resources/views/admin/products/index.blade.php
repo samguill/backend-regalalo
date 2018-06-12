@@ -56,11 +56,17 @@
             $descriptionField->title('Descripción')->type('editor')->show(false)->width(12);
             $builder->addField($descriptionField);
 
-            $ageField = new \App\Utils\ReactCrudField('age');
-            $ageField->title('Edad (Colocar solo un rango)')->type('json', $ages)
+            $minAgeField = new \App\Utils\ReactCrudField('min_age');
+            $minAgeField->title('Edad mínima')->type('map', $ages)
                 ->required(false)->show(false)
-                ->width(6)->renderAs('text');
-            $builder->addField($ageField);
+                ->width(2)->renderAs('text');
+            $builder->addField($minAgeField);
+
+            $maxAgeField = new \App\Utils\ReactCrudField('max_age');
+            $maxAgeField->title('Edad mínima')->type('map', $ages)
+                ->required(false)->show(false)
+                ->width(2)->renderAs('text');
+            $builder->addField($maxAgeField);
 
             $sexField = new \App\Utils\ReactCrudField('sex');
             $sexField->show(false)->type('map', $sex)->title('¿A quién regalas?')->required(false)->width(4);
@@ -77,13 +83,13 @@
             $eventField = new \App\Utils\ReactCrudField('event');
             $eventField->fillable()->title('Ocasión')
                 ->type('json', $events)->show(false)
-                ->width(4)->renderAs('text');
+                ->width(6)->renderAs('text');
             $builder->addField($eventField);
 
             $interestField = new \App\Utils\ReactCrudField('interest');
             $interestField->fillable()->title('Interés')
                 ->type('json', $interests)->show(false)
-                ->width(4)->renderAs('text');
+                ->width(6)->renderAs('text');
             $builder->addField($interestField);
 
             $actions = [];

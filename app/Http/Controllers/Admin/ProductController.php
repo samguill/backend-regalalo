@@ -56,11 +56,7 @@ class ProductController extends Controller
         try{
             $data = $request->all();
             $data['slug'] = Str::slug($data["name"]);
-           /* $ages = $data['age'];
-            $ages = explode(",", $ages);
-            $ages = range(intval($ages[0]), intval($ages[1]));
-            $ages = implode(",", $ages);
-            $data['age'] = $ages;*/
+            $data["age"] = $data["min_age"] . "," . $data["max_age"];
             $model = Product::create($data);
         }catch(Exception $e) {
 
@@ -126,12 +122,8 @@ class ProductController extends Controller
         $data = $request->all();
         $product = Product::find($data['id']);
         unset($data['id']);
+        $data["age"] = $data["min_age"] . "," . $data["max_age"];
         $data['slug'] = Str::slug($data["name"]);
-       /* $ages = $data['age'];
-        $ages = explode(",", $ages);
-        $ages = range(intval($ages[0]), intval($ages[1]));
-        $ages = implode(",", $ages);
-        $data['age'] = $ages;*/
         if($product->update($data))
             return response()->json(['status'=>'ok', 'data'=>$product]);
         else
