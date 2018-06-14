@@ -292,9 +292,10 @@ class OrderController extends Controller
     public function calculateDelivery(Request $request){
         $data = $request->all();
         $storebranch = StoreBranch::find($data['store_branche_id']);
+        $client_direction = ClientDirection::find($data["client_direction_id"]);
         $destinations = [
             'destinations' => [
-                    ['latlon' => $data['lat_origin'].','.$data['lon_origin']],
+                    ['latlon' => $client_direction->latitude .','. $client_direction->longitude],
                     ['latlon' =>  $storebranch->latitude.','.$storebranch->longitude]
                     ],
             "package_type_id"=> 1,
