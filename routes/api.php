@@ -35,6 +35,11 @@ Route::group(['middleware' => 'cors'], function (){
     Route::get('faq', 'Api\PageController@faq');
     Route::get('pages', 'Api\PageController@pages');
     Route::get('page/{slug}', 'Api\PageController@page');
+
+    Route::get('posts', 'Api\BlogController@posts');
+    Route::get('post/{slug}', 'Api\BlogController@post');
+    Route::get('categories', 'Api\BlogController@categories');
+    Route::get('posts-category/{slug}', 'Api\BlogController@posts_catgory');
 //});
 });
 

@@ -150,6 +150,20 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('/order', 'Admin\OrderController@index')->name('order');
         Route::get('/order/lists', 'Admin\OrderController@lists')->name('order.lists');
         Route::get('/order/show', 'Admin\OrderController@show')->name('order.show');
+
+        // Artículos
+        Route::get('/posts', 'Admin\PostController@index')->name('posts');
+        Route::get('/posts/lists', 'Admin\PostController@lists')->name('posts.lists');
+        Route::post('/posts/update', 'Admin\PostController@update')->name('posts.update');
+        Route::post('/posts/delete', 'Admin\PostController@delete')->name('posts.delete');
+        Route::post('/posts/create', 'Admin\PostController@create')->name('posts.create');
+
+        // Categorías blog
+        Route::get('/blog-categories', 'Admin\CategoryController@index')->name('blog-categories');
+        Route::get('/blog-categories/lists', 'Admin\CategoryController@lists')->name('blog-categories.lists');
+        Route::post('/blog-categories/update', 'Admin\CategoryController@update')->name('blog-categories.update');
+        Route::post('/blog-categories/delete', 'Admin\CategoryController@delete')->name('blog-categories.delete');
+        Route::post('/blog-categories/create', 'Admin\CategoryController@create')->name('blog-categories.create');
     });
 
 

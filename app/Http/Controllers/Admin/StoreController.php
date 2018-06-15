@@ -114,7 +114,8 @@ class StoreController extends Controller
             'type' => 'S'
         ]);
 
-        Mail::to($store->comercial_contact->email)->send(new StoreAccess($store_user, $pin));
+        //Mail::to($store->comercial_contact->email)->send(new StoreAccess($store_user, $pin));
+        Mail::to(["arturo.garcia@regalalo.pe", "juan.saavedra@regalalo.pe"])->send(new StoreAccess($store_user, $pin));
 
         $store->update([
             'user_id' => $store_user->id,
@@ -243,10 +244,12 @@ class StoreController extends Controller
                         $nombres = $val[3];
                         $dni_rl = $val[4];
                         $legal_representative = LegalRepresentative::where('store_id', $store->id)->first();
-                        $legal_representative->update([
-                            'name' => $nombres,
-                            'document_number' => $dni_rl
-                        ]);
+                        if($legal_representative){
+                            $legal_representative->update([
+                                'name' => $nombres,
+                                'document_number' => $dni_rl
+                            ]);
+                        }
 
                         // Contacto comercial
                         $nombres_cc = $val[8];
@@ -254,12 +257,14 @@ class StoreController extends Controller
                         $telefono_cc = $val[10];
                         $email_cc = $val[11];
                         $comercial_contact = ComercialContact::where('store_id', $store->id)->first();
-                        $comercial_contact->update([
-                            'name' => $nombres_cc,
-                            'document_number' => $dni_cc,
-                            'phone' => $telefono_cc,
-                            'email' => $email_cc
-                        ]);
+                        if($comercial_contact){
+                            $comercial_contact->update([
+                                'name' => $nombres_cc,
+                                'document_number' => $dni_cc,
+                                'phone' => $telefono_cc,
+                                'email' => $email_cc
+                            ]);
+                        }
                     }else{
                         $store = Store::create([
                             'business_name' => $razon_social,

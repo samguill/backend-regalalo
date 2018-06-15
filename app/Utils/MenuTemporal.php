@@ -35,6 +35,10 @@ class MenuTemporal
             ['icon'=>'fa-comments','menu'=>'Preguntas frecuentes','route' => 'frequent-questions'],
             ['icon'=>'fa-comments','menu'=>'Páginas','route' => 'pages']
         ]],
+        ['icon'=>'fa-newspaper-o','menu'=>'Blog','route' => '#', 'options' => [
+            ['icon'=>'fa-comments','menu'=>'Artículos','route' => 'posts'],
+            ['icon'=>'fa-comments','menu'=>'Categorías','route' => 'blog-categories']
+        ]],
         ['icon'=>'fa-user-secret','menu'=>'Usuarios','route' => 'users', 'options' => []],
         ['icon'=>'fa-sliders','menu'=>'Parámetros generales','route' => '#', 'options' => [
             ['icon'=>'fa-comments','menu'=>'Marcas','route' => 'brands'],

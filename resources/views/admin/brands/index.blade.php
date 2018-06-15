@@ -9,7 +9,7 @@
             $builder->addField($nameField);
 
             $imageField = new \App\Utils\ReactCrudField('image');
-            $imageField->title('Logo)')->type('file')->show(false)->width(6);
+            $imageField->title('Logo')->type('file')->show(false)->width(6);
             $builder->addField($imageField);
 
             $actions = [];
