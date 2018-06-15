@@ -47,16 +47,16 @@ class Product extends Model
         return $this->attributes["featured_image"];
     }
 
-    public function getDiscountPriceAttribute()
-    {
+    public function getDiscountPriceAttribute(){
         $discount_price = 0;
-
         if($this->discount>0){
-
           $discount_price =  $this->price*(1-$this->discount/100);
-
         }
-
         return $discount_price;
     }
+
+    public function productcharacteristic(){
+        return $this->hasOne("App\Models\ProductCharacteristic", "id", "product_characteristic_id");
+    }
+
 }

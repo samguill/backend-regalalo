@@ -58,7 +58,7 @@ class CategoryController extends Controller
             $data["slug"] = Str::slug($data["title"]);
             $data["user_id"] = Auth::user()->id;
             $category = Category::create($data);
-            if($request->has('featured_image')){
+            if($request->file('featured_image')){
                 $photo = $request->file('featured_image');
                 $path = "uploads/brands/";
                 $image = $photo->getClientOriginalName();
