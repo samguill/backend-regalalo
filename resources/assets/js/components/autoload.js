@@ -24,3 +24,6 @@ require('./product-seo/ProductSeoComponent');
 require('./services/ServiceEditComponent');
 require('./services/ServiceImagesComponent');
 require('./services/ServiceUploadFeaturedImage');
+
+require('./admin-inventory/IncomingInventory');
+require('./admin-inventory/OutgoingInventory');

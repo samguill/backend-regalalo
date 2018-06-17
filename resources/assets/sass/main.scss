@@ -14992,3 +14992,9 @@ div#accordion i.fa {
   font-size: 50px;
   color: #FFF;
 }
+
+@media (min-width: 576px) {
+  div#inventory_movements_modal .modal-dialog {
+    max-width: 900px;
+  }
+}

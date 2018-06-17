@@ -164,6 +164,14 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/blog-categories/update', 'Admin\CategoryController@update')->name('blog-categories.update');
         Route::post('/blog-categories/delete', 'Admin\CategoryController@delete')->name('blog-categories.delete');
         Route::post('/blog-categories/create', 'Admin\CategoryController@create')->name('blog-categories.create');
+
+        // Inventario
+        Route::get('/admin-inventory', 'Admin\InventoryController@index')->name('admin.inventory');
+        Route::get('/inventory/list', 'Admin\InventoryController@lists')->name('admin.inventory.list');
+        Route::get('/inventory/movement', 'Admin\InventoryController@movements')->name('admin.inventory.movement');
+        Route::post('/inventory/incoming', 'Admin\InventoryController@incoming')->name('admin.inventory.incoming');
+        Route::post('/inventory/outgoing', 'Admin\InventoryController@outgoing')->name('admin.inventory.outgoing');
+        Route::post('/inventory/store/branches', 'Admin\InventoryController@branches_store')->name('admin.inventory.store.branches');
     });
 
 

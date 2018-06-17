@@ -68,8 +68,9 @@
 
 window.open_modal = function (id, title){
     accion = "agregar";
-
-    $("div.modal form")[0].reset();
+    /*if($("div.modal form").length){
+        $("div.modal form")[0].reset();
+    }*/
     $("div.modal#"+ id).modal("show");
     $("div.modal#"+ id + " h4.modal-title").text(title);
 }

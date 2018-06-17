@@ -27,6 +27,7 @@ class MenuTemporal
         ['icon'=>'fa-building','menu'=>'Tiendas','route' => 'stores', 'options' => []],
         ['icon'=>'fa-shopping-bag','menu'=>'Productos','route' => 'product', 'options' => []],
         ['icon'=>'fa-binoculars','menu'=>'Servicios','route' => 'service', 'options' => []],
+        ['icon'=>'fa-archive','menu'=>'Inventario','route' => 'admin-inventory', 'options' => []],
         ['icon'=>'fa-users','menu'=>'Clientes','route' => 'clients', 'options' => []],
         ['icon'=>'fa-paper-plane','menu'=>'Ventas','route' => 'order', 'options' => []],
         ['icon'=>'fa-comments','menu'=>'Reclamos','route' => 'claims', 'options' => []],
