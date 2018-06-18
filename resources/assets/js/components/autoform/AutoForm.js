@@ -188,6 +188,9 @@ export default class AutoForm extends React.Component {
           {
             params[k]=this.state[k];
           }
+            if(field.type=="password") {
+                params[k]=this.state[k];
+            }
           if(field.type=="date")
           {
             if(this.state[k]!=null)
@@ -224,6 +227,13 @@ export default class AutoForm extends React.Component {
                   return (<div key={i} className={"form-group col-md-"+field.width}>
                       {field.label?<label className="form-control-label" htmlFor={k}>{field.title}</label>:""}
                       <CKEditor activeClass={"p10"} id={k}  className={"form-control "+(field.error!=null?"error":"")} rows="3" type="text" placeholder={field.title} content={this.state[k]} events={{ "change": (e)=>{this.handleFieldChange(k,e.editor.getData())} }} />
+                      {field.error!=null?<p className="error_message">{field.error.message}</p>:""}
+                  </div>)
+              }
+              if(field.type==="password"){
+                  return (<div key={i} className={"form-group col-md-"+field.width}>
+                      {field.label?<label className="form-control-label" htmlFor={k}>{field.title}</label>:""}
+                      <input id={k}  className={"form-control "+(field.error!=null?"error":"")} type="password" placeholder={field.title} value={this.state[k]} onChange={(e)=>{this.handleFieldChange(k,e.target.value)}}/>
                       {field.error!=null?<p className="error_message">{field.error.message}</p>:""}
                   </div>)
               }

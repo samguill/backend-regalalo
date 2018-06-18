@@ -48,6 +48,7 @@
                         <div id="collapse-comercial-contact" class="collapse" aria-labelledby="heading-comercial-contact" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="comercial-contact-edit-component"
+                                     store_id="{{$store->id}}"
                                      default_data="{{$store->comercial_contact}}"
                                      data_update_url="{{route('store.comercial-contact-update')}}"></div>
                             </div>
@@ -67,6 +68,23 @@
                                      store_id="{{$store->id}}"
                                      logo_store="{{$store->logo_store}}"
                                      data_upload_url="{{route('stores.upload-logo')}}"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-20">
+                        <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse-accesos" aria-expanded="false" aria-controls="collapse-accesos">
+                            <div class="card-header" id="heading-accesos">
+                                <h5 class="mb-0 d-inline-block">Datos de acceso</h5>
+                                <i class="fa fa-angle-down float-lg-right" style="margin-right: 10px;" aria-hidden="true"></i>
+                            </div>
+                        </button>
+                        <div id="collapse-accesos" class="collapse" aria-labelledby="heading-accesos" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="store-access-component"
+                                     store_id="{{$store->id}}"
+                                     user_data="{{$store->user}}"
+                                     data_update_url="{{route('stores.update-access')}}"></div>
                             </div>
                         </div>
                     </div>

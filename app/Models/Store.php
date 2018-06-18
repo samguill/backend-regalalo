@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Store extends Model
 {
+
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'id',
@@ -58,6 +62,10 @@ class Store extends Model
             return $base_url . $this->attributes["logo_store"];
         }
         return $this->attributes["logo_store"];
+    }
+
+    public function user(){
+        return $this->belongsTo('App\User', 'user_id', 'id');
     }
 
 }

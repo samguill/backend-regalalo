@@ -34,7 +34,7 @@ class StoreController extends Controller
 
     public function edit(Request $request){
         $store_id = $request->input('id');
-        $store = Store::with('branches', 'comercial_contact', 'legal_representatives')->find($store_id);
+        $store = Store::with('branches', 'comercial_contact', 'legal_representatives', 'user')->find($store_id);
         $data = [
             "title" => "Editar datos de tienda: " . $store->comercial_name,
             "icon" => "fa-building"
@@ -60,12 +60,23 @@ class StoreController extends Controller
     public function delete(Request $request){
         $data = $request->all();
         $model = Store::find($data['id']);
-        $model->status = 2;
-        if($model->save()) {
-            return response()->json(['status'=>'ok','data'=>$model]);
-        }else{
-            return response()->json(['status'=>'error', "message" => "No se ha podido eliminar el registro, intente más tarde."]);
+
+        $comercial_contacts = ComercialContact::where("store_id", $data["id"])->get();
+        if (count($comercial_contacts) > 0){
+            foreach ($comercial_contacts as $comercial_contact){
+                $comercial_contact->delete();
+            }
         }
+
+        $legal_representatives = LegalRepresentative::where("store_id", $data["id"])->get();
+        if (count($legal_representatives) > 0){
+            foreach ($legal_representatives as $legal_representative){
+                $legal_representative->delete();
+            }
+        }
+
+        $model->delete();
+        return response()->json(['status'=>"ok",'data'=>$model]);
     }
 
     public function create(Request $request){
@@ -73,10 +84,6 @@ class StoreController extends Controller
             $data = $request->all();
             $data['slug'] = Str::slug($data["comercial_name"]);
             $model = Store::create($data);
-
-            ComercialContact::create([
-                'store_id' => $model->id
-            ]);
         }catch(Exception $e) {
 
         }
@@ -316,6 +323,30 @@ class StoreController extends Controller
         }else{
             return response()->json(['status' => 'error', 'message' => 'El formato de archivo es incorrecto.']);
         }
+    }
+
+    public function update_access(Request $request){
+        $data = $request->all();
+        if(is_null($data["id"])){
+            $store = Store::find($data["store_id"]);
+            $comercial_contact = ComercialContact::where("store_id", $store->id)->first();
+            $user = User::create([
+                'name' => $comercial_contact->name,
+                'email' => $data["email"],
+                'password' => $data["password"],
+                'type' => "S",
+                'status' => 1
+            ]);
+            $store->update(["user_id" => $user->id]);
+        }else{
+            $user = User::find($data["id"]);
+            if($data["password"] == "" || is_null($data["password"])){
+                $user->update(["email" => $data["email"]]);
+            }else{
+                $user->update(["email" => $data["email"], "passowrd" => $data["password"]]);
+            }
+        }
+        return response()->json(['status' => 'ok', "data" => $user]);
     }
 
 }

@@ -10,6 +10,7 @@ require('./inventory/OutgoingInventoryComponent');
 require('./coupons/IncomingCouponsComponent');
 require('./coupons/OutgoingCouponsComponent');
 require('./store-edit/StoreEditComponent');
+require('./store-edit/StoreUpdateAccessComponent');
 require('./representatives-store/RepresentativeStoreComponent');
 require('./comercial-contact-edit/ComercialContactComponent');
 require('./store-upload-logo/StoreUploadLogoComponent');

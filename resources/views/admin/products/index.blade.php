@@ -112,7 +112,7 @@
                     ]
                 ]
             );
-            //$actions['delete'] = ['url' => route('products.delete')];
+            $actions['delete'] = ['url' => route('product.delete')];
             $builder->setActions($actions);
             $builder->addButton('Carga masiva de productos', "open_modal('products_admin_charge_modal', 'Carga masiva de productos')", "btn-info");
 

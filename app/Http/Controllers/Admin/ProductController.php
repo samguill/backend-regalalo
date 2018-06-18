@@ -221,4 +221,11 @@ class ProductController extends Controller
             return response()->json(['status' => 'error', 'message' => 'El formato de archivo es incorrecto.']);
         }
     }
+
+    public function delete(Request $request){
+        $data = $request->all();
+        $model = Product::find($data['id']);
+        $model->delete();
+        return response()->json(['status'=>"ok",'data'=>$model]);
+    }
 }

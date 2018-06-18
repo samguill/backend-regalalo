@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/stores/charge', 'Admin\StoreController@masive_charge')->name('stores.charge');
         Route::post('/stores/upload-logo', 'Admin\StoreController@upload_logo')->name('stores.upload-logo');
         Route::get('/stores/payme_doc/', 'Admin\StoreController@payme_document')->name('stores.payme_doc');
+        Route::post('/stores/update-access', 'Admin\StoreController@update_access')->name('stores.update-access');
 
         // Productos
         Route::get('/product', 'Admin\ProductController@index')->name('product');
@@ -52,6 +53,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/service/charge', 'Admin\ServiceController@masive_charge')->name('service.charge');
         Route::post('/service/characteristics-update', 'Admin\ServiceController@characteristics_update')->name('service.characteristics_update');
         Route::post('/service/seo-update', 'Admin\ServiceController@update_seo')->name('service.update_seo');
+
 
         // Ocasiones
         Route::get('/events', 'Admin\EventController@index')->name('events');

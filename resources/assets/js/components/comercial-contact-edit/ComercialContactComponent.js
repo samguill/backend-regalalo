@@ -5,18 +5,33 @@ export default class ComercialContactComponent extends React.Component {
 
     constructor(props){
         super(props);
-        this.default_data = JSON.parse(this.props.default_data);
+        this.store_id = this.props.store_id;
+        if(this.props.default_data !== ""){
+            this.default_data = JSON.parse(this.props.default_data);
+        }else{
+            this.default_data = {
+                document_number: "",
+                email: "",
+                id: "",
+                name: "",
+                phone: "",
+                position: "",
+                store_id: this.store_id
+            }
+        }
+
         this.data_update_url = this.props.data_update_url;
 
         this.handleChange = this.handleChange.bind(this);
 
         this.fields = {
             id:{type:"hidden"},
-            name:{title:"Nombres y Apellidos",type:"text",required:true,width:4},
-            document_number:{title:"DNI",type:"text",required:true,width:4},
-            email:{title:"E-mail",type:"text",required:true,width:4},
-            phone:{title:"Teléfono",type:"text",required:true,width:6},
-            position:{title:"Cargo",type:"text",required:true,width:6}
+            store_id:{type:"hidden", default:this.store_id},
+            name:{title:"Nombres y Apellidos",type:"text",required:true,width:4, default:''},
+            document_number:{title:"DNI",type:"text",required:true,width:4, default:''},
+            email:{title:"E-mail",type:"text",required:true,width:4, default:''},
+            phone:{title:"Teléfono",type:"text",required:true,width:6, default:''},
+            position:{title:"Cargo",type:"text",required:true,width:6, default:''}
         };
 
         this.state = {
@@ -58,9 +73,11 @@ if (document.getElementsByClassName('comercial-contact-edit-component')) {
         let element = elements[i];
         var default_data = element.getAttribute('default_data');
         var data_update_url = element.getAttribute('data_update_url');
+        let store_id = element.getAttribute("store_id");
 
         ReactDOM.render(<ComercialContactComponent
             data_update_url={data_update_url}
+            store_id={store_id}
             default_data={default_data} />, element);
     }
 }

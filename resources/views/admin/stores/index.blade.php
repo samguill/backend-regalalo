@@ -118,7 +118,6 @@
                     ]
                 ]
             );
-            //$actions['delete'] = ['url' => route('stores.delete')];
 
             $actions["custom"]=array_merge(
                 $actions["custom"],
@@ -167,6 +166,7 @@
                     ]
                 ]
             );
+            $actions['delete'] = ['url' => route('stores.delete')];
             $builder->setActions($actions);
             $builder->addButton('Carga masiva', "open_modal('stores_charge_modal', 'Carga masiva de tiendas')", "btn-info");
        @endphp
