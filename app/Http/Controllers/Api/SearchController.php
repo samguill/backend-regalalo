@@ -60,9 +60,11 @@ class SearchController extends Controller
 
             $searchtext = $request->input('searchtext');
 
-            $query->where('name','LIKE','%'.$searchtext.'%');
-            $query->orWhere('description','LIKE','%'.$searchtext.'%');
             $query->whereNull('deleted_at');
+            $query->where(function($q) use ($searchtext) {
+                $q->where('name', 'LIKE', '%' . $searchtext . '%');
+                $q->orWhere('description', 'LIKE', '%' . $searchtext . '%');
+            });
 
 
         }
