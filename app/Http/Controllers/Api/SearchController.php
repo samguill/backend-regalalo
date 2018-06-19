@@ -20,7 +20,9 @@ class SearchController extends Controller
 
         $stores = DB::table('stores')->where('comercial_name','LIKE','%'.$request->input('searchtext').'%')->get();
 
-        $result  = $services->union($products)->get();
+        $result  = $services->union($products)
+            ->orderBy('price','ASC')
+            ->get();
 
         $data['items'] = $this->paginate($result);
 
@@ -59,6 +61,7 @@ class SearchController extends Controller
             $searchtext = $request->input('searchtext');
 
             $query->where('name','LIKE','%'.$searchtext.'%');
+            $query->whereNull('deleted_at');
             $query->orWhere('description','LIKE','%'.$searchtext.'%');
 
 
@@ -75,12 +78,11 @@ class SearchController extends Controller
 
         $query->leftJoin($store_table,$store_table.'.'.$field_id,'=',$table.'.id');
 
-
         return $query;
 
     }
 
-    public function paginate($items, $perPage = 15, $page = null, $options = [])
+    public function paginate($items, $perPage = 100, $page = null, $options = [])
     {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);
