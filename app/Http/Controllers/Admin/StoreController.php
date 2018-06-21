@@ -343,7 +343,7 @@ class StoreController extends Controller
             if($data["password"] == "" || is_null($data["password"])){
                 $user->update(["email" => $data["email"]]);
             }else{
-                $user->update(["email" => $data["email"], "passowrd" => $data["password"]]);
+                $user->update(["email" => $data["email"], "password" => $data["password"]]);
             }
         }
         return response()->json(['status' => 'ok', "data" => $user]);
