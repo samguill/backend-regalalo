@@ -138,7 +138,7 @@ class IntegrationController extends Controller
             }
         };
 
-        return redirect()->away('https://regalalo.pe/#/mis-pedidos');
+        return redirect()->away('https://regalalo.pe/mi-cuenta');
         //return redirect()->away('http://localhost:4200/#/mis-pedidos');
     }
 
@@ -264,7 +264,7 @@ class IntegrationController extends Controller
             $order['order_code'] = ($occode->id + 1) . "2016";
         }else{
             //$order['order_code'] = 1 . date("Y");
-            $order['order_code'] = 1 . "2016";
+            $order['order_code'] = 60 . "2016";
         }
         if($delivery){
             $order["delivery"] = $delivery;
