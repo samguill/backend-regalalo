@@ -40,6 +40,8 @@ Route::group(['middleware' => 'cors'], function (){
     Route::get('post/{slug}', 'Api\BlogController@post');
     Route::get('categories', 'Api\BlogController@categories');
     Route::get('posts-category/{slug}', 'Api\BlogController@posts_catgory');
+
+    Route::post('integration/orders/calculatedelivery', 'Api\IntegrationController@calculateDelivery');
 //});
 });
 
@@ -56,4 +58,6 @@ Route::middleware('auth:api')->group(function (){
 
     Route::get('orders/list', 'Api\OrderController@orders');
     Route::post('orders/generate', 'Api\OrderController@generateOrder');
+
+    Route::post('integration/orders/generate', 'Api\IntegrationController@generateOrder');
 });

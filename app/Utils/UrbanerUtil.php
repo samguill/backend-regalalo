@@ -14,12 +14,16 @@ class UrbanerUtil
     const API_CLI_PRICE = "/api/cli/price/";
     const API_CLI_ORDER = "/api/cli/order/";
 
-    public static function apipost($json,$url){
+    public static function apipost($json,$url, $mode){
 
         $client = new Client();
-
+        if($mode === "integ"){
+            $accessToken = env('TOKEN_URBANER_INTEG');
+        }else{
+            $accessToken = env('TOKEN_URBANER_PROD');
+        }
         $base_url_urbaner = env('BASE_URL_URBANER');
-        $accessToken = env('TOKEN_URBANER');
+
 
         $headers = [
             'Content-Type' => 'application/json',

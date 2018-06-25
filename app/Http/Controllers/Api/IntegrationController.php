@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\ClientDirection;
 use App\Models\Inventory;
@@ -10,20 +12,13 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Store;
 use App\Models\StoreBranch;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Utils\UrbanerUtil;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use SoapClient;
 
-class OrderController extends Controller
+class IntegrationController extends Controller
 {
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
-     */
 
     public function generateOrder(Request $request){
         $client_login = Auth::user();
@@ -228,7 +223,7 @@ class OrderController extends Controller
                 "is_return" => false,
                 "has_extended_search_time" => "true",
             ];
-            $response = UrbanerUtil::apipost($json, UrbanerUtil::API_CLI_ORDER, "prod");
+            $response = UrbanerUtil::apipost($json, UrbanerUtil::API_CLI_ORDER, "integ");
 
             //Storage::put('resp-urbaner-' . time() . ".json", json_encode($response));
 
@@ -239,7 +234,7 @@ class OrderController extends Controller
                     "tracking_code" => $response->code,
                 ]);
             }
-            
+
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -295,13 +290,13 @@ class OrderController extends Controller
         $client_direction = ClientDirection::find($data["client_direction_id"]);
         $destinations = [
             'destinations' => [
-                    ['latlon' => $client_direction->latitude .','. $client_direction->longitude],
-                    ['latlon' =>  $storebranch->latitude.','.$storebranch->longitude]
-                    ],
+                ['latlon' => $client_direction->latitude .','. $client_direction->longitude],
+                ['latlon' =>  $storebranch->latitude.','.$storebranch->longitude]
+            ],
             "package_type_id"=> 1,
             "is_return"=> false
         ];
-        $response = UrbanerUtil::apipost($destinations, UrbanerUtil::API_CLI_PRICE, "prod");
+        $response = UrbanerUtil::apipost($destinations, UrbanerUtil::API_CLI_PRICE, "integ");
         return response()->json($response);
     }
 
@@ -312,4 +307,5 @@ class OrderController extends Controller
             ->get();
         return response()->json(['status'=>'ok', 'data'=>$result]);
     }
+
 }
