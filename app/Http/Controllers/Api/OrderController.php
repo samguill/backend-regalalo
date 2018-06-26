@@ -219,7 +219,7 @@ class OrderController extends Controller
                 "payment" => [
                     "backend" => "card",
                     "args" => [
-                        "bankcard" => 261
+                        "bankcard" => 4902
                     ]
                 ],
                 "description" => "comida",
@@ -228,7 +228,7 @@ class OrderController extends Controller
                 "is_return" => false,
                 "has_extended_search_time" => "true",
             ];
-            $response = UrbanerUtil::apipost($json, UrbanerUtil::API_CLI_ORDER, "prod");
+            $response = UrbanerUtil::apipost($json, UrbanerUtil::API_CLI_ORDER);
 
             //Storage::put('resp-urbaner-' . time() . ".json", json_encode($response));
 
@@ -301,7 +301,7 @@ class OrderController extends Controller
             "package_type_id"=> 1,
             "is_return"=> false
         ];
-        $response = UrbanerUtil::apipost($destinations, UrbanerUtil::API_CLI_PRICE, "prod");
+        $response = UrbanerUtil::apipost($destinations, UrbanerUtil::API_CLI_PRICE);
         return response()->json($response);
     }
 

@@ -15,6 +15,7 @@ use App\Models\StoreBranch;
 use App\Utils\UrbanerUtil;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use SoapClient;
 
 class IntegrationController extends Controller
@@ -214,7 +215,7 @@ class IntegrationController extends Controller
                 "payment" => [
                     "backend" => "card",
                     "args" => [
-                        "bankcard" => 261
+                        "bankcard" => 4902
                     ]
                 ],
                 "description" => "comida",
@@ -223,9 +224,9 @@ class IntegrationController extends Controller
                 "is_return" => false,
                 "has_extended_search_time" => "true",
             ];
-            $response = UrbanerUtil::apipost($json, UrbanerUtil::API_CLI_ORDER, "integ");
+            $response = UrbanerUtil::apipost($json, UrbanerUtil::API_CLI_ORDER);
 
-            //Storage::put('resp-urbaner-' . time() . ".json", json_encode($response));
+            Storage::put('resp-urbaner-' . time() . ".json", json_encode($response));
 
             foreach ($orderdetails  as $orderdetail) {
                 $od = OrderDetail::find($orderdetail->id);
@@ -296,7 +297,7 @@ class IntegrationController extends Controller
             "package_type_id"=> 1,
             "is_return"=> false
         ];
-        $response = UrbanerUtil::apipost($destinations, UrbanerUtil::API_CLI_PRICE, "integ");
+        $response = UrbanerUtil::apipost($destinations, UrbanerUtil::API_CLI_PRICE);
         return response()->json($response);
     }
 
