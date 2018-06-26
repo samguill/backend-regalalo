@@ -8,6 +8,7 @@
 
 namespace App\Utils;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 class UrbanerUtil
 {
@@ -26,18 +27,24 @@ class UrbanerUtil
             'Authorization' => 'token '.$accessToken
         ];
 
-        $res = $client->request('POST', $base_url_urbaner.$url,[
-            'headers' =>$headers,
-            'json' =>  $json,
-            'verify' => false,
-        ]);
+        try {
+            $res = $client->request('POST', $base_url_urbaner . $url, [
+                'headers' => $headers,
+                'json' => $json,
+                'verify' => false,
+            ]);
+
+            $body = $res->getBody();
+            $data = \GuzzleHttp\json_decode($body->getContents());
+            return $data;
+        } catch (GuzzleException $e) {
+            return $e->getMessage();
+        }
 
         /*if($res->getStatusCode()>=401)
             return 'El servicio de Urbarne no responde';*/
 
-        $body = $res->getBody();
-        $data = \GuzzleHttp\json_decode($body->getContents());
-        return $data;
+
     }
 
 }

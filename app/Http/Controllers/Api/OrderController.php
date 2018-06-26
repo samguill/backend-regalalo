@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use App\Utils\UrbanerUtil;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use SoapClient;
 
 class OrderController extends Controller
@@ -107,7 +108,6 @@ class OrderController extends Controller
 
     public function comerce_alignet(Request $request){
         //Storage::put('resp-' . time() . ".json", json_encode($request->all()));
-
         if($request->has('authorizationResult')){
             //Obteniendo la autorización de payme
             $authorizationResult = $request->input('authorizationResult');
@@ -226,10 +226,10 @@ class OrderController extends Controller
                 "vehicle_id" => "2",
                 "memo" => $order->order_code,
                 "is_return" => false,
-                "has_extended_search_time" => "true",
+                "has_extended_search_time" => "true"
             ];
+            //Storage::put('send-urbaner-' . time() . ".json", json_encode($json));
             $response = UrbanerUtil::apipost($json, UrbanerUtil::API_CLI_ORDER);
-
             //Storage::put('resp-urbaner-' . time() . ".json", json_encode($response));
 
             foreach ($orderdetails  as $orderdetail) {
@@ -308,7 +308,7 @@ class OrderController extends Controller
     public function orders(){
         $user_login = Auth::user();
         $result = Order::with('store', 'clientdirection', 'orderdetails.product', 'orderdetails.service', 'orderdetails.branch')
-            ->where('client_id',$user_login->id )
+            ->where('client_id',$user_login->id)->orderBy('created_at', 'DESC')
             ->get();
         return response()->json(['status'=>'ok', 'data'=>$result]);
     }

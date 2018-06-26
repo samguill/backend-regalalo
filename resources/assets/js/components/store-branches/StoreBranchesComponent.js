@@ -282,6 +282,10 @@ export default class StoreBranchesComponent extends React.Component {
                                             address: this.state.address,
                                             latitude: this.state.latitude,
                                             longitude: this.state.longitude,
+                                            phone:this.state.phone,
+                                            branch_email:this.state.branch_email,
+                                            business_hour_1:this.state.business_hour_1,
+                                            business_hour_2:this.state.business_hour_2,
                                             store_id: this.storeid
                                         })}}>
                                             { (this.state.is_loading) ? <em className="fa fa-refresh fa-spin"></em> : 'Guardar'}
