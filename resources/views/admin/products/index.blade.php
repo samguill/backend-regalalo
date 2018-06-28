@@ -63,7 +63,7 @@
             $builder->addField($minAgeField);
 
             $maxAgeField = new \App\Utils\ReactCrudField('max_age');
-            $maxAgeField->title('Edad mínima')->type('map', $ages)
+            $maxAgeField->title('Edad máxima')->type('map', $ages)
                 ->required(false)->show(false)
                 ->width(2)->renderAs('text');
             $builder->addField($maxAgeField);
