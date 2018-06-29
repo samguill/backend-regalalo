@@ -14,6 +14,7 @@ use App\Models\FrequentQuestion;
 use App\Models\Interest;
 use App\Models\Offer;
 use App\Models\Page;
+use App\Models\Post;
 use App\Models\Product;
 use App\Models\Slide;
 use App\Models\Store;
@@ -29,6 +30,7 @@ class PageController extends Controller {
         $products = Product::whereNotNull('featured_image')->take(10)->get();
         $first_10_products = Product::whereNotNull('featured_image')->take(10)->get();
         $before_10_products = Product::whereNotNull('featured_image')->skip(10)->take(10)->get();
+        $posts = Post::take(3)->get();
 
         $brands = Brand::whereNotNull('image')->get();
 
@@ -42,7 +44,8 @@ class PageController extends Controller {
             'first_10_products' => $first_10_products,
             'before_10_products' => $before_10_products,
             'offers' => $offers,
-            'brands' => $brands
+            'brands' => $brands,
+            'posts' => $posts
         ]);
     }
 
