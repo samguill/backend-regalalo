@@ -30,7 +30,7 @@ class PageController extends Controller {
         $products = Product::whereNotNull('featured_image')->take(10)->get();
         $first_10_products = Product::whereNotNull('featured_image')->take(10)->get();
         $before_10_products = Product::whereNotNull('featured_image')->skip(10)->take(10)->get();
-        $posts = Post::take(3)->get();
+        $posts = Post::with('category')->take(3)->get();
 
         $brands = Brand::whereNotNull('image')->get();
 
