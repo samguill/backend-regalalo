@@ -24,6 +24,18 @@
             $imageField->title('Imagen destacada')->type('file')->show(false)->width(6);
             $builder->addField($imageField);
 
+            $meta_titleField = new \App\Utils\ReactCrudField('meta_title');
+            $meta_titleField->title('Meta title')->show(false)->width(12);
+            $builder->addField($meta_titleField);
+
+            $meta_descriptionField = new \App\Utils\ReactCrudField('meta_description');
+            $meta_descriptionField->title('Meta description')->show(false)->width(12)->verbose();
+            $builder->addField($meta_descriptionField);
+
+            $meta_keywordsField = new \App\Utils\ReactCrudField('meta_keywords');
+            $meta_keywordsField->title('Meta keywords')->show(false)->width(12)->verbose();
+            $builder->addField($meta_keywordsField);
+
             $actions = [];
             $actions["custom"] = [];
             $actions['view'] = [];

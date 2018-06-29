@@ -16,7 +16,10 @@ class Post extends Model
         "summary",
         "featured_image",
         'user_id',
-        'category_id'
+        'category_id',
+        'meta_title',
+        'meta_description',
+        'meta_keywords'
     ];
 
     public function user(){
