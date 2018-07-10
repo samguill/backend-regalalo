@@ -245,15 +245,15 @@ export default class StoreBranchesComponent extends React.Component {
                                 <input id="name" name="name" onChange={this.onNameChage} className="form-control" type="text" value={this.state.name} />
                             </div>
                             <div className="form-group">
-                                <lable>Dirección</lable>
+                                <lable>Dirección (tipea la dirección)</lable>
                                 <input id="address" name="address" onChange={this.onAddressChage} className="form-control" type="text" value={this.state.address} />
                             </div>
                             <div className="form-group">
-                                <lable>Teléfono</lable>
+                                <lable>Teléfono (sin guiones y espacios)</lable>
                                 <input id="phone" name="phone" onChange={this.onPhoneChage} className="form-control" type="text" value={this.state.phone} />
                             </div>
                             <div className="form-group">
-                                <lable>E-mail</lable>
+                                <lable>E-mail (aquí se notificarán los pedidos)</lable>
                                 <input id="branch_email" name="branch_email" onChange={this.onBranchEmailChage} className="form-control" type="text" value={this.state.branch_email} />
                             </div>
                             <div className="form-group">

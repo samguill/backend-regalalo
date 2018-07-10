@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Mail\ShippingOrder;
 use App\Models\Client;
 use App\Models\ClientDirection;
 use App\Models\Inventory;
@@ -16,6 +17,7 @@ use App\Utils\UrbanerUtil;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 use SoapClient;
 
 class OrderController extends Controller
@@ -198,13 +200,12 @@ class OrderController extends Controller
         //Origen del envío
         $destination_store_branch = [
             "contact_person" => $store->comercial_contact->name,
-            "phone" => $store->comercial_contact->phone,
+            "phone" => $branch->phone,
             "address" => $branch->address,
             "latlon" => $branch->latitude . ',' . $branch->longitude,
             "interior" => "",
             "special_instructions" => "",
             "email" => $branch->branch_email
-
         ];
 
         DB::beginTransaction();
@@ -250,6 +251,8 @@ class OrderController extends Controller
         }
 
         DB::commit();
+        // Mensaje a cliente
+        //Mail::to(["marzioperez@gmail.com"])->send(new ShippingOrder($order, "client"));
 
         return response()->json([
             'status' => 'ok',
