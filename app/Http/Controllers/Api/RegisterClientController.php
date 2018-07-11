@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Mail\CustomerRegistration;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,6 +17,8 @@ class RegisterClientController extends Controller
     private $client;
 
     public function __construct() {
+
+        //TODO: En mi proyecto laravel passport no funciona, tu apoyo para poder saber por qué
         $this->client = \Laravel\Passport\Client::find(1);
     }
 
@@ -37,6 +41,9 @@ class RegisterClientController extends Controller
             'email' => $request->get('email'),
             'password' => $request->get('password')
         ]);
+
+        //Enviando correo de bienvenida a la plataforma al cliente
+        Mail::to($client->email)->send(new CustomerRegistration($client));
 
         $params = [
             "grant_type" => "password",
