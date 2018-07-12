@@ -80,7 +80,7 @@
             ])->title('Disponibilidad')->width(4)->renderAs('text');
             $builder->addField($availabilityField);
 
-            $eventField = new \App\Utils\ReactCrudField('event');
+/*            $eventField = new \App\Utils\ReactCrudField('event');
             $eventField->fillable()->title('Ocasión')
                 ->type('json', $events)->show(false)
                 ->width(6)->renderAs('text');
@@ -90,7 +90,7 @@
             $interestField->fillable()->title('Interés')
                 ->type('json', $interests)->show(false)
                 ->width(6)->renderAs('text');
-            $builder->addField($interestField);
+            $builder->addField($interestField);*/
 
             $actions = [];
             $actions["custom"] = [];

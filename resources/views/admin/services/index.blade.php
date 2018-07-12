@@ -63,10 +63,10 @@
             ])->title('Disponibilidad')->width(6);
             $builder->addField($availabilityField);
 
-            $experienceField = new \App\Utils\ReactCrudField('experience');
+ /*           $experienceField = new \App\Utils\ReactCrudField('experience');
             $experienceField->fillable()->title('Experiencia')->type('json', $experiences)->show(false)->width(6)->renderAs('text');
             $builder->addField($experienceField);
-
+*/
 
             $actions = [];
             $actions["custom"] = [];

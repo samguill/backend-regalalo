@@ -63,7 +63,7 @@ export default class ProductEditComponent extends React.Component {
                 ],
                 width:4
             },
-            event:{
+      /*      event:{
                 title:"Ocasión",
                 type:"map",
                 multiple:true,
@@ -78,7 +78,7 @@ export default class ProductEditComponent extends React.Component {
                 renderAS:'text',
                 options:this.data_interests,
                 width:6
-            }
+            }*/
         };
 
         this.state = {

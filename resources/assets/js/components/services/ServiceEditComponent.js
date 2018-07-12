@@ -35,14 +35,14 @@ export default class ServiceEditComponent extends React.Component {
                 options:this.data_sex,
                 width:4
             },
-            experience:{
+            /*experience:{
                 title:"Experiencias",
                 type:"map",
                 multiple:true,
                 renderAS:'text',
                 options:this.data_experiences,
                 width:6
-            }
+            }*/
         };
 
         this.state = {
