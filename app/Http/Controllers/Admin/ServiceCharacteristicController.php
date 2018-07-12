@@ -75,4 +75,16 @@ class ServiceCharacteristicController extends Controller
         $model->delete();
         return response()->json(['status'=>"ok",'data'=>$model]);
     }
+
+    public function update(Request $request) {
+        $data = $request->all();
+        $store = ServiceCharacteristic::find($data['id']);
+        unset($data['id']);
+        if($store->update($data)){
+            return response()->json(['status'=>'ok', 'data'=>$store]);
+        }else{
+            return response()->json(['status'=>'error', 'message' => "No se pudo actualizar el registro."]);
+        }
+
+    }
 }
