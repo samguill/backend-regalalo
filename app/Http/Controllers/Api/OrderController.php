@@ -135,9 +135,13 @@ class OrderController extends Controller
                 }else{
                     $order->update(['status' => 'A']);
                 }
-
                 //Actualizando el inventario de acuerdo a la compra
                 $this->inventory($order);
+
+                // Mensaje a cliente
+                Mail::to(["marzioperez@gmail.com"])->send(new ShippingOrder($order, "client"));
+                // Mensaje a la tienda
+                Mail::to(["marzioperez@gmail.com"])->send(new ShippingOrder($order, "store"));
             }else{
                 // Se actualiza la orden de compra de acuerdo como rechazado:
                 //P: Pending, A: Atended, R: Rejected payment, D: Delivary pendiente
@@ -251,8 +255,6 @@ class OrderController extends Controller
         }
 
         DB::commit();
-        // Mensaje a cliente
-        //Mail::to(["marzioperez@gmail.com"])->send(new ShippingOrder($order, "client"));
 
         return response()->json([
             'status' => 'ok',

@@ -32,10 +32,11 @@ class ShippingOrder extends Mailable
     public function build(){
         if($this->user_type == "client"){
             $subject = $this->order->client["first_name"] . ", tu pedido " . $this->order["order_code"] . " ha sido confirmado";
+            return $this->view('mail.client-shipping-order')->subject($subject);
         }else{
-            $subject = "Tu pedido " . $this->order["order_code"] . " ha sido confirmado";
+            $subject = "Se ha generado el pedido: " . $this->order["order_code"];
+            return $this->view('mail.store-shipping-order')->subject($subject);
         }
-        return $this->view('mail.shipping-order')
-            ->subject($subject);
+
     }
 }
