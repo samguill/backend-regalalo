@@ -67,4 +67,12 @@ class ServiceCharacteristicController extends Controller
         }
         return response()->json(['status'=>"ok",'data'=>$model]);
     }
+
+    public function delete(Request $request){
+        $data = $request->all();
+        $model = ServiceCharacteristic::find($data['id']);
+        $model->values()->delete();
+        $model->delete();
+        return response()->json(['status'=>"ok",'data'=>$model]);
+    }
 }
