@@ -60,7 +60,7 @@ class SearchController extends Controller
 
             $searchtext = $request->input('searchtext');
 
-            $query->whereNull('deleted_at');
+
             $query->where(function($q) use ($searchtext) {
                 $q->where('name', 'LIKE', '%' . $searchtext . '%');
                 $q->orWhere('description', 'LIKE', '%' . $searchtext . '%');
@@ -79,6 +79,8 @@ class SearchController extends Controller
 
 
         $query->leftJoin($store_table,$store_table.'.'.$field_id,'=',$table.'.id');
+
+        $query->whereNull('deleted_at');
 
         return $query;
 
