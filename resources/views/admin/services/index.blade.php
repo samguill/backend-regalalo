@@ -69,7 +69,9 @@
 */
 
             $actions = [];
+
             $actions["custom"] = [];
+
             $actions['custom']=array_merge(
                 $actions["custom"],
                 [
@@ -84,7 +86,9 @@
                 ]
             );
 
-            $actions['create'] = ['url' => route('service.create')];
+             $actions['create'] = ['url' => route('service.create')];
+            $actions['delete'] = ['url' => route('service.delete')];
+
 
             $builder->setActions($actions);
             $builder->addButton('Carga masiva de servicios', "open_modal('services_charge_modal', 'Carga masiva de servicios')", "btn-info");

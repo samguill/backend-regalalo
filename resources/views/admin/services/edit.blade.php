@@ -83,6 +83,24 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="card mb-20">
+                        <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse-posicionamiento" aria-expanded="false" aria-controls="collapse-posicionamiento">
+                            <div class="card-header" id="heading-posicionamiento">
+                                <h5 class="mb-0 d-inline-block">Datos de posicionamiento (SEO)</h5>
+                                <i class="fa fa-angle-down float-lg-right" style="margin-right: 10px;" aria-hidden="true"></i>
+                            </div>
+                        </button>
+                        <div id="collapse-posicionamiento" class="collapse" aria-labelledby="heading-posicionamiento" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="product-seo-component"
+                                     data_update_url="{{route('service.update_seo')}}"
+                                     product_id="{{$service->id}}"
+                                     meta_title="{{$service->meta_title}}"
+                                     meta_description="{{$service->meta_description}}"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

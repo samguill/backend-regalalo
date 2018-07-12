@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Service extends Model
 {
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
+
     protected $fillable= [
         'name',
         'sku_code',
@@ -51,5 +55,9 @@ class Service extends Model
             $discount_price =  $this->price*(1-$this->discount/100);
         }
         return $discount_price;
+    }
+
+    public function servicecharacteristic(){
+        return $this->hasOne("App\Models\ServiceCharacteristic", "id", "service_characteristic_id");
     }
 }
