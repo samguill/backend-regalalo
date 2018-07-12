@@ -8,7 +8,7 @@
                         <td valign="middle" class="textContent">
                             <p style="color: #393231;">¡Hola {{$client->first_name}}!:</p>
                             <p style="line-height: 28px; color: #393231;">¡BIENVENIDO A REGÁLALO!</p>
-                            <p style="line-height: 28px; color: #393231;">Para todo el equipo de Regalalo es una gran alegría darte la bienvenida a nuestra plataforma, por ello te queremos dar las gracias por confiar en nosotros.<br>
+                            <p style="line-height: 28px; color: #393231;">Para todo el equipo de Regálalo es una gran alegría darte la bienvenida a nuestra plataforma, por ello te queremos dar las gracias por confiar en nosotros.<br>
                             <p style="color: #393231;">Regalalo Perú.</p>
                         </td>
                     </tr>

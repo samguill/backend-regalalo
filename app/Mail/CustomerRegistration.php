@@ -30,7 +30,7 @@ class CustomerRegistration extends Mailable
      */
     public function build()
     {
-        $subject = "¡Bienvenido a Regalalo!";
+        $subject = "¡Bienvenido a Regálalo!";
         return $this->view('mail.customer-registration')
             ->subject($subject);
     }
