@@ -60,12 +60,17 @@ class SearchController extends Controller
 
             $searchtext = $request->input('searchtext');
 
+            $searchtexts = explode(" ",$searchtext);
+
+            foreach ($searchtexts as $searchtext) {
+
 
             $query->where(function($q) use ($searchtext) {
                 $q->where('name', 'LIKE', '%' . $searchtext . '%');
                 $q->orWhere('description', 'LIKE', '%' . $searchtext . '%');
             });
 
+            }
 
         }
 
