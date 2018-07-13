@@ -20,6 +20,7 @@ Route::group(['middleware' => 'cors'], function (){
     Route::get('home', 'Api\PageController@home');
     Route::get('search-parameters', 'Api\PageController@search_params');
     Route::get('stores', 'Api\StoreController@stores');
+    Route::post('stores/store', 'Api\StoreController@store');
     Route::post('products/search', 'Api\ProductController@search')->name('products.search');
     Route::post('services/search', 'Api\ServiceController@search')->name('services.search');
     Route::post('quicksearch', 'Api\SearchController@quicksearch')->name('quicksearch');
