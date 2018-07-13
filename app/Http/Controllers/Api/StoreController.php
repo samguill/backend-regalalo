@@ -67,7 +67,10 @@ class StoreController extends Controller {
             'financial_entity' => $request->get('financial_entity'),
             'account_statement_name' => $request->get('account_statement_name'),
             'bank_account_number' => $request->get('bank_account_number'),
-            'cci_account_number' => $request->get('cci_account_number')
+            'cci_account_number' => $request->get('cci_account_number'),
+            'site_url' => $request->has('cci_account_number')?$request->get('cci_account_number'):'',
+            'phone' => $request->has('phone')?$request->get('phone'):null,
+            'account_type' => $request->has('account_type')?$request->get('account_type'):'',
         ]);
 
         //Creando representantes legales
@@ -78,6 +81,7 @@ class StoreController extends Controller {
 
                 'name' => $legal_representative['name'],
                 'document_number' => $legal_representative['document_number'],
+                'position' => isset($comercial_contact['position'])?$comercial_contact['position']:'',
                 'store_id' => $store->id
 
             ]);
@@ -91,6 +95,7 @@ class StoreController extends Controller {
             'document_number' => $comercial_contact['document_number'],
             'email' => $comercial_contact['email'],
             'phone' => $comercial_contact['phone'],
+            'position' => isset($comercial_contact['position'])?$comercial_contact['position']:'',
             'store_id' => $store->id
 
         ]);
