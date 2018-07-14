@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Brand;
 use App\Models\Event;
 use App\Models\Interest;
 use App\Models\Product;
@@ -108,11 +109,20 @@ class ProductController extends Controller
             }, Interest::all()->toArray()
         );
 
+        $brands = array_map(
+            function($item){
+                return [
+                    "id" => $item["id"],
+                    "value" => $item["name"]
+                ];
+            }, Brand::all()->toArray()
+        );
+
         $product_characteristics = ProductCharacteristic::with('values')->get();
 
         return view('admin.products.edit', compact(
                 'store_images','product',
-                'store_id', 'sex',
+                'store_id', 'sex', 'brands',
                 'ages', 'events',
                 'interests', 'product_characteristics')
         );

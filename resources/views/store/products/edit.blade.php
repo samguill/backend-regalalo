@@ -23,6 +23,7 @@
                                      data_events="{{json_encode($events)}}"
                                      data_interests="{{json_encode($interests)}}"
                                      default_data="{{$product}}"
+                                     data-brands="{{json_encode($brands)}}"
                                      data_update_url="{{route('products.update')}}"></div>
                             </div>
                         </div>

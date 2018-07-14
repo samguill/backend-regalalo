@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Store;
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Event;
 use App\Models\Interest;
 use App\Models\Product;
@@ -89,6 +90,15 @@ class ProductController extends Controller
             }, Interest::all()->toArray()
         );
 
+        $brands = array_map(
+            function($item){
+                return [
+                    "id" => $item["id"],
+                    "value" => $item["name"]
+                ];
+            }, Brand::all()->toArray()
+        );
+
         $product_characteristics = ProductCharacteristic::with('values')->get();
 
         if($auth["type"] == "S"){
@@ -96,7 +106,7 @@ class ProductController extends Controller
                 //return response()->json($product->productimages);
                 return view('store.products.edit', compact(
                     'store_images','product',
-                    'store_id', 'sex',
+                    'store_id', 'sex', 'brands',
                     'ages', 'events',
                     'interests', 'product_characteristics')
                 );
