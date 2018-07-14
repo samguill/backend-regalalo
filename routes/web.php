@@ -43,6 +43,11 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/product/characteristics-update', 'Admin\ProductController@characteristics_update')->name('product.characteristics_update');
         Route::post('/product/seo-update', 'Admin\ProductController@update_seo')->name('product.update_seo');
 
+        // Images Product
+        Route::post('/single-product/images/add', 'Admin\ProductController@add_image_product')->name('single.product.images.add');
+        Route::post('/single-product/images/delete', 'Admin\ProductController@delete_image_product')->name('single.product.images.delete');
+        Route::post('/single-product/upload/featured_image', 'Admin\ProductController@store_featured_image')->name('single.product.upload.featured_image');
+
         // Servicios
         Route::get('/service', 'Admin\ServiceController@index')->name('service');
         Route::get('/service/lists', 'Admin\ServiceController@lists')->name('service.lists');

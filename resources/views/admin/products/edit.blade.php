@@ -60,7 +60,7 @@
                                      site_url="{{env('APP_URL')}}"
                                      product_id="{{$product->id}}"
                                      featured_image="{{$product->featured_image}}"
-                                     data_upload_url="{{route('product.upload.featured_image')}}"></div>
+                                     data_upload_url="{{route('single.product.upload.featured_image')}}"></div>
                             </div>
                         </div>
                     </div>

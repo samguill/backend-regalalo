@@ -228,4 +228,25 @@ class ProductController extends Controller
         $model->delete();
         return response()->json(['status'=>"ok",'data'=>$model]);
     }
+
+    // Subida de imagen destacada
+    public function store_featured_image(Request $request){
+        $image = $request->file('file');
+        $product_id = $request->input('product_id');
+        $product = Product::find($product_id);
+
+        $name = $product->slug . "-" . $product_id . "." . $image->getClientOriginalExtension();
+        $store = Store::find($product->store_id);
+        $ruc = $store->ruc;
+
+        $path = "uploads/stores/" . $ruc . "/";
+
+        $image->move($path , $name);
+
+        $model = $product->update([
+            'featured_image' => $path . $name
+        ]);
+        return response()->json(['status'=>"ok",'data'=>$product->featured_image]);
+
+    }
 }

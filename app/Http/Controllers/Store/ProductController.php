@@ -255,7 +255,7 @@ class ProductController extends Controller
         $product = Product::find($product_id);
         //return response()->json($product);
 
-        $name = $image->getClientOriginalName();
+        $name = $product->slug . "-" . $product_id . "." . $image->getClientOriginalExtension();
 
         $store_id = Auth::user()->store->id;
         $store = Store::find($store_id);
@@ -263,7 +263,7 @@ class ProductController extends Controller
 
         $path = "uploads/stores/" . $ruc . "/";
 
-        $image->move($path , $image->getClientOriginalName());
+        $image->move($path , $name);
 
         $model = $product->update([
             'featured_image' => $path . $name

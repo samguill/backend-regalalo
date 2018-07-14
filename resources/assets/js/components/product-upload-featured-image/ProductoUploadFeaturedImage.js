@@ -31,12 +31,18 @@ export default class ProductoUploadFeaturedImage extends React.Component {
 
         const uploaders = files.map(file => {
             const formData = new FormData();
+            this.setState({featured_image: 'http://via.placeholder.com/400x200', is_loading: true});
             formData.append("file", file);
             formData.append("product_id", this.product_id);
 
             return axios.post(this.data_upload_url, formData)
                 .then((response) => {
-                    this.setState({featured_image: response.data.data, is_loading: false});
+                    if (response.data.status === "ok"){
+                        swal({  title: "Operación Exitosa",
+                            text: "La imagen se ha actualizado con éxito.",
+                            type: "success"});
+                        this.setState({featured_image: response.data.data, is_loading: false});
+                    }
                 })
                 .catch(function (error) {
                     swal({  title: "Ha ocurrido un error.",

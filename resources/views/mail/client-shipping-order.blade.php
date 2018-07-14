@@ -32,7 +32,7 @@
                                             </td>
                                             <td>
                                                 <b>Precio:</b> S/{{$orderdetail->price}}<br>
-                                                <b>Cantidad:</b> S/{{$orderdetail->quantity}}
+                                                <b>Cantidad:</b> {{$orderdetail->quantity}}
                                             </td>
                                         </tr>
                                         @if($order->delivery)
