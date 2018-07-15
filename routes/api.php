@@ -43,6 +43,8 @@ Route::group(['middleware' => 'cors'], function (){
     Route::get('posts-category/{slug}', 'Api\BlogController@posts_catgory');
 
     Route::post('integration/orders/calculatedelivery', 'Api\IntegrationController@calculateDelivery');
+
+    Route::post('store/register', 'Api\StoreController@store');
 //});
 });
 

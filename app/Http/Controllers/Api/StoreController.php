@@ -30,28 +30,22 @@ class StoreController extends Controller {
     }
 
     public function store(Request $request){
-
-        $legal_representatives = $request->input('legal_representatives');
-
+        $legal_representative = $request->input('legal_representative');
         $comercial_contact = $request->input('comercial_contact');
-
 
         $validator = Validator::make($request->all(), [
             'comercial_name' => 'required|max:255|unique:stores',
             'business_name' => 'required|max:255|unique:stores',
             'ruc' => 'required|unique:stores',
             'legal_address' => 'required',
-            'legal_representatives.*.name' => 'required',
-            'legal_representatives.*.document_number' => 'required',
+            'legal_representative.name' => 'required',
+            'legal_representative.document_number' => 'required',
+            'legal_representative.phone' => 'required',
             'business_turn'=> 'max:255',
             'comercial_contact.name' => 'required',
             'comercial_contact.document_number' => 'required',
             'comercial_contact.phone' => 'required',
-            'comercial_contact.email' => 'required|email',
-            'financial_entity' => 'required',
-            'account_statement_name' => 'required',
-            'bank_account_number' => 'required',
-            'cci_account_number' => 'required',
+            'comercial_contact.email' => 'required|email'
         ]);
 
         if($validator->fails()){
@@ -64,32 +58,19 @@ class StoreController extends Controller {
             'ruc' => $request->get('ruc'),
             'legal_address' => $request->get('legal_address'),
             'business_turn' => $request->get('business_turn'),
-            'financial_entity' => $request->get('financial_entity'),
-            'account_statement_name' => $request->get('account_statement_name'),
-            'bank_account_number' => $request->get('bank_account_number'),
-            'cci_account_number' => $request->get('cci_account_number'),
             'site_url' => $request->has('cci_account_number')?$request->get('cci_account_number'):'',
-            'phone' => $request->has('phone')?$request->get('phone'):null,
-            'account_type' => $request->has('account_type')?$request->get('account_type'):'',
+            'phone' => $request->has('phone')?$request->get('phone'):null
         ]);
 
-        //Creando representantes legales
-
-        foreach ($legal_representatives as $legal_representative) {
-
-            LegalRepresentative::create([
-
-                'name' => $legal_representative['name'],
-                'document_number' => $legal_representative['document_number'],
-                'position' => isset($comercial_contact['position'])?$comercial_contact['position']:'',
-                'store_id' => $store->id
-
-            ]);
-
-        }
+        //Creando representante legal
+        LegalRepresentative::create([
+            'name' => $legal_representative['name'],
+            'document_number' => $legal_representative['document_number'],
+            'phone' => $legal_representative["phone"],
+            'store_id' => $store->id
+        ]);
 
         //Creando contacto comercial
-
         ComercialContact::create([
             'name' => $comercial_contact['name'],
             'document_number' => $comercial_contact['document_number'],
@@ -97,12 +78,9 @@ class StoreController extends Controller {
             'phone' => $comercial_contact['phone'],
             'position' => isset($comercial_contact['position'])?$comercial_contact['position']:'',
             'store_id' => $store->id
-
         ]);
 
         return response()->json(['status'=>"ok",'data'=>$store]);
-
-
     }
 
 
