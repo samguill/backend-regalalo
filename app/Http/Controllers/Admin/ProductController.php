@@ -12,6 +12,7 @@ use App\Models\StoreImage;
 use App\Utils\ParametersUtil;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Mockery\Exception;
 use Faker\Factory;
@@ -49,7 +50,8 @@ class ProductController extends Controller
     }
 
     public function lists(){
-        $products = Product::where('status', 0)->orWhere('status', 1)->get();
+        //$products = Product::where('status', 0)->orWhere('status', 1)->get();
+        $products = DB::select('call products');
         return response()->json($products);
     }
 
