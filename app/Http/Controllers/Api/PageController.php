@@ -28,7 +28,7 @@ class PageController extends Controller {
         $slides = Slide::with('elements')->orderBy('order')->get();
 
         $products = Product::whereNotNull('featured_image')->take(10)->get();
-        $featured_products = Product::whereNotNull('is_featured')->take(10)->get();
+        $featured_products = Product::where('is_featured', true)->take(10)->get();
         $first_10_products = Product::whereNotNull('featured_image')->take(10)->get();
         $before_10_products = Product::whereNotNull('featured_image')->skip(10)->take(10)->get();
         $posts = Post::with('category')->take(3)->get();
