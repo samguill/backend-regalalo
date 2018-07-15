@@ -34,24 +34,24 @@ class StoreController extends Controller {
         $comercial_contact = $request->input('comercial_contact');
         $store = $request->input("store");
 
-        $validator = Validator::make($request->all(), [
-            'store.comercial_name' => 'required|max:255|unique:stores',
-            'store.business_name' => 'required|max:255|unique:stores',
-            'store.ruc' => 'required|unique:stores',
-            'store.legal_address' => 'required',
-            'store.business_turn'=> 'max:255',
-            'legal_representative.name' => 'required',
-            'legal_representative.document_number' => 'required',
-            'legal_representative.phone' => 'required',
-            'comercial_contact.name' => 'required',
-            'comercial_contact.document_number' => 'required',
-            'comercial_contact.phone' => 'required',
-            'comercial_contact.email' => 'required|email'
+        /*$validator = Validator::make($request->all(), [
+            'stores.comercial_name' => 'required|max:255|unique:stores',
+            'stores.business_name' => 'required|max:255|unique:stores',
+            'stores.ruc' => 'required|unique:stores',
+            'stores.legal_address' => 'required',
+            'stores.business_turn'=> 'max:255',
+            'legal_representatives.name' => 'required',
+            'legal_representatives.document_number' => 'required',
+            'legal_representatives.phone' => 'required',
+            'comercial_contacts.name' => 'required',
+            'comercial_contacts.document_number' => 'required',
+            'comercial_contacts.phone' => 'required',
+            'comercial_contacts.email' => 'required|email'
         ]);
 
         if($validator->fails()){
             return response()->json(['status' => 'error', 'message' => $validator->errors()]);
-        }
+        }*/
 
         $store = Store::create([
             'business_name' => $store['business_name'],
