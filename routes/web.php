@@ -179,6 +179,14 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/inventory/incoming', 'Admin\InventoryController@incoming')->name('admin.inventory.incoming');
         Route::post('/inventory/outgoing', 'Admin\InventoryController@outgoing')->name('admin.inventory.outgoing');
         Route::post('/inventory/store/branches', 'Admin\InventoryController@branches_store')->name('admin.inventory.store.branches');
+
+        //Cupones
+        Route::get('/admin-coupons', 'Admin\CouponController@index')->name('admin.coupons');
+        Route::get('/coupons/list', 'Admin\CouponController@lists')->name('admin.coupons.list');
+        Route::get('/coupons/movement', 'Admin\CouponController@movements')->name('admin.coupons.movement');
+        Route::post('/coupons/incoming', 'Admin\CouponController@incoming')->name('admin.coupons.incoming');
+        Route::post('/coupons/outgoing', 'Admin\CouponController@outgoing')->name('admin.coupons.outgoing');
+        Route::post('/coupons/store/branches', 'Admin\CouponController@branches_store')->name('admin.coupons.store.branches');
     });
 
 

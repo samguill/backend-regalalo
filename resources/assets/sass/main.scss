@@ -14998,3 +14998,9 @@ div#accordion i.fa {
     max-width: 900px;
   }
 }
+
+@media (min-width: 576px) {
+  div#coupons_movements_modal .modal-dialog {
+    max-width: 900px;
+  }
+}

@@ -26,5 +26,8 @@ require('./services/ServiceEditComponent');
 require('./services/ServiceImagesComponent');
 require('./services/ServiceUploadFeaturedImage');
 
+//admin
 require('./admin-inventory/IncomingInventory');
 require('./admin-inventory/OutgoingInventory');
+require('./admin-coupons/IncomingCoupons');
+require('./admin-coupons/OutgoingCoupons');
