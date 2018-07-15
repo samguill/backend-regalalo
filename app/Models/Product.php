@@ -30,6 +30,7 @@ class Product extends Model
         'meta_title',
         'meta_description',
         'featured_image',
+        'is_featured',
         'status'
     ];
 

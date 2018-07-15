@@ -231,8 +231,6 @@ class ServiceController extends Controller
 
     }
 
-
-
     public function update_seo(Request $request){
         $data = $request->all();
         $service = Service::find($data['id']);
@@ -241,5 +239,13 @@ class ServiceController extends Controller
             return response()->json(['status'=>'ok', 'data'=>$service]);
         else
             return response()->json(['status'=>'error', 'message' => "No se pudo actualizar el registro."]);
+    }
+
+    // Destacar servicio
+    public function featured_service(Request $request){
+        $data = $request->all();
+        $service = Service::find($data["id"]);
+        $service->update(["is_featured" => true]);
+        return response()->json(['status'=>'ok', 'data'=>$service]);
     }
 }

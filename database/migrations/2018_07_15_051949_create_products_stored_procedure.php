@@ -13,7 +13,7 @@ class CreateProductsStoredProcedure extends Migration
      * @return void
      */
     public function up(){
-        $query = 'SELECT * FROM products INNER JOIN stores ON stores.id = products.store_id WHERE products.deleted_at IS NULL';
+        $query = 'SELECT products.id, products.store_id, products.name, products.sku_code, products.price, products.is_featured ,stores.comercial_name FROM products INNER JOIN stores ON stores.id = products.store_id WHERE products.deleted_at IS NULL';
         DB::unprepared('DROP PROCEDURE IF EXISTS products; CREATE PROCEDURE products() BEGIN '. $query .'; END');
     }
 

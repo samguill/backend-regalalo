@@ -50,7 +50,6 @@ class ProductController extends Controller
     }
 
     public function lists(){
-        //$products = Product::where('status', 0)->orWhere('status', 1)->get();
         $products = DB::select('call products');
         return response()->json($products);
     }
@@ -260,5 +259,13 @@ class ProductController extends Controller
         ]);
         return response()->json(['status'=>"ok",'data'=>$product->featured_image]);
 
+    }
+
+    // Destacar producto
+    public function featured_product(Request $request){
+        $data = $request->all();
+        $product = Product::find($data["id"]);
+        $product->update(["is_featured" => true]);
+        return response()->json(['status'=>'ok', 'data'=>$product]);
     }
 }

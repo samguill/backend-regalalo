@@ -23,6 +23,7 @@ class Service extends Model
         'service_characteristic_id',
         'service_characteristic_values',
         'featured_image',
+        'is_featured',
         'meta_title',
         'meta_description',
         'status'];

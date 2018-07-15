@@ -80,7 +80,7 @@
             ])->title('Disponibilidad')->width(4)->renderAs('text');
             $builder->addField($availabilityField);
 
-/*            $eventField = new \App\Utils\ReactCrudField('event');
+            /*$eventField = new \App\Utils\ReactCrudField('event');
             $eventField->fillable()->title('Ocasión')
                 ->type('json', $events)->show(false)
                 ->width(6)->renderAs('text');
@@ -98,7 +98,7 @@
             $actions['create'] = [
                 'url' => route('product.create')
             ];
-            //$actions['update'] = ['url' => route('products.update')];
+
             $actions['custom']=array_merge(
                 $actions["custom"],
                 [
@@ -109,6 +109,25 @@
                         "color" => "#4CAF50",
                         "params" => [ 'id' ],
                         "title" => "Editar"
+                    ]
+                ]
+            );
+
+            $actions["custom"]=array_merge(
+                $actions["custom"],
+                [
+                    "activate" => [
+                        "link" => false,
+                        'url' => route('product.featured'),
+                        'icon' => "star",
+                        "color" => "#FF9800",
+                        "params" => [ 'id' ],
+                        "condition" => [
+                            "field" => "is_featured",
+                            "operator" => "in",
+                            "value" => [0]
+                        ],
+                        "title" => "Destacar producto"
                     ]
                 ]
             );

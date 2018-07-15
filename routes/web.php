@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/product/charge', 'Admin\ProductController@masive_charge')->name('product.charge');
         Route::post('/product/characteristics-update', 'Admin\ProductController@characteristics_update')->name('product.characteristics_update');
         Route::post('/product/seo-update', 'Admin\ProductController@update_seo')->name('product.update_seo');
+        Route::post('/product/featured', 'Admin\ProductController@featured_product')->name('product.featured');
 
         // Images Product
         Route::post('/single-product/images/add', 'Admin\ProductController@add_image_product')->name('single.product.images.add');
@@ -58,6 +59,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/service/charge', 'Admin\ServiceController@masive_charge')->name('service.charge');
         Route::post('/service/characteristics-update', 'Admin\ServiceController@characteristics_update')->name('service.characteristics_update');
         Route::post('/service/seo-update', 'Admin\ServiceController@update_seo')->name('service.update_seo');
+        Route::get('/service/featured', 'Admin\ServiceController@featured_service')->name('service.featured');
 
 
         // Ocasiones
