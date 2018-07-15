@@ -10,14 +10,22 @@ export default class ProductEditComponent extends React.Component {
         this.data_sex = JSON.parse(this.props.data_sex);
         this.data_ages = JSON.parse(this.props.data_ages);
         this.data_events = JSON.parse(this.props.data_events);
+        this.data_brands = JSON.parse(this.props.data_brands);
         this.data_interests = JSON.parse(this.props.data_interests);
 
         this.handleChange = this.handleChange.bind(this);
 
         this.fields = {
             id:{type:"hidden"},
-            sku_code:{title:"Código del producto",type:"text",required:true,width:6},
-            name:{title:"Nombre del producto",type:"text",required:true,width:6},
+            sku_code:{title:"Código del producto",type:"text",required:true,width:4},
+            name:{title:"Nombre del producto",type:"text",required:true,width:4},
+            brand_id:{
+                title:"Marca",
+                type:"map",
+                required:true,
+                width:4,
+                options:this.data_brands
+            },
             discount:{title:"Descuento",type:"text",required:true,width:4},
             price:{title:"Precio",type:"text",required:true,width:4},
             product_presentation:{
@@ -63,7 +71,7 @@ export default class ProductEditComponent extends React.Component {
                 ],
                 width:4
             },
-      /*      event:{
+            /*event:{
                 title:"Ocasión",
                 type:"map",
                 multiple:true,
@@ -117,22 +125,24 @@ export default class ProductEditComponent extends React.Component {
 }
 
 if (document.getElementsByClassName('update-product-component')) {
-    var elements=document.getElementsByClassName('update-product-component');
-    var count=elements.length;
-    for(var i=0;i<count;i++) {
+    let elements=document.getElementsByClassName('update-product-component');
+    let count=elements.length;
+    for(let i=0;i<count;i++) {
         let element = elements[i];
-        var default_data = element.getAttribute('default_data');
-        var data_update_url = element.getAttribute('data_update_url');
-        var data_sex = element.getAttribute('data_sex');
-        var data_ages = element.getAttribute('data_ages');
-        var data_events = element.getAttribute('data_events');
-        var data_interests = element.getAttribute('data_interests');
+        let default_data = element.getAttribute('default_data');
+        let data_update_url = element.getAttribute('data_update_url');
+        let data_sex = element.getAttribute('data_sex');
+        let data_ages = element.getAttribute('data_ages');
+        let data_events = element.getAttribute('data_events');
+        let data_interests = element.getAttribute('data_interests');
+        let data_brands = element.getAttribute('data-brands');
 
         ReactDOM.render(<ProductEditComponent
             data_ages={data_ages}
             data_sex={data_sex}
             data_events={data_events}
             data_interests={data_interests}
+            data_brands={data_brands}
             data_update_url={data_update_url}
             default_data={default_data} />, element);
     }

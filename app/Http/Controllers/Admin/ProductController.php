@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Brand;
 use App\Models\Event;
 use App\Models\Interest;
 use App\Models\Product;
@@ -11,6 +12,7 @@ use App\Models\StoreImage;
 use App\Utils\ParametersUtil;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Mockery\Exception;
 use Faker\Factory;
@@ -48,7 +50,8 @@ class ProductController extends Controller
     }
 
     public function lists(){
-        $products = Product::where('status', 0)->orWhere('status', 1)->get();
+        //$products = Product::where('status', 0)->orWhere('status', 1)->get();
+        $products = DB::select('call products');
         return response()->json($products);
     }
 
@@ -108,11 +111,20 @@ class ProductController extends Controller
             }, Interest::all()->toArray()
         );
 
+        $brands = array_map(
+            function($item){
+                return [
+                    "id" => $item["id"],
+                    "value" => $item["name"]
+                ];
+            }, Brand::all()->toArray()
+        );
+
         $product_characteristics = ProductCharacteristic::with('values')->get();
 
         return view('admin.products.edit', compact(
                 'store_images','product',
-                'store_id', 'sex',
+                'store_id', 'sex', 'brands',
                 'ages', 'events',
                 'interests', 'product_characteristics')
         );

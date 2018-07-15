@@ -24,6 +24,7 @@ class Product extends Model
         'event',
         'interest',
         'store_id',
+        'brand_id',
         'product_characteristic_id',
         'product_characteristic_values',
         'meta_title',
@@ -38,7 +39,6 @@ class Product extends Model
     }
 
     public function store(){
-
         return $this->belongsTo('App\Models\Store');
     }
 
@@ -61,6 +61,10 @@ class Product extends Model
 
     public function productcharacteristic(){
         return $this->hasOne("App\Models\ProductCharacteristic", "id", "product_characteristic_id");
+    }
+
+    public function brand(){
+        return $this->hasOne("App\Models\Brand", "id", "brand_id");
     }
 
 }
