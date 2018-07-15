@@ -32,16 +32,17 @@ class StoreController extends Controller {
     public function store(Request $request){
         $legal_representative = $request->input('legal_representative');
         $comercial_contact = $request->input('comercial_contact');
+        $store = $request->input("store");
 
         $validator = Validator::make($request->all(), [
-            'comercial_name' => 'required|max:255|unique:stores',
-            'business_name' => 'required|max:255|unique:stores',
-            'ruc' => 'required|unique:stores',
-            'legal_address' => 'required',
+            'store.comercial_name' => 'required|max:255|unique:stores',
+            'store.business_name' => 'required|max:255|unique:stores',
+            'store.ruc' => 'required|unique:stores',
+            'store.legal_address' => 'required',
+            'store.business_turn'=> 'max:255',
             'legal_representative.name' => 'required',
             'legal_representative.document_number' => 'required',
             'legal_representative.phone' => 'required',
-            'business_turn'=> 'max:255',
             'comercial_contact.name' => 'required',
             'comercial_contact.document_number' => 'required',
             'comercial_contact.phone' => 'required',
@@ -53,13 +54,13 @@ class StoreController extends Controller {
         }
 
         $store = Store::create([
-            'business_name' => $request->get('business_name'),
-            'comercial_name' => $request->get('comercial_name'),
-            'ruc' => $request->get('ruc'),
-            'legal_address' => $request->get('legal_address'),
-            'business_turn' => $request->get('business_turn'),
-            'site_url' => $request->has('cci_account_number')?$request->get('cci_account_number'):'',
-            'phone' => $request->has('phone')?$request->get('phone'):null
+            'business_name' => $store['business_name'],
+            'comercial_name' => $store['comercial_name'],
+            'ruc' => $store['ruc'],
+            'legal_address' => $store['legal_address'],
+            'business_turn' => $store['business_turn'],
+            'site_url' => isset($store['cci_account_number']) ? $store['cci_account_number'] : '',
+            'phone' => isset($store['phone']) ? $store['phone'] : null
         ]);
 
         //Creando representante legal
