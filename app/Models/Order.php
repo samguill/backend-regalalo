@@ -19,7 +19,7 @@ class Order extends Model
         'created_at'
     ];
 
-    protected $appends = ['client_name','store_name'];
+    protected $appends = ['client_name','store_name', 'order_type'];
 
     public function orderdetails()
     {
@@ -47,6 +47,18 @@ class Order extends Model
     public function getStoreNameAttribute()
     {
         return $this->store->comercial_name;
+    }
+
+    public function getOrderTypeAttribute()
+    {
+        //TODO: En el futuro se podrían solicitar más productos o servicios en una sola orden. Quedaría pendiente discriminarlo de otra forma
+        $orderdetail = $this->orderdetails()->first();
+        if($orderdetail->product_id != null){
+            return 'product';
+        }else{
+
+            return 'service';
+        }
     }
 
 

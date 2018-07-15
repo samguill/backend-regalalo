@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Mail\ShippingOrder;
 use App\Models\Client;
 use App\Models\ClientDirection;
+use App\Models\Coupon;
+use App\Models\CouponMovement;
 use App\Models\Inventory;
 use App\Models\InventoryMovement;
 use App\Models\Order;
@@ -135,8 +137,15 @@ class OrderController extends Controller
                 }else{
                     $order->update(['status' => 'A']);
                 }
-                //Actualizando el inventario de acuerdo a la compra
-                $this->inventory($order);
+                //Actualizando el inventario o cupon de acuerdo al tipo de compra
+                if($order->order_type=='product'){
+
+                    $this->inventory($order);
+
+                }else{
+
+                    $this->coupon($order);
+                }
 
                 // Mensaje a cliente
                 Mail::to(["marzioperez@gmail.com"])->send(new ShippingOrder($order, "client"));
@@ -170,6 +179,31 @@ class OrderController extends Controller
                 ]);
                 InventoryMovement::create([
                     'inventory_id' => $inventory->id,
+                    'quantity' => $od['quantity'],
+                    'order_id'=>$order->id,
+                    'movement_type' => 'E'
+                ]);
+            }
+        }
+    }
+
+
+    public function coupon($order){
+        // Se obtiene la orden
+        $order = Order::find($order->id);
+        // Se obtiene el detalle de la orden
+        $order_details = OrderDetail::where('order_id', $order->id)->get();
+        foreach ($order_details as $od){
+            $store_branche_id = $od['store_branche_id'];
+            //Cupones
+            $coupon = Coupon::where('service_id', $od['service_id'])->where('store_branche_id', $store_branche_id)->first();
+            if(isset($coupon)){
+                // Se realiza el movimiento de cupones de tipo E: Egreso
+                $coupon->update([
+                    'quantity' => $coupon->quantity - $od['quantity']
+                ]);
+                CouponMovement::create([
+                    'coupon_id' => $coupon->id,
                     'quantity' => $od['quantity'],
                     'order_id'=>$order->id,
                     'movement_type' => 'E'
