@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth']], function(){
 
         Route::post('/product/characteristics-store', 'Admin\ProductController@characteristics_store')->name('product.characteristics_store');
         Route::post('/product/characteristics-update', 'Admin\ProductController@characteristics_update')->name('product.characteristics_update');
+        Route::post('/product/characteristics-delete', 'Admin\ProductController@characteristics_delete')->name('product.characteristics_delete');
 
         Route::post('/product/seo-update', 'Admin\ProductController@update_seo')->name('product.update_seo');
 

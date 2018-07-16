@@ -176,6 +176,14 @@ class ProductController extends Controller
         return response()->json(['status' => 'ok', 'data' => $model]);
     }
 
+    public function characteristics_delete(Request $request){
+        $data = $request->all();
+        $product = ProductCharacteristicDetail::find($data["id"]);
+        $product->delete();
+        $model = ProductCharacteristicDetail::with('characteristic')->find($data["id"]);
+        return response()->json(['status' => 'ok', 'data' => $model]);
+    }
+
     // Carga masiva
     public function masive_charge(Request $request){
         $file = $request->file('excel');

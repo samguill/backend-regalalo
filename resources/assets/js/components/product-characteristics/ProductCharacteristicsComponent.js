@@ -14,6 +14,7 @@ export default class ProductCharacteristicsComponent extends React.Component {
         this.product_id = this.props.product_id;
         this.data_update_url = this.props.data_update_url;
         this.data_store_url = this.props.data_store_url;
+        this.data_delete_url = this.props.data_delete_url;
 
         this.product_characteristics = this.data_product_characteristics.map((element) => {
             let obj = {};
@@ -148,13 +149,46 @@ export default class ProductCharacteristicsComponent extends React.Component {
     }
 
     edit(data){
-        //let values = data.product_characteristic_values;
         let opt = {};
         opt["value"] = data.id;
         this.onSelectCharacteristic(opt);
         this.setState({
             id:data.id,
             updating: true
+        });
+    }
+
+    delete(row){
+        swal({
+            title: "¿Estás seguro?",
+            text: "Si eliminas este item no podrás recuperarlo",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Si, eliminar",
+            showLoaderOnConfirm: true,
+            closeOnConfirm: false
+        },()=> {
+            axios.post(this.data_delete_url,{id:row}).then((r)=>{
+                if(r.data.status ==='ok') {
+                    swal({  title: "Eliminación Exitosa",
+                        text: "El elemento ha sido eliminado de manera exitosa.",
+                        type: "success"});
+                    if(this.state.id === row){
+                        this.clearForm();
+                    }
+                    this.setState({product_characteristics_detail:this.state.product_characteristics_detail.filter((item) => item.id !== row)});
+                }
+                if(r.data.status==='error') {
+                    swal({  title: "Ha ocurrido un error al Eliminar",
+                        text: "Por favor intente una vez más.",
+                        type: "error"})
+                }
+            }).catch((e)=>{
+                swal({  title: "Ha ocurrido un error al Eliminar",
+                    text: "Por favor intente una vez más.",
+                    type: "error"})
+            })
         });
     }
 
@@ -250,8 +284,8 @@ export default class ProductCharacteristicsComponent extends React.Component {
 }
 
 if (document.getElementsByClassName('characteristics-product-component')) {
-    var elements = document.getElementsByClassName('characteristics-product-component');
-    var count = elements.length;
+    let elements = document.getElementsByClassName('characteristics-product-component');
+    let count = elements.length;
     for(let i = 0; i < count; i++) {
         let element = elements[i];
         let data_product_characteristics = element.getAttribute("data_product_characteristics");
@@ -259,10 +293,12 @@ if (document.getElementsByClassName('characteristics-product-component')) {
         let data_update_url = element.getAttribute("data_update_url");
         let data_store_url = element.getAttribute('data_store_url');
         let data_product_characteristics_detail = element.getAttribute("data_product_characteristics_detail");
+        let data_delete_url = element.getAttribute("data_delete_url");
 
         ReactDOM.render(<ProductCharacteristicsComponent
             data_product_characteristics={data_product_characteristics}
             data_product_characteristics_detail={data_product_characteristics_detail}
+            data_delete_url={data_delete_url}
             product_id={product_id}
             data_update_url={data_update_url}
             data_store_url={data_store_url}

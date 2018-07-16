@@ -43,6 +43,7 @@
                                     data_product_characteristics_detail="{{json_encode($product->productcharacteristicsdetail)}}"
                                     data_product_characteristics="{{json_encode($product_characteristics)}}"
                                     data_update_url="{{route('product.characteristics_update')}}"
+                                    data_delete_url="{{route('product.characteristics_delete')}}"
                                     data_store_url="{{route('product.characteristics_store')}}"></div>
                             </div>
                         </div>
