@@ -25,8 +25,6 @@ class Product extends Model
         'interest',
         'store_id',
         'brand_id',
-        'product_characteristic_id',
-        'product_characteristic_values',
         'meta_title',
         'meta_description',
         'featured_image',
@@ -62,6 +60,10 @@ class Product extends Model
 
     public function productcharacteristic(){
         return $this->hasOne("App\Models\ProductCharacteristic", "id", "product_characteristic_id");
+    }
+
+    public function productcharacteristicsdetail(){
+        return $this->hasMany('App\Models\ProductCharacteristicDetail', 'product_id', 'id');
     }
 
     public function brand(){

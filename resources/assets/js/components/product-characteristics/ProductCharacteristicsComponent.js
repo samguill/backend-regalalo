@@ -10,29 +10,33 @@ export default class ProductCharacteristicsComponent extends React.Component {
     constructor(props) {
         super(props);
         this.data_product_characteristics = JSON.parse(this.props.data_product_characteristics);
+        this.data_product_characteristics_detail = JSON.parse(this.props.data_product_characteristics_detail);
         this.product_id = this.props.product_id;
         this.data_update_url = this.props.data_update_url;
-        this.characteristic_values = this.props.characteristic_values;
-        this.characteristic_id = this.props.characteristic_id;
+        this.data_store_url = this.props.data_store_url;
 
         this.product_characteristics = this.data_product_characteristics.map((element) => {
-            var obj = {};
+            let obj = {};
             obj["label"] = element.name;
             obj["value"] = element.id;
             return obj;
         });
 
         this.state = {
-            id: this.characteristic_id,
+            id: '',
             values_array: [],
             values: [],
+            product_characteristic_id: '',
             product_characteristics: this.data_product_characteristics,
-            is_loading: false
+            product_characteristics_detail: this.data_product_characteristics_detail,
+            is_loading: false,
+            updating: false
         };
 
         this.onSelectCharacteristic = this.onSelectCharacteristic.bind(this);
         this.onSelectValue = this.onSelectValue.bind(this);
         this.setValues = this.setValues.bind(this);
+        this.clearForm = this.clearForm.bind(this);
     }
 
     componentDidMount(){
@@ -42,20 +46,20 @@ export default class ProductCharacteristicsComponent extends React.Component {
     }
 
     onSelectCharacteristic(option){
-        let characteristic = this.data_product_characteristics.filter((item) => item.id == option.value);
+        let characteristic = this.data_product_characteristics.filter((item) => item.id === option.value);
         let values = characteristic[0].values.map((element) => {
-            var obj = {};
+            let obj = {};
             obj["label"] = element.value;
             obj["value"] = element.id;
             return obj;
         });
-        this.setState({id:option.value, values_array:values, values:[]});
+        this.setState({product_characteristic_id:option.value, values_array:values, values:[]});
     }
 
     setValues(id){
-        let characteristic = this.data_product_characteristics.filter((item) => item.id == parseInt(id));
+        let characteristic = this.data_product_characteristics.filter((item) => item.id === parseInt(id));
         let values = characteristic[0].values.map((element) => {
-            var obj = {};
+            let obj = {};
             obj["label"] = element.value;
             obj["value"] = element.id;
             return obj;
@@ -71,7 +75,6 @@ export default class ProductCharacteristicsComponent extends React.Component {
                 }
             });
         });
-
         this.setState({values_array:values, values: filter});
     }
 
@@ -81,21 +84,33 @@ export default class ProductCharacteristicsComponent extends React.Component {
 
     storeCharacteristics(){
         this.setState({is_loading:true});
-        var obj = [];
-        let values = this.state.values.map((element) => {
+        let obj = [];
+        let url = "";
+        let message = "";
+        this.state.values.map((element) => {
             obj.push(element.label)
         });
         let data = {
+            id: this.state.id,
             product_id: this.product_id,
-            product_characteristic_id: this.state.id,
+            product_characteristic_id: this.state.product_characteristic_id,
             product_characteristic_values: obj.toString()
         };
-        axios.post(this.data_update_url, data)
+
+        if(this.state.updating){
+            url = this.data_update_url;
+            message = "La información se ha actualizado de manera exitosa.";
+        }else{
+            url = this.data_store_url;
+            message = "Se ha creado el registro.";
+        }
+
+        axios.post(url, data)
             .then((response) => {
                 if(response.data.status === "ok") {
                     swal({
                         title: "Operación Exitosa",
-                        text: "La información se ha actualizado de manera exitosa.",
+                        text: message,
                         type: "success"
                     });
                 }
@@ -106,7 +121,21 @@ export default class ProductCharacteristicsComponent extends React.Component {
                         type: "error"
                     });
                 }
-                this.setState({is_loading:false});
+                if (this.state.updating){
+                    let list = this.state.product_characteristics_detail.map((item)=>{
+                        if (response.data.data.id === item.id) {
+                            item = response.data.data
+                        }
+                        return item;
+                    });
+                    this.setState({product_characteristics_detail:list, is_loading:false})
+                }else{
+                    this.setState({
+                        product_characteristics_detail:this.state.product_characteristics_detail.concat(response.data.data),
+                        is_loading:false
+                    });
+                }
+                this.clearForm();
             })
             .catch((error) => {
                 this.setState({is_loading:false});
@@ -118,41 +147,102 @@ export default class ProductCharacteristicsComponent extends React.Component {
             });
     }
 
+    edit(data){
+        //let values = data.product_characteristic_values;
+        let opt = {};
+        opt["value"] = data.id;
+        this.onSelectCharacteristic(opt);
+        this.setState({
+            id:data.id,
+            updating: true
+        });
+    }
+
+    clearForm(){
+        this.setState({
+            id: '',
+            values_array: [],
+            product_characteristics: '',
+            updating: false
+        })
+    }
+
     render() {
         return (
             <div style={{margin: '10px'}}>
-                <div className="row">
-                    <div className="col-md-4">
-                        <div className="form-group">
-                            <lable>Característica</lable>
-                            <Select
-                                className="form-control"
-                                name="id"
-                                options={this.product_characteristics}
-                                value={this.state.id}
-                                onChange={this.onSelectCharacteristic}
-                            />
+                <form>
+                    <div className="row">
+                        <div className="col-md-4 border-right">
+                            <h5 className="underline mb-20">Registrar / Editar</h5>
+                            <div className="form-group">
+                                <lable>Característica</lable>
+                                <Select
+                                    className="form-control"
+                                    name="id"
+                                    options={this.product_characteristics}
+                                    value={this.state.id}
+                                    onChange={this.onSelectCharacteristic}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <lable>Valores</lable>
+                                <Select
+                                    className="form-control"
+                                    name="values"
+                                    value={this.state.values}
+                                    options={this.state.values_array}
+                                    multi={true}
+                                    onChange={this.onSelectValue}
+                                />
+                            </div>
+                            <div className="form-group" style={{textAlign:"center"}}>
+                                <div className="row">
+                                    <div className={"col-md-" + (this.state.updating ? 6 : 12)}>
+                                        <a className="btn btn-success text-white btn-block" onClick={(e) => { this.storeCharacteristics()}}>
+                                            { (this.state.is_loading) ? <em className="fa fa-refresh fa-spin"></em> : 'Guardar'}
+                                        </a>
+                                    </div>
+                                    { this.state.updating ? <div className="col-md-6">
+                                        <a className="btn btn-danger text-white btn-block" onClick={this.clearForm}>Limpiar</a>
+                                    </div> : null}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-8">
+                            <table className="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Catacterística</th>
+                                        <td>Valores</td>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        this.state.product_characteristics_detail.map((row, ri) => {
+                                            return <tr key={ri}>
+                                                <td>{row.characteristic.name}</td>
+                                                <td>{row.product_characteristic_values}</td>
+                                                <td>
+                                                    <Tooltip title={'Editar'} position={"top"}>
+                                                        <button type="button"  className="btn btn-primary btn-sm" style={{margin:"2px"}} onClick={(e)=> {this.edit(row)}}>
+                                                            <em className="fa fa-edit" />
+                                                        </button>
+                                                    </Tooltip>
+                                                    <Tooltip title={'Eliminar'} position={"top"}>
+                                                        <button type="button" className="btn btn-danger btn-sm" style={{margin:"2px"}} onClick={(e)=> {this.delete(row.id)}}>
+                                                            <em className="fa fa-trash" />
+                                                        </button>
+                                                    </Tooltip>
+                                                </td>
+                                            </tr>
+                                        })
+                                    }
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div className="col-md-8">
-                        <div className="form-group">
-                            <lable>Valores</lable>
-                            <Select
-                                className="form-control"
-                                name="values"
-                                value={this.state.values}
-                                options={this.state.values_array}
-                                multi={true}
-                                onChange={this.onSelectValue}
-                            />
-                        </div>
-                    </div>
-                    <div className={"col-md-12"}>
-                        <a className="btn btn-success text-white btn-block" onClick={(e) => { this.storeCharacteristics()}}>
-                            { (this.state.is_loading) ? <em className="fa fa-refresh fa-spin"></em> : 'Guardar'}
-                        </a>
-                    </div>
-                </div>
+                </form>
             </div>
         )
     }
@@ -167,15 +257,15 @@ if (document.getElementsByClassName('characteristics-product-component')) {
         let data_product_characteristics = element.getAttribute("data_product_characteristics");
         let product_id = element.getAttribute("product_id");
         let data_update_url = element.getAttribute("data_update_url");
-        let characteristic_id = element.getAttribute("characteristic_id");
-        let characteristic_values = element.getAttribute("characteristic_values");
+        let data_store_url = element.getAttribute('data_store_url');
+        let data_product_characteristics_detail = element.getAttribute("data_product_characteristics_detail");
 
         ReactDOM.render(<ProductCharacteristicsComponent
             data_product_characteristics={data_product_characteristics}
+            data_product_characteristics_detail={data_product_characteristics_detail}
             product_id={product_id}
             data_update_url={data_update_url}
-            characteristic_id={characteristic_id}
-            characteristic_values={characteristic_values}
+            data_store_url={data_store_url}
         />, element);
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\Interest;
 use App\Models\Product;
 use App\Models\ProductCharacteristic;
+use App\Models\ProductCharacteristicDetail;
 use App\Models\Store;
 use App\Models\StoreImage;
 use App\Utils\ParametersUtil;
@@ -69,7 +70,8 @@ class ProductController extends Controller
     public function edit(Request $request){
         $data = $request->all();
 
-        $product = Product::with('productimages.store_image')->where("id", $data["id"])->first();
+        $product = Product::with('productimages.store_image', 'productcharacteristicsdetail.characteristic')
+            ->where("id", $data["id"])->first();
         $store = Store::find($product->store_id);
         $store_id = $store->id;
         $store_images = StoreImage::where('store_id', $store_id)->get();
@@ -151,15 +153,27 @@ class ProductController extends Controller
             return response()->json(['status'=>'error', 'message' => "No se pudo actualizar el registro."]);
     }
 
-    // Actualización de características del producto
+    // Mantenimiento de características del producto
+    public function characteristics_store(Request $request){
+        $data = $request->all();
+        $detail = ProductCharacteristicDetail::create([
+            "product_id" => $data["product_id"],
+            'product_characteristic_id' => $data["product_characteristic_id"],
+            'product_characteristic_values' => $data["product_characteristic_values"]
+        ]);
+        $model = ProductCharacteristicDetail::with('characteristic')->find($detail->id);
+        return response()->json(['status' => 'ok', 'data' => $model]);
+    }
+
     public function characteristics_update(Request $request){
         $data = $request->all();
-        $product = Product::find($data["product_id"]);
+        $product = ProductCharacteristicDetail::find($data["id"]);
         $product->update([
             'product_characteristic_id' => $data["product_characteristic_id"],
             'product_characteristic_values' => $data["product_characteristic_values"]
         ]);
-        return response()->json(['status' => 'ok', 'data' => $data]);
+        $model = ProductCharacteristicDetail::with('characteristic')->find($data["id"]);
+        return response()->json(['status' => 'ok', 'data' => $model]);
     }
 
     // Carga masiva

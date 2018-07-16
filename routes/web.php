@@ -40,9 +40,12 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/product/delete', 'Admin\ProductController@delete')->name('product.delete');
         Route::post('/product/create', 'Admin\ProductController@create')->name('product.create');
         Route::post('/product/charge', 'Admin\ProductController@masive_charge')->name('product.charge');
-        Route::post('/product/characteristics-update', 'Admin\ProductController@characteristics_update')->name('product.characteristics_update');
-        Route::post('/product/seo-update', 'Admin\ProductController@update_seo')->name('product.update_seo');
         Route::post('/product/featured', 'Admin\ProductController@featured_product')->name('product.featured');
+
+        Route::post('/product/characteristics-store', 'Admin\ProductController@characteristics_store')->name('product.characteristics_store');
+        Route::post('/product/characteristics-update', 'Admin\ProductController@characteristics_update')->name('product.characteristics_update');
+
+        Route::post('/product/seo-update', 'Admin\ProductController@update_seo')->name('product.update_seo');
 
         // Images Product
         Route::post('/single-product/images/add', 'Admin\ProductController@add_image_product')->name('single.product.images.add');
