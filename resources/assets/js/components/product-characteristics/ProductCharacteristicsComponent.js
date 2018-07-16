@@ -180,7 +180,7 @@ export default class ProductCharacteristicsComponent extends React.Component {
                                     className="form-control"
                                     name="id"
                                     options={this.product_characteristics}
-                                    value={this.state.id}
+                                    value={this.state.product_characteristic_id}
                                     onChange={this.onSelectCharacteristic}
                                 />
                             </div>
