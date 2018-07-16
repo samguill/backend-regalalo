@@ -55,6 +55,15 @@ class SearchController extends Controller
         }
 
 
+        $query->addSelect(
+            DB::raw(
+                '(select EXISTS (select 1 from store_branches, branch_opening_hours
+                where branch_opening_hours.store_branche_id = store_branches.id
+                AND  branch_opening_hours.weekday = WEEKDAY(CURDATE())
+                AND  (CURTIME() >= branch_opening_hours.start_hour ) AND ( CURTIME() <= branch_opening_hours.end_hour) 
+                )) as open'));
+
+
         //Se busca por descripción y el nombre
         if($request->has('searchtext')){
 
