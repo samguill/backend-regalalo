@@ -111,8 +111,7 @@ class ProductController extends Controller
 
     }
 
-    public function detail(Request $request)
-    {
+    public function detail(Request $request) {
         $data = [];
         $latitude='';
         $longitude ='';
@@ -120,28 +119,23 @@ class ProductController extends Controller
         if($request->has('longitude')) $longitude =   $request->input('longitude');
 
         if($request->has('slug')){
-
             $slug = $request->input('slug');
-
-            $data = Product::where('slug',$slug)->with(['productimages.store_image','store.branches' => function ($query) use($latitude,$longitude) {
-
-                if($latitude!= '' and $longitude!= '')
-                $query->orderByRaw(' acos(sin(radians(store_branches.latitude)) * sin(radians('.$latitude.')) +
-                    cos(radians(store_branches.latitude)) * cos(radians('.$latitude.')) *
-                    cos(radians(store_branches.longitude) - radians('.$longitude.'))) * 6378 ASC');
-
+            $data = Product::where('slug',$slug)->with([
+                'productimages.store_image',
+                'productcharacteristicsdetail.characteristic',
+                'store.branches' => function ($query) use($latitude,$longitude) {
+                    if($latitude!= '' and $longitude!= '')
+                    $query->orderByRaw(' acos(sin(radians(store_branches.latitude)) * sin(radians('.$latitude.')) +
+                        cos(radians(store_branches.latitude)) * cos(radians('.$latitude.')) *
+                        cos(radians(store_branches.longitude) - radians('.$longitude.'))) * 6378 ASC');
             }
 
-
             ])->first();
-
         };
-
         return response()->json(['status'=>'ok', 'data'=>$data]);
-
     }
 
-    public function branche(Request $request){
+    public function branche(Request $request) {
         $data = $request->all();
         $branch = StoreBranch::find($data["store_branche_id"]);
         return response()->json(['status'=>'ok', 'data'=>$branch]);
