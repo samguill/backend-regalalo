@@ -14,7 +14,7 @@ export default class StoreBranchesComponent extends React.Component {
         super(props);
 
         this.getBranches = this.getBranches.bind(this);
-
+        this.weeks = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sabado','Domingo'];
         this.storeid = this.props.storeid;
         this.url_brancheslist = this.props.url_brancheslist;
         this.url_create_branch = this.props.url_create_branch;
@@ -28,11 +28,10 @@ export default class StoreBranchesComponent extends React.Component {
             address: '',
             phone: '',
             branch_email: '',
-            business_hour_1: '',
-            business_hour_2: '',
             updating: false,
             is_loading: false,
             branches: [],
+            branchopeninghours:[],
             zoom: 13,
             maptype: 'roadmap'
         };
@@ -45,8 +44,6 @@ export default class StoreBranchesComponent extends React.Component {
         this.clearForm = this.clearForm.bind(this);
         this.onPhoneChage = this.onPhoneChage.bind(this);
         this.onBranchEmailChage = this.onBranchEmailChage.bind(this);
-        this.onBH1Chage = this.onBH1Chage.bind(this);
-        this.onBH2Chage = this.onBH2Chage.bind(this);
         this.iniMap = this.iniMap.bind(this);
     }
 
@@ -57,8 +54,7 @@ export default class StoreBranchesComponent extends React.Component {
     onAddressChage(e){ this.setState({address:e.target.value}); }
     onPhoneChage(e){ this.setState({phone:e.target.value}); }
     onBranchEmailChage(e){ this.setState({branch_email:e.target.value}); }
-    onBH1Chage(e){ this.setState({business_hour_1:e.target.value}); }
-    onBH2Chage(e){ this.setState({business_hour_2:e.target.value}); }
+
 
     componentDidMount(){
         this.getBranches();
@@ -129,6 +125,7 @@ export default class StoreBranchesComponent extends React.Component {
     }
 
     editBranch(row){
+        //console.log(row.branchopeninghours);
         this.setState({
             id: row.id,
             name: row.name,
@@ -137,8 +134,7 @@ export default class StoreBranchesComponent extends React.Component {
             longitude: row.longitude,
             phone: row.phone,
             branch_email: row.branch_email,
-            business_hour_1: row.business_hour_1,
-            business_hour_2: row.business_hour_2,
+            branchopeninghours:row.branchopeninghours,
             updating: true
         });
 
@@ -175,8 +171,6 @@ export default class StoreBranchesComponent extends React.Component {
             longitude: '',
             phone: '',
             branch_email: '',
-            business_hour_1: '',
-            business_hour_2: '',
             updating: false
         });
         this.iniMap();
@@ -238,7 +232,7 @@ export default class StoreBranchesComponent extends React.Component {
                     <input type="hidden" name="store_id" id="store_id" value={this.props.storeid} />
                     <input type="hidden" name="id" value={this.state.id} onChange={this.onIdChage} />
                     <div className="row">
-                        <div className="col-md-4 b-right">
+                        <div className="col-md-5 b-right">
                             <h5 className="underline mb-20">Registrar / Editar</h5>
                             <div className="form-group">
                                 <lable>Nombre de la sucursal</lable>
@@ -256,14 +250,20 @@ export default class StoreBranchesComponent extends React.Component {
                                 <lable>E-mail (aquí se notificarán los pedidos)</lable>
                                 <input id="branch_email" name="branch_email" onChange={this.onBranchEmailChage} className="form-control" type="text" value={this.state.branch_email} />
                             </div>
-                            <div className="form-group">
-                                <lable>Horario de Lunes a Viernes</lable>
-                                <input id="business_hour_1" name="business_hour_1" onChange={this.onBH1Chage} className="form-control" type="text" value={this.state.business_hour_1} />
+                          <div className="form-group">
+                                <lable>Horarios de atención</lable>
+                                {this.state.branchopeninghours.map((i, k) => {
+                                    return ( <div className="row">
+                                        <div className="col-sm-5"><Select className="form-control" value={i.weekday} options={this.weeks.map((val,key)=>{return {label:val,value:key}})}/></div>
+                                        <div className="col-xs-1"><input className="form-control" type="time" value={i.start_hour}/></div>
+                                        <div className="col-xs-1"><input className="form-control" type="time" value={i.end_hour}/></div>
+                                        <div className="col-xs-1"><button type="button" className="btn btn-danger btn-sm" style={{margin:"2px"}} > <em className="fa fa-trash"></em></button></div>
+                                    </div>);
+
+                                })}
+                                <div className="col-xs-1"><button type="button" className="btn btn-success btn-sm" style={{margin:"2px"}} > <em className="fa fa-plus"></em></button></div>
                             </div>
-                            <div className="form-group">
-                                <lable>Horario sábado y domingo</lable>
-                                <input id="business_hour_2" name="business_hour_2" onChange={this.onBH2Chage} className="form-control" type="text" value={this.state.business_hour_2} />
-                            </div>
+
                             <div className="form-group">
                                 <lable>Latitud</lable>
                                 <input id="latitude" name="latitude" disabled onChange={this.onLatitudeChage} className="form-control" type="text" value={this.state.latitude} />
@@ -284,8 +284,6 @@ export default class StoreBranchesComponent extends React.Component {
                                             longitude: this.state.longitude,
                                             phone:this.state.phone,
                                             branch_email:this.state.branch_email,
-                                            business_hour_1:this.state.business_hour_1,
-                                            business_hour_2:this.state.business_hour_2,
                                             store_id: this.storeid
                                         })}}>
                                             { (this.state.is_loading) ? <em className="fa fa-refresh fa-spin"></em> : 'Guardar'}
@@ -298,7 +296,7 @@ export default class StoreBranchesComponent extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-8">
+                        <div className="col-md-7">
                             <table className="table">
                                 <thead style={{ background: "#f94e19", color: "#FFF" }}>
                                 <tr>

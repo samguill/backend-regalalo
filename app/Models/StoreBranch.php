@@ -15,8 +15,11 @@ class StoreBranch extends Model
         'address',
         'phone',
         'branch_email',
-        'business_hour_1',
-        'business_hour_2',
         'store_id'
     ];
+
+    public function branchopeninghours(){
+
+        return $this->hasMany('App\Models\BranchOpeningHour','store_branche_id', 'id');
+    }
 }

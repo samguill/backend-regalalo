@@ -156,7 +156,7 @@ class StoreController extends Controller
 
     public function listBranches(Request $request){
         $store_id = $request->input('id');
-        $branches = StoreBranch::where('store_id',  $store_id)->get();
+        $branches = StoreBranch::with('branchopeninghours')->where('store_id',  $store_id)->get();
         return response()->json(['status'=>'ok','data' => $branches]);
     }
 
