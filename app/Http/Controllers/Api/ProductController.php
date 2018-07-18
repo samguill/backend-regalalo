@@ -123,6 +123,7 @@ class ProductController extends Controller
             $data = Product::where('slug',$slug)->with([
                 'productimages.store_image',
                 'productcharacteristicsdetail.characteristic',
+                'store.branches.branchopeninghours',
                 'store.branches' => function ($query) use($latitude,$longitude) {
                     if($latitude!= '' and $longitude!= '')
                     $query->orderByRaw(' acos(sin(radians(store_branches.latitude)) * sin(radians('.$latitude.')) +

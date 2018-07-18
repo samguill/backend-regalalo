@@ -32,7 +32,7 @@ class Product extends Model
         'status'
     ];
 
-    protected $appends = ['discount_price'];
+    protected $appends = ['discount_price', 'open'];
     public function productimages() {
         return $this->hasMany('App\Models\ProductImage', 'product_id', 'id');
     }
@@ -68,6 +68,30 @@ class Product extends Model
 
     public function brand(){
         return $this->hasOne("App\Models\Brand", "id", "brand_id");
+    }
+
+    public function inventory(){
+        return $this->belongsTo('App\Models\Inventory','id','product_id');
+    }
+
+    public function getOpenAttribute(){
+
+        $open = false;
+
+        if(isset($this->inventory) && $this->inventory->quantity>0){
+
+        $branchopeninghours = $this->inventory->branch->branchopeninghours()
+            ->whereRaw('branch_opening_hours.weekday = WEEKDAY(CURDATE())
+        AND  (CURTIME() >= branch_opening_hours.start_hour) 
+        AND ( CURTIME() <= branch_opening_hours.end_hour)')->get();
+        }
+
+        if(count($branchopeninghours)>0){
+            $open =true;
+        }
+
+        return $open;
+
     }
 
 }
