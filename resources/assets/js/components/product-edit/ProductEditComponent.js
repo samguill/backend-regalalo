@@ -22,7 +22,6 @@ export default class ProductEditComponent extends React.Component {
             brand_id:{
                 title:"Marca",
                 type:"map",
-                required:true,
                 width:4,
                 options:this.data_brands
             },
