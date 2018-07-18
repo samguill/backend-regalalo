@@ -11,6 +11,7 @@ use App\Models\Inventory;
 use App\Models\InventoryMovement;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\OrderDetailCharacteristic;
 use App\Models\Store;
 use App\Models\StoreBranch;
 use Illuminate\Http\Request;
@@ -323,6 +324,15 @@ class OrderController extends Controller
             $orderdetail['order_id'] = $data->id;
             $orderdetail['store_branche_id'] = $store_branche_id;
             $od = OrderDetail::create($orderdetail);
+            foreach ($orderdetail->order_detail_characteristics as $characteristic){
+                OrderDetailCharacteristic::create([
+                    "order_detail_id" => $od->id,
+                    "product_id" => (isset($orderdetail->product_id) ? $orderdetail->product_id : null),
+                    "service_id" => (isset($orderdetail->service_id) ? $orderdetail->service_id : null),
+                    "characteristic" => $characteristic->characteristic,
+                    "characteristic_value" => $characteristic->value
+                ]);
+            }
         }
         return $data;
     }

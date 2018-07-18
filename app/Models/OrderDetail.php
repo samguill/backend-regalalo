@@ -19,8 +19,7 @@ class OrderDetail extends Model
         'igv'
     ];
 
-    public function order()
-    {
+    public function order() {
         return $this->BelongsTo('App\Models\Order', 'order_id', 'id');
     }
 
@@ -34,5 +33,9 @@ class OrderDetail extends Model
 
     public function branch(){
         return $this->hasOne('App\Models\StoreBranch', 'id', 'store_branche_id');
+    }
+
+    public function characteristic(){
+        return $this->belongsTo("App\Models\OrderDetailCharacteristic", 'order_detail_id', 'id');
     }
 }
