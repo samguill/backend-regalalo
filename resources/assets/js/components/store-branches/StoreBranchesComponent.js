@@ -44,7 +44,12 @@ export default class StoreBranchesComponent extends React.Component {
         this.clearForm = this.clearForm.bind(this);
         this.onPhoneChage = this.onPhoneChage.bind(this);
         this.onBranchEmailChage = this.onBranchEmailChage.bind(this);
+        this.onchangeDayOpen = this.onchangeDayOpen.bind(this);
+        this.onchangeStartHourOpen = this.onchangeStartHourOpen.bind(this);
+        this.onchangeEndHourOpen = this.onchangeEndHourOpen.bind(this);
+        this.addOpeningHours = this.addOpeningHours.bind(this);
         this.iniMap = this.iniMap.bind(this);
+
     }
 
     onIdChage(e){ this.setState({id:e.target.value}); }
@@ -55,6 +60,35 @@ export default class StoreBranchesComponent extends React.Component {
     onPhoneChage(e){ this.setState({phone:e.target.value}); }
     onBranchEmailChage(e){ this.setState({branch_email:e.target.value}); }
 
+    onchangeDayOpen(e,k){
+        var branchopeninghours = this.state.branchopeninghours.slice();
+        branchopeninghours[k].weekday = e.value;
+        this.setState({branchopeninghours:branchopeninghours});
+
+    }
+
+    onchangeStartHourOpen(e,k){
+
+        var branchopeninghours = this.state.branchopeninghours.slice();
+        branchopeninghours[k].start_hour = e.target.value;
+        this.setState({branchopeninghours:branchopeninghours});
+
+    }
+
+    onchangeEndHourOpen(e,k){
+        var branchopeninghours = this.state.branchopeninghours.slice();
+        branchopeninghours[k].end_hour = e.target.value;
+        this.setState({branchopeninghours:branchopeninghours});
+
+    }
+
+    addOpeningHours(){
+
+        var branchopeninghours = this.state.branchopeninghours.slice();
+        branchopeninghours.push({id:'',weekday:'',start_hour:'',end_hour:'',store_branche_id:this.state.id});
+        this.setState({branchopeninghours:branchopeninghours});
+
+    }
 
     componentDidMount(){
         this.getBranches();
@@ -125,7 +159,18 @@ export default class StoreBranchesComponent extends React.Component {
     }
 
     editBranch(row){
-        //console.log(row.branchopeninghours);
+        var branchopeninghours = this.state.branchopeninghours.slice();
+
+        if(row.branchopeninghours===undefined){
+
+            branchopeninghours.push({id:'',weekday:'',start_hour:'',end_hour:'',store_branche_id:this.state.id});
+            this.setState({branchopeninghours:branchopeninghours});
+        }else{
+
+            branchopeninghours =  row.branchopeninghours;
+        }
+
+        console.log(branchopeninghours);
         this.setState({
             id: row.id,
             name: row.name,
@@ -134,7 +179,7 @@ export default class StoreBranchesComponent extends React.Component {
             longitude: row.longitude,
             phone: row.phone,
             branch_email: row.branch_email,
-            branchopeninghours:row.branchopeninghours,
+            branchopeninghours:branchopeninghours,
             updating: true
         });
 
@@ -171,6 +216,7 @@ export default class StoreBranchesComponent extends React.Component {
             longitude: '',
             phone: '',
             branch_email: '',
+            branchopeninghours:[],
             updating: false
         });
         this.iniMap();
@@ -254,14 +300,14 @@ export default class StoreBranchesComponent extends React.Component {
                                 <lable>Horarios de atención</lable>
                                 {this.state.branchopeninghours.map((i, k) => {
                                     return ( <div className="row">
-                                        <div className="col-sm-5"><Select className="form-control" value={i.weekday} options={this.weeks.map((val,key)=>{return {label:val,value:key}})}/></div>
-                                        <div className="col-xs-1"><input className="form-control" type="time" value={i.start_hour}/></div>
-                                        <div className="col-xs-1"><input className="form-control" type="time" value={i.end_hour}/></div>
+                                        <div className="col-sm-5"><Select className="form-control"  onChange={(e)=>{this.onchangeDayOpen(e,k)}} value={this.state.branchopeninghours[k].weekday} options={this.weeks.map((val,key)=>{return {label:val,value:key}})}/></div>
+                                        <div className="col-xs-1"><input className="form-control" type="time" onChange={(e)=>{this.onchangeStartHourOpen(e,k)}} value={this.state.branchopeninghours[k].start_hour}/></div>
+                                        <div className="col-xs-1"><input className="form-control" type="time" onChange={(e)=>{this.onchangeEndHourOpen(e,k)}} value={this.state.branchopeninghours[k].end_hour}/></div>
                                         <div className="col-xs-1"><button type="button" className="btn btn-danger btn-sm" style={{margin:"2px"}} > <em className="fa fa-trash"></em></button></div>
                                     </div>);
 
                                 })}
-                                <div className="col-xs-1"><button type="button" className="btn btn-success btn-sm" style={{margin:"2px"}} > <em className="fa fa-plus"></em></button></div>
+                                <div className="col-xs-1"><button onClick={this.addOpeningHours} type="button" className="btn btn-success btn-sm" style={{margin:"2px"}} > <em className="fa fa-plus"></em></button></div>
                             </div>
 
                             <div className="form-group">
@@ -284,6 +330,7 @@ export default class StoreBranchesComponent extends React.Component {
                                             longitude: this.state.longitude,
                                             phone:this.state.phone,
                                             branch_email:this.state.branch_email,
+                                            branchopeninghours:this.state.branchopeninghours,
                                             store_id: this.storeid
                                         })}}>
                                             { (this.state.is_loading) ? <em className="fa fa-refresh fa-spin"></em> : 'Guardar'}

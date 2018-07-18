@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Mail\Mail\StoreAccess;
+use App\Models\BranchOpeningHour;
 use App\Models\ComercialContact;
 use App\Models\LegalRepresentative;
 use App\Models\StoreBranch;
@@ -157,6 +158,7 @@ class StoreController extends Controller
     public function listBranches(Request $request){
         $store_id = $request->input('id');
         $branches = StoreBranch::with('branchopeninghours')->where('store_id',  $store_id)->get();
+       // $branches = StoreBranch::where('store_id',  $store_id)->get();
         return response()->json(['status'=>'ok','data' => $branches]);
     }
 
@@ -174,6 +176,33 @@ class StoreController extends Controller
     public function update_branch(Request $request){
         $data = $request->all();
         $model = StoreBranch::find($data['id']);
+
+        foreach ($data['branchopeninghours'] as $branchopeninghour) {
+
+            if($branchopeninghour['id']!=''){
+
+                $branchopeninghourmodel = BranchOpeningHour::find($branchopeninghour['id']);
+
+                $branchopeninghourmodel->update([
+                    'weekday' => $branchopeninghour['weekday'],
+                    'start_hour' => $branchopeninghour['start_hour'],
+                    'end_hour' => $branchopeninghour['end_hour'],
+                    'store_branche_id' => $branchopeninghour['store_branche_id']
+                ]);
+            }else{
+
+                BranchOpeningHour::create([
+                    'weekday' => $branchopeninghour['weekday'],
+                    'start_hour' => $branchopeninghour['start_hour'],
+                    'end_hour' => $branchopeninghour['end_hour'],
+                    'store_branche_id' => $branchopeninghour['store_branche_id']
+                ]);
+
+            }
+
+        }
+
+        unset($data['branchopeninghours']);
         unset($data['id']);
         foreach ($data as $field=>$value) {
             $model->$field = $value;
