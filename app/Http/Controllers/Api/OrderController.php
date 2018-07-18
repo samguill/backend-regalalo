@@ -324,14 +324,16 @@ class OrderController extends Controller
             $orderdetail['order_id'] = $data->id;
             $orderdetail['store_branche_id'] = $store_branche_id;
             $od = OrderDetail::create($orderdetail);
-            foreach ($orderdetail->order_detail_characteristics as $characteristic){
-                OrderDetailCharacteristic::create([
-                    "order_detail_id" => $od->id,
-                    "product_id" => (isset($orderdetail->product_id) ? $orderdetail->product_id : null),
-                    "service_id" => (isset($orderdetail->service_id) ? $orderdetail->service_id : null),
-                    "characteristic" => $characteristic->characteristic,
-                    "characteristic_value" => $characteristic->value
-                ]);
+            if(count($orderdetail["order_detail_characteristics"]) > 0){
+                foreach ($orderdetail["order_detail_characteristics"] as $characteristic){
+                    OrderDetailCharacteristic::create([
+                        "order_detail_id" => $od->id,
+                        "product_id" => (isset($orderdetail["product_id"]) ? $orderdetail["product_id"] : null),
+                        "service_id" => (isset($orderdetail["service_id"]) ? $orderdetail["service_id"] : null),
+                        "characteristic" => $characteristic["characteristic"],
+                        "characteristic_value" => $characteristic["value"]
+                    ]);
+                }
             }
         }
         return $data;
