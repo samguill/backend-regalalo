@@ -18,7 +18,7 @@ class SearchController extends Controller
 
         $services = $this->query('services','service_id','coupons',$request);
 
-        $stores = DB::table('stores')->where('comercial_name','LIKE','%'.$request->input('searchtext').'%')->get();
+        $stores = DB::table('stores')->where('comercial_name','LIKE','%'.$request->input('searchtext').'%')->whereNotNull("logo_store")->get();
 
         $result  = $services->union($products)
             ->orderBy('price','ASC')
