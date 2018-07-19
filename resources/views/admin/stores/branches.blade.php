@@ -9,6 +9,7 @@
                          storeid="{{$store_id}}"
                          url_create_branch="{{route('store.branch-create-admin')}}"
                          url_update_branch="{{route('store.branch-update-admin')}}"
+                         url_delete_day_open="{{route('store.delete-day-open')}}"
                     />
                 </div>
             </div>

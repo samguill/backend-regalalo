@@ -19,6 +19,7 @@ export default class StoreBranchesComponent extends React.Component {
         this.url_brancheslist = this.props.url_brancheslist;
         this.url_create_branch = this.props.url_create_branch;
         this.url_update_branch = this.props.url_update_branch;
+        this.url_delete_day_open = this.props.url_delete_day_open;
 
         this.state = {
             id: '',
@@ -48,6 +49,7 @@ export default class StoreBranchesComponent extends React.Component {
         this.onchangeStartHourOpen = this.onchangeStartHourOpen.bind(this);
         this.onchangeEndHourOpen = this.onchangeEndHourOpen.bind(this);
         this.addOpeningHours = this.addOpeningHours.bind(this);
+        this.deleteDayOpen = this.deleteDayOpen.bind(this);
         this.iniMap = this.iniMap.bind(this);
 
     }
@@ -137,11 +139,42 @@ export default class StoreBranchesComponent extends React.Component {
         });
     }
 
+
+
     getBranches(){
         axios.post(this.url_brancheslist, {id:this.storeid})
             .then((response) => {
                 if(response.data.status === "ok"){
                     this.setState({branches: response.data.data});
+                }
+                if(response.data.status === "error"){
+                    swal({
+                        title: "Ha ocurrido un error.",
+                        text: "Por favor intente una vez más.",
+                        type: "error"
+                    });
+                }
+            })
+            .catch(function (error) {
+                swal({  title: "Ha ocurrido un error.",
+                    text: "Por favor intente una vez más.",
+                    type: "error"});
+            });
+    }
+
+    deleteDayOpen(e,k){
+        var branchopeninghours = this.state.branchopeninghours.slice();
+
+        axios.post(this.url_delete_day_open, {id:branchopeninghours[k].id})
+            .then((response) => {
+                if(response.data.status === "ok"){
+
+                    swal({  title: "Operación Exitosa",
+                        text: 'Se eliminó el horario.',
+                        type: "success"});
+
+                    branchopeninghours.splice(k, 1);
+                    this.setState({branchopeninghours:branchopeninghours});
                 }
                 if(response.data.status === "error"){
                     swal({
@@ -170,7 +203,7 @@ export default class StoreBranchesComponent extends React.Component {
             branchopeninghours =  row.branchopeninghours;
         }
 
-        console.log(branchopeninghours);
+
         this.setState({
             id: row.id,
             name: row.name,
@@ -303,7 +336,7 @@ export default class StoreBranchesComponent extends React.Component {
                                         <div className="col-sm-5"><Select className="form-control"  onChange={(e)=>{this.onchangeDayOpen(e,k)}} value={this.state.branchopeninghours[k].weekday} options={this.weeks.map((val,key)=>{return {label:val,value:key}})}/></div>
                                         <div className="col-xs-1"><input className="form-control" type="time" onChange={(e)=>{this.onchangeStartHourOpen(e,k)}} value={this.state.branchopeninghours[k].start_hour}/></div>
                                         <div className="col-xs-1"><input className="form-control" type="time" onChange={(e)=>{this.onchangeEndHourOpen(e,k)}} value={this.state.branchopeninghours[k].end_hour}/></div>
-                                        <div className="col-xs-1"><button type="button" className="btn btn-danger btn-sm" style={{margin:"2px"}} > <em className="fa fa-trash"></em></button></div>
+                                        <div className="col-xs-1">{(this.state.branchopeninghours[k].id!='')?<button type="button" onClick={(e)=>{this.deleteDayOpen(e,k)}}  className="btn btn-danger btn-sm" style={{margin:"2px"}} > <em className="fa fa-trash"></em></button>:''}</div>
                                     </div>);
 
                                 })}
@@ -393,12 +426,14 @@ if (document.getElementsByClassName('store-branches')) {
         var url_brancheslist = element.getAttribute("brancheslist");
         var url_create_branch = element.getAttribute("url_create_branch");
         var url_update_branch = element.getAttribute("url_update_branch");
+        var url_delete_day_open = element.getAttribute("url_delete_day_open");
 
         ReactDOM.render(<StoreBranchesComponent
             storeid={storeid}
             url_brancheslist={url_brancheslist}
             url_create_branch={url_create_branch}
             url_update_branch={url_update_branch}
+            url_delete_day_open={url_delete_day_open}
         />, element);
     }
 }

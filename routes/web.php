@@ -115,6 +115,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/stores/branches-list', 'Admin\StoreController@listBranches')->name('store.branches-lists-admin');
         Route::post('/stores/branch-create', 'Admin\StoreController@create_branch')->name('store.branch-create-admin');
         Route::post('/stores/branch-update', 'Admin\StoreController@update_branch')->name('store.branch-update-admin');
+        Route::post('/stores/delete-day-open', 'Admin\StoreController@deletedayopen')->name('store.delete-day-open');
 
         // Legal Representative
         Route::post('/stores/legal-representative/create', 'Admin\LegalRepresentativeController@create')->name('store.legal-representative-create');

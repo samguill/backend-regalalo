@@ -215,6 +215,13 @@ class StoreController extends Controller
         }
     }
 
+    public function deletedayopen(Request $request){
+        $id = $request->input('id');
+        $branchopeninghour = BranchOpeningHour::find($id);
+        $branchopeninghour->delete();
+        return response()->json(['status'=>'ok','data' => $branchopeninghour]);
+    }
+
     // Carga masiva
     public function masive_charge(Request $request){
         $file = $request->file('excel');
