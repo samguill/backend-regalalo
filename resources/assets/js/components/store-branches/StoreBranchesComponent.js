@@ -270,9 +270,6 @@ export default class StoreBranchesComponent extends React.Component {
         axios.post(url, data)
             .then((response) => {
                 if(response.data.status === "ok"){
-                    swal({  title: "Operación Exitosa",
-                        text: message,
-                        type: "success"});
                     if(this.state.updating){
                         var list = this.state.branches.map((item) => {
                             if(response.data.data.id === item.id){
@@ -285,6 +282,11 @@ export default class StoreBranchesComponent extends React.Component {
                         this.setState({branches: this.state.branches.concat(response.data.data), is_loading: false});
                     }
                     this.clearForm();
+                    swal({  title: "Operación Exitosa",
+                        text: message,
+                        type: "success"}, function () {
+                        window.location = location.href;
+                    });
                 }
                 if(response.data.status === 'error') {
                     swal({
