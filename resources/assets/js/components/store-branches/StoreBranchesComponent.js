@@ -297,7 +297,7 @@ export default class StoreBranchesComponent extends React.Component {
                                 <input id="branch_email" name="branch_email" onChange={this.onBranchEmailChage} className="form-control" type="text" value={this.state.branch_email} />
                             </div>
                           <div className="form-group">
-                                <lable>Horarios de atención</lable>
+                                <lable>Horarios de atención (24hrs)</lable>
                                 {this.state.branchopeninghours.map((i, k) => {
                                     return ( <div className="row">
                                         <div className="col-sm-5"><Select className="form-control"  onChange={(e)=>{this.onchangeDayOpen(e,k)}} value={this.state.branchopeninghours[k].weekday} options={this.weeks.map((val,key)=>{return {label:val,value:key}})}/></div>
