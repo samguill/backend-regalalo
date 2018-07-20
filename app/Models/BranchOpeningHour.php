@@ -14,4 +14,36 @@ class BranchOpeningHour extends Model
         'start_hour',
         'end_hour',
         'store_branche_id'];
+
+    protected $appends = ['day'];
+
+    public function getDayAttribute(){
+
+        switch ($this->weekday) {
+            case 0:
+                return 'Lunes';
+                break;
+            case 1:
+                return 'Martes';
+                break;
+            case 2:
+                return 'Miércoles';
+                break;
+            case 3:
+                return 'Jueves';
+                break;
+            case 4:
+                return 'Viernes';
+                break;
+            case 5:
+                return 'Sábado';
+                break;
+            case 6:
+                return 'Domingo';
+                break;
+            default:
+                return "-";
+        }
+
+    }
 }
