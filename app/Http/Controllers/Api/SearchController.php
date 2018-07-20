@@ -101,7 +101,7 @@ class SearchController extends Controller
 
     }
 
-    public function paginate($items, $perPage = 100, $page = null, $options = [])
+    public static function paginate($items, $perPage = 15, $page = null, $options = [])
     {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);
