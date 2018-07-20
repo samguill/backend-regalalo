@@ -27,6 +27,7 @@ Route::group(['middleware' => 'cors'], function (){
     Route::post('service/detail', 'Api\ServiceController@detail')->name('service.detail');
 
     Route::post('store/products', 'Api\StoreController@products_store');
+    Route::post('brand/products', 'Api\BrandController@products');
     Route::post('product/detail', 'Api\ProductController@detail');
     Route::post('store/branche', 'Api\ProductController@branche');
     Route::post('orders/calculatedelivery', 'Api\OrderController@calculateDelivery');
