@@ -61,8 +61,8 @@ class SearchController extends Controller
                 where branch_opening_hours.store_branche_id = store_branches.id
                 AND  branch_opening_hours.weekday = WEEKDAY(CURDATE())
                 AND  (CURTIME() >= branch_opening_hours.start_hour ) AND ( CURTIME() <= branch_opening_hours.end_hour)
-                AND branch_opening_hours.deleted_at is IS NULL 
-                )) as open'));
+                AND branch_opening_hours.deleted_at IS NULL
+                LIMIT 1)) as open'));
 
 
         //Se busca por descripción y el nombre
