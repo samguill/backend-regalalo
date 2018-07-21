@@ -13,7 +13,11 @@ class BrandController extends Controller {
         $data = $request->all();
         $brand = Brand::where("slug", $data["slug"])->first();
         $products = Product::where("brand_id", $brand->id)->get();
-        $res = SearchController::paginate($products);
+        $page = null;
+        if($data["page"]){
+            $page = $data["page"];
+        }
+        $res = SearchController::paginate($products, $page);
         return response()->json($res);
     }
 
