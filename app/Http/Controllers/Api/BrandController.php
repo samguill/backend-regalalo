@@ -18,7 +18,7 @@ class BrandController extends Controller {
             $page = $data["page"];
         }
         $res = SearchController::paginate($products, 16, $page);
-        return response()->json($res);
+        return response()->json(['status'=>'ok', 'data'=>$res]);
     }
 
 }
