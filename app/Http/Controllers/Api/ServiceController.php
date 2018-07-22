@@ -100,19 +100,28 @@ class ServiceController extends Controller
     }
 
 
-    public function detail(Request $request)
-    {
+    public function detail(Request $request) {
         $data = [];
+        $latitude = '';
+        $longitude = '';
+        if($request->has('latitude')) $latitude =  $request->input('latitude');
+        if($request->has('longitude')) $longitude =   $request->input('longitude');
 
         if($request->has('slug')){
-
             $slug = $request->input('slug');
+            $data = Service::where('slug',$slug)->with([
+                'serviceimages.store_image',
+                //'productcharacteristicsdetail.characteristic',
+                'store.branches.branchopeninghours',
+                'store.branches' => function ($query) use($latitude,$longitude) {
+                    if($latitude!= '' and $longitude!= '')
+                        $query->orderByRaw(' acos(sin(radians(store_branches.latitude)) * sin(radians('.$latitude.')) +
+                        cos(radians(store_branches.latitude)) * cos(radians('.$latitude.')) *
+                        cos(radians(store_branches.longitude) - radians('.$longitude.'))) * 6378 ASC');
+                }
 
-            $data = Service::where('slug',$slug)->with(['serviceimages.store_image','store'])->first();
-
+            ])->first();
         };
-
         return response()->json(['status'=>'ok', 'data'=>$data]);
-
     }
 }
