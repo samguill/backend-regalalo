@@ -125,7 +125,10 @@
                         "condition" => [
                             "field" => "is_featured",
                             "operator" => "in",
-                            "value" => [0]
+                            "value" => [0],
+                            "reverse" => true,
+                            "reverse_color" => "#e28803",
+                            "reverse_title" => "Dejar de destacar"
                         ],
                         "title" => "Destacar producto"
                     ]

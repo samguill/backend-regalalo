@@ -287,7 +287,11 @@ class ProductController extends Controller
     public function featured_product(Request $request){
         $data = $request->all();
         $product = Product::find($data["id"]);
-        $product->update(["is_featured" => true]);
+        if ($product->is_featured){
+            $product->update(["is_featured" => false]);
+        }else{
+            $product->update(["is_featured" => true]);
+        }
         return response()->json(['status'=>'ok', 'data'=>$product]);
     }
 }

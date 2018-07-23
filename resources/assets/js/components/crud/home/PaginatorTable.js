@@ -261,6 +261,11 @@ export default inject("store")(observer(class PaginatorTable extends React.Compo
                                                         <a key={custom_action} onClick={(e)=>{this.handleCustomAction(custom_action,action,row)}}  className="btn btn-primary btn-sm" style={{cursor:"pointer",margin:"2px",color:"white",background:action.color,borderColor:action.color}} >{ (this.state.is_loading && this.state.id_loading == row.id) ? <em className="fa fa-refresh fa-spin"></em> : <em className={"fa fa-"+action.icon}></em>}</a>
                                                     </Tooltip>
                                               }
+                                              if (action.condition.reverse){
+                                                  return <Tooltip key= {ri} title={action.condition.reverse_title} position={"top"}>
+                                                      <a key={custom_action} onClick={(e)=>{this.handleCustomAction(custom_action,action,row)}}  className="btn btn-primary btn-sm" style={{cursor:"pointer",margin:"2px",color:"white",background:action.condition.reverse_color,borderColor:action.condition.reverse_color}} >{ (this.state.is_loading && this.state.id_loading == row.id) ? <em className="fa fa-refresh fa-spin"></em> : <em className={"fa fa-"+action.icon}></em>}</a>
+                                                  </Tooltip>
+                                              }
                                               return <Tooltip key= {ri} title={action.title} position={"top"}>
                                                 <a key={custom_action}  className="btn btn-primary btn-sm" style={{margin:"2px",color:"white",background:"#c7c6c6",borderColor:"#c7c6c6"}}><em className={"fa fa-"+action.icon}></em></a>
                                               </Tooltip>
