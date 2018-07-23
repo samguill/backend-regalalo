@@ -13,6 +13,7 @@ use App\Utils\ParametersUtil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Mockery\Exception;
+use Illuminate\Support\Str;
 
 class ServiceController extends Controller
 {
@@ -45,7 +46,7 @@ class ServiceController extends Controller
     public function create(Request $request){
         try{
             $data = $request->all();
-           // $data['experience'] = json_encode(array_map(function($experience){return intval($experience);},explode(",",$data['experience'])));
+            $data['slug'] = Str::slug($data["name"]);
             $data["age"] = $data["min_age"] . "," . $data["max_age"];
             $model = Service::create($data);
         }catch(Exception $e) {
@@ -56,12 +57,12 @@ class ServiceController extends Controller
 
     public function update(Request $request) {
         $data = $request->all();
-        $Service = Service::find($data['id']);
+        $service = Service::find($data['id']);
         $data["age"] = $data["min_age"] . "," . $data["max_age"];
         unset($data['id']);
-       // $data['experience'] = json_encode(array_map(function($experience){return intval($experience);},explode(",",$data['experience'])));
-        if($Service->update($data))
-            return response()->json(['status'=>'ok', 'data'=>$Service]);
+        $data['slug'] = Str::slug($data["name"]);
+        if($service->update($data))
+            return response()->json(['status'=>'ok', 'data'=>$service]);
         else
             return response()->json(['status'=>'error', 'message' => "No se pudo actualizar el registro."]);
     }
@@ -164,6 +165,7 @@ class ServiceController extends Controller
 
                     Service::create([
                         'name'=>  $name,
+                        'slug' => Str::slug($name),
                         'sku_code'=> $sku_code,
                         'discount'=> $discount,
                         'price'=> $price,
