@@ -8,6 +8,7 @@ use App\Models\Interest;
 use App\Models\Product;
 use App\Models\ProductCharacteristic;
 use App\Models\ProductCharacteristicDetail;
+use App\Models\ProductImage;
 use App\Models\Store;
 use App\Models\StoreImage;
 use App\Utils\ParametersUtil;
@@ -141,6 +142,29 @@ class ProductController extends Controller
             return response()->json(['status'=>'ok', 'data'=>$product]);
         else
             return response()->json(['status'=>'error', 'message' => "No se pudo actualizar el registro."]);
+    }
+
+    // Asignación de imágenes
+    public function add_image_product(Request $request){
+        $data = $request->all();
+        try {
+            $model_create = ProductImage::create([
+                'store_image_id' => $data["id"],
+                'product_id' => $data["product_id"]
+            ]);
+            $model = ProductImage::with('store_image')->where('id', $model_create->id)->first();
+        }catch(Exception $e) {
+
+        }
+        return response()->json(['status'=>"ok",'data'=>$model]);
+    }
+
+    public function delete_image_product(Request $request){
+        $product_image_id = $request->input('id');
+        $product_image = ProductImage::find($product_image_id);
+        $model = $product_image;
+        $product_image->delete();
+        return response()->json(['status'=>"ok",'data'=>$model]);
     }
 
     public function update_seo(Request $request){

@@ -194,6 +194,13 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/coupons/incoming', 'Admin\CouponController@incoming')->name('admin.coupons.incoming');
         Route::post('/coupons/outgoing', 'Admin\CouponController@outgoing')->name('admin.coupons.outgoing');
         Route::post('/coupons/store/branches', 'Admin\CouponController@branches_store')->name('admin.coupons.store.branches');
+
+        // Galería Multimedia
+        Route::get('/multimedia/images', 'Admin\MultimediaController@index')->name('admin.multimedia.images');
+        Route::post('/multimedia/images/list', 'Admin\MultimediaController@get_images')->name('admin.multimedia.images.list');
+        Route::post('/multimedia/upload-files', 'Admin\MultimediaController@upload')->name('admin.multimedia-upload-files');
+        Route::post('/multimedia/delete-files', 'Admin\MultimediaController@delete_file')->name('admin.multimedia-delete-files');
+
     });
 
 

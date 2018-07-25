@@ -81,8 +81,8 @@
                                      data_store_images="{{$store_images}}"
                                      data_product_id="{{$product->id}}"
                                      data_product_images="{{$product->productimages}}"
-                                     data_add_image_url="{{route('product.images.add')}}"
-                                     data_delete_image_url="{{route('product.images.delete')}}"></div>
+                                     data_add_image_url="{{route('single.product.images.add')}}"
+                                     data_delete_image_url="{{route('single.product.images.delete')}}"></div>
                             </div>
                         </div>
                     </div>

@@ -31,3 +31,4 @@ require('./admin-inventory/IncomingInventory');
 require('./admin-inventory/OutgoingInventory');
 require('./admin-coupons/IncomingCoupons');
 require('./admin-coupons/OutgoingCoupons');
+require('./admin-multimedia/AdminMultimediaComponent');
