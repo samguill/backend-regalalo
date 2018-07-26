@@ -43,25 +43,35 @@
             $priceField->title('Precio')->required(false)->show(false)->width(4);
             $builder->addField($priceField);
 
-            $descriptionField = new \App\Utils\ReactCrudField('description');
-            $descriptionField->title('Descripción')->required(false)->type('editor')->show(false)->width(12);
-            $builder->addField($descriptionField);
-
-            $ageField = new \App\Utils\ReactCrudField('age');
-            $ageField->title('Edad (Colocar solo un rango)')->type('json', $ages)->required(false)->show(false)->width(6)->renderAs('text');
-            $builder->addField($ageField);
-
-            $sexField = new \App\Utils\ReactCrudField('sex');
-            $sexField->show(false)->type('map', $sex)->title('¿A quién regalas?')->required(false)->width(4);
-            $builder->addField($sexField);
-
             $availabilityField = new \App\Utils\ReactCrudField('availability');
             $availabilityField->show(false)->type('map', [
                 ['id' => 'D', 'value' => 'Delivery'],
                 ['id' => 'S', 'value' => 'Tienda'],
                 ['id' => 'A', 'value' => 'Todos']
-            ])->title('Disponibilidad')->width(6);
+            ])->title('Disponibilidad')->width(4);
             $builder->addField($availabilityField);
+
+            $descriptionField = new \App\Utils\ReactCrudField('description');
+            $descriptionField->title('Descripción')->required(false)->type('editor')->show(false)->width(12);
+            $builder->addField($descriptionField);
+
+            $minAgeField = new \App\Utils\ReactCrudField('min_age');
+            $minAgeField->title('Edad mínima')->type('map', $ages)
+                ->required(false)->show(false)
+                ->width(4)->renderAs('text');
+            $builder->addField($minAgeField);
+
+            $maxAgeField = new \App\Utils\ReactCrudField('max_age');
+            $maxAgeField->title('Edad máxima')->type('map', $ages)
+                ->required(false)->show(false)
+                ->width(4)->renderAs('text');
+            $builder->addField($maxAgeField);
+
+            $sexField = new \App\Utils\ReactCrudField('sex');
+            $sexField->show(false)->type('map', $sex)->title('¿A quién regalas?')->required(false)->width(4);
+            $builder->addField($sexField);
+
+
 
  /*           $experienceField = new \App\Utils\ReactCrudField('experience');
             $experienceField->fillable()->title('Experiencia')->type('json', $experiences)->show(false)->width(6)->renderAs('text');
