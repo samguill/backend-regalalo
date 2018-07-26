@@ -18,10 +18,27 @@ class SearchController extends Controller
 
         $services = $this->query('services','service_id','coupons',$request);
 
-        $stores = DB::table('stores')->where('comercial_name','LIKE','%'.$request->input('searchtext').'%')->whereNotNull("logo_store")->get();
+        //Quitando doble o triple espacio y separando el string palabra por palabra
+        $searchValues = preg_split('/\s+/', $request->input('searchtext'), -1, PREG_SPLIT_NO_EMPTY);
+
+        $stores = DB::table('stores')
+            ->where(function($q) use ($searchValues) {
+                foreach ($searchValues as $value) {
+                    $q->orWhere('comercial_name', 'LIKE', "%{$value}%");
+
+                }
+            })
+            ->whereNull('deleted_at')
+            ->whereNotNull("logo_store")->get();
+
+        if($request->has('latitude') and $request->has('longitude')) {
+            $field_order = ['field'=>'distance','order'=>'DESC'];
+        }else{
+            $field_order = ['field'=>'price','order'=>'ASC'];
+        }
 
         $result  = $services->union($products)
-            ->orderBy('price','ASC')
+            ->orderBy($field_order['field'],$field_order['order'])
             ->get();
 
         $data['items'] = $this->paginate($result);
@@ -51,7 +68,7 @@ class SearchController extends Controller
                     cos(radians(store_branches.longitude) - radians('.$longitude.'))) * 6378) 
                     from store_branches where store_branches.id =  '.$store_table.'.store_branche_id) as distance'));
 
-            $query->orderBy('distance', 'desc');
+
         }
 
 
@@ -70,18 +87,16 @@ class SearchController extends Controller
 
             $searchtext = $request->input('searchtext');
 
-            $searchtexts = explode(" ",$searchtext);
+            //Quitando doblo o triple espacio y separando el string palabra por palabra
+            $searchValues = preg_split('/\s+/', $searchtext, -1, PREG_SPLIT_NO_EMPTY);
 
-            foreach ($searchtexts as $searchtext) {
+            $query->where(function($q) use ($searchValues) {
+                foreach ($searchValues as $value) {
+                $q->orWhere('name', 'LIKE', "%{$value}%");
+                $q->orWhere('description', 'LIKE', "%{$value}%");
 
-
-            $query->where(function($q) use ($searchtext) {
-                $q->where('name', 'LIKE', '%' . $searchtext . '%');
-                $q->orWhere('description', 'LIKE', '%' . $searchtext . '%');
+                }
             });
-
-            }
-
         }
 
         $query->addSelect(DB::raw('\''.$table.'\' as type'));
