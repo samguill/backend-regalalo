@@ -240,6 +240,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/stores/branches/list', 'Store\StoreController@listBranches')->name('store.branches-lists');
         Route::post('/stores/branch/create', 'Store\StoreController@create_branch')->name('store.branch-create');
         Route::post('/stores/branch/update', 'Store\StoreController@update_branch')->name('store.branch-update');
+        Route::post('/stores/branch/delete-day-open', 'Store\StoreController@delete_day_open')->name('store.branch.delete-day-open');
 
         // Multimedia
         Route::get('/multimedia', 'Store\StoreImageController@index')->name('store.multimedia');
