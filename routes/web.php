@@ -65,6 +65,10 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/service/seo-update', 'Admin\ServiceController@update_seo')->name('service.update_seo');
         Route::get('/service/featured', 'Admin\ServiceController@featured_service')->name('service.featured');
 
+        Route::post('/service/characteristics-store',  'Admin\ServiceController@characteristics_store')->name('service.characteristics_store');
+        Route::post('/service/characteristics-update', 'Admin\ServiceController@characteristics_update')->name('service.characteristics_update');
+        Route::post('/service/characteristics-delete', 'Admin\ServiceController@characteristics_delete')->name('service.characteristics_delete');
+
 
         // Ocasiones
         Route::get('/events', 'Admin\EventController@index')->name('events');
@@ -215,6 +219,8 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/products/create', 'Store\ProductController@create')->name('products.create');
         Route::post('/products/charge', 'Store\ProductController@masive_charge')->name('products.charge');
         Route::post('/products/characteristics-update', 'Store\ProductController@characteristics_update')->name('products.characteristics_update');
+        Route::post('/products/characteristics-store', 'Store\ProductController@characteristics_store')->name('products.characteristics_store');
+        Route::post('/products/characteristics-delete', 'Store\ProductController@characteristics_delete')->name('products.characteristics_delete');
 
         // Images Product
         Route::post('/product/images/add', 'Store\ProductController@add_image_product')->name('product.images.add');
@@ -229,6 +235,10 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/services/delete', 'Store\ServiceController@delete')->name('services.delete');
         Route::post('/services/create', 'Store\ServiceController@create')->name('services.create');
         Route::post('/services/charge', 'Store\ServiceController@masive_charge')->name('services.charge');
+
+        Route::post('/services/characteristics-store',  'Store\ServiceController@characteristics_store')->name('services.characteristics_store');
+        Route::post('/services/characteristics-update', 'Store\ServiceController@characteristics_update')->name('services.characteristics_update');
+        Route::post('/services/characteristics-delete', 'Store\ServiceController@characteristics_delete')->name('services.characteristics_delete');
 
         // Images Product
         Route::post('/service/images/add', 'Store\ServiceController@add_image_service')->name('service.images.add');

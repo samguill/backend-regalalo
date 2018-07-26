@@ -114,8 +114,19 @@
                     <a href="{{ asset('uploads/formats/services_charge.xlsx') }}" target="_blank" class="btn btn-block btn-success">
                         <i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar formato
                     </a>
-                    <form class="mt-20" id="charge_services_form" enctype="multipart/form-data">
+                    <form class="mt-20" id="charge_services_form_admin" enctype="multipart/form-data">
                         {{ csrf_field() }}
+                        <div class="form-group">
+                            <label for="exampleFormControlFile1">Seleccione una tienda</label>
+                            <select class="form-control" id="store_id">
+                                <option value="">Seleccionar...</option>
+                                @foreach($stores as $store)
+                                    <option value="{{$store["id"]}}">
+                                        {{$store["value"]}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="exampleFormControlFile1">Subir archivo excel</label>
                             <input type="file" class="form-control-file" id="excel" name="excel">
@@ -123,7 +134,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="charge_services(this)">Aceptar</button>
+                    <button type="button" class="btn btn-primary" onclick="charge_services_admin(this)">Aceptar</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>

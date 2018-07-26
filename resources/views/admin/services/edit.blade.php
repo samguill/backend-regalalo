@@ -40,10 +40,11 @@
                             <div class="card-body">
                                 <div class="characteristics-service-component"
                                      service_id="{{$service->id}}"
-                                     characteristic_id="{{$service->service_characteristic_id}}"
-                                     characteristic_values="{{$service->service_characteristic_values}}"
+                                     data_service_characteristics_detail="{{json_encode($service->servicecharacteristicsdetail)}}"
                                      data_service_characteristics="{{json_encode($service_characteristics)}}"
-                                     data_update_url="{{route('service.characteristics_update')}}"></div>
+                                     data_update_url="{{route('service.characteristics_update')}}"
+                                     data_delete_url="{{route('service.characteristics_delete')}}"
+                                     data_store_url="{{route('service.characteristics_store')}}"></div>
                             </div>
                         </div>
                     </div>

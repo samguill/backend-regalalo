@@ -40,10 +40,14 @@
                             <div class="card-body">
                                 <div class="characteristics-product-component"
                                      product_id="{{$product->id}}"
-                                     characteristic_id="{{$product->product_characteristic_id}}"
-                                     characteristic_values="{{$product->product_characteristic_values}}"
+                                     data_product_characteristics_detail="{{json_encode($product->productcharacteristicsdetail)}}"
                                      data_product_characteristics="{{json_encode($product_characteristics)}}"
-                                     data_update_url="{{route('products.characteristics_update')}}"></div>
+                                     data_update_url="{{route('products.characteristics_update')}}"
+                                     data_delete_url="{{route('products.characteristics_delete')}}"
+                                     data_store_url="{{route('products.characteristics_store')}}"
+                                >
+
+                                </div>
                             </div>
                         </div>
                     </div>

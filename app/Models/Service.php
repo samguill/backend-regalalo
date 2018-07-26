@@ -61,4 +61,8 @@ class Service extends Model
     public function servicecharacteristic(){
         return $this->hasOne("App\Models\ServiceCharacteristic", "id", "service_characteristic_id");
     }
+
+    public function servicecharacteristicsdetail(){
+        return $this->hasMany('App\Models\ServiceCharacteristicDetail', 'service_id', 'id');
+    }
 }

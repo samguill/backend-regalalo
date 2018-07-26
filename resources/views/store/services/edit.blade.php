@@ -29,6 +29,26 @@
                     </div>
 
                     <div class="card mb-20">
+                        <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse-characteristics" aria-expanded="false" aria-controls="collapse-characteristics">
+                            <div class="card-header" id="heading-characteristics">
+                                <h5 class="mb-0 d-inline-block">Características del servicio</h5>
+                                <i class="fa fa-angle-down float-lg-right" style="margin-right: 10px;" aria-hidden="false"></i>
+                            </div>
+                        </button>
+                        <div id="collapse-characteristics" class="collapse" aria-labelledby="heading-characteristics" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="characteristics-service-component"
+                                     service_id="{{$service->id}}"
+                                     data_service_characteristics_detail="{{json_encode($service->servicecharacteristicsdetail)}}"
+                                     data_service_characteristics="{{json_encode($service_characteristics)}}"
+                                     data_update_url="{{route('services.characteristics_update')}}"
+                                     data_delete_url="{{route('services.characteristics_delete')}}"
+                                     data_store_url="{{route('services.characteristics_store')}}"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-20">
                         <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse-featured" aria-expanded="false" aria-controls="collapse-featured">
                             <div class="card-header" id="heading-featured">
                                 <h5 class="mb-0 d-inline-block">Imagen destacada</h5>

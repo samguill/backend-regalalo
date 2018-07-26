@@ -38,8 +38,8 @@
 
                     <div class="col-sm-4">
                         <h5>Dirección de envío</h5>
-                        {{$order->clientdirection->address}}</br>
-                        <b>{{$order->clientdirection->city}}</b>
+                        {{isset($order->clientdirection->address)? $order->clientdirection->address:''}}</br>
+                        <b>{{isset($order->clientdirection->city)?$order->clientdirection->city:''}}</b>
 
 
                     </div>

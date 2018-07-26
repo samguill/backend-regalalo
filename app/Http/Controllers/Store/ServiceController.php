@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Store;
 use App\Http\Controllers\Controller;
 use App\Models\Experience;
 use App\Models\Service;
+use App\Models\ServiceCharacteristic;
+use App\Models\ServiceCharacteristicDetail;
 use App\Models\ServiceImage;
 use App\Models\Store;
 use App\Models\StoreImage;
@@ -74,7 +76,7 @@ class ServiceController extends Controller
         $auth = Auth::user();
         $store_id =  $auth->store["id"];
 
-        $service = Service::with('serviceimages.store_image')->where("id", $data["id"])->first();
+        $service = Service::with('serviceimages.store_image', 'servicecharacteristicsdetail.characteristic')->where("id", $data["id"])->first();
         $store_images = StoreImage::where('store_id', $store_id)->get();
 
         $sex = array_map(
@@ -104,7 +106,8 @@ class ServiceController extends Controller
             }, Experience::all()->toArray()
         );
 
-        $service_characteristics = ParametersUtil::getServiceCharacteristics();
+        //$service_characteristics = ParametersUtil::getServiceCharacteristics();
+        $service_characteristics = ServiceCharacteristic::with('values')->get();
 
         if($auth["type"] == "S"){
             if($store_id == $service->store_id){
@@ -120,6 +123,37 @@ class ServiceController extends Controller
             }
         }
 
+    }
+
+    // Mantenimiento de características del servicio
+    public function characteristics_store(Request $request){
+        $data = $request->all();
+        $detail = ServiceCharacteristicDetail::create([
+            "service_id" => $data["service_id"],
+            'service_characteristic_id' => $data["service_characteristic_id"],
+            'service_characteristic_values' => $data["service_characteristic_values"]
+        ]);
+        $model = ServiceCharacteristicDetail::with('characteristic')->find($detail->id);
+        return response()->json(['status' => 'ok', 'data' => $model]);
+    }
+
+    public function characteristics_update(Request $request){
+        $data = $request->all();
+        $product = ServiceCharacteristicDetail::find($data["id"]);
+        $product->update([
+            'service_characteristic_id' => $data["service_characteristic_id"],
+            'service_characteristic_values' => $data["service_characteristic_values"]
+        ]);
+        $model = ServiceCharacteristicDetail::with('characteristic')->find($data["id"]);
+        return response()->json(['status' => 'ok', 'data' => $model]);
+    }
+
+    public function characteristics_delete(Request $request){
+        $data = $request->all();
+        $product = ServiceCharacteristicDetail::find($data["id"]);
+        $product->delete();
+        $model = ServiceCharacteristicDetail::with('characteristic')->find($data["id"]);
+        return response()->json(['status' => 'ok', 'data' => $model]);
     }
 
 
@@ -146,26 +180,42 @@ class ServiceController extends Controller
                     $sku_code = $val[1];
                     $discount = $val[2];
                     $price = $val[3];
-                    $product_presentation = $val[4];
-                    $description = $val[5];
-                    $age = $val[6];
-                    $availability = $val[7];
+                    $description = $val[4];
+                    $age = $val[5];
+                    $store_id = Auth::user()->store->id;
+
+                    if($name !== "" && $age !== "") {
+
+                        $service = Service::where('sku_code', $sku_code)->where('store_id',$store_id)->first();
+                        if ($service) {
+                            $service->update([
+                                'name' => $name,
+                                'slug' => Str::slug($name),
+                                'discount' => $discount,
+                                'price' => $price,
+                                'description' => $description,
+                                'age' => $age,
+                                'availability' => 'A',
+                                'sex' => 'G'
+                            ]);
+                        } else {
 
 
-                    Service::create([
+                            Service::create([
 
-                        'name'=>  $name,
-                        'sku_code'=> $sku_code,
-                        'discount'=> $discount,
-                        'price'=> $price,
-                        'product_presentation'=> $product_presentation,
-                        'description'=> $description ,
-                        'age'=> $age,
-                        'availability'=>  $availability,
-                        'store_id'=> Auth::user()->store->id
+                                'name' => $name,
+                                'sku_code' => $sku_code,
+                                'discount' => $discount,
+                                'price' => $price,
+                                'description' => $description,
+                                'age' => $age,
+                                'availability' => 'A',
+                                'sex' => 'G',
+                                'store_id' => $store_id
 
-                    ]);
-
+                            ]);
+                        }
+                    }
                 }
 
             }

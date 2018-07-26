@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\Interest;
 use App\Models\Product;
 use App\Models\ProductCharacteristic;
+use App\Models\ProductCharacteristicDetail;
 use App\Models\ProductImage;
 use App\Models\Store;
 use App\Models\StoreImage;
@@ -51,7 +52,7 @@ class ProductController extends Controller
         $auth = Auth::user();
         $store_id =  $auth->store["id"];
 
-        $product = Product::with('productimages.store_image')->where("id", $data["id"])->first();
+        $product = Product::with('productimages.store_image', 'productcharacteristicsdetail.characteristic')->where("id", $data["id"])->first();
         $store_images = StoreImage::where('store_id', $store_id)->get();
 
         $sex = array_map(
@@ -130,7 +131,8 @@ class ProductController extends Controller
     }
 
     // Actualización de características del producto
-    public function characteristics_update(Request $request){
+
+    /*public function characteristics_update(Request $request){
         $data = $request->all();
         $product = Product::find($data["product_id"]);
         $product->update([
@@ -138,6 +140,36 @@ class ProductController extends Controller
             'product_characteristic_values' => $data["product_characteristic_values"]
         ]);
         return response()->json(['status' => 'ok', 'data' => $data]);
+    }*/
+
+    public function characteristics_store(Request $request){
+        $data = $request->all();
+        $detail = ProductCharacteristicDetail::create([
+            "product_id" => $data["product_id"],
+            'product_characteristic_id' => $data["product_characteristic_id"],
+            'product_characteristic_values' => $data["product_characteristic_values"]
+        ]);
+        $model = ProductCharacteristicDetail::with('characteristic')->find($detail->id);
+        return response()->json(['status' => 'ok', 'data' => $model]);
+    }
+
+    public function characteristics_update(Request $request){
+        $data = $request->all();
+        $product = ProductCharacteristicDetail::find($data["id"]);
+        $product->update([
+            'product_characteristic_id' => $data["product_characteristic_id"],
+            'product_characteristic_values' => $data["product_characteristic_values"]
+        ]);
+        $model = ProductCharacteristicDetail::with('characteristic')->find($data["id"]);
+        return response()->json(['status' => 'ok', 'data' => $model]);
+    }
+
+    public function characteristics_delete(Request $request){
+        $data = $request->all();
+        $product = ProductCharacteristicDetail::find($data["id"]);
+        $product->delete();
+        $model = ProductCharacteristicDetail::with('characteristic')->find($data["id"]);
+        return response()->json(['status' => 'ok', 'data' => $model]);
     }
 
     public function delete(Request $request){
@@ -202,7 +234,7 @@ class ProductController extends Controller
                         if($product){
                             $product->update([
                                 'name'=>  $name,
-                                'slug' => Str::slug($name) . $faker->randomDigit() . $faker->randomDigit() . $faker->randomDigit(),
+                                'slug' => Str::slug($name),
                                 'discount'=> $discount,
                                 'price'=> $price,
                                 'product_presentation'=> $product_presentation,
@@ -213,7 +245,7 @@ class ProductController extends Controller
                         }else{
                             Product::create([
                                 'name'=>  $name,
-                                'slug' => Str::slug($name) . $faker->randomDigit() . $faker->randomDigit() . $faker->randomDigit(),
+                                'slug' => Str::slug($name),
                                 'sku_code'=> $sku_code,
                                 'discount'=> $discount,
                                 'price'=> $price,
