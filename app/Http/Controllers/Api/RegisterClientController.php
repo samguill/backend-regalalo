@@ -18,7 +18,6 @@ class RegisterClientController extends Controller
 
     public function __construct() {
 
-        //TODO: En mi proyecto laravel passport no funciona, tu apoyo para poder saber por qué
         $this->client = \Laravel\Passport\Client::find(1);
     }
 

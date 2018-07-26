@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Mail\StoreRegistration;
 use App\Models\ComercialContact;
 use App\Models\LegalRepresentative;
 use App\Models\Product;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class StoreController extends Controller {
@@ -33,7 +35,7 @@ class StoreController extends Controller {
         $legal_representative = $request->input('legal_representative');
         $comercial_contact = $request->input('comercial_contact');
         $store = $request->input("store");
-
+        //dd($comercial_contact['phone']);
         /*$validator = Validator::make($request->all(), [
             'stores.comercial_name' => 'required|max:255|unique:stores',
             'stores.business_name' => 'required|max:255|unique:stores',
@@ -72,7 +74,8 @@ class StoreController extends Controller {
         ]);
 
         //Creando contacto comercial
-        ComercialContact::create([
+
+        $comercialcontact=   ComercialContact::create([
             'name' => $comercial_contact['name'],
             'document_number' => $comercial_contact['document_number'],
             'email' => $comercial_contact['email'],
@@ -80,6 +83,24 @@ class StoreController extends Controller {
             'position' => isset($comercial_contact['position'])?$comercial_contact['position']:'',
             'store_id' => $store->id
         ]);
+
+        $data = [
+
+            'comercial_name'=>$store->comercial_name,
+            'business_name'=>$store->business_name,
+            'ruc'=>$store->ruc,
+            'name'=>$comercialcontact->name
+
+            ];
+
+        //Enviando correo de notificacion a administradores
+        $admin_emails = ['arturo.garcia@regalalo.pe','juan.saavedra@regalalo.pe','recursos@regalalo.pe'];
+
+        foreach ($admin_emails as $admin_email) {
+
+            Mail::to($admin_email)->send(new StoreRegistration($data));
+        }
+
 
         return response()->json(['status'=>"ok",'data'=>$store]);
     }
