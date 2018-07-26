@@ -262,24 +262,22 @@ class ServiceController extends Controller
     public function store_featured_image(Request $request){
         $image = $request->file('file');
         $service_id = $request->input('service_id');
-        $service= Service::find($service_id);
+        $service = Service::find($service_id);
         //return response()->json($product);
 
-        $name = $image->getClientOriginalName();
+        $name = $service->slug . "-" . $service_id . "." . $image->getClientOriginalExtension();
 
-        $store_id = Auth::user()->store->id;
-        $store = Store::find($store_id);
+        $store = Store::find($service->store_id);
         $ruc = $store->ruc;
 
         $path = "uploads/stores/" . $ruc . "/";
 
-        $image->move($path , $image->getClientOriginalName());
+        $image->move($path , $name);
 
         $model = $service->update([
             'featured_image' => $path . $name
         ]);
         return response()->json(['status'=>"ok",'data'=>$service->featured_image]);
-
     }
 
     public function update_seo(Request $request){

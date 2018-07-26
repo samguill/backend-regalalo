@@ -32,8 +32,6 @@ export default class ServiceImagesComponent extends React.Component {
             product_images: this.data_service_images,
             is_loading: false
         };
-        console.log(this.data_store_images);
-        console.log(this.data_service_images);
 
     }
 
@@ -121,7 +119,7 @@ export default class ServiceImagesComponent extends React.Component {
                                     <div className="remove-item" onClick={(e) => this.removeImage(row, e)}>
                                         <i className="fa fa-remove"></i>
                                     </div>
-                                    <div className="file-item" style={{ backgroundImage : "url(http://regalalo.test/"+ row.image_path +")" }}></div>
+                                    <div className="file-item" style={{ backgroundImage : "url(" + row.image_path +")" }}></div>
                                 </div>
                             </div>
                         })
@@ -135,7 +133,7 @@ export default class ServiceImagesComponent extends React.Component {
 
                                 return <div key={ri} className="col-md-3 file" style={{cursor:'pointer'}} onClick={(e) => this.addImage(row, e)}>
                                     <div className="file-item-containter">
-                                        <div className="file-item" style={{ backgroundImage : "url(http://regalalo.test/"+ row.image_path +")" }}></div>
+                                        <div className="file-item" style={{ backgroundImage : "url(" + row.image_path +")" }}></div>
                                     </div>
                                 </div>
 

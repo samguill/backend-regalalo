@@ -61,7 +61,7 @@
                                 <div class="featured-image-service-component"
                                      service_id="{{$service->id}}"
                                      featured_image="{{$service->featured_image}}"
-                                     data_upload_url="{{route('service.upload.featured_image')}}"></div>
+                                     data_upload_url="{{route('single.service.upload.featured_image')}}"></div>
                             </div>
                         </div>
                     </div>
@@ -79,8 +79,8 @@
                                      data_store_images="{{$store_images}}"
                                      data_service_id="{{$service->id}}"
                                      data_service_images="{{$service->serviceimages}}"
-                                     data_add_image_url="{{route('service.images.add')}}"
-                                     data_delete_image_url="{{route('service.images.delete')}}"></div>
+                                     data_add_image_url="{{route('single.service.images.add')}}"
+                                     data_delete_image_url="{{route('single.service.images.delete')}}"></div>
                             </div>
                         </div>
                     </div>

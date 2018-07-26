@@ -69,6 +69,10 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/service/characteristics-update', 'Admin\ServiceController@characteristics_update')->name('service.characteristics_update');
         Route::post('/service/characteristics-delete', 'Admin\ServiceController@characteristics_delete')->name('service.characteristics_delete');
 
+        // Images Service
+        Route::post('/single-service/images/add', 'Admin\ServiceController@add_image_service')->name('single.service.images.add');
+        Route::post('/single-service/images/delete', 'Admin\ServiceController@delete_image_service')->name('single.service.images.delete');
+        Route::post('/single-service/upload/featured_image', 'Admin\ServiceController@store_featured_image')->name('single.service.upload.featured_image');
 
         // Ocasiones
         Route::get('/events', 'Admin\EventController@index')->name('events');
