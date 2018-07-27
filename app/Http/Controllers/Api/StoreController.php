@@ -6,9 +6,11 @@ use App\Mail\StoreRegistration;
 use App\Models\ComercialContact;
 use App\Models\LegalRepresentative;
 use App\Models\Product;
+use App\Models\Service;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -24,10 +26,15 @@ class StoreController extends Controller {
     public function products_store(Request $request){
         $store_slug = $request->input('slug');
         $store = Store::where('slug', $store_slug)->first();
-        $products = Product::where('status', 0)->where('store_id', $store->id)->get();
+        $products = Product::where('store_id', $store->id)->get();
+        $products = $products->map(function ($item){
+            $item["type"] = "products";
+        });
+        $services = Service::where('store_id', $store->id)->get();
         return response()->json([
-            'status'=>'ok',
+            //'status'=>'ok',
             'products' => $products,
+            //'services' => $services,
             'store' => $store]);
     }
 
