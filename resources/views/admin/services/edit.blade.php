@@ -24,6 +24,7 @@
                                      data_experiences="{{json_encode($experiences)}}"
                                      data_product_characteristics="{{json_encode($service_characteristics)}}"
                                      default_data="{{$service}}"
+                                     data-tags="{{json_encode($tags)}}"
                                      data_update_url="{{route('service.update')}}"></div>
                             </div>
                         </div>

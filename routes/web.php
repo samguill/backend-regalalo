@@ -105,8 +105,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/productcharacteristics/values/list', 'Admin\ProductCharacteristicController@listValues')->name('productcharacteristic-values.lists');
         Route::post('/productcharacteristics/values/create', 'Admin\ProductCharacteristicController@create_value')->name('productcharacteristic-values.create');
         Route::post('/productcharacteristics/values/update', 'Admin\ProductCharacteristicController@update_value')->name('productcharacteristic-values.update');
-
-
+        
         //Services Characteristics
         Route::get('/servicecharacteristics', 'Admin\ServiceCharacteristicController@index')->name('servicecharacteristics');
         Route::get('/servicecharacteristics/lists', 'Admin\ServiceCharacteristicController@lists')->name('servicecharacteristics.lists');
@@ -208,7 +207,14 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/multimedia/images/list', 'Admin\MultimediaController@get_images')->name('admin.multimedia.images.list');
         Route::post('/multimedia/upload-files', 'Admin\MultimediaController@upload')->name('admin.multimedia-upload-files');
         Route::post('/multimedia/delete-files', 'Admin\MultimediaController@delete_file')->name('admin.multimedia-delete-files');
-
+        
+        // Etiquetas
+        Route::get('/tags', 'Admin\TagController@index')->name('admin.tags');
+        Route::get('/tags/list', 'Admin\TagController@lists')->name('admin.tags.list');
+        Route::post('/tags/update', 'Admin\TagController@update')->name('admin.tags.update');
+        Route::post('/tags/delete', 'Admin\TagController@delete')->name('admin.tags.delete');
+        Route::post('/tags/create', 'Admin\TagController@create')->name('admin.tags.create');
+        
     });
 
 

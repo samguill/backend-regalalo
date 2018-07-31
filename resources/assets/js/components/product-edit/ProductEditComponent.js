@@ -12,6 +12,7 @@ export default class ProductEditComponent extends React.Component {
         this.data_events = JSON.parse(this.props.data_events);
         this.data_brands = JSON.parse(this.props.data_brands);
         this.data_interests = JSON.parse(this.props.data_interests);
+        this.data_tags = JSON.parse(this.props.data_tags);
 
         this.handleChange = this.handleChange.bind(this);
 
@@ -70,6 +71,14 @@ export default class ProductEditComponent extends React.Component {
                 ],
                 width:4
             },
+            tags:{
+                title:"Etiquetas",
+                type:"map",
+                multiple:true,
+                renderAS:'text',
+                options:this.data_tags,
+                width:12
+            }
             /*event:{
                 title:"Ocasión",
                 type:"map",
@@ -135,6 +144,7 @@ if (document.getElementsByClassName('update-product-component')) {
         let data_events = element.getAttribute('data_events');
         let data_interests = element.getAttribute('data_interests');
         let data_brands = element.getAttribute('data-brands');
+        let data_tags = element.getAttribute('data-tags');
 
         ReactDOM.render(<ProductEditComponent
             data_ages={data_ages}
@@ -142,6 +152,7 @@ if (document.getElementsByClassName('update-product-component')) {
             data_events={data_events}
             data_interests={data_interests}
             data_brands={data_brands}
+            data_tags={data_tags}
             data_update_url={data_update_url}
             default_data={default_data} />, element);
     }

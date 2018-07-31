@@ -11,6 +11,7 @@ class Service extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable= [
+        'id',
         'name',
         'slug',
         'sku_code',
@@ -21,6 +22,7 @@ class Service extends Model
         'availability',
         'experience',
         'store_id',
+        'tags',
         'service_characteristic_id',
         'service_characteristic_values',
         'featured_image',

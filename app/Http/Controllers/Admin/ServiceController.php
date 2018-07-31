@@ -10,6 +10,7 @@ use App\Models\ServiceCharacteristicDetail;
 use App\Models\ServiceImage;
 use App\Models\Store;
 use App\Models\StoreImage;
+use App\Models\Tag;
 use App\Utils\ParametersUtil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -108,14 +109,21 @@ class ServiceController extends Controller
             }, Experience::all()->toArray()
         );
 
-      //  $service_characteristics = ParametersUtil::getServiceCharacteristics();
+        $tags = array_map(
+            function($item){
+                return [
+                    "id" => $item["key"],
+                    "value" => $item["key"]
+                ];
+            }, Tag::all()->toArray()
+        );
 
         $service_characteristics = ServiceCharacteristic::with('values')->get();
 
 
         return view('admin.services.edit', compact(
                 'store_images','service',
-                'store_id', 'sex',
+                'store_id', 'sex', 'tags',
                 'ages', 'experiences',
                 'service_characteristics')
         );

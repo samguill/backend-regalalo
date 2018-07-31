@@ -24,6 +24,7 @@
                                      data_interests="{{json_encode($interests)}}"
                                      default_data="{{$product}}"
                                      data-brands="{{json_encode($brands)}}"
+                                     data-tags="{{json_encode($tags)}}"
                                      data_update_url="{{route('product.update')}}"></div>
                             </div>
                         </div>

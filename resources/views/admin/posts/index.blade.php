@@ -20,6 +20,10 @@
             $contentField->title('Resúmen')->show(false)->width(12)->verbose();
             $builder->addField($contentField);
 
+            $authorField = new \App\Utils\ReactCrudField('author');
+            $authorField->title('Autor')->width(12);
+            $builder->addField($authorField);
+
             $imageField = new \App\Utils\ReactCrudField('featured_image');
             $imageField->title('Imagen destacada')->type('file')->show(false)->width(6);
             $builder->addField($imageField);

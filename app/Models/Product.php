@@ -24,6 +24,7 @@ class Product extends Model
         'event',
         'interest',
         'store_id',
+        'tags',
         'brand_id',
         'meta_title',
         'meta_description',

@@ -44,6 +44,7 @@ class MenuTemporal
         ]],
         ['icon'=>'fa-user-secret','menu'=>'Usuarios','route' => 'users', 'options' => []],
         ['icon'=>'fa-sliders','menu'=>'Parámetros generales','route' => '#', 'options' => [
+            ['icon'=>'fa-comments','menu'=>'Etiquetas','route' => 'tags'],
             ['icon'=>'fa-comments','menu'=>'Marcas','route' => 'brands'],
             ['icon'=>'fa-comments','menu'=>'Ocasiones','route' => 'events'],
             ['icon'=>'fa-comments','menu'=>'Intereses','route' => 'interests'],

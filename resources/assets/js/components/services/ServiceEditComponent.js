@@ -11,6 +11,7 @@ export default class ServiceEditComponent extends React.Component {
         this.data_ages = JSON.parse(this.props.data_ages);
         this.data_experiences = JSON.parse(this.props.data_experiences);
         this.data_product_characteristics = JSON.parse(this.props.data_product_characteristics);
+        this.data_tags = JSON.parse(this.props.data_tags);
 
         this.handleChange = this.handleChange.bind(this);
 
@@ -41,6 +42,14 @@ export default class ServiceEditComponent extends React.Component {
                 options:this.data_sex,
                 width:4
             },
+            tags:{
+                title:"Etiquetas",
+                type:"map",
+                multiple:true,
+                renderAS:'text',
+                options:this.data_tags,
+                width:12
+            }
             /*experience:{
                 title:"Experiencias",
                 type:"map",
@@ -97,12 +106,14 @@ if (document.getElementsByClassName('update-service-component')) {
         var data_ages = element.getAttribute('data_ages');
         var data_experiences = element.getAttribute('data_experiences');
         var data_product_characteristics = element.getAttribute('data_product_characteristics');
+        let data_tags = element.getAttribute('data-tags');
 
         ReactDOM.render(<ServiceEditComponent
             data_ages={data_ages}
             data_sex={data_sex}
             data_experiences={data_experiences}
             data_product_characteristics={data_product_characteristics}
+            data_tags={data_tags}
             data_update_url={data_update_url}
             default_data={default_data} />, element);
     }

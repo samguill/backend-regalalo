@@ -11,6 +11,7 @@ use App\Models\ProductCharacteristicDetail;
 use App\Models\ProductImage;
 use App\Models\Store;
 use App\Models\StoreImage;
+use App\Models\Tag;
 use App\Utils\ParametersUtil;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -122,12 +123,21 @@ class ProductController extends Controller
             }, Brand::all()->toArray()
         );
 
+        $tags = array_map(
+            function($item){
+                return [
+                    "id" => $item["key"],
+                    "value" => $item["key"]
+                ];
+            }, Tag::all()->toArray()
+        );
+
         $product_characteristics = ProductCharacteristic::with('values')->get();
 
         return view('admin.products.edit', compact(
                 'store_images','product',
                 'store_id', 'sex', 'brands',
-                'ages', 'events',
+                'ages', 'events', 'tags',
                 'interests', 'product_characteristics')
         );
     }
