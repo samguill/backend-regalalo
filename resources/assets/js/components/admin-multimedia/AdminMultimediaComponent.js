@@ -83,7 +83,7 @@ export default class AdminMultimediaComponent extends React.Component {
             showLoaderOnConfirm: true,
             closeOnConfirm: false
         },()=> {
-            axios.post(this.delete_images_url,{id:row.id}).then((r)=>{
+            axios.post(this.delete_images_url,{id:row.id, store_id: this.state.store_id}).then((r)=>{
                 if(r.data.status==='ok') {
                     swal({  title: "Eliminación Exitosa",
                         text: "El elemento ha sido eliminado de manera exitosa.",
