@@ -94,6 +94,7 @@ class SearchController extends Controller
                 foreach ($searchValues as $value) {
                 $q->orWhere('name', 'LIKE', "%{$value}%");
                 $q->orWhere('description', 'LIKE', "%{$value}%");
+                $q->orWhere('tags', 'LIKE', "%{$value}%");
 
                 }
             });
