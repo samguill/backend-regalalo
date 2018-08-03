@@ -214,6 +214,13 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/tags/update', 'Admin\TagController@update')->name('admin.tags.update');
         Route::post('/tags/delete', 'Admin\TagController@delete')->name('admin.tags.delete');
         Route::post('/tags/create', 'Admin\TagController@create')->name('admin.tags.create');
+
+        // Slider
+        Route::get('/slider', 'Admin\SliderController@index')->name('admin.slider');
+        Route::get('/slider/list', 'Admin\SliderController@lists')->name('admin.slider.list');
+        Route::post('/slider/update', 'Admin\SliderController@update')->name('admin.slider.update');
+        Route::post('/slider/delete', 'Admin\SliderController@delete')->name('admin.slider.delete');
+        Route::post('/slider/create', 'Admin\SliderController@create')->name('admin.slider.create');
         
     });
 

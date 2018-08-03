@@ -13,7 +13,8 @@ class Slide extends Model
         'id',
         'name',
         'image',
-        'order'
+        'order',
+        'tags'
     ];
 
     public function elements(){

@@ -34,7 +34,7 @@ class MenuTemporal
         ['icon'=>'fa-comments','menu'=>'Reclamos','route' => 'claims', 'options' => []],
         ['icon'=>'fa-window-restore','menu'=>'Página web','route' => '#', 'options' => [
             ['icon'=>'fa-picture-o','menu'=>'Multimedia','route' => 'multimedia/images'],
-            ['icon'=>'fa-comments','menu'=>'Slider','route' => 'slides'],
+            ['icon'=>'fa-comments','menu'=>'Slider','route' => 'slider'],
             ['icon'=>'fa-comments','menu'=>'Preguntas frecuentes','route' => 'frequent-questions'],
             ['icon'=>'fa-comments','menu'=>'Páginas','route' => 'pages']
         ]],
