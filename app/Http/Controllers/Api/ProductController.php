@@ -113,6 +113,7 @@ class ProductController extends Controller
 
     public function detail(Request $request) {
         $data = [];
+        $data['relatedproducts'] = [];
         $latitude='';
         $longitude ='';
         if($request->has('latitude')) $latitude =  $request->input('latitude');
@@ -132,6 +133,25 @@ class ProductController extends Controller
             }
 
             ])->first();
+
+            if(!is_null($data->tags)){
+
+                $tags = explode(",", $data->tags);
+
+                $query = DB::table('products');
+
+                $query->select('*');
+
+                foreach ($tags as $tag) {
+                    $query->orWhereRaw("find_in_set('$tag',tags)");
+                }
+
+                $query->addSelect(DB::raw('IFNULL(inventory.quantity,0) as quantity'));
+                $query->leftJoin('inventory','inventory.product_id','=','products.id');
+                $resultrelatedproducts =  $query->get();
+                $data['relatedproducts']= $resultrelatedproducts;
+            }
+
         };
         return response()->json(['status'=>'ok', 'data'=>$data]);
     }
