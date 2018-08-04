@@ -80,8 +80,10 @@ class Product extends Model
         foreach ($tags as $tag) {
             $query->orWhereRaw("find_in_set('$tag',tags)");
         }
-        //Solo si está en el inventario
-        $query->whereHas('inventory');
+        //Solo si está en el inventario y es mayor que cero
+        $query->whereHas('inventory',function ($q){
+            $q->where('quantity','>',0);
+        });
     }
 
 }
