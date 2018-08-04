@@ -134,22 +134,29 @@ class ProductController extends Controller
 
             ])->first();
 
+            //Valida si es que el producto tiene tags
             if(!is_null($data->tags)){
-
                 $tags = explode(",", $data->tags);
 
-                $query = DB::table('products');
+                //Si tiene tags hace un scope de todos los productos relacionados (omite al mismo producto)
+                $relatedproducts = Product::relatedProducts($tags)->where('id','<>',$data->id)->get();
 
-                $query->select('*');
+                //Ordena por el mejor match de acuerdo al peso de las coincidencias
+                $relatedproducts = $relatedproducts->sortByDesc(function($i, $k) use ($tags) {
 
-                foreach ($tags as $tag) {
-                    $query->orWhereRaw("find_in_set('$tag',tags)");
-                }
+                    $weight = 0;
+                    $arraytags = explode(',',$i->tags);
 
-                $query->addSelect(DB::raw('IFNULL(inventory.quantity,0) as quantity'));
-                $query->leftJoin('inventory','inventory.product_id','=','products.id');
-                $resultrelatedproducts =  $query->get();
-                $data['relatedproducts']= $resultrelatedproducts;
+                    foreach($arraytags as $tag) {
+                            if(in_array($tag,$tags))
+                                $weight++;
+                    }
+                    return $weight;
+                });
+
+                $relatedproducts =  $relatedproducts->values()->all();
+
+                $data['relatedproducts']= $relatedproducts;
             }
 
         };

@@ -75,4 +75,13 @@ class Product extends Model
         return $this->belongsTo('App\Models\Inventory','id','product_id');
     }
 
+    public function scopeRelatedProducts($query, $tags)
+    {
+        foreach ($tags as $tag) {
+            $query->orWhereRaw("find_in_set('$tag',tags)");
+        }
+        //Solo si está en el inventario
+        $query->whereHas('inventory');
+    }
+
 }
