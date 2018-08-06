@@ -121,6 +121,31 @@ class ServiceController extends Controller
                 }
 
             ])->first();
+
+            //Valida si es que el producto tiene tags
+            if(!is_null($data->tags)){
+                $tags = explode(",", $data->tags);
+
+                //Si tiene tags hace un scope de todos los productos relacionados (omite al mismo producto)
+                $relatedservices = Service::relatedServices($tags)->where('id','<>',$data->id)->get();
+
+                //Ordena por el mejor match de acuerdo al peso de las coincidencias
+                $relatedservices = $relatedservices->sortByDesc(function($i, $k) use ($tags) {
+
+                    $weight = 0;
+                    $arraytags = explode(',',$i->tags);
+
+                    foreach($arraytags as $tag) {
+                        if(in_array($tag,$tags))
+                            $weight++;
+                    }
+                    return $weight;
+                });
+
+                $relatedservices =  $relatedservices->values()->all();
+
+                $data['relatedservices']= $relatedservices;
+            }
         };
         return response()->json(['status'=>'ok', 'data'=>$data]);
     }

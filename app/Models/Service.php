@@ -68,4 +68,19 @@ class Service extends Model
     public function servicecharacteristicsdetail(){
         return $this->hasMany('App\Models\ServiceCharacteristicDetail', 'service_id', 'id');
     }
+
+    public function coupon(){
+        return $this->belongsTo('App\Models\Coupon','id','service_id');
+    }
+
+    public function scopeRelatedServices($query, $tags)
+    {
+        foreach ($tags as $tag) {
+            $query->orWhereRaw("find_in_set('$tag',tags)");
+        }
+        //Solo si está entre los cupones y es mayor que cero
+        $query->whereHas('coupon',function ($q){
+            $q->where('quantity','>',0);
+        });
+    }
 }
