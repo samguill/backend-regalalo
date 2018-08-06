@@ -77,7 +77,17 @@ export default class ProductEditComponent extends React.Component {
                 multiple:true,
                 renderAS:'text',
                 options:this.data_tags,
-                width:12
+                width:8
+            },
+            urbaner_vehicle:{
+                title:"Vehículo de urbaner",
+                type:"map",
+                options:[
+                    {id:"1", value:"Bicicleta"},
+                    {id:"2", value:"Moto"},
+                    {id:"3", value:"Auto"}
+                ],
+                width:4
             }
             /*event:{
                 title:"Ocasión",
