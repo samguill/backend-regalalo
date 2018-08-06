@@ -13,7 +13,7 @@
             $builder->addField($orderField);
 
             $tagsField = new \App\Utils\ReactCrudField('tags');
-            $tagsField->title('Etiquetas')->type('json', $tags)->required(false)->width(12)->renderAs('text');
+            $tagsField->title('Etiquetas')->type('json', $tags)->width(12)->renderAs('text')->show(false);
             $builder->addField($tagsField);
 
             $imageField = new \App\Utils\ReactCrudField('image');
