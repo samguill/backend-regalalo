@@ -12,6 +12,8 @@ use App\Models\InventoryMovement;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderDetailCharacteristic;
+use App\Models\Product;
+use App\Models\Service;
 use App\Models\Store;
 use App\Models\StoreBranch;
 use Illuminate\Http\Request;
@@ -231,6 +233,7 @@ class OrderController extends Controller
 
         foreach ($orderdetails  as $orderdetail) {
             $store_branche_id = $orderdetail->store_branche_id;
+            
         }
 
         $store = Store::find($order['store_id']);
@@ -344,12 +347,26 @@ class OrderController extends Controller
         $data = $request->all();
         $storebranch = StoreBranch::find($data['store_branche_id']);
         $client_direction = ClientDirection::find($data["client_direction_id"]);
+        $vehicle_id = 1;
+        $item_type = $data["item_type"];
+        $item_id = $data["item_id"];
+        if($item_type == "product"){
+            $item = Product::find($item_id);
+            if(isset($item->urbaner_vehicle)){
+                $vehicle_id = $item->urbaner_vehicle;
+            }
+        }else{
+            $item = Service::find($item_id);
+            if(isset($item->urbaner_vehicle)){
+                $vehicle_id = $item->urbaner_vehicle;
+            }
+        }
         $destinations = [
             'destinations' => [
                     ['latlon' => $client_direction->latitude .','. $client_direction->longitude],
                     ['latlon' =>  $storebranch->latitude.','.$storebranch->longitude]
                     ],
-            "package_type_id"=> 1,
+            "package_type_id"=> $vehicle_id,
             "is_return"=> false
         ];
         $response = UrbanerUtil::apipost($destinations, UrbanerUtil::API_CLI_PRICE);
