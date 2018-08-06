@@ -110,7 +110,7 @@ class SearchController extends Controller
 
 
         $query->leftJoin($store_table,function($join) use ($store_table,$field_id,$table){
-            $join->on($table.'.id','=',DB::raw('(SELECT id FROM '.$store_table.' WHERE '.$table.'.id = '.$store_table.'.'.$field_id.' LIMIT 1)'));
+            $join->on($table.'.id','=',DB::raw('(SELECT '.$field_id.' FROM '.$store_table.' WHERE '.$table.'.id = '.$store_table.'.'.$field_id.' LIMIT 1)'));
         });
 
         $query->whereNull('deleted_at');
