@@ -24,6 +24,7 @@ class Product extends Model
         'event',
         'interest',
         'store_id',
+        'urbaner_vehicle',
         'tags',
         'brand_id',
         'meta_title',

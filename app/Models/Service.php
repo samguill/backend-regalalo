@@ -22,6 +22,7 @@ class Service extends Model
         'availability',
         'experience',
         'store_id',
+        'urbaner_vehicle',
         'tags',
         'service_characteristic_id',
         'service_characteristic_values',
