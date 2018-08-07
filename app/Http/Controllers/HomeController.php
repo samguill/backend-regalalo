@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Service;
+use App\Models\Store;
 use App\Models\StoreBranch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,8 +35,11 @@ class HomeController extends Controller
             "icon" => "fa-dashboard"
         ];
         if(Auth::user()->type == 'A') {
-
-            return view('admin.home', compact('data'));
+            $stores = Store::where('status', 1)->get();
+            $products = Product::get();
+            $services = Service::get();
+            $clients = Client::get();
+            return view('admin.home', compact('data', 'stores', 'products', 'services', 'clients'));
 
         }else{
             $store_id = Auth::user()->store->id;

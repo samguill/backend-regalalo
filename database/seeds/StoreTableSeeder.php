@@ -67,8 +67,6 @@ class StoreTableSeeder extends Seeder
             'address' => 'Calle Alejandro Moreno Alcala No 241, San Borja',
             'phone' => '44105595',
             'branch_email' => 'edward.white@hegmann.com',
-            'business_hour_1' => '10:00 - 20:00',
-            'business_hour_2' => '13:00 - 20:00',
             'store_id' => $store_regalalo->id
         ]);
 
