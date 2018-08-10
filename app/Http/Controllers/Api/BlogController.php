@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 class BlogController extends Controller
 {
     public function posts(){
-        $posts = Post::with('category')->get();
+        $posts = Post::with('category')->orderBy('created_at','DSC')->get();
         return response()->json($posts);
     }
 
