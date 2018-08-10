@@ -16,7 +16,12 @@ class BlogController extends Controller
 
     public function post($slug){
         $post = Post::with('category')->where("slug", $slug)->first();
-        return response()->json($post);
+        $another_posts = Post::with('category')
+            ->where('category_id', $post->category_id)
+            ->whereNotIn('id', [$post->id])->orderBy('created_at', 'dsc')->take(3)->get();
+        $data['post'] = $post;
+        $data['another'] = $another_posts;
+        return response()->json($data);
     }
 
     public function categories(){
