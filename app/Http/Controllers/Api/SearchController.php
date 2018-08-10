@@ -41,14 +41,9 @@ class SearchController extends Controller
             ->orderBy($field_order['field'],$field_order['order'])
             ->get();
 
+        $data['items'] = $this->paginate($result);
         $data['stores'] = $this->paginate($stores);
-        if($request->has('current_data')){
-            $current_data = $request->input('current_data');
-            $items = $this->paginate($result)->toArray()['data'];
-            $data['items'] = array_diff_assoc($current_data, $items);
-        }else{
-            $data['items'] = $this->paginate($result);
-        }
+        $data['current_data'] = $request->input('current_data');
         return response()->json(['status'=>'ok', 'data'=>$data]);
 
 
