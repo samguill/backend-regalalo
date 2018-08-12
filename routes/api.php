@@ -16,6 +16,7 @@ Route::group(['middleware' => 'cors'], function (){
 //Route::domain('regalalo.pe')->group(function(){
     Route::post('client/register', 'Api\RegisterClientController@register');
     Route::post('client/login', 'Api\LoginController@login');
+    Route::post('client/contact', 'Api\ContactController@sendMessage');
 
     Route::get('home', 'Api\PageController@home');
     Route::get('search-parameters', 'Api\PageController@search_params');
